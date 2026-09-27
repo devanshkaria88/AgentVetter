@@ -392,20 +392,29 @@ _CLONE_TIMEOUT = int(os.environ.get("TRIPWIRE_CLONE_TIMEOUT", 120))
 def _is_git_url(target: str) -> bool:
     """True when *target* looks like a clonable git repository URL.
 
-    Unambiguous schemes (git://, git@, ssh://) are always git.
-    https:// is git (GitHub/GitLab/etc are the dominant case for Tripwire).
-    http:// is only git when the path ends with .git — bare http:// is how
-    MCP servers expose SSE/streamable-HTTP transport and must not be cloned.
+    Unambiguous schemes (git://, git@, ssh://) and a trailing .git are always git.
+    http(s) is git only for known forges (GitHub, GitLab, Bitbucket, Codeberg).
+    Other http(s) URLs are live MCP endpoints (SSE or streamable HTTP) and must
+    not be cloned.
     """
     if target.startswith(("git://", "git@", "ssh://")):
         return True
-    if target.startswith("https://"):
-        return True
-    if target.startswith("http://") and target.rstrip("/").endswith(".git"):
-        return True
     if target.rstrip("/").endswith(".git"):
         return True
-    return False
+    return _is_git_forge_url(target)
+
+
+def _is_git_forge_url(target: str) -> bool:
+    """True when an http(s) URL's host is a git forge Tripwire clones."""
+    parsed = urlsplit(target)
+    if parsed.scheme not in {"http", "https"}:
+        return False
+    host = (parsed.hostname or "").lower()
+    if host == "github.com" or host.endswith(".github.com"):
+        return True
+    if "gitlab" in host:
+        return True
+    return host in {"bitbucket.org", "codeberg.org"}
 
 
 def _normalize_github_clone_url(target: str) -> str:

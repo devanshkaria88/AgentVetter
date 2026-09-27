@@ -27,8 +27,10 @@ Discover only **curated loci** (`cli/src/discovery.js`).
 - `--no-defaults` errors instead of scanning machine defaults when args are
   empty.
 - `--dry-discover` prints the same expansion without spawning.
-- Type detection: `SKILL.md` → skill; git-looking HTTPS → cloneable MCP;
-  other HTTPS → introspection-only MCP; else local MCP heuristics.
+- Type detection: `SKILL.md` → skill; HTTPS on GitHub, GitLab, Bitbucket,
+  Codeberg, or a trailing `.git` → cloneable; other HTTPS → introspection-only
+  MCP; else local MCP heuristics. Sandbox acquire uses the same forge rule
+  ([ADR-0012](./0012-sandbox-target-acquisition.md)).
 
 Zero-arg agent-loci scan is a Could, not an unconstrained search.
 

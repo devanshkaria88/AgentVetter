@@ -109,6 +109,7 @@ def test_is_git_url_recognises_git_urls(url):
         "./relative/path",
         "stdio://some-mcp-server",
         "http://mcp-server.example.com:8080/sse",
+        "https://api.everesteer.ai/mcp/",
     ],
 )
 def test_is_git_url_rejects_non_git_targets(target):
@@ -533,6 +534,15 @@ def test_acquire_target_creates_empty_workdir_for_http_mcp(tmp_path):
     """HTTP MCP servers are introspection-only (not git repos)."""
     workdir = str(tmp_path / "scan-target")
     _acquire_target("http://localhost:8080/sse", "mcp_server", workdir)
+
+    assert os.path.isdir(workdir)
+    assert os.listdir(workdir) == []
+
+
+def test_acquire_target_creates_empty_workdir_for_https_mcp(tmp_path):
+    """HTTPS MCP endpoints are introspection-only and must not be git-cloned."""
+    workdir = str(tmp_path / "scan-target")
+    _acquire_target("https://api.everesteer.ai/mcp/", "mcp_server", workdir)
 
     assert os.path.isdir(workdir)
     assert os.listdir(workdir) == []
