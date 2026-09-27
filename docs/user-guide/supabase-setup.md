@@ -21,7 +21,7 @@ Never put `service_role` in browser-facing config. Prefer `node scripts/serve-da
 
 ## 3. Database URL (DDL)
 
-`SUPABASE_DB_URL` is a `postgresql://…` URI for `tripwire setup` / first-scan DDL. It is **not** the HTTP API URL.
+`SUPABASE_DB_URL` is a `postgresql://…` URI for `tripwire setup` / first-scan DDL. It is **not** the HTTP API URL. Remote hosts use TLS with certificate verification. `localhost` and `127.0.0.1` connect without SSL.
 
 1. Open **Project Settings → Database**.
 2. Prefer **Session pooler** if Direct `db.<ref>.supabase.co` fails DNS (`ENOTFOUND`).
