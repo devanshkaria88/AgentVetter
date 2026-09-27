@@ -43,10 +43,10 @@ export async function probeSchema(supabase = getSupabase()) {
   return 'ready';
 }
 
-function pgSslConfig(url) {
-  return url.includes('localhost') || url.includes('127.0.0.1')
-    ? false
-    : { rejectUnauthorized: false };
+/** SSL options for a Postgres URL. Local servers have no TLS; remote hosts must verify the cert. */
+export function pgSslConfig(url) {
+  if (url.includes('localhost') || url.includes('127.0.0.1')) return false;
+  return { rejectUnauthorized: true };
 }
 
 /** True when a Postgres CHECK definition already allows items.type = package. */

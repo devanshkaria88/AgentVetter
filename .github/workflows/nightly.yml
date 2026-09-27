@@ -207,6 +207,8 @@ jobs:
           exit-code: "1"
           severity: HIGH,CRITICAL
           format: table
+          # Intentional vulnerable samples live under fixtures/; same skip set as supply-chain.yml.
+          skip-dirs: fixtures,prototypes,internal-docs,cli/node_modules
           skip-files: .env,.env.local
 
   nightly-complexity:
