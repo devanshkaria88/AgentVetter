@@ -20,7 +20,7 @@ RESEARCH · PROPOSED · DECIDED · IMPLEMENTED · VERIFIED · SUPERSEDED.
 [![Cursor](https://img.shields.io/badge/Cursor-000000?style=flat)](https://cursor.com)
 [![Modal](https://img.shields.io/badge/Modal-7C5CFF?style=flat)](https://modal.com)
 [![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=flat&logo=supabase&logoColor=white)](https://supabase.com)
-[![Tripwire](https://img.shields.io/badge/Tripwire-1a1a2e?style=flat)](https://github.com/neomatrix369/tripwire)
+[![Tripwire](https://img.shields.io/badge/Tripwire-1a1a2e?style=flat)](https://github.com/neomatrix369/AgentVetter)
 
 [![Cisco](https://img.shields.io/badge/Cisco-1BA0D7?style=flat)](https://developer.cisco.com)
 [![Snyk](https://img.shields.io/badge/Snyk-4C4A73?style=flat&logo=snyk&logoColor=white)](https://snyk.io)
@@ -73,7 +73,7 @@ Reachable through production entry points / config:
   (+ run-progress / triage / investigate) with GWT-68.* tests. **Nav (2026-09-20):**
   primary **Dashboard** tab = inventory (default); stepper + phase panels move to
   secondary **Workflow** tab — IMPLEMENTED on `main`
-  ([#160](https://github.com/neomatrix369/tripwire/pull/160)).
+  ([#160](https://github.com/neomatrix369/AgentVetter/pull/160)).
 - Wave R **Triage target filters** (slice 73): ✅ PASSED — merged-on-main;
   formal close 2026-09-20 (Gate 4 APPROVED). Triage panel adds inventory-style
   type tabs (All / Skills / MCP / Packages), quality tabs (All + Tessl
@@ -109,7 +109,7 @@ Reachable through production entry points / config:
   secrets. Modules: `tripwire-report.js`, `tripwire-report-export.js`; GWT-71.*
   tests. Expert no longer gates the inventory grid (that is the Dashboard tab).
 - Wave R **operator-visible pipeline** (slice 75 / R-UX-1): IMPLEMENTED /
-  VERIFIED (unit) on `main` ([#163](https://github.com/neomatrix369/tripwire/pull/163)) —
+  VERIFIED (unit) on `main` ([#163](https://github.com/neomatrix369/AgentVetter/pull/163)) —
   Workflow UI narrates judge-panel / coverage / evidence-verify with honest
   absent states (no fabricated pending judges; process line + primary CTA;
   Investigate auto-select / final-judge lines; Fix does not inject false
@@ -120,7 +120,7 @@ Reachable through production entry points / config:
   GWT-75.1–75.11 unit green; Gate 4 APPROVED on landing branch. Spec:
   [plan/slices/18-R-approved-repo-workflow/slice-75-operator-visible-pipeline.md](./plan/slices/18-R-approved-repo-workflow/slice-75-operator-visible-pipeline.md).
 - Wave R **Workflow chrome polish** (slice 76): ✅ PASSED on `main`
-  ([#165](https://github.com/neomatrix369/tripwire/pull/165)) — IMPLEMENTED /
+  ([#165](https://github.com/neomatrix369/AgentVetter/pull/165)) — IMPLEMENTED /
   unit-VERIFIED. Shared `tw-panel-*` typography (kicker / title / meta / body)
   across Run→Report; compact Triage `tw-filter-toolbar` rows with
   Type/Quality/Target/Status labels; plain-language override buttons. Filter
@@ -179,15 +179,16 @@ Reachable through production entry points / config:
 - `_acquire_target` dispatch (git clone, local copy, host→sandbox tar upload via
   `local_entrypoint`, MCP introspection-only empty workdir) — `sandbox/`
 - Dashboard Live/Mock with Supabase Realtime (~1s) + 8s poll fallback, SCANNING
-  in-flight UI, scanner console in drawer, collapsible Findings heading (rotating
-  chevron; expanded by default), partial-failed “n out of m scanners
+  in-flight UI, scanner console / raw output in drawer, collapsible Findings
+  heading (rotating chevron; **collapsed by default**) plus Modal console and
+  Raw output collapsed until expanded, partial-failed “n out of m scanners
   unreachable” copy — `prototypes/dc-dashboard/`;
   `scripts/serve-dashboard.mjs` / `scripts/sync-dashboard-config.sh`
 - Dashboard visual identity v2 (FolderGate cream/tan × Tripwire HUD): paper
   `#F5F2EA`, tan CTA `#C4A574`, Fraunces on intro `h1`/`h2`, AA ink tokens,
   cyan as live signal only; partial-scan / Guard banners use violet/status ink
   (not dark-theme pastels) — `prototypes/dc-dashboard/Tripwire.dc.html`,
-  `tripwire-status.js` (slice 43 ✅, [PR #96](https://github.com/neomatrix369/tripwire/pull/96);
+  `tripwire-status.js` (slice 43 ✅, [PR #96](https://github.com/neomatrix369/AgentVetter/pull/96);
   alert-ink pile-on on slice 42 branch). Screenshot gallery regenerated 2026-08-20
 - Landing intro screen (threat stats, SEC/01–05 sections, sessionStorage
   `tripwire-intro-dismissed`, About toggle) — `prototypes/dc-dashboard/Tripwire.dc.html`
@@ -197,7 +198,7 @@ Reachable through production entry points / config:
   compact `Q N` / `Q —` / `Q ?` badges with fixed `#score-tip-portal` hover/focus
   tips + schedule cues — `sandbox/scanners.py`, `tripwire-live.js`,
   `tripwire-status.js`, `Tripwire.dc.html` (slice 42 A9–A13 ✅,
-  [PR #98](https://github.com/neomatrix369/tripwire/pull/98); quality binding
+  [PR #98](https://github.com/neomatrix369/AgentVetter/pull/98); quality binding
   scoped off `"Tessl: Lint"` in slice 46)
 - Dashboard quality triage tabs — **Quality ≥ 80**, **Quality < 80**, and
   **No quality score** skill-only filters on Tessl `item.quality` (80 threshold),
@@ -211,14 +212,14 @@ Reachable through production entry points / config:
   packages; skill-folder fixtures exit 1 (adapter → `failed`). IMPLEMENTED +
   VERIFIED(unit) + VERIFIED(live persist scan_run `a36cad9f`, 2026-08-24) —
   `sandbox/scanners.py`, `prototypes/dc-dashboard/` (slice 46 ✅,
-  [PR #105](https://github.com/neomatrix369/tripwire/pull/105))
+  [PR #105](https://github.com/neomatrix369/AgentVetter/pull/105))
 - `"Tessl: Review (Quality)"` run-ID capture — `_run_tessl_review(judge_type="quality")`
   invokes `tessl review run quality --json --workspace` (deprecated `skill review`
   replaced) then `tessl review view --last --json` to persist `tessl_run_id` +
   `tessl_run_id_at`. `_update_tessl_id_context` seeds `ctx["review_quality"]`
   in-process (GWT-47.5). Missing `TESSL_WORKSPACE` → `needs_setup`. IMPLEMENTED (unit)
   — `sandbox/scanners.py` (slice 47 ✅,
-  [PR #109](https://github.com/neomatrix369/tripwire/pull/109); GWT-47.1–47.5)
+  [PR #109](https://github.com/neomatrix369/AgentVetter/pull/109); GWT-47.1–47.5)
 - Dashboard Tessl "Not Available Yet" placeholders — Scanner Outputs always shows
   five Tessl capability rows when any Tessl DB row exists; missing sources among
   Scenario Generation / Eval / Review (Security) are UI-only sentinels
@@ -230,7 +231,7 @@ Reachable through production entry points / config:
   five Tessl rows, three NAY pills, no chevron; MCP `SCANNER OUTPUTS (3)`
   unpadded) — `tripwire-status.js` `mergeTesslCapabilityRows`, `Tripwire.dc.html`
   (slice 48 ✅
-  [PR #110](https://github.com/neomatrix369/tripwire/pull/110); formal close
+  [PR #110](https://github.com/neomatrix369/AgentVetter/pull/110); formal close
   2026-09-21 packing Gate 4 APPROVED). Security Review writes a real DB row from slice 51 (NAY only when
   that source is still absent).
 - Tessl Scenario Generation — `run_tessl()` emits `"Tessl: Scenario Generation"`
@@ -344,7 +345,7 @@ sort/trend only — see [ARCHITECTURE.md](./ARCHITECTURE.md) § Quality attribut
 ## ON BRANCH (awaiting merge)
 
 Wave K — Docs UX plain language + compaction (slice 44) on
-`slice/44-docs-ux-plain-language` ([PR #99](https://github.com/neomatrix369/tripwire/pull/99)):
+`slice/44-docs-ux-plain-language` ([PR #99](https://github.com/neomatrix369/AgentVetter/pull/99)):
 GWT-44.1–44.4 compaction plus pile-ons GWT-44.5–44.8 (Setup vs Configure beats,
 MVP Live, Maintain hub, screenshots `R`/`Q`, ARCHITECTURE External services
 inventory + operator journey + dependency-order Mermaid). Documentarist pile-on
@@ -384,12 +385,12 @@ Slice **67** SIE judge panel CLI + module on `main` (#151): model inventory
 opt-in `TRIPWIRE_JUDGE_PANEL=1` (default off). Panel is **additive** to
 [ADR-0016](./adr/0016-tiered-router-sie-model-studio.md). Should **73–76** Workflow UI (triage filters, model labels, operator-visible
 pipeline / R-UX-1, chrome polish) **IMPLEMENTED / VERIFIED** (unit) on `main` —
-**75** via [#163](https://github.com/neomatrix369/tripwire/pull/163); **76** via
-[#165](https://github.com/neomatrix369/tripwire/pull/165). See
+**75** via [#163](https://github.com/neomatrix369/AgentVetter/pull/163); **76** via
+[#165](https://github.com/neomatrix369/AgentVetter/pull/165). See
 [plan/DECISIONS.md](./plan/DECISIONS.md).
 
 **Wave J delta — dashboard metric surfacing (2026-08-20):** A9–A13
-**IMPLEMENTED** on `main` via [PR #98](https://github.com/neomatrix369/tripwire/pull/98)
+**IMPLEMENTED** on `main` via [PR #98](https://github.com/neomatrix369/AgentVetter/pull/98)
 (nw-review APPROVED). Spec:
 [plan/slices/10-J-dashboard-data-quality/slice-42-dashboard-data-quality-fixes.md](./plan/slices/10-J-dashboard-data-quality/slice-42-dashboard-data-quality-fixes.md).
 
@@ -410,7 +411,7 @@ Claude Code PreToolUse handlers, `tripwire setup-agent-hooks`, and five `/tw-*`
 skills landed on `main` via Phase 1 agent-hooks (see `agent-hooks/`). **Slice 28**
 (`/tw-verify` Quality `N/100` + blocked footer + Sources: Tessl Quality /
 Cisco+Snyk Status) is ✅ **PASSED** on `main`
-([#118](https://github.com/neomatrix369/tripwire/pull/118)) — contract SSOT
+([#118](https://github.com/neomatrix369/AgentVetter/pull/118)) — contract SSOT
 [frontline-output-contract.md](./user-guide/frontline-output-contract.md) —
 formal close 2026-09-21. Formal Must gate-evidence closures for **23–27 / 29–32**
 still lag. Slice **35** Ossprey access remains 🔴. ADR-0015 Horizon A exclusion
@@ -428,7 +429,7 @@ is **IMPLEMENTED (unit, slice 51)** — `review run security` after Eval;
 `upstream_run_ids.review_quality` from ctx; dashboard shows linked Quality
 findings on the expanded Security row. Coverage Gap B (`scenario view <id>`)
 resolved; Gap C (agent-assisted generation) open. **VERIFIED (slice 48 ✅
-[#110](https://github.com/neomatrix369/tripwire/pull/110); packing re-check
+[#110](https://github.com/neomatrix369/AgentVetter/pull/110); packing re-check
 2026-09-21):** host `evals/` is not a vuln-scan input — `_pack_local_dir` /
 `_copy_local` omit root `evals/` when the skill root has `tessl.json` or
 `.tessl-plugin/`. Git clone and identity hash still see on-disk `evals/`. Spec:
@@ -470,9 +471,9 @@ not green; repos with neither skill/MCP **nor** manifests still fail closed.
 **Slice 63:** CLI prints scanner inventory + rollup after scan / zero-artifact
 (package expected sources = Snyk/DepShield/Ossprey (+ Cargo Audit)). Slices 62–64 ✅
 landed `main` via
-[#145](https://github.com/neomatrix369/tripwire/pull/145) /
-[#146](https://github.com/neomatrix369/tripwire/pull/146). Cargo SCA honesty
-merged via [#147](https://github.com/neomatrix369/tripwire/pull/147); coverage
+[#145](https://github.com/neomatrix369/AgentVetter/pull/145) /
+[#146](https://github.com/neomatrix369/AgentVetter/pull/146). Cargo SCA honesty
+merged via [#147](https://github.com/neomatrix369/AgentVetter/pull/147); coverage
 ledger (slice 65) absorbs that honesty — never claim fully scanned for
 Cargo-only when no scanner completed.
 Operator taxonomy soft-amended in slice **56-a**

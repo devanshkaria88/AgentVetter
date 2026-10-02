@@ -18,21 +18,21 @@
 ![Alibaba Cloud Model Studio](https://img.shields.io/badge/Alibaba%20Cloud%20Model%20Studio-FF6A00)
 
 <!-- Group 2: CI / Quality -->
-[![CI](https://img.shields.io/github/actions/workflow/status/neomatrix369/tripwire/ci.yml?branch=main&label=CI&logo=githubactions&logoColor=white)](https://github.com/neomatrix369/tripwire/actions/workflows/ci.yml)
-[![Nightly](https://img.shields.io/github/actions/workflow/status/neomatrix369/tripwire/nightly.yml?branch=main&label=Nightly&logo=githubactions&logoColor=white)](https://github.com/neomatrix369/tripwire/actions/workflows/nightly.yml)
-[![Complexity](https://img.shields.io/github/actions/workflow/status/neomatrix369/tripwire/complexity-report.yml?branch=main&label=Complexity&logo=githubactions&logoColor=white)](https://github.com/neomatrix369/tripwire/actions/workflows/complexity-report.yml)
-[![Code Review Graph](https://img.shields.io/github/actions/workflow/status/neomatrix369/tripwire/code-review-graph.yml?branch=main&label=Code+Review+Graph&logo=githubactions&logoColor=white)](https://github.com/neomatrix369/tripwire/actions/workflows/code-review-graph.yml)
-[![Security](https://www.meterian.com/badge/gh/neomatrix369/tripwire/security)](https://www.meterian.com/report/gh/neomatrix369/tripwire)
-[![Stability](https://www.meterian.com/badge/gh/neomatrix369/tripwire/stability)](https://www.meterian.com/report/gh/neomatrix369/tripwire)
-[![Licensing](https://www.meterian.com/badge/gh/neomatrix369/tripwire/licensing)](https://www.meterian.com/report/gh/neomatrix369/tripwire)
-[![Release](https://img.shields.io/github/v/release/neomatrix369/tripwire?label=Release&logo=github)](https://github.com/neomatrix369/tripwire/releases)
-[![License](https://img.shields.io/github/license/neomatrix369/tripwire)](https://github.com/neomatrix369/tripwire/blob/main/LICENSE)
-[![Last Commit](https://img.shields.io/github/last-commit/neomatrix369/tripwire)](https://github.com/neomatrix369/tripwire/commits/main)
-[![Stars](https://img.shields.io/github/stars/neomatrix369/tripwire?style=social)](https://github.com/neomatrix369/tripwire)
+[![CI](https://img.shields.io/github/actions/workflow/status/neomatrix369/AgentVetter/ci.yml?branch=main&label=CI&logo=githubactions&logoColor=white)](https://github.com/neomatrix369/AgentVetter/actions/workflows/ci.yml)
+[![Nightly](https://img.shields.io/github/actions/workflow/status/neomatrix369/AgentVetter/nightly.yml?branch=main&label=Nightly&logo=githubactions&logoColor=white)](https://github.com/neomatrix369/AgentVetter/actions/workflows/nightly.yml)
+[![Complexity](https://img.shields.io/github/actions/workflow/status/neomatrix369/AgentVetter/complexity-report.yml?branch=main&label=Complexity&logo=githubactions&logoColor=white)](https://github.com/neomatrix369/AgentVetter/actions/workflows/complexity-report.yml)
+[![Code Review Graph](https://img.shields.io/github/actions/workflow/status/neomatrix369/AgentVetter/code-review-graph.yml?branch=main&label=Code+Review+Graph&logo=githubactions&logoColor=white)](https://github.com/neomatrix369/AgentVetter/actions/workflows/code-review-graph.yml)
+[![Security](https://www.meterian.com/badge/gh/neomatrix369/AgentVetter/security)](https://www.meterian.com/report/gh/neomatrix369/AgentVetter)
+[![Stability](https://www.meterian.com/badge/gh/neomatrix369/AgentVetter/stability)](https://www.meterian.com/report/gh/neomatrix369/AgentVetter)
+[![Licensing](https://www.meterian.com/badge/gh/neomatrix369/AgentVetter/licensing)](https://www.meterian.com/report/gh/neomatrix369/AgentVetter)
+[![Release](https://img.shields.io/github/v/release/neomatrix369/AgentVetter?label=Release&logo=github)](https://github.com/neomatrix369/AgentVetter/releases)
+[![License](https://img.shields.io/github/license/neomatrix369/AgentVetter)](https://github.com/neomatrix369/AgentVetter/blob/main/LICENSE)
+[![Last Commit](https://img.shields.io/github/last-commit/neomatrix369/AgentVetter)](https://github.com/neomatrix369/AgentVetter/commits/main)
+[![Stars](https://img.shields.io/github/stars/neomatrix369/AgentVetter?style=social)](https://github.com/neomatrix369/AgentVetter)
 <!-- badges:end -->
 
 Meterian **Security** / **Stability** / **Licensing** badges mirror the public
-[Meterian project report](https://www.meterian.com/report/gh/neomatrix369/tripwire)
+[Meterian project report](https://www.meterian.com/report/gh/neomatrix369/AgentVetter)
 (dependency and policy scan for this GitHub repo — not a Tripwire scan adapter).
 CI / Complexity badges reflect GitHub Actions on `main`. The **Nightly** badge is
 **A — comprehensive T4** (daily **02:00 UTC**: Semgrep, CodeQL, full secrets/Trivy,
@@ -43,7 +43,7 @@ ultra-minimal (ship-path coverage + OSV + targeted scans) — see
 [CONTRIBUTING](CONTRIBUTING.md) and
 [docs/README.md § CI workflows](docs/README.md#ci-workflows).
 
-![Tripwire banner](./Tripwire-Banner.png)
+![AgentVetter banner](./AgentVetter-Banner.png)
 
 ## Where do you want to go?
 
@@ -159,7 +159,7 @@ do not need a local clone, or watch the
 [demo walkthrough on YouTube](https://youtu.be/omGOw9ruN3Y).
 
 ```bash
-git clone https://github.com/neomatrix369/tripwire.git
+git clone https://github.com/neomatrix369/AgentVetter.git
 cd tripwire
 node scripts/serve-dashboard.mjs
 ```
@@ -177,9 +177,9 @@ view (primary **Dashboard** tab: inventory KPIs, filters, and cards). Use the se
 on Workflow only changes finding-detail density, not which primary tab you are on.
 Operator-visible judge/coverage narration **and** L→R soft-amend (parent target
 meta, multi-select, role-labelled models) are **IMPLEMENTED / VERIFIED** (unit) on
-`main` via Wave R slice 75 ([PR #163](https://github.com/neomatrix369/tripwire/pull/163));
+`main` via Wave R slice 75 ([PR #163](https://github.com/neomatrix369/AgentVetter/pull/163));
 Workflow chrome polish (shared panel typography + denser Triage filters) via
-slice 76 ([PR #165](https://github.com/neomatrix369/tripwire/pull/165)).
+slice 76 ([PR #165](https://github.com/neomatrix369/AgentVetter/pull/165)).
 Dismiss the intro with **Open Dashboard →** before Workflow (the Workflow tab
 does not clear the intro overlay). Slice 77 (branch) hardens Run CTA / count
 reconciliation / triage disposition persistence / Verify honesty — see
@@ -188,7 +188,7 @@ The "About" nav button toggles the intro back on at any time; the choice is
 remembered in `sessionStorage`.
 
 > **Visual identity v2:** cream paper, tan primary CTA, and AA-readable ink tokens
-> (Fraunces display headings) — shipped via [PR #96](https://github.com/neomatrix369/tripwire/pull/96).
+> (Fraunces display headings) — shipped via [PR #96](https://github.com/neomatrix369/AgentVetter/pull/96).
 > Screenshots in [docs/screenshots/](docs/screenshots/README.md) regenerated 2026-09-21.
 
 After installing the CLI, you can also validate target discovery locally without

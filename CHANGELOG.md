@@ -8,11 +8,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Docs
+- README hero image: `Tripwire-Banner.png` → `AgentVetter-Banner.png`; GitHub
+  badge/clone links use the renamed repo `neomatrix369/AgentVetter`.
 - Screenshot gallery regenerated 2026-09-21 (post-rebase onto `main`): Mock
   Dashboard + new Workflow Run/Triage/Verify shots, quality floors, R/Q badges;
   live CLI scan refresh; capture script covers `05-workflow/`
 
 ### Fixed
+- Dashboard item drawer: Findings, Modal console output, and Raw output start
+  collapsed so stored scanner runtime is not dumped open by default.
+- Dependency CVEs blocking PR checks: `pyjwt` → 2.15.1, `urllib3` → 2.8.0,
+  `virtualenv` → 21.14.5 (`uv.lock`); `brace-expansion` → 5.0.12
+  (`cli/package-lock.json`).
 - Workflow L→R smoke FAIL/PARTIAL (slice 77, on
   `slice/77-workflow-smoke-fix-target-flow`): Run “Review findings” CTA treats
   `not_applicable` / `blocked` as finished; process line only says “running”
