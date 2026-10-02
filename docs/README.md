@@ -39,12 +39,12 @@ Start here: [QUICKSTART](../QUICKSTART.md) · Repo entry: [README](../README.md)
 | [user-guide/modal-setup.md](./user-guide/modal-setup.md) | Modal auth, secrets sync, scan app deploy |
 | [user-guide/tiered-router-setup.md](./user-guide/tiered-router-setup.md) | Optional SIE + Model Studio routing |
 | [user-guide/reading-router-results.md](./user-guide/reading-router-results.md) | Pathway strips, Escalated / SIE-only filters, glossary |
-| [user-guide/frontline-output-contract.md](./user-guide/frontline-output-contract.md) | `/tw-verify` dual-output table (Quality `N/100` + blocked footer + Sources: Tessl / Cisco+Snyk) |
+| [user-guide/frontline-output-contract.md](./user-guide/frontline-output-contract.md) | `/av-verify` dual-output table (alias `/tw-verify`; Quality `N/100` + blocked footer + Sources: Tessl / Cisco+Snyk) |
 | [STATUS.md](./STATUS.md) | Evidence-labelled capability claims |
 | [ARCHITECTURE.md](./ARCHITECTURE.md) | Services inventory, C4, operator journey + dependency diagrams, key flows |
 | [adr/README.md](./adr/README.md) | Formal architecture decision records |
 | [screenshots/](./screenshots/README.md) | CLI + dashboard + Workflow gallery |
-| [agent-hooks/README.md](../agent-hooks/README.md) | Claude Code hooks + `/tw-*` skills |
+| [agent-hooks/README.md](../agent-hooks/README.md) | Claude Code hooks + `/av-*` skills (aliases `/tw-*`) |
 | [SECURITY.md](../SECURITY.md) | Vulnerability reporting |
 
 ## Project records

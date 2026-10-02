@@ -7,27 +7,31 @@ from the repo directly — `agentvetter setup-agent-hooks` installs copies:
 |--------|--------------|
 | `hooks/pre-tool-use.sh` | `~/.agentvetter/hooks/pre-tool-use.sh` (chmod 700) |
 | `hooks/_guard_entry.py` | `~/.agentvetter/hooks/_guard_entry.py` |
-| `skills/tw-*/SKILL.md` | `~/.claude/skills/tw-*/SKILL.md` |
+| `skills/av-*/SKILL.md` | `~/.claude/skills/av-*/SKILL.md` (`tw-*` aliases in frontmatter) |
 
 ## Contents
 
 - **`hooks/pre-tool-use.sh`** — PreToolUse hook handler. Reads
   `~/.agentvetter/config.json` (explicit `"enable": false` ⇒ allow; missing or
-  corrupt config ⇒ deny, tamper rule), sources Supabase credentials from the
-  recorded `env_file`, then delegates stdin to the guard entry under a portable
-  8-second watchdog. Always exits 0 with exactly one decision JSON line on
-  stdout; every failure mode is an explicit deny (fail closed).
+  corrupt config ⇒ deny, tamper rule; read-fallback `~/.tripwire`), sources
+  Supabase credentials from the recorded `env_file`, then delegates stdin to the
+  guard entry under a portable 8-second watchdog. Always exits 0 with exactly one
+  decision JSON line on stdout; every failure mode is an explicit deny (fail closed).
 - **`hooks/_guard_entry.py`** — installed shim delegating to
   `guard.entry.main()` (run via `uv run --project <repo_root> --extra guard`).
-- **`skills/tw-verify`** — report scan status of named skills/MCP servers
-  (RAG + Tessl Quality as `N/100` when present; blocked message as table footer;
-  **Sources** line: Quality = Tessl, Status = Cisco AI Defense + Snyk).
-- **`skills/tw-scan`** — submit named skills/MCP servers for scanning
-  (`--force` or bare `force` to rescan valid artifacts).
-- **`skills/tw-enable` / `skills/tw-disable`** — flip the local `enable` key in
-  `~/.agentvetter/config.json` (the Claude-Code-layer kill switch).
-- **`skills/tw-self-check`** — tw-verify scoped to the five installed `tw-*`
-  skills (self-integrity).
+- **`skills/av-verify`** (alias `/tw-verify`) — report scan status of named
+  skills/MCP servers (RAG + Tessl Quality as `N/100` when present; blocked
+  message as table footer; **Sources** line: Quality = Tessl, Status = Cisco AI
+  Defense + Snyk).
+- **`skills/av-scan`** (alias `/tw-scan`) — submit named skills/MCP servers for
+  scanning (`--force` or bare `force` to rescan valid artifacts).
+- **`skills/av-enable` / `skills/av-disable`** (aliases `/tw-enable` /
+  `/tw-disable`) — flip the local `enable` key in `~/.agentvetter/config.json`
+  (the Claude-Code-layer kill switch).
+- **`skills/av-self-check`** (alias `/tw-self-check`) — av-verify scoped to the
+  five installed `av-*` skills (self-integrity).
 
 Design spec: the AgentVetter × Claude Code integration plan (§3 config schema,
 §4.3 handler contract, §5 name resolution, §6 output format, §7 skills).
+Migration / alias policy: [docs/MIGRATION-AGENTVETTER.md](../docs/MIGRATION-AGENTVETTER.md)
+· [ADR-0018](../docs/adr/0018-agentvetter-rebrand.md).

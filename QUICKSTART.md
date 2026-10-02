@@ -22,7 +22,7 @@ Hub for every other task: [docs/README.md](docs/README.md).
 
 ```bash
 git clone https://github.com/neomatrix369/AgentVetter.git
-cd agentvetter
+cd AgentVetter
 cd cli && npm install && npm link && cd ..
 ```
 
