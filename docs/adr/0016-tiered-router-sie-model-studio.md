@@ -2,7 +2,7 @@
 
 - **Status:** Accepted
 - **Date:** 2026-08-14
-- **Deciders:** Tripwire maintainers
+- **Deciders:** AgentVetter maintainers
 - **Tags:** cli, routing, sie, model-studio, findings
 
 ## Context
@@ -15,7 +15,7 @@ orchestration entry point, not only standalone prototypes.
 
 ## Decision
 
-After a completed scan batch, Tripwire runs a **tiered router**:
+After a completed scan batch, AgentVetter runs a **tiered router**:
 
 1. Call Superlinked SIE (required) to triage each item.
 2. Optionally escalate to Model Studio when SIE signals conflict, unusual status,
@@ -28,8 +28,8 @@ After a completed scan batch, Tripwire runs a **tiered router**:
 4. Exclude `tiered_router` rows from severity rollup so router output does not
    inflate red/amber counts from scanners.
 
-Production entry points: `tripwire route --batch-id …` and auto-route at the end
-of `tripwire scan` (`cli/src/orchestrator.js` → `cli/src/router.js`). Missing
+Production entry points: `agentvetter route --batch-id …` and auto-route at the end
+of `agentvetter scan` (`cli/src/orchestrator.js` → `cli/src/router.js`). Missing
 router credentials warn and skip; they do not fail the scan.
 
 Sample CLIs remain prototypes; the router is the integrated product path.

@@ -2,7 +2,7 @@
 
 - **Status:** Accepted
 - **Date:** 2026-08-01
-- **Deciders:** Tripwire maintainers
+- **Deciders:** AgentVetter maintainers
 - **Tags:** compute, isolation, modal, sandbox
 
 ## Context
@@ -19,13 +19,13 @@ scanner cannot block the heatmap forever.
 
 Use **Modal** as the Live compute plane.
 
-- App `tripwire-scan` (`sandbox/scan_app.py`): one ephemeral sandbox per
+- App `agentvetter-scan` (`sandbox/scan_app.py`): one ephemeral sandbox per
   `scan_run`, 300s hard timeout.
 - Image bakes scanner packages (`cisco-ai-skill-scanner`, `cisco-ai-mcp-scanner`,
   `snyk-agent-scan`) plus Node 20 for Tessl; `scanners` is copied into the image
   (`add_local_python_source(..., copy=True)`).
-- Secrets sync via `./scripts/setup-modal.sh` (`tripwire-supabase`,
-  `tripwire-scan-secrets`).
+- Secrets sync via `./scripts/setup-modal.sh` (`agentvetter-supabase`,
+  `agentvetter-scan-secrets`).
 - Findings and console output are written **directly to Supabase** from the
   sandbox. They are not relayed through the CLI.
 - CLI spawns via `modal run sandbox/scan_app.py` (local entrypoint) so host
@@ -53,7 +53,7 @@ laptop next to target trees.
 ### B. GitHub Actions as the scan runner
 
 Rejected: scan latency and auth model are operator-driven, not PR-driven.
-CI remains for Tripwire’s own quality gates.
+CI remains for AgentVetter’s own quality gates.
 
 ## References
 

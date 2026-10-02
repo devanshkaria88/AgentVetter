@@ -2,7 +2,7 @@
 
 - **Status:** Accepted
 - **Date:** 2026-08-01
-- **Deciders:** Tripwire maintainers
+- **Deciders:** AgentVetter maintainers
 - **Tags:** schema, migrations, cli, supabase
 
 ## Context
@@ -11,7 +11,7 @@ Horizon A has one Postgres schema and a small set of additive columns
 (`detail`, `console_output`, timestamps, widened scanner status). A migration
 framework (Flyway, Prisma, supabase db push as the only path) would add
 tooling without solving the real operator problem: a fresh project must become
-queryable from `tripwire setup` or the first Live scan.
+queryable from `agentvetter setup` or the first Live scan.
 
 PostgREST schema cache can lag; the CLI must probe both table existence and
 migration columns (`completed_at`) before declaring ready. Slice 64 also probes
@@ -23,7 +23,7 @@ CHECK still omits `package`.
 Treat `db/schema.sql` as an **idempotent bootstrap script**, not a versioned
 migration history.
 
-- Apply via `tripwire setup` / first-scan auto-bootstrap (`cli/src/ensureSchema.js`)
+- Apply via `agentvetter setup` / first-scan auto-bootstrap (`cli/src/ensureSchema.js`)
   using `SUPABASE_DB_URL` (HTTP URL cannot run DDL).
 - `CREATE TABLE IF NOT EXISTS`, `ADD COLUMN IF NOT EXISTS`, guarded policy
   creation, `GRANT`s, replaceable rollup function, Realtime `ALTER PUBLICATION`

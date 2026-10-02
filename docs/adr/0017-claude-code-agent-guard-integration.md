@@ -2,13 +2,13 @@
 
 - **Status:** Accepted
 - **Date:** 2026-08-15
-- **Deciders:** Tripwire maintainers
+- **Deciders:** AgentVetter maintainers
 - **Tags:** guard, claude-code, hooks, enforcement, fail-closed, hackathon
 
 ## Context
 
 Frontline Hackathon London 2026 targets a Claude Code integration layer:
-Tripwire verdicts enforced at the moment an agent invokes a skill or MCP tool.
+AgentVetter verdicts enforced at the moment an agent invokes a skill or MCP tool.
 [ADR-0015](./0015-horizon-a-excludes-guard-and-drift.md) scoped Guard out of
 Horizon A and states that re-opening Guard requires *a new ADR plus STATUS
 evidence, not a stub file*. This is that ADR; the matching STATUS entries are
@@ -27,7 +27,7 @@ Guard ships as the **Claude Code PreToolUse enforcement layer**, per the
 hackathon working plan ("Tripwire × Claude Code Integration — Implementation
 Plan", 2026-08-15 session working document):
 
-- **Handler at `~/.tripwire/hooks/`** (`pre-tool-use.sh` + `_guard_entry.py`),
+- **Handler at `~/.agentvetter/hooks/`** (`pre-tool-use.sh` + `_guard_entry.py`; read-fallback `~/.tripwire`),
   registered under matcher `^(Skill|Bash|mcp__.*)$` in `~/.claude/settings.json`
   (JSON-merge preserving existing keys, timestamped backup first). Repo source
   is a tracked `agent-hooks/` directory. Bash is gated only when the command
@@ -54,7 +54,7 @@ Plan", 2026-08-15 session working document):
   Supabase client carries a ~5s timeout. Staleness (default 14-day validity
   window) and calls that resolve to no known artifact also deny. Aligned
   with [ADR-0009](./0009-fail-closed-incomplete-evidence.md).
-- **Local config AND-ed with Supabase.** `~/.tripwire/config.json` holds the
+- **Local config AND-ed with Supabase.** `~/.agentvetter/config.json` holds the
   Claude-Code-layer kill switch (`enable`) plus `scan_validity_days` and
   recorded absolute paths. Effective enforcement = local `enable` **AND** the
   existing Supabase `config.monitoring_enabled` (that guard logic is
@@ -64,7 +64,7 @@ Plan", 2026-08-15 session working document):
   `tw-disable`, `tw-self-check` — shipped from `agent-hooks/skills/`,
   installed to `~/.claude/skills/`, all driving shared helper logic in
   `guard/status.py`.
-- **`tripwire setup-agent-hooks` installer** (`cli/bin/tripwire.js` +
+- **`agentvetter setup-agent-hooks` installer** (`cli/bin/agentvetter.js` +
   `cli/src/setupAgentHooks.js`): preflight hard-fails, config init, handler
   install, guard-environment pre-warm, settings JSON-merge, skill copy, and a
   bootstrap scan sweep (tw skills + demo artifacts + configured MCP servers)
@@ -113,7 +113,7 @@ PreToolUse exclusion is reopened, with the evidence discipline intact.
   [DECISIONS.md](../plan/DECISIONS.md) (2026-08-15); the full coverage
   ratchet is a follow-up slice — `guard/` stays outside the
   [ADR-0013](./0013-ship-path-quality-gates.md) bars until it lands.
-- **Wave-G overlap:** `setup-agent-hooks` lands in `cli/bin/tripwire.js`, the
+- **Wave-G overlap:** `setup-agent-hooks` lands in `cli/bin/agentvetter.js`, the
   same file slice 18's Commander refactor touches. Sequence rule: one active
   slice per shared code area — land the subcommand before slice 18 starts, or
   rebase onto it (called out in TRAIL/PROGRESS).

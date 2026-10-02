@@ -1,6 +1,6 @@
 # Trusted Source Domains for Evidence-Driven Research
 # Used by knowledge-researcher agent to validate source credibility
-# Seeded 2026-08-01 from nw-research defaults + Tripwire scanner domains.
+# Seeded 2026-08-01 from nw-research defaults + AgentVetter scanner domains.
 
 academic:
   description: "Peer-reviewed academic and research institutions"
@@ -43,8 +43,8 @@ technical_documentation:
     - "modal.com/docs"
   reputation: high
 
-# Tripwire-specific scanner / vendor primary sources (prefer these for adapter work)
-tripwire_scanners:
+# AgentVetter-specific scanner / vendor primary sources (prefer these for adapter work)
+agentvetter_scanners:
   description: "Primary upstreams for Phase 2 scanner adapters"
   domains:
     - "github.com/cisco-ai-defense"

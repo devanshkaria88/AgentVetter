@@ -2,7 +2,7 @@
 
 - **Status:** Accepted
 - **Date:** 2026-08-07
-- **Deciders:** Tripwire maintainers
+- **Deciders:** AgentVetter maintainers
 - **Tags:** honesty, scanning, status, evidence
 
 ## Context

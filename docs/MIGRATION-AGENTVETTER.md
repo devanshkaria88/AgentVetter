@@ -113,6 +113,20 @@ Meterian and other badge URLs: re-link after the GitHub slug is confirmed as
 Hard-cut: keys are `agentvetter-*`. Clear old `tripwire-*` keys in the browser
 (or use a fresh profile). No automatic migration.
 
+## Database rollup function
+
+Live code calls `agentvetter_rollup_item` (CLI, Modal sandbox, reconcile script).
+`db/schema.sql` defines **`agentvetter_rollup_item`** as the primary function and
+keeps **`tripwire_rollup_item`** as a thin compat alias that `perform`s the new name.
+
+**Operator action:** re-apply `db/schema.sql` (via `agentvetter setup` / first-scan
+bootstrap, or SQL editor) so the new function exists on Supabase. Until then, Live
+rollup RPCs fail if only the Tripwire-era function is present.
+
+**Deferred:** dropping the `tripwire_rollup_item` alias is a separate operator
+migration after all environments have applied the new schema. Do not rename or
+drop the alias mid-flight without confirming no external callers remain.
+
 ## Rollback (high level)
 
 | After | Rollback |
@@ -133,3 +147,4 @@ Hard-cut: keys are `agentvetter-*`. Clear old `tripwire-*` keys in the browser
 - [ ] Modal secrets renamed and deploy verified
 - [ ] Pages/demo path updated if applicable
 - [ ] Dashboard localStorage cleared / new keys in use
+- [ ] Supabase has `agentvetter_rollup_item` (re-apply `db/schema.sql`)

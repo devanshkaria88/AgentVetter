@@ -1,4 +1,4 @@
-# Tripwire screenshot gallery
+# AgentVetter screenshot gallery
 
 Product UI and CLI captures, grouped by surface. Paths are relative to this folder.
 
@@ -6,7 +6,7 @@ Product UI and CLI captures, grouped by surface. Paths are relative to this fold
 Amber / Green, Escalated / SIE-only, and Run→Report examples stay stable.
 **CLI shots are live terminal captures** from the current CLI.
 
-**Try the UI without cloning:** [hosted dashboard](https://neomatrix369.github.io/demos/tripwire-dashboard/) (Mock on GitHub Pages) · [demo walkthrough video](https://youtu.be/omGOw9ruN3Y).
+**Try the UI without cloning:** [hosted dashboard](https://neomatrix369.github.io/demos/agentvetter-dashboard/) (Mock on GitHub Pages) · [demo walkthrough video](https://youtu.be/omGOw9ruN3Y).
 
 Skill cards show compact **`R`** (risk density) and **`Q`** (Tessl quality)
 badges; card colour is worst-of finding status — **colour ≠ density**.
@@ -46,7 +46,7 @@ Heatmap grid, severity filters, tiered-router filters, type views, and list
 layout (Mock demo). Default skill view uses **Quality ≥ 80**; Red/Amber skill
 drill-downs and severity filters that need low-Q fixtures switch to
 **Quality < 80**. Card colour is worst-of actionable finding severity; chips
-show finding counts. Compare with the live [hosted dashboard](https://neomatrix369.github.io/demos/tripwire-dashboard/) or the [YouTube walkthrough](https://youtu.be/omGOw9ruN3Y).
+show finding counts. Compare with the live [hosted dashboard](https://neomatrix369.github.io/demos/agentvetter-dashboard/) or the [YouTube walkthrough](https://youtu.be/omGOw9ruN3Y).
 
 ### Overview grid
 

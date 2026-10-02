@@ -2,13 +2,13 @@
 
 - **Status:** Accepted
 - **Date:** 2026-08-01
-- **Deciders:** Tripwire maintainers
+- **Deciders:** AgentVetter maintainers
 - **Tags:** cli, idempotency, hashing
 
 ## Context
 
 Modal scans are slow and billable. Re-scanning an unchanged skill on every
-`tripwire scan` wastes quota and floods `scan_runs`. Operators still need a
+`agentvetter scan` wastes quota and floods `scan_runs`. Operators still need a
 way to re-run after scanner/image changes when bytes on disk did not change.
 
 Git and live MCP targets cannot be hashed on the host the same way as a local

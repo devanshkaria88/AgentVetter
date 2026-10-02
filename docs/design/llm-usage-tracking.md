@@ -2,7 +2,7 @@
 
 **Status**: DECIDED (plan captured + EFP-processed 2026-08-25) — not IMPLEMENTED. Build starts only after slice 53 execution on `slice/53-llm-usage-tracking`.
 **Date**: 2026-08-25
-**Scope**: Meter every LLM-touching path Tripwire can observe, persist events in Supabase, show a Usage log and cost cues in the Data Commons dashboard.
+**Scope**: Meter every LLM-touching path AgentVetter can observe, persist events in Supabase, show a Usage log and cost cues in the Data Commons dashboard.
 **Slice**: [slice-53-llm-usage-tracking](../plan/slices/13-M-llm-usage-tracking/slice-53-llm-usage-tracking.md) · **Wave group**: 13-M (LLM usage / cost observability)
 **EFP**: health-check · quality-lens · AT Design · skill-proposer · `/nw-review` #1 (PO/AT/Craft) → revisions applied (redaction, phasing, AT oracles). Optional re-review before build.
 
@@ -15,10 +15,10 @@
 | Scope | Best-effort everything | Operators asked to see all LLM-related spend paths, not only the router |
 | I/O logging | Full system+user prompt and raw model output for **router** calls | Explicit requirement to track input and output |
 | Truncation | Cap each of `input_text` / `output_text` at 32 KiB; set `*_truncated` flags | Bound storage; never store API keys |
-| Cost | Local price table → estimated USD; label `cost_basis` | Providers do not always bill Tripwire with a invoice line; estimates are honest when labelled |
+| Cost | Local price table → estimated USD; label `cost_basis` | Providers do not always bill AgentVetter with a invoice line; estimates are honest when labelled |
 | Opaque paths | Cisco LLM / Tessl SaaS: record event; tokens/`$` only if parseable | Do not invent vendor spend |
-| Opaque heuristic | Off by default; `TRIPWIRE_LLM_ESTIMATE_OPAQUE=1` enables char/4 token estimate | Default stays honest `unknown` |
-| Not resurrecting | Dedicated `llm_usage_events` table — **not** deferred `tripwire.audit` | Separate product concern |
+| Opaque heuristic | Off by default; `AGENTVETTER_LLM_ESTIMATE_OPAQUE=1` enables char/4 token estimate | Default stays honest `unknown` |
+| Not resurrecting | Dedicated `llm_usage_events` table — **not** deferred `agentvetter.audit` | Separate product concern |
 | Redaction (GWT-53.8) | Pre-store strip of secret-shaped substrings; host-only endpoints | See § Redaction algorithm |
 | Phasing | Phase 1 Must = schema + router + Usage tab/tips + CLI; Phase 2 Should = Cisco/Tessl writers | Cuts blast radius; craft review |
 | History | Append-only event log — never overwrite prior transactions | Operators need past cost per call, not only “last” |
@@ -84,7 +84,7 @@ Writers: CLI service role (router) and Modal sandbox service role (Cisco / Tessl
 
 ## 1. Data model
 
-Add to [`db/schema.sql`](../../db/schema.sql) (idempotent; applied by `tripwire setup` / `ensureSchema`).
+Add to [`db/schema.sql`](../../db/schema.sql) (idempotent; applied by `agentvetter setup` / `ensureSchema`).
 
 ### Table `llm_usage_events`
 
@@ -144,13 +144,13 @@ Ship after Phase 1 Usage tab works. In [`sandbox/scanners.py`](../../sandbox/sca
 - After Skill `--use-llm` or MCP `llm` / behavioral: `record_llm_usage_event(...)` via `scan_app.py` service-role path.
 - **Parser fixtures:** unit-test against checked-in synthetic OpenAI-shaped usage JSON under `sandbox/tests/testdata/llm_usage/` (not live vendor). If later a real Cisco console sample is captured, add it as a second fixture.
 - **Tessl paid lanes:** opaque events (`cost_basis=unknown`) on terminal review/scenario/eval/security rows.
-- Heuristic estimate only if `TRIPWIRE_LLM_ESTIMATE_OPAQUE=1` (document when to enable: operator wants rough $ with no vendor usage fields).
+- Heuristic estimate only if `AGENTVETTER_LLM_ESTIMATE_OPAQUE=1` (document when to enable: operator wants rough $ with no vendor usage fields).
 
 ---
 
 ## 4. Dashboard UI — historic log (collapsible)
 
-Surfaces: [`prototypes/dc-dashboard/Tripwire.dc.html`](../../prototypes/dc-dashboard/Tripwire.dc.html), [`tripwire-live.js`](../../prototypes/dc-dashboard/tripwire-live.js), mock fixtures in `tripwire-data.js`.
+Surfaces: [`prototypes/dc-dashboard/AgentVetter.dc.html`](../../prototypes/dc-dashboard/AgentVetter.dc.html), [`agentvetter-live.js`](../../prototypes/dc-dashboard/agentvetter-live.js), mock fixtures in `agentvetter-data.js`.
 
 **Invariant:** every metered call is an immutable row in `llm_usage_events`. The UI shows **history** (past transactions), not a single “current cost” overwrite.
 
@@ -189,7 +189,7 @@ No purge job in v1 — append-only history grows with scans. Document practical 
 
 ## 5. CLI / operator visibility
 
-- `tripwire usage --limit N` (or extend `tripwire status`) lists recent events from Supabase.
+- `agentvetter usage --limit N` (or extend `agentvetter status`) lists recent events from Supabase.
 - One structured console line per router call: tokens + ms + $ — no full prompt on stdout.
 
 ---

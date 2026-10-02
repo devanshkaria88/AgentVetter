@@ -1,6 +1,6 @@
 # Design: Tessl 5-Row Expansion
 
-**Status**: Schema IMPLEMENTED (slice 45 ✅). Lint adapter IMPLEMENTED (slice 46 ✅ #105). Review Quality run-ID + `_TesslIdContext` seed IMPLEMENTED unit (slice 47 ✅ #109). Rows 3–5 UI sentinels IMPLEMENTED (slice 48 ✅ [#110](https://github.com/neomatrix369/tripwire/pull/110)). Scenario Generation runner IMPLEMENTED unit (slice 49 ✅ #112). Eval auto-chain IMPLEMENTED unit (slice 50 ✅ #113). Security Review runner IMPLEMENTED unit (slice 51).
+**Status**: Schema IMPLEMENTED (slice 45 ✅). Lint adapter IMPLEMENTED (slice 46 ✅ #105). Review Quality run-ID + `_TesslIdContext` seed IMPLEMENTED unit (slice 47 ✅ #109). Rows 3–5 UI sentinels IMPLEMENTED (slice 48 ✅ [#110](https://github.com/neomatrix369/AgentVetter/pull/110)). Scenario Generation runner IMPLEMENTED unit (slice 49 ✅ #112). Eval auto-chain IMPLEMENTED unit (slice 50 ✅ #113). Security Review runner IMPLEMENTED unit (slice 51).
 **Date**: 2026-08-24
 **Scope**: Design contract for replacing the single Tessl scanner row with 5 flat capability rows. Current-truth notes below mark what has shipped; remaining rows stay future-state.
 
@@ -12,12 +12,12 @@ The task prompt lists 6 Coverage Gaps to "flag, do not infer." Each is resolved 
 
 | # | Coverage Gap | Status | Evidence |
 |---|---|---|---|
-| 1 | Does Tripwire invoke `tessl skill lint` today? | **IMPLEMENTED (slice 46) + VERIFIED live persist.** `run_tessl()` calls `npx --yes tessl@latest skill lint <workdir>` first, then Review. Live CLI 2026-08-24: `tessl skill lint [<source>]` validates a **publishable plugin package** (not skill-folder quality). Fixture `fixtures/skills/safe-changelog-writer` exits 1: "Found SKILL.md but no plugin manifest" — adapter maps non-zero to `failed`. Plugin-package success: `✔ Plugin <name>@<ver> is valid` (exit 0); parser maps that to `checks_run=1`. Live scan_run `a36cad9f` persisted Lint `failed` + Review `completed`. | `sandbox/scanners.py` (`run_tessl`, `_parse_tessl_lint_detail`); live `npx tessl@latest skill lint`; scan_run `a36cad9f` |
-| 2 | Is `TESSL_TOKEN` available inside the Modal sandbox? | **Verified — Yes.** It is injected via the `tripwire-scan-secrets` Modal secret alongside `SNYK_TOKEN`, `SKILL_SCANNER_LLM_API_KEY`, and others. | `sandbox/scan_app.py:151–157` |
+| 1 | Does AgentVetter invoke `tessl skill lint` today? | **IMPLEMENTED (slice 46) + VERIFIED live persist.** `run_tessl()` calls `npx --yes tessl@latest skill lint <workdir>` first, then Review. Live CLI 2026-08-24: `tessl skill lint [<source>]` validates a **publishable plugin package** (not skill-folder quality). Fixture `fixtures/skills/safe-changelog-writer` exits 1: "Found SKILL.md but no plugin manifest" — adapter maps non-zero to `failed`. Plugin-package success: `✔ Plugin <name>@<ver> is valid` (exit 0); parser maps that to `checks_run=1`. Live scan_run `a36cad9f` persisted Lint `failed` + Review `completed`. | `sandbox/scanners.py` (`run_tessl`, `_parse_tessl_lint_detail`); live `npx tessl@latest skill lint`; scan_run `a36cad9f` |
+| 2 | Is `TESSL_TOKEN` available inside the Modal sandbox? | **Verified — Yes.** It is injected via the `agentvetter-scan-secrets` Modal secret alongside `SNYK_TOKEN`, `SKILL_SCANNER_LLM_API_KEY`, and others. | `sandbox/scan_app.py:151–157` |
 | 3 | Can the current orchestration dispatch multiple distinct Tessl subcommands within one scan_run? | **Verified — Yes, no orchestration changes needed.** `run_all_scanners()` iterates whatever row-list the group runner returns. The Cisco Skill Scanner (3 rows) and Cisco MCP Scanner (4 rows) already prove this pattern. Slice 46 uses this for Lint + Review. | `sandbox/scanners.py` `TESSL_SOURCES` / `SCANNER_GROUPS` |
 | 4 | Does `scan_run_scanners` already support multiple rows per scan_run for the same logical scanner? | **Verified — Yes.** `scanner_source` is a plain `text` column with no uniqueness constraint. Rows are matched for update by `(scan_run_id, scanner_source)` pair. Cisco writes 3 distinct rows per scan_run today. | `db/schema.sql`, `sandbox/scan_app.py` |
 | 5 | Is there a per-feature Tessl run-ID column today? | **IMPLEMENTED (slice 45).** `tessl_run_id`, `tessl_run_id_at`, `resume_checkpoint`, `upstream_run_ids` exist. Lint sets no run ID (local/sync). Review Quality capture **IMPLEMENTED (unit, slice 47)** via `tessl review view --last --json` after `tessl review run quality`. | `db/schema.sql`; `sandbox/scanners.py` `_capture_review_run_id` |
-| 6 | Does the dashboard UI need a new component for 5 Tessl rows? | **Verified — No.** The `<sc-for list="{{ selectedView.scannersView }}">` loop renders N rows independently. `tesslInnerQuality` is scoped to `scanner_source === "Tessl: Review (Quality)"` (slice 46). Live maps `quality_score` onto that source only. Rows 3–5 UI sentinels **IMPLEMENTED** (slice 48). | `tripwire-status.js` `tesslInnerQuality` + `mergeTesslCapabilityRows`; `tripwire-live.js` `shapeScannerRow` |
+| 6 | Does the dashboard UI need a new component for 5 Tessl rows? | **Verified — No.** The `<sc-for list="{{ selectedView.scannersView }}">` loop renders N rows independently. `tesslInnerQuality` is scoped to `scanner_source === "Tessl: Review (Quality)"` (slice 46). Live maps `quality_score` onto that source only. Rows 3–5 UI sentinels **IMPLEMENTED** (slice 48). | `agentvetter-status.js` `tesslInnerQuality` + `mergeTesslCapabilityRows`; `agentvetter-live.js` `shapeScannerRow` |
 
 **Still Open** (not resolvable by reading the repo — require CLI experimentation or Tessl docs):
 
@@ -25,7 +25,7 @@ The task prompt lists 6 Coverage Gaps to "flag, do not infer." Each is resolved 
 |---|---|---|
 | A | Does `tessl review run` / `tessl scenario generate` print a run ID to stdout at trigger time, or only discoverable afterward via `view --last`? | **Partially resolved (2026-08-24).** `scenario generate` blocks and polls until complete; capture ID via `scenario view --json` after completion (or `generate --json` if emitted). `eval run --json` returns eval run IDs immediately without polling. Review Quality (slice 47) captures via `review view --last --json` after `review run quality` completes, falling back to run JSON `id`/`runId`/`run_id`. |
 | B | Is `tessl scenario view <id>` (explicit ID form, not `--last`) actually supported? | **Resolved (2026-08-24).** CLI help + [cli-commands § scenario view/download](https://docs.tessl.io/reference/cli-commands) document explicit IDs. Adapter should capture `gen_id` after generate and use `scenario download <gen_id>` — not `--last`. |
-| C | Is the agent-assisted scenario generation path (`tessl install tessl-labs/tessl-skill-eval-scenarios`) usable from Tripwire's headless Modal sandbox orchestration? | This is the only documented channel for threading Quality review findings into scenario generation (rule 7b). If it requires an interactive agent prompt, it cannot be scripted. |
+| C | Is the agent-assisted scenario generation path (`tessl install tessl-labs/tessl-skill-eval-scenarios`) usable from AgentVetter's headless Modal sandbox orchestration? | This is the only documented channel for threading Quality review findings into scenario generation (rule 7b). If it requires an interactive agent prompt, it cannot be scripted. |
 
 ---
 
@@ -255,7 +255,7 @@ Verified against [Tessl CLI reference](https://docs.tessl.io/reference/cli-comma
 7. Security (slice 51) → upstream_run_ids={review_quality}; review run security; stamp tessl_run_id
 ```
 
-**Not supported by Tessl CLI**: passing `gen_id` to `eval run`. Eval always consumes on-disk scenarios. **`--workspace`** is **required** outside interactive mode for plugin-path `scenario generate` (live CLI). Tripwire resolves it via optional `TESSL_WORKSPACE` or `tessl whoami` + `tessl workspace list` (personal workspace is usually the username).
+**Not supported by Tessl CLI**: passing `gen_id` to `eval run`. Eval always consumes on-disk scenarios. **`--workspace`** is **required** outside interactive mode for plugin-path `scenario generate` (live CLI). AgentVetter resolves it via optional `TESSL_WORKSPACE` or `tessl whoami` + `tessl workspace list` (personal workspace is usually the username).
 
 ### ID carry-forward contract (MUST — slices 47–51)
 
@@ -332,7 +332,7 @@ Each feature that reads from a prior feature's persisted state does so by:
 
 **Threading findings into scenario generation**: The **plain CLI form** (`tessl scenario generate <plugin-path> --workspace <ws> [--count N]`) has no context-injection flag for Quality findings. To thread Quality findings into scenario generation, the **agent-assisted path** (`tessl install tessl-labs/tessl-skill-eval-scenarios`) is the only documented channel.
 
-**Caveat — agent-assisted path in headless sandbox**: This path is designed around an interactive agent prompt. Whether it can be scripted from Tripwire's headless Modal sandbox orchestration is **unverified** (Coverage Gap C). Until verified, the plain CLI form is used for scenario generation, and the Quality findings are surfaced in the UI as context for human review of the generated scenarios rather than injected into the CLI call.
+**Caveat — agent-assisted path in headless sandbox**: This path is designed around an interactive agent prompt. Whether it can be scripted from AgentVetter's headless Modal sandbox orchestration is **unverified** (Coverage Gap C). Until verified, the plain CLI form is used for scenario generation, and the Quality findings are surfaced in the UI as context for human review of the generated scenarios rather than injected into the CLI call.
 
 **What is persisted**: `upstream_run_ids: { "review_quality": "rev_abc123", "scenario_gen": "gen_abc123" }` on the Eval row. The `scenario_gen` ID enables cross-read via `tessl scenario view gen_abc123 --json` (slice 52); eval execution still uses filesystem `evals/`.
 
@@ -344,7 +344,7 @@ The following cross-reads would plausibly add value but are **not wired in v1**.
 |---|---|---|
 | Eval ← Scenario Generation (`resume_checkpoint`) | Eval could confirm scenarios are in place by reading `resume_checkpoint.stage == "moved"` from the Scenario Gen row before starting, rather than relying solely on a filesystem check. | Not strictly necessary given the auto-chain gate in section (b). Low priority. |
 | Review (Quality) → Lint findings | Lint structural issues (e.g. missing types, naming violations) could help a human reader prioritise which Quality findings to address first. | No CLI mechanism. UI side-by-side display only. Requires UI work. |
-| Review (Security) → Snyk findings (deduplication) | Security Review findings (Snyk-powered via Tessl) could be cross-referenced against Tripwire's existing Snyk row findings to surface duplicates. | Requires either shared findings schema or a post-processing step. Flag for v2 dedup logic. |
+| Review (Security) → Snyk findings (deduplication) | Security Review findings (Snyk-powered via Tessl) could be cross-referenced against AgentVetter's existing Snyk row findings to surface duplicates. | Requires either shared findings schema or a post-processing step. Flag for v2 dedup logic. |
 | Any feature → prior scan_run results | On a re-run, adapters could compare new findings against a prior `scan_run_id`'s findings to detect regressions. | Requires querying `scan_run_scanners` across `scan_run_id` values. Not designed in v1. |
 
 ---
@@ -390,7 +390,7 @@ Rendering:
 
 These rows are **never inserted** into `scan_run_scanners` by the runner. The dashboard synthesises them client-side from the static list.
 
-Implementation touch point: `mergeTesslCapabilityRows` in `tripwire-status.js` (SSOT) is called from the `scannersView` map in `Tripwire.dc.html`. The existing `<sc-for>` loop renders sentinels; `status === 'not_available_yet'` applies muted styling, hides chevron/expand, and omits checks/duration. **IMPLEMENTED (slice 48).**
+Implementation touch point: `mergeTesslCapabilityRows` in `agentvetter-status.js` (SSOT) is called from the `scannersView` map in `AgentVetter.dc.html`. The existing `<sc-for>` loop renders sentinels; `status === 'not_available_yet'` applies muted styling, hides chevron/expand, and omits checks/duration. **IMPLEMENTED (slice 48).**
 
 ### Pill Style Map
 
@@ -413,7 +413,7 @@ Extends `scannerStatusColor` and `scannerStatusLabel` in the dashboard JS:
 
 ### `tesslQuality` Binding Scope Fix
 
-The existing `tesslQuality` logic is implemented in `tesslInnerQuality` (`tripwire-status.js`) and is scoped to `scanner_source === "Tessl: Review (Quality)"`. Live attaches `output.quality_score` only for that source (`tripwire-live.js`). The quality score badge does not appear on Lint (slice 46 VERIFIED(unit)). Scenario Generation (slice 49), Eval (slice 50), and Security Review (slice 51) are written by the runner; Security has no quality-score badge. Slice 51 shows linked Quality findings on the expanded Security row when `upstream_run_ids.review_quality` is populated (slice 48 VERIFIED(unit) for the merge/sentinel path).
+The existing `tesslQuality` logic is implemented in `tesslInnerQuality` (`agentvetter-status.js`) and is scoped to `scanner_source === "Tessl: Review (Quality)"`. Live attaches `output.quality_score` only for that source (`agentvetter-live.js`). The quality score badge does not appear on Lint (slice 46 VERIFIED(unit)). Scenario Generation (slice 49), Eval (slice 50), and Security Review (slice 51) are written by the runner; Security has no quality-score badge. Slice 51 shows linked Quality findings on the expanded Security row when `upstream_run_ids.review_quality` is populated (slice 48 VERIFIED(unit) for the merge/sentinel path).
 
 ---
 
@@ -435,6 +435,6 @@ Both paths are compatible with the schema above. The retry control (UI affordanc
 |---|---|---|
 | A | Does `tessl review run` / `tessl scenario generate` print a run ID to stdout at trigger time, or only via `view --last --json`? | **Partially resolved (2026-08-24).** `scenario generate` blocks/polls until complete — capture via `scenario view <id> --json`. `eval run --json` returns IDs immediately without polling. Review Quality (slice 47) captures via `review view --last --json` after `review run quality`, with fallback to run JSON `id`. Prefer explicit IDs over `--last` when the run payload includes one. |
 | B | Is `tessl scenario view <id>` (explicit ID form) supported, or only `--last`? | **Resolved (2026-08-24).** Use explicit IDs for scenario view/download and eval/review view. |
-| C | Is the agent-assisted scenario generation path usable from Tripwire's headless Modal sandbox? | If not, Quality Review findings cannot be threaded into scenario generation programmatically in v1. The fallback is UI-level display of Quality findings alongside the scenario generation row for human reference. |
+| C | Is the agent-assisted scenario generation path usable from AgentVetter's headless Modal sandbox? | If not, Quality Review findings cannot be threaded into scenario generation programmatically in v1. The fallback is UI-level display of Quality findings alongside the scenario generation row for human reference. |
 | D | Should "Not Available Yet" rows be included in the Scanner Outputs count? | **PASSED (slice 48 ✅ #110).** Include them. MCP scans with no Tessl rows are not padded. |
 | E | Should host `evals/` be uploaded for vuln scanning? | **VERIFIED (slice 48 ✅ #110).** No. Omit root `evals/` from the Modal tar / same-machine copy when the skill root has `tessl.json` or `.tessl-plugin/`. Keep `evals/` on non-Tessl trees. Slice 49–50 populate `evals/` in the sandbox after `scenario download`. Git clone + `hashLocalPath` still see on-disk `evals/`. |

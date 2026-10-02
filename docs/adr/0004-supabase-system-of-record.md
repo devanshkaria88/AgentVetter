@@ -2,7 +2,7 @@
 
 - **Status:** Accepted
 - **Date:** 2026-08-01
-- **Deciders:** Tripwire maintainers
+- **Deciders:** AgentVetter maintainers
 - **Tags:** storage, supabase, postgres, realtime
 
 ## Context
@@ -21,7 +21,7 @@ Use **hosted Supabase (Postgres + PostgREST + Realtime)** as the Live store.
 
 - Canonical DDL: `db/schema.sql` (items, scan_batches, scan_runs,
   scan_run_scanners, findings, coverage, config).
-- Heatmap: `tripwire_rollup_item` in Postgres. `heatmap_status` is worst-of
+- Heatmap: `agentvetter_rollup_item` in Postgres. `heatmap_status` is worst-of
   actionable findings (any red → red; else any amber → amber; else green);
   `risk_score` remains weighted density for sort/trend. `partial-failed` still
   scores completed engines; `failed` / `running` / empty partial paint `error`.

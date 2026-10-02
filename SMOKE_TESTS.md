@@ -1,6 +1,6 @@
 # Smoke Tests
 
-Manual smoke observations for the Tripwire dashboard and CLI. Each test is observable
+Manual smoke observations for the AgentVetter dashboard and CLI. Each test is observable
 in a browser (dashboard) or via a direct Supabase API query (DB). Automate where possible;
 otherwise gate on human sign-off before marking a slice PASSED.
 
@@ -8,14 +8,14 @@ otherwise gate on human sign-off before marking a slice PASSED.
 
 ## Dashboard data completeness (slice-42 A1/A2 regression guard)
 
-**Trigger**: run after any change to `prototypes/dc-dashboard/tripwire-live.js`
+**Trigger**: run after any change to `prototypes/dc-dashboard/agentvetter-live.js`
 
 **Goal**: confirm no card wrongly shows "never scanned" or "0 findings" due to a
 fetch-window miss.
 
 ### Steps
 
-1. Open the Tripwire dashboard in Live mode (requires `SUPABASE_URL` + `SUPABASE_ANON_KEY`).
+1. Open the AgentVetter dashboard in Live mode (requires `SUPABASE_URL` + `SUPABASE_ANON_KEY`).
 2. Open the browser Network tab. Confirm the dashboard requests
    `dashboard_latest_runs` (not a paginated `/scan_runs?limit=…` global fetch).
 3. Confirm the `findings` and `scan_run_scanners` requests include a
@@ -76,13 +76,13 @@ where type = 'mcp_server'
 ### Pass criterion
 
 Zero MCP server items have `install_locus = 'unknown'` or `source_availability = 'unknown'`
-in the `items` table after a `tripwire scan --type mcp` completes.
+in the `items` table after a `agentvetter scan --type mcp` completes.
 
 ---
 
 ## ERROR card messaging (slice-42 A5 regression guard)
 
-**Trigger**: run after any change to `Tripwire.dc.html` or `tripwire-live.js:shapeItem`.
+**Trigger**: run after any change to `AgentVetter.dc.html` or `agentvetter-live.js:shapeItem`.
 
 ### Steps
 

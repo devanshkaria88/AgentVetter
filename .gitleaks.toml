@@ -1,4 +1,4 @@
-# Tripwire — secrets scan config (trimmed project-hygiene).
+# AgentVetter — secrets scan config (trimmed project-hygiene).
 # Intentional vuln fixtures are allowlisted; real secrets must still fail CI.
 
 [extend]
