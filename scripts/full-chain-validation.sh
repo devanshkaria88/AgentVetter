@@ -21,8 +21,8 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 EVIDENCE_DIR="$ROOT/.test-results"
 EVIDENCE="$EVIDENCE_DIR/full-chain-evidence.json"
-STAGES_TSV="$(mktemp "${TMPDIR:-/tmp}/tripwire-fullchain.XXXXXX")"
-SELFCHECK_OUT="$(mktemp "${TMPDIR:-/tmp}/tripwire-selfcheck.XXXXXX")"
+STAGES_TSV="$(mktemp "${TMPDIR:-/tmp}/agentvetter-fullchain.XXXXXX")"
+SELFCHECK_OUT="$(mktemp "${TMPDIR:-/tmp}/agentvetter-selfcheck.XXXXXX")"
 trap 'rm -f "$STAGES_TSV" "$SELFCHECK_OUT"' EXIT
 
 OVERALL=0
@@ -63,7 +63,7 @@ except subprocess.TimeoutExpired:
 PY
 }
 
-echo "[full-chain] Tripwire agent-hooks validation (slice 38)"
+echo "[full-chain] AgentVetter agent-hooks validation (slice 38)"
 echo
 
 # ── 1. preflight ─────────────────────────────────────────────────────────────
@@ -82,15 +82,15 @@ else
 fi
 
 # ── 2. hooks installed + enforcing ───────────────────────────────────────────
-CONFIG_JSON="$HOME/.tripwire/config.json"
+CONFIG_JSON="$HOME/.agentvetter/config.json"
 if [ -f "$CONFIG_JSON" ] && grep -q '"enable"' "$CONFIG_JSON" 2>/dev/null; then
-  if grep -q '/.tripwire/hooks/pre-tool-use.sh' "$HOME/.claude/settings.json" 2>/dev/null; then
+  if grep -q '/.agentvetter/hooks/pre-tool-use.sh' "$HOME/.claude/settings.json" 2>/dev/null; then
     record "hooks-installed" "PASS" "config.json present + PreToolUse registered"
   else
-    record "hooks-installed" "FAIL" "config.json present but hook not registered — run tripwire setup-agent-hooks"
+    record "hooks-installed" "FAIL" "config.json present but hook not registered — run agentvetter setup-agent-hooks"
   fi
 else
-  record "hooks-installed" "BLOCKED(setup)" "$CONFIG_JSON missing — run tripwire setup-agent-hooks"
+  record "hooks-installed" "BLOCKED(setup)" "$CONFIG_JSON missing — run agentvetter setup-agent-hooks"
 fi
 
 # ── 3. demo artifacts ────────────────────────────────────────────────────────
@@ -106,18 +106,18 @@ fi
 
 # ── 4-6. live scan → verify → DepShield rows (need credentials) ──────────────
 if [ "$ENV_OK" = 1 ]; then
-  SCAN_OUT="$(cd "$ROOT" && node cli/bin/tripwire.js scan "$HOME/.claude/skills/safe-skill" --no-defaults --force 2>&1)" || true
+  SCAN_OUT="$(cd "$ROOT" && node cli/bin/agentvetter.js scan "$HOME/.claude/skills/safe-skill" --no-defaults --force 2>&1)" || true
   if printf '%s' "$SCAN_OUT" | grep -q '"batch_id"'; then
     record "scan-dispatch" "PASS" "scan submitted (batch_id in output)"
   else
     record "scan-dispatch" "FAIL" "no batch_id in scan output: $(printf '%s' "$SCAN_OUT" | tail -1 | cut -c1-160)"
   fi
 
-  STATUS_JSON="$(cd "$ROOT" && node cli/bin/tripwire.js status --json 2>/dev/null)" || true
+  STATUS_JSON="$(cd "$ROOT" && node cli/bin/agentvetter.js status --json 2>/dev/null)" || true
   if printf '%s' "$STATUS_JSON" | python3 -c 'import json,sys; d=json.load(sys.stdin); sys.exit(0 if d.get("items") else 1)' 2>/dev/null; then
-    record "verify-status" "PASS" "tripwire status --json returns item/run health"
+    record "verify-status" "PASS" "agentvetter status --json returns item/run health"
   else
-    record "verify-status" "FAIL" "tripwire status --json did not return a parseable health object"
+    record "verify-status" "FAIL" "agentvetter status --json did not return a parseable health object"
   fi
 
   if printf '%s' "$STATUS_JSON" | grep -q '"DepShield"'; then
@@ -139,10 +139,10 @@ else
 fi
 
 # ── 8. CLI monitoring (works credential-less in degraded mode) ───────────────
-if (cd "$ROOT" && node cli/bin/tripwire.js status >/dev/null 2>&1); then
-  record "cli-monitoring" "PASS" "tripwire status exits 0"
+if (cd "$ROOT" && node cli/bin/agentvetter.js status >/dev/null 2>&1); then
+  record "cli-monitoring" "PASS" "agentvetter status exits 0"
 else
-  record "cli-monitoring" "FAIL" "tripwire status exited nonzero"
+  record "cli-monitoring" "FAIL" "agentvetter status exited nonzero"
 fi
 
 # ── 9. LIVE /tw-self-check (never mocked — slice-38 GWT 2) ───────────────────
@@ -163,7 +163,7 @@ if command -v claude >/dev/null \
     record "tw-self-check" "FAIL" "live /tw-self-check did not produce a five-skill report (see evidence capture)"
   fi
 else
-  record "tw-self-check" "BLOCKED(setup)" "needs claude CLI (authed) + tw-self-check installed — run tripwire setup-agent-hooks, then claude auth login"
+  record "tw-self-check" "BLOCKED(setup)" "needs claude CLI (authed) + tw-self-check installed — run agentvetter setup-agent-hooks, then claude auth login"
 fi
 
 # ── evidence + overall ────────────────────────────────────────────────────────

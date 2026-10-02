@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Capture Tripwire dashboard screenshots into docs/screenshots/.
+ * Capture AgentVetter dashboard screenshots into docs/screenshots/.
  * Usage: node scripts/capture-screenshots.mjs [baseUrl]
  */
 import fs from "node:fs";
@@ -11,7 +11,7 @@ import puppeteer from "puppeteer-core";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
 const outRoot = path.join(root, "docs/screenshots");
-const baseUrl = process.argv[2] || "http://127.0.0.1:8765/Tripwire.dc.html";
+const baseUrl = process.argv[2] || "http://127.0.0.1:8765/AgentVetter.dc.html";
 const chrome =
   process.env.CHROME_PATH ||
   "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
@@ -170,9 +170,9 @@ async function main() {
     const page = await browser.newPage();
     // Gallery labels assume Mock fixture severities (Red/Amber/Green examples).
     await page.evaluateOnNewDocument(() => {
-      sessionStorage.setItem("tripwire-data-source-mode", "mock");
+      sessionStorage.setItem("agentvetter-data-source-mode", "mock");
       // Slice 41 intro — gallery captures assume dashboard chrome, not landing.
-      sessionStorage.setItem("tripwire-intro-dismissed", "1");
+      sessionStorage.setItem("agentvetter-intro-dismissed", "1");
     });
     await page.goto(baseUrl, { waitUntil: "networkidle0", timeout: 60000 });
     await sleep(1500);

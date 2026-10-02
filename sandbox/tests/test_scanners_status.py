@@ -710,7 +710,7 @@ def test_parse_tessl_lint_detail_live_valid_plugin_counts_one_check() -> None:
     Slice: 46 — GWT-46.3 live completed path (plugin-is-valid stdout)
     """
     ### Given
-    live_stdout = "✔ Plugin tripwire/safe-changelog-writer@0.0.1 is valid"
+    live_stdout = "✔ Plugin agentvetter/safe-changelog-writer@0.0.1 is valid"
 
     ### When
     checks_run, detail = scanners._parse_tessl_lint_detail(live_stdout)

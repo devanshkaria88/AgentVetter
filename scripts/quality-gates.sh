@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Quality gates — serious-tier for Tripwire (Python sandbox/guard + Node cli/).
+# Quality gates — serious-tier for AgentVetter (Python sandbox/guard + Node cli/).
 #
 # Usage:
 #   ./scripts/quality-gates.sh            # T1 + T2 (tests, coverage, audits)

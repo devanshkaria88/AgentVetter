@@ -7,7 +7,7 @@ dual shape of §4.3.4, and ALWAYS exits 0 — in Claude Code a plain non-zero
 exit is a *non-blocking* error (the call proceeds), so fail-closed means
 "exit 0 with an explicit deny", never "crash" (§0.2).
 
-The shell wrapper (~/.tripwire/hooks/pre-tool-use.sh) already gated on the
+The shell wrapper (~/.agentvetter/hooks/pre-tool-use.sh) already gated on the
 config ``enable`` flag; this module re-reads the config defensively — a
 missing/corrupt config is a tamper signal and denies (§3).
 """
@@ -24,20 +24,46 @@ from typing import Any, TextIO
 from guard.guard_hook import check_call_by_identifier
 from guard.status import DEFAULT_VALIDITY_DAYS
 
-DEFAULT_CONFIG_PATH = "~/.tripwire/config.json"
+DEFAULT_CONFIG_PATH = "~/.agentvetter/config.json"
+_LEGACY_CONFIG_PATH = "~/.tripwire/config.json"
 
 # entry.py lives at <repo_root>/guard/entry.py; the demo MCP manifest ships in
 # the repo, so derive its location from this file rather than hardcoding.
 _REPO_ROOT = Path(__file__).resolve().parent.parent
 _FIXTURES_MANIFEST = _REPO_ROOT / "fixtures" / "mcp" / "mcp_manifest.json"
 
+
+def resolve_config_path() -> str:
+    """Prefer AGENTVETTER_CONFIG / ~/.agentvetter; fall back to Tripwire-era paths."""
+    env = os.environ.get("AGENTVETTER_CONFIG") or os.environ.get("TRIPWIRE_CONFIG")
+    if env:
+        return env
+    preferred = Path(os.path.expanduser(DEFAULT_CONFIG_PATH))
+    if preferred.exists():
+        return str(preferred)
+    legacy = Path(os.path.expanduser(_LEGACY_CONFIG_PATH))
+    if legacy.exists():
+        print(
+            "warning: using ~/.tripwire; migrate to ~/.agentvetter "
+            "(see docs/MIGRATION-AGENTVETTER.md).",
+            file=sys.stderr,
+        )
+        return str(legacy)
+    return str(preferred)
+
+
+def resolve_config_home() -> Path:
+    """Config home directory (sibling of config.json)."""
+    return Path(resolve_config_path()).expanduser().resolve().parent
+
+
 _GUARD_ERROR_REASON = (
-    "Tripwire guard error — fail closed. Remedies: /tw-disable in-session, "
-    'or hand-edit ~/.tripwire/config.json to "enable": false.'
+    "AgentVetter guard error — fail closed. Remedies: /tw-disable in-session, "
+    'or hand-edit ~/.agentvetter/config.json to "enable": false.'
 )
 _CONFIG_TAMPER_REASON = (
-    "Tripwire config missing/corrupt — re-run `tripwire setup-agent-hooks`, "
-    'or set "enable": false in ~/.tripwire/config.json by hand to bypass.'
+    "AgentVetter config missing/corrupt — re-run `agentvetter setup-agent-hooks`, "
+    'or set "enable": false in ~/.agentvetter/config.json by hand to bypass.'
 )
 
 # Skill-name keys tried in order against tool_input.
@@ -336,7 +362,19 @@ def _resolve_mcp_server(name: str, cwd: str) -> str | None:
     if name in _claude_json_keys(os.path.expanduser(os.path.join("~", ".claude.json")), cwd):
         return name
     if name in _mcp_server_keys(
-        os.path.expanduser(os.path.join("~", ".tripwire", "demo-mcp.json"))
+        str(
+            next(
+                (
+                    p
+                    for p in (
+                        Path.home() / ".agentvetter" / "demo-mcp.json",
+                        Path.home() / ".tripwire" / "demo-mcp.json",
+                    )
+                    if p.exists()
+                ),
+                Path.home() / ".agentvetter" / "demo-mcp.json",
+            )
+        )
     ):
         return name
     if name in _mcp_server_keys(str(_FIXTURES_MANIFEST)):
@@ -376,7 +414,7 @@ def resolve_operator_name(name: str, cwd: str) -> dict[str, str] | None:
     """Resolve a /tw-verify or /tw-scan name the same way the hook would.
 
     Order: explicit path with ``SKILL.md`` → skill locus → MCP config key
-    (incl. ``~/.tripwire/demo-mcp.json``) → demo fixture alias. Returns
+    (incl. ``~/.agentvetter/demo-mcp.json``) → demo fixture alias. Returns
     ``{"identifier", "kind"}`` plus optional ``resolved_as`` / ``alias_of``,
     or ``None`` when nothing matches (caller reports NOT FOUND).
     """
@@ -437,12 +475,12 @@ def _block_reason(core: str, name: str, config: dict) -> str:
     both in-session and out-of-band remedies (the in-session /tw-* skills are
     themselves enforced and may deadlock — the reason must never leave the
     user without an executable way out)."""
-    cli_bin = str(config.get("cli_bin") or "<repo_root>/cli/bin/tripwire.js")
+    cli_bin = str(config.get("cli_bin") or "<repo_root>/cli/bin/agentvetter.js")
     return (
-        f"Tripwire blocked this call: {core}. "
+        f"AgentVetter blocked this call: {core}. "
         f"Remedies — in-session: /tw-scan {name} to (re)scan, /tw-disable to switch "
         f"enforcement off; out-of-band: `node {cli_bin} scan <abs-path> --no-defaults` "
-        'in a terminal, or hand-edit ~/.tripwire/config.json to "enable": false.'
+        'in a terminal, or hand-edit ~/.agentvetter/config.json to "enable": false.'
     )
 
 
@@ -466,7 +504,7 @@ def decide(
     if not enforced:
         # Matcher should only route Skill|Bash|mcp__* here; anything else is a
         # misconfiguration — allowing avoids bricking ordinary tools.
-        return {"allow": True, "reason": f"tool '{tool_name}' not subject to tripwire guard"}
+        return {"allow": True, "reason": f"tool '{tool_name}' not subject to agentvetter guard"}
 
     target = extract_target(payload, cwd=cwd)
     if target is None:
@@ -474,7 +512,7 @@ def decide(
             # Ordinary Bash (no skills-path touch) is not gated.
             return {
                 "allow": True,
-                "reason": "bash command does not reference a tripwire-scanned skill path",
+                "reason": "bash command does not reference a agentvetter-scanned skill path",
             }
         return {
             "allow": False,
@@ -494,7 +532,7 @@ def decide(
             "reason": _block_reason(
                 f"{kind_label} '{target['name']}' not found in any known locus "
                 "(~/.claude/skills, <project>/.claude/skills, .mcp.json, "
-                "~/.claude.json, ~/.tripwire/demo-mcp.json, fixtures manifest)",
+                "~/.claude.json, ~/.agentvetter/demo-mcp.json, fixtures manifest)",
                 target["name"],
                 config,
             ),
@@ -555,14 +593,14 @@ def main(*, stdin: TextIO | None = None, stdout: TextIO | None = None) -> int:
     stdout = stdout if stdout is not None else sys.stdout
     decision: dict[str, Any] = {"allow": False, "reason": _GUARD_ERROR_REASON}
     try:
-        config_path = os.environ.get("TRIPWIRE_CONFIG") or os.path.expanduser(DEFAULT_CONFIG_PATH)
+        config_path = resolve_config_path()
         config = _load_config(config_path)
         if config is None:
             # §3: the wrapper only runs because setup registered it, and setup
             # wrote config.json first — an unreadable config is tampering.
             decision = {"allow": False, "reason": _CONFIG_TAMPER_REASON}
         elif config.get("enable") is False:
-            decision = {"allow": True, "reason": "tripwire enforcement disabled (enable=false)"}
+            decision = {"allow": True, "reason": "agentvetter enforcement disabled (enable=false)"}
         else:
             payload = json.loads(stdin.read() or "{}")
             if not isinstance(payload, dict):

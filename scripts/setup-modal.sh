@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Sync Tripwire Modal secrets from .env and deploy sandbox/scan_app.py.
+# Sync AgentVetter Modal secrets from .env and deploy sandbox/scan_app.py.
 #
 # Usage (from repo root):
 #   ./scripts/setup-modal.sh
@@ -167,9 +167,9 @@ sync_secrets() {
     exit 1
   fi
 
-  TMP_DIR="$(mktemp -d "${TMPDIR:-/tmp}/tripwire-modal.XXXXXX")"
-  local supabase_out="$TMP_DIR/tripwire-supabase.env"
-  local scan_out="$TMP_DIR/tripwire-scan-secrets.env"
+  TMP_DIR="$(mktemp -d "${TMPDIR:-/tmp}/agentvetter-modal.XXXXXX")"
+  local supabase_out="$TMP_DIR/agentvetter-supabase.env"
+  local scan_out="$TMP_DIR/agentvetter-scan-secrets.env"
 
   local summary
   summary="$(
@@ -183,14 +183,14 @@ sync_secrets() {
   supabase_keys="$(python3 -c 'import json,sys; print(", ".join(json.load(sys.stdin)["supabase_keys"]))' <<<"$summary")"
   scan_keys="$(python3 -c 'import json,sys; print(", ".join(json.load(sys.stdin)["scan_keys"]))' <<<"$summary")"
 
-  echo "Syncing secret tripwire-supabase (keys: $supabase_keys)"
-  modal_ok secret create tripwire-supabase --from-dotenv "$supabase_out" --force
+  echo "Syncing secret agentvetter-supabase (keys: $supabase_keys)"
+  modal_ok secret create agentvetter-supabase --from-dotenv "$supabase_out" --force
 
   if [[ -n "$scan_keys" ]]; then
-    echo "Syncing secret tripwire-scan-secrets (keys: $scan_keys)"
-    modal_ok secret create tripwire-scan-secrets --from-dotenv "$scan_out" --force
+    echo "Syncing secret agentvetter-scan-secrets (keys: $scan_keys)"
+    modal_ok secret create agentvetter-scan-secrets --from-dotenv "$scan_out" --force
   else
-    echo "No scanner keys in .env — skipping tripwire-scan-secrets."
+    echo "No scanner keys in .env — skipping agentvetter-scan-secrets."
   fi
 }
 

@@ -55,7 +55,7 @@ test('GWT-65.1: multi-ecosystem checkout lists Node and Rust with volume', async
 
 test('GWT-65.1: discovery is marker-driven — empty tree yields no closed language list', () => {
   // -- Given / When --
-  const found = discoverEcosystems('/tmp/tripwire-no-such-dir-coverage-65');
+  const found = discoverEcosystems('/tmp/agentvetter-no-such-dir-coverage-65');
 
   // -- Then --
   assert.deepEqual(found, []);

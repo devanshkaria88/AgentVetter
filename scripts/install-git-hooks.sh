@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Install pre-commit hooks for commit + push stages (trimmed Tripwire hygiene).
+# Install pre-commit hooks for commit + push stages (trimmed AgentVetter hygiene).
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"

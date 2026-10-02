@@ -6,7 +6,7 @@ import path from 'node:path';
 import { hashLocalPath, hashSchema } from '../src/hash.js';
 
 test('identical content hashes identically (idempotency precondition)', async () => {
-  const dir = await mkdtemp(path.join(os.tmpdir(), 'tripwire-'));
+  const dir = await mkdtemp(path.join(os.tmpdir(), 'agentvetter-'));
   await writeFile(path.join(dir, 'SKILL.md'), 'same content');
   const h1 = await hashLocalPath(dir);
   const h2 = await hashLocalPath(dir);
@@ -15,7 +15,7 @@ test('identical content hashes identically (idempotency precondition)', async ()
 });
 
 test('changed content changes the hash (drift precondition)', async () => {
-  const dir = await mkdtemp(path.join(os.tmpdir(), 'tripwire-'));
+  const dir = await mkdtemp(path.join(os.tmpdir(), 'agentvetter-'));
   await writeFile(path.join(dir, 'SKILL.md'), 'v1');
   const h1 = await hashLocalPath(dir);
   await writeFile(path.join(dir, 'SKILL.md'), 'v2 — added a webhook');

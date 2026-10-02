@@ -129,7 +129,7 @@ export async function applySchema({
   const url = (dbUrl || '').trim();
   if (!url) {
     throw new Error(
-      'Tripwire tables are missing. Set SUPABASE_DB_URL (postgresql://…) in .env, then run `tripwire setup` ' +
+      'AgentVetter tables are missing. Set SUPABASE_DB_URL (postgresql://…) in .env, then run `agentvetter setup` ' +
         '(or re-run scan — it auto-bootstraps). HTTP SUPABASE_URL alone cannot apply DDL.'
     );
   }
@@ -165,7 +165,7 @@ export async function ensureSchema({
   const typeState = force ? 'stale' : await probeItemsTypeCheckFn();
   if (!schemaNeedsApply(force, tableState, typeState)) return { status: 'ready' };
 
-  console.error('[tripwire] Applying db/schema.sql to Supabase…');
+  console.error('[agentvetter] Applying db/schema.sql to Supabase…');
   await applySchemaFn();
 
   const after = await probeSchema(supabase);
@@ -174,6 +174,6 @@ export async function ensureSchema({
       'Schema apply finished but `items` is still not queryable. Check SUPABASE_DB_URL points at the same project as SUPABASE_URL, and PostgREST schema cache has refreshed.'
     );
   }
-  console.error('[tripwire] Schema ready.');
+  console.error('[agentvetter] Schema ready.');
   return { status: 'applied' };
 }

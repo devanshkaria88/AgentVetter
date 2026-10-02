@@ -1,13 +1,13 @@
 # Contributing
 
-This is the contributor path for people who use Tripwire and also develop, test,
+This is the contributor path for people who use AgentVetter and also develop, test,
 or share improvements. Complete the shared [QUICKSTART.md](QUICKSTART.md) flow
 before following these development instructions.
 
 [![Cursor](https://img.shields.io/badge/Cursor-000000?style=flat)](https://cursor.com)
 [![Modal](https://img.shields.io/badge/Modal-7C5CFF?style=flat)](https://modal.com)
 [![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=flat&logo=supabase&logoColor=white)](https://supabase.com)
-[![Tripwire](https://img.shields.io/badge/Tripwire-1a1a2e?style=flat)](https://github.com/neomatrix369/tripwire)
+[![AgentVetter](https://img.shields.io/badge/AgentVetter-1a1a2e?style=flat)](https://github.com/neomatrix369/AgentVetter)
 [![Cisco](https://img.shields.io/badge/Cisco-1BA0D7?style=flat)](https://developer.cisco.com)
 [![Snyk](https://img.shields.io/badge/Snyk-4C4A73?style=flat&logo=snyk&logoColor=white)](https://snyk.io)
 [![Tessl](https://img.shields.io/badge/Tessl-111111?style=flat)](https://tessl.io)
@@ -39,7 +39,7 @@ Then use this guide for development, quality checks, and sharing changes back. S
 1. Copy `.env.example` → `.env` using [env-vars.md](docs/user-guide/env-vars.md)
    (`fixtures/OPTIONAL_SCANNER_KEYS.md` for Modal allowlist).
 2. `cd cli && npm install && npm link`
-3. `tripwire setup` (needs `SUPABASE_DB_URL`) and `./scripts/setup-modal.sh`
+3. `agentvetter setup` (needs `SUPABASE_DB_URL`) and `./scripts/setup-modal.sh`
 4. Run checks below.
 
 Architecture: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md). Decisions:
@@ -78,7 +78,7 @@ pre-commit run --all-files          # lint, mypy, bandit, xenon, vulture, pylint
 `pytest` / `testpaths = ["sandbox/tests"]` (guard omitted); CLI
 `npm run test:coverage` ≥95% lines; Live ACL
 `prototypes/dc-dashboard` `npm run test:coverage` ≥95% lines on the four ACL
-modules (`support.js` out of bar). Local editable `tripwire` is skipped by
+modules (`support.js` out of bar). Local editable `agentvetter` is skipped by
 `pip-audit --skip-editable` (not a PyPI package). Track
 [docs/plan/PROGRESS.md](docs/plan/PROGRESS.md); close per
 [docs/plan/GATE_CONTRACT.md](docs/plan/GATE_CONTRACT.md).
@@ -95,8 +95,8 @@ are excluded from secrets scanners.
 
 ## CI
 
-- [CI](https://github.com/neomatrix369/tripwire/actions/workflows/ci.yml) — PR/main ultra-minimal gates (ship-path coverage + OSV + targeted scans)
-- [Nightly](https://github.com/neomatrix369/tripwire/actions/workflows/nightly.yml) — **A** comprehensive T4 (daily 02:00 UTC)
-- [Supply chain](https://github.com/neomatrix369/tripwire/actions/workflows/supply-chain.yml) — **B** (weekly Mon 03:00 UTC)
-- [Mutation](https://github.com/neomatrix369/tripwire/actions/workflows/mutation.yml) — **C** (1st+15th 04:00 UTC; non-gating)
+- [CI](https://github.com/neomatrix369/AgentVetter/actions/workflows/ci.yml) — PR/main ultra-minimal gates (ship-path coverage + OSV + targeted scans)
+- [Nightly](https://github.com/neomatrix369/AgentVetter/actions/workflows/nightly.yml) — **A** comprehensive T4 (daily 02:00 UTC)
+- [Supply chain](https://github.com/neomatrix369/AgentVetter/actions/workflows/supply-chain.yml) — **B** (weekly Mon 03:00 UTC)
+- [Mutation](https://github.com/neomatrix369/AgentVetter/actions/workflows/mutation.yml) — **C** (1st+15th 04:00 UTC; non-gating)
 - Workflow map: [docs/README.md § CI workflows](docs/README.md#ci-workflows)

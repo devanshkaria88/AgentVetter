@@ -22,8 +22,8 @@ It is a planning artifact for `docs/plan/slices/06-F-claim-audit/slice-15-horizo
 
 | Claim | Source | Evidence path | Current outcome | Notes |
 |---|---|---|---|---|
-| Tripwire CLI can discover and scan targets (`tripwire scan`) | `README.md`, `QUICKSTART.md`, `STATUS.md` | `cli/src/*`, `cli/test/*` | PARTIAL | Command flow is documented and unit coverage exists, but 3B live execution proof still pending by execution run. |
-| Schema bootstrap (`tripwire setup`) supports scan-run tables and publication | `STATUS.md`, `coverage-audit.md`, `cli/src/ensureSchema.js`, `db/schema.sql` | `cli/src/ensureSchema.js`; `db/schema.sql` | PASS | Documented and tested via setup path; live direct-DB path explicitly marked "not verified here". |
+| AgentVetter CLI can discover and scan targets (`agentvetter scan`) | `README.md`, `QUICKSTART.md`, `STATUS.md` | `cli/src/*`, `cli/test/*` | PARTIAL | Command flow is documented and unit coverage exists, but 3B live execution proof still pending by execution run. |
+| Schema bootstrap (`agentvetter setup`) supports scan-run tables and publication | `STATUS.md`, `coverage-audit.md`, `cli/src/ensureSchema.js`, `db/schema.sql` | `cli/src/ensureSchema.js`; `db/schema.sql` | PASS | Documented and tested via setup path; live direct-DB path explicitly marked "not verified here". |
 | Modal scan path runs scanners and writes findings to DB | `STATUS.md`, `docs/ARCHITECTURE.md`, `sandbox/scanners.py` | `sandbox/scanners.py` | PARTIAL | Implementation files/docs match; live Modal execution still requires environment/infrastructure to prove end-to-end. |
 | CLI supports idempotent scans (`--force`, `content-hash`, retries) | `STATUS.md`, `coverage-audit.md`, `cli/` | `cli/src/*`, `cli/test/*` | PASS | Unit checks are documented as implemented; still needs final execution confirmation in claim run. |
 | Dashboard can render scan results in live mode | `README.md`, `prototypes/dc-dashboard/`, `STATUS.md`, `prototypes/README.md` | `prototypes/dc-dashboard/*`, `scripts/serve-dashboard.mjs` | PARTIAL | Docs and tests cover structure; no fresh live 3B proof yet. |
@@ -52,8 +52,8 @@ It is a planning artifact for `docs/plan/slices/06-F-claim-audit/slice-15-horizo
   - `stdout: |`
   - `stderr: |`
 - 3B command log target:
-  - `cp .env.example .env && tripwire setup`
-  - `tripwire scan ./fixtures/skills/safe-csv-cleaner`
+  - `cp .env.example .env && agentvetter setup`
+  - `agentvetter scan ./fixtures/skills/safe-csv-cleaner`
   - `node scripts/serve-dashboard.mjs`
 
 ## 3B / 3C tracking (to be filled in slice-15)

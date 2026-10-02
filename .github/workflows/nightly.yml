@@ -20,7 +20,7 @@ name: Nightly
 #                 · ADR-0013
 #
 # Status badge: README + docs/README.md (Nightly).
-# Primary stack (docs): Cursor · Modal · Supabase · Tripwire
+# Primary stack (docs): Cursor · Modal · Supabase · AgentVetter
 
 on:
   schedule:

@@ -15,11 +15,11 @@
 
 | Stream | File | Owns |
 |--------|------|------|
-| A Expert | `tripwire-investigate.js` | Expert-only fields: raw judges, model IDs, confidence, weakness/AI-sec IDs, scanner details, data-flow |
-| B Export | `tripwire-report-export.js` | `maskSecrets`, `buildReportPayload`, `serializeReportJson`, `serializeReportMarkdown` |
-| C Report | `tripwire-report.js` | `buildReportView` — fixed / left / won't fix headline + primary export label |
-| D Tests | `test/tripwire-report*.test.js` + Expert cases in investigate tests | GWT-71.1–71.3 |
-| E Wire | `Tripwire.dc.html` + `package.json` c8 includes | Report panel; import kits; map expert fields |
+| A Expert | `agentvetter-investigate.js` | Expert-only fields: raw judges, model IDs, confidence, weakness/AI-sec IDs, scanner details, data-flow |
+| B Export | `agentvetter-report-export.js` | `maskSecrets`, `buildReportPayload`, `serializeReportJson`, `serializeReportMarkdown` |
+| C Report | `agentvetter-report.js` | `buildReportView` — fixed / left / won't fix headline + primary export label |
+| D Tests | `test/agentvetter-report*.test.js` + Expert cases in investigate tests | GWT-71.1–71.3 |
+| E Wire | `AgentVetter.dc.html` + `package.json` c8 includes | Report panel; import kits; map expert fields |
 
 ## Disposition mapping
 Prefer `reportDisposition`: `fixed` | `left` | `wont_fix`.

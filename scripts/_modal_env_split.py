@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Split a Tripwire .env into filtered dotenv files for Modal secret sync.
+"""Split a AgentVetter .env into filtered dotenv files for Modal secret sync.
 
 Writes two files and prints a JSON summary of key *names* only (never values)
 to stdout:

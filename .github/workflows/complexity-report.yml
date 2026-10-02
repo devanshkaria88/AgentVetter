@@ -58,7 +58,7 @@ jobs:
           COMPLEXITY_MARKDOWN: ${{ steps.body.outputs.markdown }}
         with:
           script: |
-            const marker = /<!-- tripwire-complexity:start -->[\s\S]*?<!-- tripwire-complexity:end -->/;
+            const marker = /<!-- agentvetter-complexity:start -->[\s\S]*?<!-- agentvetter-complexity:end -->/;
             const replacement = process.env.COMPLEXITY_MARKDOWN;
             const { data: pullRequest } = await github.rest.pulls.get({
               owner: context.repo.owner,

@@ -1,6 +1,6 @@
 /**
  * T3 — spawnScanSandbox must pass an ABSOLUTE, package-relative scan_app.py path
- * to `modal run`, so `tripwire scan` works from any cwd (hooks/skills never run
+ * to `modal run`, so `agentvetter scan` works from any cwd (hooks/skills never run
  * at the repo root). Mocked spawnImpl, no live Modal.
  */
 import { test } from 'node:test';

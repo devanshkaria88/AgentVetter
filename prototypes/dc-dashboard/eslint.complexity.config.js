@@ -1,7 +1,7 @@
 export default [
   {
     files: ['*.js'],
-    ignores: ['test/**', 'tripwire-dashboard.config.js'],
+    ignores: ['test/**', 'agentvetter-dashboard.config.js'],
     languageOptions: {
       ecmaVersion: 'latest',
       sourceType: 'module',

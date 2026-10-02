@@ -8,8 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Docs
-- README hero image: `Tripwire-Banner.png` → `AgentVetter-Banner.png`; GitHub
-  badge/clone links use the renamed repo `neomatrix369/AgentVetter`.
+- README hero image: `AgentVetter-Banner.png`; GitHub badge/clone links use
+  `neomatrix369/AgentVetter`.
 - Screenshot gallery regenerated 2026-09-21 (post-rebase onto `main`): Mock
   Dashboard + new Workflow Run/Triage/Verify shots, quality floors, R/Q badges;
   live CLI scan refresh; capture script covers `05-workflow/`
@@ -33,21 +33,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Triage SCA rows: show lockfile path in the title (`pkg@ver · CVE · path`) and
   collapse exact duplicate inserts (`×N`) so monorepo package findings are
   distinguishable — vibe-kanban braces/adm-zip no longer look identical.
-  `tripwire-triage.js` + Triage row meta line.
+  `agentvetter-triage.js` + Triage row meta line.
 - Package / SCA honesty for unsupported ecosystems (Cargo-only and similar):
 
-  `snyk test` does not support Rust/Cargo — Tripwire reports `not_applicable`
+  `snyk test` does not support Rust/Cargo — AgentVetter reports `not_applicable`
   with an explicit ecosystem detail instead of a false clean. When every
   applicable scanner is `not_applicable` / skipped (zero completed engines),
-  `tripwire_rollup_item` stays grey and the Live dashboard paints
+  `agentvetter_rollup_item` stays grey and the Live dashboard paints
   **NO COVERAGE** (not UNSCANNED — a scan ran; no engine scored). Never GREEN /
   `R 0.00`. Partial-failed with zero completed engines remains ERROR.
-  Dashboard: `tripwire-status.js` / `tripwire-live.js`; rollup: `db/schema.sql`;
+  Dashboard: `agentvetter-status.js` / `agentvetter-live.js`; rollup: `db/schema.sql`;
   Snyk preflight: `sandbox/scanners.py`. VERIFIED on Live Packages (pizauth / snare).
 
 ### Added
 - Dashboard Workflow chrome polish (slice 76, Wave R) — IMPLEMENTED / VERIFIED
-  (unit) on `main` ([#165](https://github.com/neomatrix369/tripwire/pull/165)).
+  (unit) on `main` ([#165](https://github.com/neomatrix369/AgentVetter/pull/165)).
   Denser Triage filter toolbars with Type/Quality/Target/Status group labels,
   shared `tw-panel-*` typography tokens across Run→Report, and plain-language
   Triage override buttons (“To fix” / “Needs review” / “Dismiss”). Filter
@@ -55,14 +55,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `docs/plan/slices/18-R-approved-repo-workflow/slice-76-workflow-chrome-polish.md`.
 - Dashboard Workflow operator-visible pipeline narration (slice 75 / R-UX-1,
   Wave R) — IMPLEMENTED / VERIFIED (unit) on `main`
-  ([#163](https://github.com/neomatrix369/tripwire/pull/163)). Workflow UI
+  ([#163](https://github.com/neomatrix369/AgentVetter/pull/163)). Workflow UI
   narrates judge-panel honesty (no fabricated pending slots; panel-off / absent
   copy), prefers CLI coverage ledger, builds Run process line + “Review findings”
   CTA, Investigate final-judge / evidence honesty, keeps Fix free of false
   `gen-27b` hints, and completes the L→R soft-amend: parent type·name on
   findings, keyboard multi-select with `k of N` progress, and role-labelled /
-  parent-attributed model lines. Modules: `tripwire-workflow-pipeline.js`,
-  `tripwire-workflow-models.js` (+ Workflow HTML wiring); GWT-75.1–75.11 tests.
+  parent-attributed model lines. Modules: `agentvetter-workflow-pipeline.js`,
+  `agentvetter-workflow-models.js` (+ Workflow HTML wiring); GWT-75.1–75.11 tests.
 - Dashboard Triage: type + quality + per-target filters (slice 73, Wave R) —
   IMPLEMENTED / VERIFIED (unit) on `main`. Same inventory-style type buttons
   (All / Skills / MCP / Packages), quality tabs (including All quality), and
@@ -77,7 +77,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   heuristic). Run / Triage / Investigate / Fix panels show actual models from
   judge slots, router envelope, or fix provenance when an LLM ran, with
   type·name parent prefix when a finding is in context
-  (`tripwire-workflow-models.js`; GWT-74.1–74.5).
+  (`agentvetter-workflow-models.js`; GWT-74.1–74.5).
 - Dashboard Verify step: worktree rescan honesty (slice 70, Wave R) —
   IMPLEMENTED / VERIFIED on `main` (#155). Re-applies the proposed patch on a
   temp copy only, re-runs applicable scanners via port, and reports
@@ -85,34 +85,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   scanner actions). Missing/failed/timeout scanners never map to finding gone;
   generation alone never claims fixed. Approved repo stays unchanged.
 - Dashboard Fix step: proposed minimal patch + apply-clean on a temp copy
-  (slice 69, Wave R): `tripwire-fix-propose.js`, `tripwire-apply-clean.js`,
-  `tripwire-fix-controls.js` — landed `main` (#154). Operator can copy the
+  (slice 69, Wave R): `agentvetter-fix-propose.js`, `agentvetter-apply-clean.js`,
+  `agentvetter-fix-controls.js` — landed `main` (#154). Operator can copy the
   diff / `git apply` command, mark fixed or won't-fix (reason required), and
   move with J/K. Proposed patches never auto-modify the approved repo and
   never claim the finding is verified/fixed from generation alone. GWT-69.*
-  tests in `prototypes/dc-dashboard/test/tripwire-fix*.test.js`.
+  tests in `prototypes/dc-dashboard/test/agentvetter-fix*.test.js`.
 - Dashboard Expert view + Report export (slice 71, Wave R): Expert toggle shows
   raw judge answers, model IDs, confidence, weakness/AI-sec IDs, scanner details,
   and data-flow; Report step summarises fixed / left / won't fix with primary
   JSON export (+ Markdown) including coverage ledger; secrets masked unless
-  explicitly revealed. Modules: `tripwire-report.js`, `tripwire-report-export.js`;
+  explicitly revealed. Modules: `agentvetter-report.js`, `agentvetter-report-export.js`;
   GWT-71.* tests — landed `main` (#153).
 - Dashboard workflow stepper Run→Triage→Investigate (slice 68, Wave R):
-  prototype modules under `prototypes/dc-dashboard/` (`tripwire-workflow-*`,
+  prototype modules under `prototypes/dc-dashboard/` (`agentvetter-workflow-*`,
   run-progress, triage, investigate) with GWT-68.* tests — landed `main` (#152).
-- SIE judge panel CLI + module (slice 67, Wave R): `tripwire judge
+- SIE judge panel CLI + module (slice 67, Wave R): `agentvetter judge
   --batch-id <id>` → `runJudgePanel` (`cli/src/judgePanel.js`); mocked unit tests
   in `cli/test/judgePanel.test.js`. Model inventory documented (`gen-4b` /
   `gen-27b`; fewer than 3 models → parallel same-model runs). Optional soft-fail
-  post-route hook only when `TRIPWIRE_JUDGE_PANEL=1` (default off; ADR-0016 route
+  post-route hook only when `AGENTVETTER_JUDGE_PANEL=1` (default off; ADR-0016 route
   unchanged).
 - Evidence verify + injection guard (slice 66, Wave R): host-side check that
   quoted finding text exists at path:line (`evidence_verified` vs fail-closed
   `unverified`); deterministic hidden/encoded instruction detection; scanned
   content wrapped as untrusted data for judge/prompt channels; secrets masked
-  unless `tripwire scan --reveal-secrets`. CLI prints `[evidence]` on scan and
+  unless `agentvetter scan --reveal-secrets`. CLI prints `[evidence]` on scan and
   `--dry-discover` for skill/MCP targets (`cli/src/evidenceVerify.js`).
-- Language/ecosystem coverage ledger (slice 65, Wave R): `tripwire scan` and
+- Language/ecosystem coverage ledger (slice 65, Wave R): `agentvetter scan` and
   `--dry-discover` print `[coverage]` rows (ecosystem, volume, scanner, status,
   unsupported portions, reason). Marker-driven; reuses DepShield/Snyk/Ossprey/
   Cargo Audit — no invented scanners. Cargo-only honesty absorbed from #147;
@@ -125,7 +125,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   Snyk / DepShield / Ossprey. Slice **72** (Wave R Could) formalizes this as the
   Rust/Cargo gap scanner: production path **IMPLEMENTED** on `main`; Snyk SCA +
   DepShield Rust gaps remain explicit (not claimed fixed by this adapter).
-- GitHub repo discover + fan-out (slice 62, Wave P): `tripwire scan https://github.com/org/repo`
+- GitHub repo discover + fan-out (slice 62, Wave P): `agentvetter scan https://github.com/org/repo`
   (and `/tree|/blob/` browse URLs) shallow-clones on the host, walks skills (`SKILL.md`)
   and MCP roots (`server.py`/`server.js`/`run.sh`), emits N typed targets with
   `identifier=org/repo/<relpath>` and dashboard cards titled by **skill/MCP name**
@@ -137,7 +137,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   skill; Cisco Skill / Tessl / Cisco MCP do not apply. Repos with neither skill/MCP
   **nor** manifests still return `[]` (fail-closed). Schema check widens
   `items.type` to include `package`. Dashboard type filter adds Packages.
-- CLI scanner inventory after scan (slice 63, Wave P): `tripwire scan` prints
+- CLI scanner inventory after scan (slice 63, Wave P): `agentvetter scan` prints
   `[scanners]` per-source status + rollup (`fully successful` / `partly successful` /
   `fully failed` / `not run`) after dispatch and on zero-artifact explicit targets
   (registry listed as `not_run`). Package expected sources = Snyk / DepShield /
@@ -150,11 +150,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `/tw-verify` Quality column + blocked footer (slice 28): Scan Status table is
   **Name | Type | Status | Quality | Note**; Quality shows Tessl
   `items.quality_score` as **`N/100`** (else `—`); shared
-  **Will be blocked when Tripwire is enabled** appears once under the table;
+  **Will be blocked when AgentVetter is enabled** appears once under the table;
   **Sources** line attributes Quality to Tessl and security Status to
   Cisco AI Defense and Snyk. Shared helpers in `guard/verify.py`; contract SSOT
   [frontline-output-contract.md](docs/user-guide/frontline-output-contract.md).
-  Re-run `tripwire setup-agent-hooks` to refresh installed skills.
+  Re-run `agentvetter setup-agent-hooks` to refresh installed skills.
 - Docs: Wave **13-M** LLM usage / cost observability plan (slice 53) —
   [design/llm-usage-tracking.md](docs/design/llm-usage-tracking.md), slice stub,
   TRAIL/PROGRESS/STATUS DECIDED (not IMPLEMENTED). Historic collapsible Usage
@@ -196,7 +196,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   Live persist VERIFIED 2026-08-24: scan_run `a36cad9f` wrote Lint `failed`
   (no plugin manifest on the SKILL.md-only fixture) and Review `completed`
   (quality_score 64).
-- `tripwire status [--json] [--limit <n>]` — read-only monitoring report (slice 37):
+- `agentvetter status [--json] [--limit <n>]` — read-only monitoring report (slice 37):
   agent-hook install/enable state with the two-switch view (local `enable` AND Supabase
   `config.monitoring_enabled`, disagreement warned), items heatmap distribution, recent
   scan-run health with stranded-`running` detection (>30 min Modal-timeout strand;
@@ -206,21 +206,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Landing intro screen shown on first dashboard open (sessionStorage-persisted toggle);
   surfaces threat statistics, SEC/01–SEC/05 narrative sections (anatomy of breach,
   architecture flow, RAG status card grid, shipped `/tw-*` skills, roadmap), animated
-  ticker bar, and `$ tripwire setup-agent-hooks` install CTA. "About" nav button toggles
+  ticker bar, and `$ agentvetter setup-agent-hooks` install CTA. "About" nav button toggles
   the intro at any time.
 - Dashboard visual restyle (slice 41, superseded by v2 above): JetBrains Mono, cyan
   `#00D9FF` accent, darker panel palette, body grid overlay, and HUD corner brackets.
-- `tripwire scan --type <skill|mcp>` — restricts machine-wide discovery to a single artifact
+- `agentvetter scan --type <skill|mcp>` — restricts machine-wide discovery to a single artifact
   category without changing any other scan behaviour; composes with `--dry-discover`,
   `--force`, `--concurrency`, and explicit path arguments
 
 ### Changed
+- **Breaking — rebrand to AgentVetter** (ADR-0018): packages `agentvetter` /
+  `agentvetter-cli`; primary CLI `agentvetter` with deprecated `tripwire` shim;
+  skills `av-*` (permanent `tw-*` aliases); config home `~/.agentvetter` with
+  read-fallback to `~/.tripwire`; env prefer `AGENTVETTER_*`. See
+  [docs/MIGRATION-AGENTVETTER.md](docs/MIGRATION-AGENTVETTER.md).
 - Dashboard primary navigation: inventory (KPIs / filters / cards) is the default
   **Dashboard** tab; Run → Triage → Investigate → Fix → Verify → Report lives on a
-  secondary **Workflow** tab (`prototypes/dc-dashboard/Tripwire.dc.html`). Simple/Expert
+  secondary **Workflow** tab (`prototypes/dc-dashboard/AgentVetter.dc.html`). Simple/Expert
   remains a Workflow-only density toggle (finding detail), not a gate that hides
   inventory. IMPLEMENTED on `main`
-  ([#160](https://github.com/neomatrix369/tripwire/pull/160)).
+  ([#160](https://github.com/neomatrix369/AgentVetter/pull/160)).
 - CI ultra-minimal (parity with quine-factory, **USER-CONFIRMED** 2026-09-11):
   PR/push keep ship-path coverage + OSV + targeted Trivy/gitleaks/TruffleHog;
   Semgrep, CodeQL, Meterian, dashboard prototype tests, and full-history scans
@@ -236,7 +241,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   advisory mutmut, non-gating). Supersedes the short-lived “all Nightly jobs
   twice monthly” monolith. CI’s Mon 03:00 cron remains a separate T3 re-run.
 - Docs: socialise hosted dashboard
-  ([neomatrix369.github.io/demos/tripwire-dashboard/](https://neomatrix369.github.io/demos/tripwire-dashboard/))
+  ([neomatrix369.github.io/demos/agentvetter-dashboard/](https://neomatrix369.github.io/demos/agentvetter-dashboard/))
   and demo walkthrough video
   ([YouTube](https://youtu.be/omGOw9ruN3Y)) across README, QUICKSTART, docs hub,
   architecture, prototypes, screenshots, setup commands, and prerequisites.
@@ -249,7 +254,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   CONTRIBUTING, setup-commands.
 - Dashboard detail drawer **Findings** section is collapsible: clickable heading with
   a rotating ▸ chevron (expanded by default on item select). Same expand pattern as
-  Scanner outputs rows — `prototypes/dc-dashboard/Tripwire.dc.html` (IMPLEMENTED).
+  Scanner outputs rows — `prototypes/dc-dashboard/AgentVetter.dc.html` (IMPLEMENTED).
 - Public docs UX + compaction (slice 44): README/QUICKSTART lead with plain language,
   demo-first (Recommended) then Live (Advanced); badges behind disclosure; path map
   absorbed into QUICKSTART. Merged `sie-setup` + `model-studio-setup` into
@@ -267,7 +272,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `#7A5C2E`, `--text-muted` `#6B645A`, and peers). Modal console and finding snippets
   on `--bg-deep` use readable ink/secondary text (not HUD terminal neon). Partial-scan /
   disagreement callouts and Guard result banners use `--violet-ink` / status ink (not
-  dark-theme pastels like `#d4bcff`). Tripwire HUD brackets, grid overlay,
+  dark-theme pastels like `#d4bcff`). AgentVetter HUD brackets, grid overlay,
   and RAG fill colours retained. Supersedes slice 41 dark-cyan fill.
 - Dashboard operator chrome (slice 42 A9–A13): skill cards show Tessl `Q N` / `Q —` /
   `Q ?` with hover explaining 0–100 skill-review quality; risk uses compact `R N.NN`
@@ -281,7 +286,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `item.quality` (threshold 80); tab labels include skill counts; empty-state
   copy names the active tab; **Clear filters** resets quality tab to default.
   MCP servers are excluded from quality buckets (no score) but remain visible
-  on all quality tabs. Helpers in `tripwire-status.js`; wired in `Tripwire.dc.html`.
+  on all quality tabs. Helpers in `agentvetter-status.js`; wired in `AgentVetter.dc.html`.
 
 ### Fixed (schema, naming, Tessl progress, live fleet)
 - Schema bootstrap for existing DBs (slice 64 follow-up): `ensureSchema` probes live
@@ -296,13 +301,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   all five Tessl rows at group start; Lint and Review (Quality) now persist
   `running`→terminal via `on_scanner_progress` so only the active step shows
   Running. Dashboard adds status pills for `blocked`, `stale`, `interrupted`, and
-  `timed_out` (`tripwire-status.js`).
+  `timed_out` (`agentvetter-status.js`).
 - Live dashboard latest-state accuracy (partial slice 21): `db/schema.sql` adds
-  `dashboard_latest_runs` view (`DISTINCT ON (item_id)`); `tripwire-live.js` queries
+  `dashboard_latest_runs` view (`DISTINCT ON (item_id)`); `agentvetter-live.js` queries
   it instead of a global `scan_runs?limit=2000` page and batches
   `scan_run_scanners` / `findings` fetches (~40 run IDs per request) to stay under
   PostgREST **Max rows**. Historic `scan_runs` rows are retained. Operator:
-  `tripwire setup --force` after upgrade; optional Max rows raise —
+  `agentvetter setup --force` after upgrade; optional Max rows raise —
   [supabase-setup § Data API max rows](docs/user-guide/supabase-setup.md#6-data-api-max-rows-live-dashboard-fleet-size).
 - Live dashboard **Scanner outputs** drawer pills sort **A–Z by scanner source**
   (Live + Mock); order no longer follows DB insert sequence.
@@ -328,7 +333,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.4.0] - 2026-08-14
 
 ### Added
-- Tiered post-scan router: `tripwire route` and auto-route after `tripwire scan`
+- Tiered post-scan router: `agentvetter route` and auto-route after `agentvetter scan`
   (SIE triage + optional Model Studio escalation; `scanner_source=tiered_router`)
 - Model Studio and SIE sample CLIs under `prototypes/model-studio/` and
   `prototypes/sie-studio/`
@@ -400,8 +405,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `CLAUDE.md` — added `## PR Composition` section so agent skills include the project Checklist in generated PR bodies
 
 ### Fixed
-- `prototypes/dc-dashboard/tripwire-status.js` `normalizeSeverity` — refactored from CC 14 to CC 6 using Set-based dispatch (`SEVERITY_RED/AMBER/GREEN`); `resolveItemStatus` reduced from CC 13 to CC 8 by extracting `resolveCompletedStatus` and `resolveNoRunStatus` and removing unnecessary destructuring defaults that inflated the ESLint complexity count
-- `prototypes/dc-dashboard/tripwire-live.js` — extracted 7 named helper functions (`worstScannerSeverity`, `buildCompletedScannerSummary`, `buildScannerOutput`, `shapeScannerRow`, `resolveLastScanTime`, `getRunContext`, `shapeItem`) from the 120-line `items.map` closure; all 52 tests preserved, coverage above floors
+- `prototypes/dc-dashboard/agentvetter-status.js` `normalizeSeverity` — refactored from CC 14 to CC 6 using Set-based dispatch (`SEVERITY_RED/AMBER/GREEN`); `resolveItemStatus` reduced from CC 13 to CC 8 by extracting `resolveCompletedStatus` and `resolveNoRunStatus` and removing unnecessary destructuring defaults that inflated the ESLint complexity count
+- `prototypes/dc-dashboard/agentvetter-live.js` — extracted 7 named helper functions (`worstScannerSeverity`, `buildCompletedScannerSummary`, `buildScannerOutput`, `shapeScannerRow`, `resolveLastScanTime`, `getRunContext`, `shapeItem`) from the 120-line `items.map` closure; all 52 tests preserved, coverage above floors
 - `cli/src/discovery.js` `discoverTargets` — refactored from CC 18 to CC 8 by extracting `resolveTarget` and `annotateWithTypes`; all 15 existing tests preserved
 - `cli/src/ensureSchema.js` `applySchema` — refactored from CC 13 to CC 6 by extracting `pgSslConfig` and `pgConnectHint`; added `{ cause: err }` to preserve caught error in the chain
 - `cli/src/orchestrator.js` — removed useless `contentHash = null` initialisation (always overwritten before use)
@@ -411,7 +416,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.2.0] - 2026-08-04
 
 ### Added
-- Walking skeleton: CLI (`tripwire scan`/`tripwire setup`), schema bootstrap, Modal sandbox, fixtures, guard module, and dashboard in a single deployable slice
+- Walking skeleton: CLI (`agentvetter scan`/`agentvetter setup`), schema bootstrap, Modal sandbox, fixtures, guard module, and dashboard in a single deployable slice
 - Live/demo data mode — dashboard serve/sync with Supabase live data support
 - `_acquire_target` dispatch for clone, copy, and introspect target modes
 - Dashboard redesign with Deep Ops aesthetic and live Supabase data support
@@ -446,4 +451,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Tech badges extended to docs index, quickstart, and CI workflows
 - Screenshot gallery with real CLI and dashboard captures
 
-[0.2.0]: https://github.com/neomatrix369/tripwire/releases/tag/v0.2.0
+[0.2.0]: https://github.com/neomatrix369/AgentVetter/releases/tag/v0.2.0

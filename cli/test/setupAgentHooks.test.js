@@ -32,7 +32,7 @@ const MIXED_STDOUT = [
 /** Temp fixture: repo/ (env, agent-hooks sources), home/, project/ (cwd). */
 async function withFixture(options, fn) {
   const { envContent, skills, settings, mcpJson, claudeJson } = {
-    envContent: VALID_ENV, skills: ['tw-verify', 'tw-scan'], settings: null, mcpJson: null, claudeJson: null,
+    envContent: VALID_ENV, skills: ['av-verify', 'av-scan'], settings: null, mcpJson: null, claudeJson: null,
     ...options,
   };
   const base = await mkdtemp(path.join(tmpdir(), 'tw-setup-'));
@@ -128,7 +128,7 @@ async function run(fx, overrides = {}) {
 test('preflight rejects Node < 18 with remediation', async () => {
   await withFixture({}, async (fx) => {
     await assert.rejects(runSetupAgentHooks(baseOpts(fx, { nodeVersion: '16.20.2' })), /Node >= 18/);
-    assert.equal(existsSync(path.join(fx.home, '.tripwire')), false, 'must fail before writing anything');
+    assert.equal(existsSync(path.join(fx.home, '.agentvetter')), false, 'must fail before writing anything');
   });
 });
 
@@ -148,7 +148,7 @@ test('preflight rejects an EMPTY value (copied .env.example) — key presence is
   const envContent = 'SUPABASE_URL=\nSUPABASE_SERVICE_ROLE_KEY=real-looking-key\n';
   await withFixture({ envContent }, async (fx) => {
     await assert.rejects(runSetupAgentHooks(baseOpts(fx)), /no value for SUPABASE_URL/);
-    assert.equal(existsSync(path.join(fx.home, '.tripwire')), false, 'must hard-fail before arming anything');
+    assert.equal(existsSync(path.join(fx.home, '.agentvetter')), false, 'must hard-fail before arming anything');
   });
 });
 
@@ -197,7 +197,7 @@ test('preflight rejects when modal is not on PATH', async () => {
 test('creates config.json with enable=true, 14-day validity, absolute paths', async () => {
   await withFixture({}, async (fx) => {
     const { result } = await run(fx);
-    const configPath = path.join(fx.home, '.tripwire', 'config.json');
+    const configPath = path.join(fx.home, '.agentvetter', 'config.json');
     assert.equal(result.config_path, configPath);
     const config = JSON.parse(readFileSync(configPath, 'utf8'));
     assert.deepEqual(config, {
@@ -205,7 +205,7 @@ test('creates config.json with enable=true, 14-day validity, absolute paths', as
       enable: true,
       scan_validity_days: 14,
       repo_root: fx.repo,
-      cli_bin: path.join(fx.repo, 'cli', 'bin', 'tripwire.js'),
+      cli_bin: path.join(fx.repo, 'cli', 'bin', 'agentvetter.js'),
       env_file: path.join(fx.repo, '.env'),
       uv_bin: '/opt/fake/uv',
     });
@@ -218,7 +218,7 @@ test('creates config.json with enable=true, 14-day validity, absolute paths', as
 test('re-run never overwrites an existing config (enable=false preserved)', async () => {
   await withFixture({}, async (fx) => {
     await run(fx);
-    const configPath = path.join(fx.home, '.tripwire', 'config.json');
+    const configPath = path.join(fx.home, '.agentvetter', 'config.json');
     const edited = JSON.stringify({
       schema_version: 1, enable: false, scan_validity_days: 30,
       repo_root: fx.repo, cli_bin: 'x', env_file: 'y', uv_bin: 'z',
@@ -237,7 +237,7 @@ test('installs handler scripts chmod 700 and pre-warms guard env via uv sync', a
     const execFn = makeExecFn();
     await run(fx, { execFn });
     for (const name of ['pre-tool-use.sh', '_guard_entry.py']) {
-      const dest = path.join(fx.home, '.tripwire', 'hooks', name);
+      const dest = path.join(fx.home, '.agentvetter', 'hooks', name);
       assert.ok(existsSync(dest), `${name} installed`);
       assert.equal(statSync(dest).mode & 0o777, 0o700, `${name} must be chmod 700`);
       assert.equal(
@@ -280,13 +280,13 @@ test('merges hook into existing settings.json, preserving unrelated keys, with b
       matcher: HOOK_MATCHER,
       hooks: [{
         type: 'command',
-        command: path.join(fx.home, '.tripwire', 'hooks', 'pre-tool-use.sh'),
+        command: path.join(fx.home, '.agentvetter', 'hooks', 'pre-tool-use.sh'),
         timeout: 10,
       }],
     });
     assert.equal(HOOK_MATCHER, '^(Skill|Bash|mcp__.*)$');
     const backups = (await readdir(path.join(fx.home, '.claude')))
-      .filter(name => name.startsWith('settings.json.tripwire-bak-'));
+      .filter(name => name.startsWith('settings.json.agentvetter-bak-'));
     assert.equal(backups.length, 1, 'exactly one timestamped backup');
     assert.equal(
       await readFile(path.join(fx.home, '.claude', backups[0]), 'utf8'),
@@ -303,7 +303,7 @@ test('settings merge is idempotent — re-run adds no duplicate entry and no new
     const merged = JSON.parse(readFileSync(path.join(fx.home, '.claude', 'settings.json'), 'utf8'));
     assert.equal(merged.hooks.PreToolUse.length, 1, 'no duplicate PreToolUse entry on re-run');
     const backups = (await readdir(path.join(fx.home, '.claude')))
-      .filter(name => name.startsWith('settings.json.tripwire-bak-'));
+      .filter(name => name.startsWith('settings.json.agentvetter-bak-'));
     assert.equal(backups.length, 1, 'second run modifies nothing, so no second backup');
   });
 });
@@ -313,7 +313,7 @@ test('hand-installed `~/…` hook registration is detected — no duplicate entr
     hooks: {
       PreToolUse: [{
         matcher: HOOK_MATCHER,
-        hooks: [{ type: 'command', command: '~/.tripwire/hooks/pre-tool-use.sh', timeout: 10 }],
+        hooks: [{ type: 'command', command: '~/.agentvetter/hooks/pre-tool-use.sh', timeout: 10 }],
       }],
     },
   }, null, 2);
@@ -321,9 +321,9 @@ test('hand-installed `~/…` hook registration is detected — no duplicate entr
     await run(fx);
     const merged = JSON.parse(readFileSync(path.join(fx.home, '.claude', 'settings.json'), 'utf8'));
     assert.equal(merged.hooks.PreToolUse.length, 1, 'tilde form recognized as ours — no second entry');
-    assert.equal(merged.hooks.PreToolUse[0].hooks[0].command, '~/.tripwire/hooks/pre-tool-use.sh');
+    assert.equal(merged.hooks.PreToolUse[0].hooks[0].command, '~/.agentvetter/hooks/pre-tool-use.sh');
     const backups = (await readdir(path.join(fx.home, '.claude')))
-      .filter(name => name.startsWith('settings.json.tripwire-bak-'));
+      .filter(name => name.startsWith('settings.json.agentvetter-bak-'));
     assert.equal(backups.length, 0, 'nothing modified, so no backup');
   });
 });
@@ -333,7 +333,7 @@ test('stale matcher is refreshed on re-run without duplicating the PreToolUse en
     hooks: {
       PreToolUse: [{
         matcher: '^(Skill|mcp__.*)$',
-        hooks: [{ type: 'command', command: '~/.tripwire/hooks/pre-tool-use.sh', timeout: 10 }],
+        hooks: [{ type: 'command', command: '~/.agentvetter/hooks/pre-tool-use.sh', timeout: 10 }],
       }],
     },
   }, null, 2);
@@ -342,9 +342,9 @@ test('stale matcher is refreshed on re-run without duplicating the PreToolUse en
     const merged = JSON.parse(readFileSync(path.join(fx.home, '.claude', 'settings.json'), 'utf8'));
     assert.equal(merged.hooks.PreToolUse.length, 1, 'no duplicate entry');
     assert.equal(merged.hooks.PreToolUse[0].matcher, HOOK_MATCHER);
-    assert.equal(merged.hooks.PreToolUse[0].hooks[0].command, '~/.tripwire/hooks/pre-tool-use.sh');
+    assert.equal(merged.hooks.PreToolUse[0].hooks[0].command, '~/.agentvetter/hooks/pre-tool-use.sh');
     const backups = (await readdir(path.join(fx.home, '.claude')))
-      .filter(name => name.startsWith('settings.json.tripwire-bak-'));
+      .filter(name => name.startsWith('settings.json.agentvetter-bak-'));
     assert.equal(backups.length, 1, 'matcher refresh backs up first');
   });
 });
@@ -367,7 +367,7 @@ test('missing settings.json is treated as {} and created without a backup', asyn
     const merged = JSON.parse(readFileSync(path.join(fx.home, '.claude', 'settings.json'), 'utf8'));
     assert.equal(merged.hooks.PreToolUse.length, 1);
     const backups = (await readdir(path.join(fx.home, '.claude')))
-      .filter(name => name.startsWith('settings.json.tripwire-bak-'));
+      .filter(name => name.startsWith('settings.json.agentvetter-bak-'));
     assert.equal(backups.length, 0);
   });
 });
@@ -384,7 +384,7 @@ test('corrupt settings.json refuses to merge instead of clobbering', async () =>
 test('settings merge happens AFTER the bootstrap sweep; config.json still precedes it', async () => {
   await withFixture({}, async (fx) => {
     const settingsPath = path.join(fx.home, '.claude', 'settings.json');
-    const configPath = path.join(fx.home, '.tripwire', 'config.json');
+    const configPath = path.join(fx.home, '.agentvetter', 'config.json');
     let seenAtSweep = null;
     const scanFn = async () => {
       seenAtSweep = { settings: existsSync(settingsPath), config: existsSync(configPath) };
@@ -420,15 +420,15 @@ test('skills-source failure aborts BEFORE the hook is registered', async () => {
 
 // ---------- skills ----------
 
-test('copies tw-* skills into ~/.claude/skills with overwrite-sync', async () => {
+test('copies av-* skills into ~/.claude/skills with overwrite-sync', async () => {
   await withFixture({}, async (fx) => {
-    const staleDir = path.join(fx.home, '.claude', 'skills', 'tw-verify');
+    const staleDir = path.join(fx.home, '.claude', 'skills', 'av-verify');
     await mkdir(staleDir, { recursive: true });
     await writeFile(path.join(staleDir, 'stale.txt'), 'leftover');
     await run(fx);
     assert.equal(existsSync(path.join(staleDir, 'stale.txt')), false, 'stale files removed (sync, not additive copy)');
-    assert.ok(readFileSync(path.join(staleDir, 'SKILL.md'), 'utf8').includes('tw-verify'));
-    assert.ok(existsSync(path.join(fx.home, '.claude', 'skills', 'tw-scan', 'SKILL.md')));
+    assert.ok(readFileSync(path.join(staleDir, 'SKILL.md'), 'utf8').includes('av-verify'));
+    assert.ok(existsSync(path.join(fx.home, '.claude', 'skills', 'av-scan', 'SKILL.md')));
   });
 });
 
@@ -449,11 +449,11 @@ test('sweep passes MCP MANIFEST FILES — never bare server keys (blocker regres
 
     assert.equal(scanFn.calls.length, 1);
     const call = scanFn.calls[0];
-    assert.equal(call.cliBin, path.join(fx.repo, 'cli', 'bin', 'tripwire.js'));
+    assert.equal(call.cliBin, path.join(fx.repo, 'cli', 'bin', 'agentvetter.js'));
     assert.equal(call.repoRoot, fx.repo);
 
     // Skill dirs are swept as realpaths.
-    for (const skill of ['tw-scan', 'tw-verify']) {
+    for (const skill of ['av-scan', 'av-verify']) {
       const dir = realpathSync(path.join(fx.home, '.claude', 'skills', skill));
       assert.ok(call.targets.includes(dir), `sweep targets must include ${dir}`);
     }
@@ -461,7 +461,7 @@ test('sweep passes MCP MANIFEST FILES — never bare server keys (blocker regres
     // MCP servers are swept as MANIFEST FILE paths so discovery emits
     // manifestEntry targets with pending:<key> hashes.
     assert.ok(call.targets.includes(path.join(fx.cwd, '.mcp.json')), 'project .mcp.json swept as a FILE');
-    const generated = path.join(fx.home, '.tripwire', 'claude-json-mcp-manifest.json');
+    const generated = path.join(fx.home, '.agentvetter', 'claude-json-mcp-manifest.json');
     assert.ok(call.targets.includes(generated), '~/.claude.json keys swept via a generated manifest FILE');
     const manifest = JSON.parse(readFileSync(generated, 'utf8'));
     assert.deepEqual(Object.keys(manifest.mcpServers).sort(), ['beta', 'gamma'],
@@ -484,7 +484,7 @@ test('sweep passes MCP MANIFEST FILES — never bare server keys (blocker regres
     const machine = JSON.parse(stdoutLines[0]);
     assert.equal(machine.status, 'installed');
     assert.equal(machine.hooks_registered, true);
-    assert.equal(machine.config_path, path.join(fx.home, '.tripwire', 'config.json'));
+    assert.equal(machine.config_path, path.join(fx.home, '.agentvetter', 'config.json'));
     assert.deepEqual(machine.scans, result.scans);
   });
 });
@@ -497,7 +497,7 @@ test('malformed or key-less MCP configs contribute no sweep targets', async () =
     assert.equal(targets.length, 2, 'only the two tw-* skill dirs are swept');
     assert.ok(targets.every(t => t.includes('skills')), 'no manifest paths for unusable configs');
     assert.equal(
-      existsSync(path.join(fx.home, '.tripwire', 'claude-json-mcp-manifest.json')),
+      existsSync(path.join(fx.home, '.agentvetter', 'claude-json-mcp-manifest.json')),
       false,
       'no generated manifest when ~/.claude.json has no server keys'
     );
@@ -517,7 +517,7 @@ test('--with-demo sweeps demo SKILL dirs + the demo MCP manifest FILE, never *-t
     await mkdir(strayVulnTool, { recursive: true });
     await writeFile(path.join(strayVulnTool, 'server.py'), 'print("demo")\n');
     // What the installer actually produces for MCP demos: a manifest file.
-    const demoManifest = path.join(fx.home, '.tripwire', 'demo-mcp.json');
+    const demoManifest = path.join(fx.home, '.agentvetter', 'demo-mcp.json');
     await mkdir(path.dirname(demoManifest), { recursive: true });
     await writeFile(demoManifest, JSON.stringify({
       mcpServers: { 'safe-tool': {}, 'vuln-tool': {}, 'amber-tool': {} },
@@ -544,7 +544,7 @@ test('--with-demo sweeps demo SKILL dirs + the demo MCP manifest FILE, never *-t
 
 test('demo MCP manifest is swept only with --with-demo', async () => {
   await withFixture({}, async (fx) => {
-    const demoManifest = path.join(fx.home, '.tripwire', 'demo-mcp.json');
+    const demoManifest = path.join(fx.home, '.agentvetter', 'demo-mcp.json');
     await mkdir(path.dirname(demoManifest), { recursive: true });
     await writeFile(demoManifest, JSON.stringify({ mcpServers: { 'safe-tool': {} } }));
     const scanFn = makeScanFn();

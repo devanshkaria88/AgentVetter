@@ -2,12 +2,14 @@ import * as defaultFs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { getSupabase } from './supabaseClient.js';
+import { isAgentVetterHookCommand, resolveConfigHome } from './configHome.js';
 
 /**
- * `tripwire status` (slice 37 — CLI monitoring, read-only). Reports:
- *   a. Hooks   — ~/.tripwire/config.json + ~/.claude/settings.json registration
- *                + the Supabase `config` platform switch (two-switch rule: effective
- *                enforcement = local `enable` AND `monitoring_enabled`).
+ * `agentvetter status` (slice 37 — CLI monitoring, read-only). Reports:
+ *   a. Hooks   — ~/.agentvetter/config.json (+ ~/.tripwire fallback) + Claude
+ *                settings registration + the Supabase `config` platform switch
+ *                (two-switch rule: effective enforcement = local `enable` AND
+ *                `monitoring_enabled`).
  *   b. Items   — heatmap_status distribution.
  *   c. Runs    — last N scan_runs, status counts, stranded `running` rows
  *                (older than 30 min — the known Modal-timeout strand).
@@ -25,15 +27,13 @@ const STRANDED_AFTER_MS = 30 * 60 * 1000;
 const STRANDED_REMEDY = 'node scripts/reconcile-stuck-scan-runs.mjs';
 const RECENT_LINES_SHOWN = 5;
 const HEATMAP_STATUSES = ['red', 'amber', 'green', 'grey', 'error'];
-// Same registration-detection suffix as setupAgentHooks.js (absolute or `~/…` form).
-const HOOK_COMMAND_SUFFIX = '/.tripwire/hooks/pre-tool-use.sh';
 
 /** Validate --limit: integer 1..MAX_LIMIT (GWT 3 — throw with actionable text). */
 function parseLimit(raw) {
   const value = typeof raw === 'number' ? raw : Number(String(raw).trim());
   if (!Number.isInteger(value) || value < 1 || value > MAX_LIMIT) {
     throw new Error(
-      `--limit must be an integer between 1 and ${MAX_LIMIT} (got "${raw}"). Example: tripwire status --limit 50`
+      `--limit must be an integer between 1 and ${MAX_LIMIT} (got "${raw}"). Example: agentvetter status --limit 50`
     );
   }
   return value;
@@ -43,14 +43,7 @@ function isPlainObject(value) {
   return typeof value === 'object' && value !== null && !Array.isArray(value);
 }
 
-/** True when `command` registers our handler (absolute or `~/…` form). */
-function isTripwireHookCommand(command, homedir) {
-  if (typeof command !== 'string') return false;
-  const expanded = command.startsWith('~/') ? path.join(homedir, command.slice(2)) : command;
-  return expanded.endsWith(HOOK_COMMAND_SUFFIX);
-}
-
-/** Does ~/.claude/settings.json register the tripwire PreToolUse handler? */
+/** Does ~/.claude/settings.json register the agentvetter PreToolUse handler? */
 function readHookRegistration({ fs, settingsPath, homedir }) {
   try {
     const settings = JSON.parse(fs.readFileSync(settingsPath, 'utf8'));
@@ -58,15 +51,16 @@ function readHookRegistration({ fs, settingsPath, homedir }) {
       ? settings.hooks.PreToolUse : null;
     if (!Array.isArray(preToolUse)) return false;
     return preToolUse.some(entry =>
-      entry && Array.isArray(entry.hooks) && entry.hooks.some(h => h && isTripwireHookCommand(h.command, homedir)));
+      entry && Array.isArray(entry.hooks) && entry.hooks.some(h => h && isAgentVetterHookCommand(h.command, homedir)));
   } catch {
     return false; // absent or unparseable — either way, not verifiably registered
   }
 }
 
-/** Local hooks state from ~/.tripwire/config.json: installed | disabled/enabled | corrupt. */
+/** Local hooks state from config home: installed | disabled/enabled | corrupt. */
 function readLocalHooks({ fs, homedir }) {
-  const configPath = path.join(homedir, '.tripwire', 'config.json');
+  const configHome = resolveConfigHome(homedir, { fs });
+  const configPath = path.join(configHome, 'config.json');
   const settingsPath = path.join(homedir, '.claude', 'settings.json');
   const base = {
     config_path: configPath,
@@ -239,17 +233,17 @@ function twoSwitchDisagreement(localHooks, config) {
 function hooksReportLines(hooks) {
   const lines = ['Hooks'];
   if (!hooks.installed) {
-    lines.push(`  Config:     not installed (${hooks.config_path} missing) — run tripwire setup-agent-hooks`);
+    lines.push(`  Config:     not installed (${hooks.config_path} missing) — run agentvetter setup-agent-hooks`);
   } else if (hooks.state === 'corrupt') {
-    lines.push(`  Config:     ${hooks.config_path} is unparseable — the hook treats this as tampering and DENIES; delete it and re-run tripwire setup-agent-hooks`);
+    lines.push(`  Config:     ${hooks.config_path} is unparseable — the hook treats this as tampering and DENIES; delete it and re-run agentvetter setup-agent-hooks`);
   } else {
     lines.push(`  Config:     ${hooks.config_path} — enable=${hooks.enable}, scan_validity_days=${hooks.scan_validity_days}, repo_root=${hooks.repo_root}`);
   }
   lines.push(hooks.hook_registered
     ? `  PreToolUse: registered in ${hooks.settings_path}`
-    : `  PreToolUse: not registered at user level (${hooks.settings_path}) — a project-scope .claude/settings.json may still register it; run tripwire setup-agent-hooks`);
+    : `  PreToolUse: not registered at user level (${hooks.settings_path}) — a project-scope .claude/settings.json may still register it; run agentvetter setup-agent-hooks`);
   if (!hooks.installed && hooks.hook_registered) {
-    lines.push('  WARNING: hook is registered but config.json is missing — the guard treats this as tampering and DENIES all matched tools until tripwire setup-agent-hooks is re-run.');
+    lines.push('  WARNING: hook is registered but config.json is missing — the guard treats this as tampering and DENIES all matched tools until agentvetter setup-agent-hooks is re-run.');
   }
   return lines;
 }
@@ -257,7 +251,7 @@ function hooksReportLines(hooks) {
 function configReportLines(config, localHooks) {
   const lines = [config
     ? `  Supabase:   monitoring_enabled=${config.monitoring_enabled}, threshold=${config.threshold}`
-    : '  Supabase:   config row missing — monitoring_enabled unknown (run tripwire setup)'];
+    : '  Supabase:   config row missing — monitoring_enabled unknown (run agentvetter setup)'];
   if (twoSwitchDisagreement(localHooks, config)) {
     lines.push(`  WARNING: two-switch disagreement — local enable=${localHooks.enable}, Supabase monitoring_enabled=${config.monitoring_enabled}; effective enforcement is their AND, so the guard is currently NOT blocking.`);
   }
@@ -266,7 +260,7 @@ function configReportLines(config, localHooks) {
 
 function itemsReportLines(items) {
   const summary = items.total === 0
-    ? '  no items recorded yet — run tripwire scan'
+    ? '  no items recorded yet — run agentvetter scan'
     : `  ${HEATMAP_STATUSES.map(s => `${s}=${items.counts[s]}`).join(' ')} (total ${items.total})`;
   return ['', 'Items (heatmap_status)', summary];
 }
@@ -274,7 +268,7 @@ function itemsReportLines(items) {
 function runsReportLines(runs) {
   const lines = ['', `Recent scan runs (last ${runs.limit} requested, ${runs.found} found)`];
   if (runs.found === 0) {
-    lines.push('  no scan runs recorded yet — run tripwire scan');
+    lines.push('  no scan runs recorded yet — run agentvetter scan');
   } else {
     lines.push(`  ${Object.entries(runs.counts).map(([status, n]) => `${status}=${n}`).join(' ')}`);
     for (const run of runs.recent) lines.push(`  ${run.started_at}  ${run.status}  ${run.item_name}`);
@@ -370,7 +364,7 @@ export async function runStatus(opts = {}) {
     return payload;
   }
 
-  const lines = ['[status] Tripwire monitoring (read-only)', '', ...hooksReportLines(localHooks)];
+  const lines = ['[status] AgentVetter monitoring (read-only)', '', ...hooksReportLines(localHooks)];
   lines.push(...(remote ? supabaseReportLines(remote, localHooks) : degradedReportLines(supabaseError)));
   for (const line of lines) log(line);
   return payload;

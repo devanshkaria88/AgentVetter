@@ -6,7 +6,7 @@ import path from 'node:path';
 import { discoverTargets, parseGitHubBrowseUrl } from '../src/discovery.js';
 
 async function makeArtifactFixture() {
-  const root = await mkdtemp(path.join(os.tmpdir(), 'tripwire-git-fixture-'));
+  const root = await mkdtemp(path.join(os.tmpdir(), 'agentvetter-git-fixture-'));
   await mkdir(path.join(root, 'skills', 'foo'), { recursive: true });
   await mkdir(path.join(root, 'mcp', 'bar'), { recursive: true });
   await writeFile(path.join(root, 'skills', 'foo', 'SKILL.md'), '# foo');
@@ -71,7 +71,7 @@ test('GWT-62.2: GitHub root URL fans out typed artifacts with repo identifiers',
 });
 
 test('GWT-62.6: GitHub repository without skill/MCP/package manifests returns no targets', async () => {
-  const emptyFixture = await mkdtemp(path.join(os.tmpdir(), 'tripwire-empty-git-fixture-'));
+  const emptyFixture = await mkdtemp(path.join(os.tmpdir(), 'agentvetter-empty-git-fixture-'));
 
   try {
     const targets = await discoverTargets({
@@ -87,7 +87,7 @@ test('GWT-62.6: GitHub repository without skill/MCP/package manifests returns no
 });
 
 test('GWT-64.1: package.json-only repo yields package target, not skill', async () => {
-  const fixture = await mkdtemp(path.join(os.tmpdir(), 'tripwire-pkg-only-'));
+  const fixture = await mkdtemp(path.join(os.tmpdir(), 'agentvetter-pkg-only-'));
   try {
     await writeFile(path.join(fixture, 'package.json'), '{"name":"vibe-kanban"}');
 
@@ -129,7 +129,7 @@ test('GWT-64.2: package target sits alongside skill/MCP fan-out', async () => {
 });
 
 test('GWT-64.6: package identifier uses @package when org/repo collides', async () => {
-  const fixture = await mkdtemp(path.join(os.tmpdir(), 'tripwire-pkg-collide-'));
+  const fixture = await mkdtemp(path.join(os.tmpdir(), 'agentvetter-pkg-collide-'));
   try {
     // Skill at clone root → identifier org/repo/ (empty rel) collides with org/repo
     await writeFile(path.join(fixture, 'SKILL.md'), '---\nname: root-skill\n---\n');
@@ -151,7 +151,7 @@ test('GWT-64.6: package identifier uses @package when org/repo collides', async 
 });
 
 test('GWT-64.4: Cargo.lock alone counts as package manifest', async () => {
-  const fixture = await mkdtemp(path.join(os.tmpdir(), 'tripwire-lock-only-'));
+  const fixture = await mkdtemp(path.join(os.tmpdir(), 'agentvetter-lock-only-'));
   try {
     await writeFile(path.join(fixture, 'Cargo.lock'), '# lock');
 
@@ -180,7 +180,7 @@ test('GWT-62.1: .git suffix is stripped from repository name', () => {
 });
 
 test('walkArtifacts: skill with package.json is not also an MCP', async () => {
-  const root = await mkdtemp(path.join(os.tmpdir(), 'tripwire-skill-pkg-'));
+  const root = await mkdtemp(path.join(os.tmpdir(), 'agentvetter-skill-pkg-'));
   try {
     await mkdir(path.join(root, 'skills', 'tool'), { recursive: true });
     await writeFile(path.join(root, 'skills', 'tool', 'SKILL.md'), '# tool');
@@ -210,7 +210,7 @@ test('walkArtifacts: skill with package.json is not also an MCP', async () => {
 });
 
 test('GWT-62.7: card name is skill identity, not bare GitHub repo name', async () => {
-  const fixture = await mkdtemp(path.join(os.tmpdir(), 'tripwire-name-fixture-'));
+  const fixture = await mkdtemp(path.join(os.tmpdir(), 'agentvetter-name-fixture-'));
   try {
     await mkdir(path.join(fixture, '.cursor', 'skills', 'impeccable'), { recursive: true });
     await mkdir(path.join(fixture, 'skills', 'audit'), { recursive: true });
@@ -251,7 +251,7 @@ test('GWT-62.7: card name is skill identity, not bare GitHub repo name', async (
 });
 
 test('GWT-62.5: frontmatter name wins when it differs from folder basename', async () => {
-  const fixture = await mkdtemp(path.join(os.tmpdir(), 'tripwire-fm-fixture-'));
+  const fixture = await mkdtemp(path.join(os.tmpdir(), 'agentvetter-fm-fixture-'));
   try {
     await mkdir(path.join(fixture, 'skills', 'folder-id'), { recursive: true });
     await writeFile(
@@ -274,7 +274,7 @@ test('GWT-62.5: frontmatter name wins when it differs from folder basename', asy
 });
 
 test('GWT-65.1 local: approved checkout with Node+Cargo yields package target', async () => {
-  const fixture = await mkdtemp(path.join(os.tmpdir(), 'tripwire-local-pkg-'));
+  const fixture = await mkdtemp(path.join(os.tmpdir(), 'agentvetter-local-pkg-'));
   try {
     await writeFile(path.join(fixture, 'package.json'), '{"name":"local-app"}');
     await writeFile(path.join(fixture, 'Cargo.toml'), '[package]\nname = "local-app"\n');

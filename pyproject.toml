@@ -1,5 +1,5 @@
 [project]
-name = "tripwire"
+name = "agentvetter"
 version = "0.4.0"
 description = "AI skill / MCP server security scanning platform"
 requires-python = ">=3.12"

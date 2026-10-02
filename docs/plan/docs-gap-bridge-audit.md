@@ -1,4 +1,4 @@
-# Tripwire — Docs & Internals Gap-Bridging Audit
+# AgentVetter — Docs & Internals Gap-Bridging Audit
 
 > **Status**: Planning complete. Execution queued as Wave N (slice-44 GWT-44.9 pile-on + slices 55–57; 56-f added post-review 2026-08-31).
 > **Method**: Diagram-driven checkpoint walk per CO-STAR brief (2026-08-28).
@@ -14,22 +14,22 @@
 ```mermaid
 flowchart TD
   A0([New user]) --> A1{Want to install?}
-  A1 -->|Browse only| A_hosted[Hosted GitHub Pages demo\nneomatrix369.github.io/demos/tripwire-dashboard]
+  A1 -->|Browse only| A_hosted[Hosted GitHub Pages demo\nneomatrix369.github.io/demos/agentvetter-dashboard]
   A1 -->|Watch first| A_video[Demo video — YouTube]
   A1 -->|Clone + run| A2[Install: git clone + npm install + npm link]
 
   A2 --> A3{Demo or Live?}
-  A3 -->|Demo — Recommended| A4a[No accounts needed\ntripwire scan --dry-discover + serve-dashboard Mock]
+  A3 -->|Demo — Recommended| A4a[No accounts needed\nagentvetter scan --dry-discover + serve-dashboard Mock]
   A3 -->|Live — Advanced| A4b[Setup: create Supabase + Modal accounts]
 
   A4b --> A5[Configure: copy .env.example + fill keys]
-  A5 --> A6[Bootstrap: tripwire setup + setup-modal.sh]
-  A6 --> A7[First Live scan: tripwire scan ./path]
+  A5 --> A6[Bootstrap: agentvetter setup + setup-modal.sh]
+  A6 --> A7[First Live scan: agentvetter scan ./path]
   A4a --> A8
 
   A7 --> A8[Read results: open dashboard\nMock or Live mode via Guard button]
   A8 --> A9{Optional router?}
-  A9 -->|Yes| A10[tripwire route → reading-router-results.md]
+  A9 -->|Yes| A10[agentvetter route → reading-router-results.md]
   A9 -->|No| A11
   A10 --> A11[Ongoing: re-run / force / maintain secrets]
   A11 --> A_done([Running])
@@ -55,7 +55,7 @@ flowchart LR
     I4[Local copy path]
   end
 
-  subgraph cli [CLI — tripwire scan]
+  subgraph cli [CLI — agentvetter scan]
     C1[Discover targets\ncontent-hash dedup]
     C2[Write scan_runs row\nto Supabase]
   end
@@ -113,7 +113,7 @@ flowchart LR
   style S3e fill:#fff3cd,stroke:#a80
 ```
 
-**Schema tables:** `items`, `scan_runs`, `scan_run_scanners`, `findings`, `coverage` — defined in `db/schema.sql`, applied via `tripwire setup`.
+**Schema tables:** `items`, `scan_runs`, `scan_run_scanners`, `findings`, `coverage` — defined in `db/schema.sql`, applied via `agentvetter setup`.
 
 ---
 
@@ -125,7 +125,7 @@ flowchart LR
 | A.2 | Demo path | `QUICKSTART.md §Try the demo` | ✅ 3-step, copy-paste | ✅ prerequisites linked | ✅ | Clean post slice-44 | — |
 | A.3 | Live — Setup accounts | `QUICKSTART.md §Live` → `supabase-setup.md`, `modal-setup.md` | ⚠ "Advanced" label good; MVP vs full not explicit pre-slice-44 | ✅ | **Needs slice-44 merge to be fully satisfied**; static review OK now | Recheck after slice-44 lands | P1/S |
 | A.4 | Configure keys | `env-vars.md` | ✅ Table-driven; service-role warning present | ✅ | ✅ | Clean | — |
-| A.5 | First scan | `QUICKSTART.md` / `setup-commands.md` | ⚠ Input types (what paths/URLs accepted by `tripwire scan`) not explained for newcomers | ⚠ `_acquire_target` modes undocumented in user guide | Needs check | **Confirmed gap**: no user-facing "what can I scan?" table | P1/M |
+| A.5 | First scan | `QUICKSTART.md` / `setup-commands.md` | ⚠ Input types (what paths/URLs accepted by `agentvetter scan`) not explained for newcomers | ⚠ `_acquire_target` modes undocumented in user guide | Needs check | **Confirmed gap**: no user-facing "what can I scan?" table | P1/M |
 | A.6 | Reading results | `reading-router-results.md`, dashboard Guard button | ⚠ Guard button intro is runtime discovery only — not in any doc page | ✅ | Static OK | **Suspected gap**: Guard/Mock mode transition needs one sentence in QUICKSTART or user-guide | P1/S |
 | A.7 | Ongoing use | `setup-commands.md §Re-run` | ✅ Hub Maintain row (slice-44 pile-on) | ✅ | ✅ | Verify hub row lands in slice-44 merge | P1/S |
 | A.8 | Optional router | `tiered-router-setup.md` + `reading-router-results.md` | ✅ Optional labelling present | ✅ SIE + Model Studio both linked | ✅ | Clean | — |
@@ -187,9 +187,9 @@ No new index warranted. `docs/README.md` already functions as a task-oriented hu
 
 These were statically reviewed only. Mark for a live dry-run in a later session:
 
-1. `tripwire scan --dry-discover ./fixtures/skills/safe-csv-cleaner` end-to-end (confirms QUICKSTART step 3).
+1. `agentvetter scan --dry-discover ./fixtures/skills/safe-csv-cleaner` end-to-end (confirms QUICKSTART step 3).
 2. `node scripts/serve-dashboard.mjs` proxy behaviour with Mock mode (confirms Guard button and Mock/Live toggle UX).
-3. `tripwire setup` schema-bootstrap path when Supabase project exists but columns are missing (`probes completed_at`).
+3. `agentvetter setup` schema-bootstrap path when Supabase project exists but columns are missing (`probes completed_at`).
 4. Tessl Lint adapter with `TESSL_TOKEN` absent → confirm `needs_setup` rather than error crash.
 
 ---
@@ -221,10 +221,10 @@ Categories seeded: no-warranty/as-is; not a substitute for professional security
 
 | # | Location | Trigger (when user could act without understanding limits) | Draft placeholder wording | Status |
 |---|---|---|---|---|
-| D1 | `README.md` — top of "What Tripwire does" | Any user, first read | "Tripwire is an early-adopter tool. Results are heuristic triage aids and depend on the accuracy of third-party scanners (Snyk, Cisco, Tessl, etc.). They are not a substitute for professional security review and carry no warranty. False positives and negatives are expected." | ⏳ Pending review |
+| D1 | `README.md` — top of "What AgentVetter does" | Any user, first read | "AgentVetter is an early-adopter tool. Results are heuristic triage aids and depend on the accuracy of third-party scanners (Snyk, Cisco, Tessl, etc.). They are not a substitute for professional security review and carry no warranty. False positives and negatives are expected." | ⏳ Pending review |
 | D2 | `QUICKSTART.md` — above Live scan section | User about to run real scans | "Live scans submit your skill and MCP server paths to third-party scanner APIs. Review each vendor's data handling policy before scanning sensitive or proprietary code." | ⏳ Pending review |
-| D3 | `docs/STATUS.md` — top or §IMPLEMENTED | Operator assessing capability completeness | "Capability states (IMPLEMENTED, VERIFIED, etc.) reflect evidence at the date shown. Vendor APIs change; Tripwire carries no implied endorsement or affiliation with Snyk, Cisco, Tessl, or other scanner vendors." | ⏳ Pending review |
-| D4 | `docs/ARCHITECTURE.md` — §0 External services | Contributor / operator choosing scanners | "Tripwire adapters target documented scanner output shapes at the time of writing. Schema changes in upstream scanner CLIs (e.g. `snyk-agent-scan` output format) may cause silent mis-parsing until the adapter is updated." | ⏳ Pending review |
+| D3 | `docs/STATUS.md` — top or §IMPLEMENTED | Operator assessing capability completeness | "Capability states (IMPLEMENTED, VERIFIED, etc.) reflect evidence at the date shown. Vendor APIs change; AgentVetter carries no implied endorsement or affiliation with Snyk, Cisco, Tessl, or other scanner vendors." | ⏳ Pending review |
+| D4 | `docs/ARCHITECTURE.md` — §0 External services | Contributor / operator choosing scanners | "AgentVetter adapters target documented scanner output shapes at the time of writing. Schema changes in upstream scanner CLIs (e.g. `snyk-agent-scan` output format) may cause silent mis-parsing until the adapter is updated." | ⏳ Pending review |
 | D5 | Dashboard — near risk-score / Quality badge | User reading a score and deciding to act | "Risk scores are heuristic triage aids generated by third-party scanners. They are not compliance certifications. Verify findings with a qualified security professional before acting on them." | ⏳ Pending review |
 | D6 | Dashboard — per-finding card (tooltip or footer) | User about to act on one finding | "This finding comes from [scanner]. False positives and false negatives are possible. Treat this as a starting point, not a verdict." | ⏳ Pending review |
 | D7 | CLI output — after each scan completes | User reading terminal output | "⚠ Results are heuristic. Verify critical findings independently." (one-line banner) | ⏳ Pending review |
@@ -250,7 +250,7 @@ Categories seeded: no-warranty/as-is; not a substitute for professional security
 
 ## Docs-UX Best Practices — Adoption for sync-docs Skill
 
-The following should be folded into the `sync-docs` skill definition as a "Tripwire docs checkpoint-walk supplement" or a companion rule:
+The following should be folded into the `sync-docs` skill definition as a "AgentVetter docs checkpoint-walk supplement" or a companion rule:
 
 1. **Build Diagram A (user journey) and Diagram B (data/provider flow)** before any pass. Both in Mermaid (version-controlled in `ARCHITECTURE.md`).
 2. **Walk each node**: verify newcomer-simple entry, named+linked dependencies, static accuracy.
@@ -272,7 +272,7 @@ The following should be folded into the `sync-docs` skill definition as a "Tripw
 |---|---|---|---|---|---|---|
 | 1 | 55 | **Disclaimer placements** — add D1–D8 (draft, all marked pending-review) to docs + UI placeholder | P0 | M | D1-D8 | All 8 locations have placeholder text; pending-review annotation present |
 | 2 | 44+GWT-44.9 | **Diagram B** — add Input→Process→Output runtime data flow to `ARCHITECTURE.md` as pile-on to existing slice 44 (which already owns Diagram A / operator journey via GWT-44.8) | P0 | M | B.1–B.10 | Diagram present in ARCHITECTURE; all scanner + Supabase nodes verified |
-| 3 | 56-a | **Input-type taxonomy** — add "What can Tripwire scan?" table to `prerequisites.md` or ARCHITECTURE (CP A.5, B.1) | P1 | S | A.5, B.1 | Table lists: skill dir, MCP entrypoint, git URL, local copy; links to `_acquire_target` ADR |
+| 3 | 56-a | **Input-type taxonomy** — add "What can AgentVetter scan?" table to `prerequisites.md` or ARCHITECTURE (CP A.5, B.1) | P1 | S | A.5, B.1 | Table lists: skill dir, MCP entrypoint, git URL, local copy; links to `_acquire_target` ADR |
 | 4 | 56-b | **Dashboard proxy role** — add one-sentence explanation of `serve-dashboard.mjs` role to QUICKSTART Demo step 3 (CP B.9) | P1 | S | B.9 | Sentence present; no new file created |
 | 5 | 56-c | **gate-evidence PLANNED callout** — add "Coming soon / PLANNED" label to STATUS.md under quality-tab feature (CP B.10) | P1 | S | B.10 | STATUS entry has PLANNED label with link to TRAIL slice |
 | 6 | 56-d | **Guard/Mock mode transition** — add one sentence to QUICKSTART or dashboard user-guide page (CP A.6) | P1 | S | A.6 | Sentence present in QUICKSTART §Try the demo |
@@ -300,7 +300,7 @@ No new tracking file is created; DECISIONS.md is the SSOT for outcomes.
 The following should be appended to the global `sync-docs` skill definition as a named checklist titled **"Checkpoint-walk method"**:
 
 ```
-### Checkpoint-walk method (added 2026-08-28, derived from Tripwire docs audit)
+### Checkpoint-walk method (added 2026-08-28, derived from AgentVetter docs audit)
 
 1. Build a User Journey diagram and a Data/Provider Flow diagram in the project's primary architecture doc (Mermaid preferred).
 2. Walk each node: (a) newcomer-simple at entry layer; (b) all referenced dependencies named and linked; (c) static accuracy flagged where live dry-run deferred.

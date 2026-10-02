@@ -1,13 +1,13 @@
 # Fixtures
 
-[![Tripwire](https://img.shields.io/badge/Tripwire-1a1a2e?style=flat)](https://github.com/neomatrix369/tripwire)
+[![AgentVetter](https://img.shields.io/badge/AgentVetter-1a1a2e?style=flat)](https://github.com/neomatrix369/AgentVetter)
 [![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=flat&logo=supabase&logoColor=white)](https://supabase.com)
 [![Modal](https://img.shields.io/badge/Modal-000000?style=flat)](https://modal.com)
 [![Snyk](https://img.shields.io/badge/Snyk-4C4A73?style=flat&logo=snyk&logoColor=white)](https://snyk.io)
 [![Tessl](https://img.shields.io/badge/Tessl-111111?style=flat)](https://tessl.io)
 [![Cisco](https://img.shields.io/badge/Cisco-1BA0D7?style=flat)](https://developer.cisco.com)
 
-Came from [QUICKSTART](../QUICKSTART.md)? Use these paths with `tripwire scan` /
+Came from [QUICKSTART](../QUICKSTART.md)? Use these paths with `agentvetter scan` /
 `--dry-discover` on the shared onboarding path.
 
 Real scan targets matching the spec's §8 fixture table — a small, curated set (not
@@ -32,7 +32,7 @@ exhaustive), enough to demo each heatmap state and the main finding anchor types
 `../scripts/install-demo-artifacts.sh` installs a demo subset under demo names:
 three skills copied to `~/.claude/skills/` (`safe-skill`, `vuln-skill`,
 `amber-skill`, frontmatter `name:` rewritten to match) and a demo MCP manifest
-at `~/.tripwire/demo-mcp.json` (`safe-tool`, `vuln-tool`, `amber-tool`) pointing
+at `~/.agentvetter/demo-mcp.json` (`safe-tool`, `vuln-tool`, `amber-tool`) pointing
 at the `mcp/*/run.sh` scripts in place. It then scans the installed copies —
 the enforcement hook verifies those, not the pristine fixtures here.
 

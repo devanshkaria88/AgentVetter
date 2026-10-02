@@ -36,7 +36,7 @@ Sample CLIs (same keys, no full scan):
 
 | Key | Where | Used for |
 |-----|-------|----------|
-| `SIE_API_KEY` | Console → Keys (`sk-sie-…`) | `tripwire route` + sample CLI |
+| `SIE_API_KEY` | Console → Keys (`sk-sie-…`) | `agentvetter route` + sample CLI |
 | `SIE_ENDPOINT` | Region endpoint (see below) | API base URL |
 | `SIE_MODEL` | Optional; default `gen-4b` | Router generation model override |
 
@@ -50,7 +50,7 @@ https://api.superlinked.com
 https://eu.api.superlinked.com
 ```
 
-Auth header used by Tripwire: `Authorization: Bearer $SIE_API_KEY`.
+Auth header used by AgentVetter: `Authorization: Bearer $SIE_API_KEY`.
 
 ### 3. Wire into `.env`
 
@@ -77,7 +77,7 @@ python3 sie_studio.py generate "Reply with one word: ok" --model gen-4b
 Or, after a completed Live scan batch:
 
 ```bash
-tripwire route --batch-id <batch_id>
+agentvetter route --batch-id <batch_id>
 ```
 
 Missing `SIE_ENDPOINT` / `SIE_API_KEY` causes auto-route to warn and skip; the
@@ -96,7 +96,7 @@ Hackathon / Singapore workspace hosts look like
 
 1. Sign in to the [Alibaba Cloud Model Studio console](https://modelstudio.console.alibabacloud.com/).
 2. In the upper-right corner, select the region that matches your workspace
-   (Tripwire samples use **Singapore** / `ap-southeast-1`).
+   (AgentVetter samples use **Singapore** / `ap-southeast-1`).
 3. Confirm Model Studio / DashScope is activated for that region.
 
 Official key guide:
@@ -157,7 +157,7 @@ python3 model_studio.py chat "Reply with one word: ok"
 Or, after a completed Live scan with SIE configured:
 
 ```bash
-tripwire route --batch-id <batch_id>
+agentvetter route --batch-id <batch_id>
 ```
 
 If Model Studio keys are missing, auto-route fails closed for escalation (SIE

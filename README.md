@@ -1,4 +1,4 @@
-# Tripwire
+# AgentVetter
 
 > Sandboxed multi-scanner security for AI skills, MCP servers, and package trees — coverage honesty, SIE judging, heatmap posture, guided triage and fix. Scan what agents install; fail closed.
 
@@ -33,7 +33,7 @@
 
 Meterian **Security** / **Stability** / **Licensing** badges mirror the public
 [Meterian project report](https://www.meterian.com/report/gh/neomatrix369/AgentVetter)
-(dependency and policy scan for this GitHub repo — not a Tripwire scan adapter).
+(dependency and policy scan for this GitHub repo — not a AgentVetter scan adapter).
 CI / Complexity badges reflect GitHub Actions on `main`. The **Nightly** badge is
 **A — comprehensive T4** (daily **02:00 UTC**: Semgrep, CodeQL, full secrets/Trivy,
 dashboard tests, coverage snapshots, complexity, dep audit). **B — Supply chain**
@@ -49,16 +49,16 @@ ultra-minimal (ship-path coverage + OSV + targeted scans) — see
 
 | If you want to… | Go here |
 |---|---|
-| **Try a hosted dashboard** (no clone) | [Live demo on neomatrix369.github.io](https://neomatrix369.github.io/demos/tripwire-dashboard/) |
-| **Watch the demo walkthrough** | [YouTube — Tripwire dashboard tour](https://youtu.be/omGOw9ruN3Y) |
+| **Try a hosted dashboard** (no clone) | [Live demo on neomatrix369.github.io](https://neomatrix369.github.io/demos/agentvetter-dashboard/) |
+| **Watch the demo walkthrough** | [YouTube — AgentVetter dashboard tour](https://youtu.be/omGOw9ruN3Y) |
 | **Try a safe demo** (no cloud accounts) — Recommended | [QUICKSTART — Try the demo](QUICKSTART.md#try-the-demo-recommended) |
 | **Run a real Live scan** — Advanced | [QUICKSTART — Live](QUICKSTART.md#live-advanced) |
 | **Change the code** | [CONTRIBUTING](CONTRIBUTING.md) |
 | **Understand the system** | [Architecture](docs/ARCHITECTURE.md) · [docs hub](docs/README.md) · [Status](docs/STATUS.md) |
 
-## What Tripwire does
+## What AgentVetter does
 
-Tripwire helps technical teams assess AI skills, MCP servers, and package
+AgentVetter helps technical teams assess AI skills, MCP servers, and package
 manifests before they rely on them. It discovers targets, runs
 the enabled scanner adapters in an isolated Modal sandbox, stores findings in
 Supabase, and brings them together in one dashboard (Live or Mock) with coverage
@@ -95,9 +95,9 @@ Capability honesty and evidence states: [docs/STATUS.md](docs/STATUS.md) ·
 inventory: [ARCHITECTURE §0](docs/ARCHITECTURE.md#0-external-services-inventory) ·
 Ossprey key allowlist: [OPTIONAL_SCANNER_KEYS](fixtures/OPTIONAL_SCANNER_KEYS.md).
 
-## Who Tripwire is for
+## Who AgentVetter is for
 
-Tripwire is currently an early-adopter tool with a hands-on setup and management
+AgentVetter is currently an early-adopter tool with a hands-on setup and management
 component. It is a good fit if you are comfortable using a terminal and shell,
 managing local tooling and environment variables, editing `.env` and other
 configuration files carefully, creating cloud/vendor accounts, and using command
@@ -113,7 +113,7 @@ You do not need to be a security specialist, but you should be ready to interpre
 findings and decide when to escalate them. The optional Mock preview is available
 for evaluating the dashboard without accounts; real scans require the setup below.
 
-If you plan to change Tripwire, start the [contributor setup](CONTRIBUTING.md#dev-hygiene)
+If you plan to change AgentVetter, start the [contributor setup](CONTRIBUTING.md#dev-hygiene)
 after cloning: it installs the commit and push hooks before your first change.
 
 ## Run your first Live scan
@@ -140,12 +140,12 @@ explain each decision before you make it.
    [Live setup commands](docs/user-guide/setup-commands.md#live-environment-bootstrap).
 5. Run a fixture scan and open the Live dashboard from the
    [Quickstart](QUICKSTART.md#live-capabilities). After routing, use
-   [`tripwire route`](docs/user-guide/setup-commands.md#tiered-router-optional) to
+   [`agentvetter route`](docs/user-guide/setup-commands.md#tiered-router-optional) to
    re-run a batch and [read router results](docs/user-guide/reading-router-results.md)
    for pathway strips and Escalated / SIE-only filters.
 
 Supabase and Modal are required for Live results. If Snyk, Tessl, Cisco, or Ossprey
-credentials are absent, Tripwire reports that scanner as skipped rather than calling
+credentials are absent, AgentVetter reports that scanner as skipped rather than calling
 the scan complete.
 SIE and Model Studio are optional: without SIE keys, scans still complete and auto-route
 logs a warning and skips. With SIE but without Model Studio, SIE-only reviews still log.
@@ -154,13 +154,13 @@ logs a warning and skips. With SIE but without Model Studio, SIE-only reviews st
 
 Use Mock demo data only when you want a no-account look at the UI; it does not replace
 the Live setup above or produce a scan result. Prefer the
-[hosted demo](https://neomatrix369.github.io/demos/tripwire-dashboard/) when you
+[hosted demo](https://neomatrix369.github.io/demos/agentvetter-dashboard/) when you
 do not need a local clone, or watch the
 [demo walkthrough on YouTube](https://youtu.be/omGOw9ruN3Y).
 
 ```bash
 git clone https://github.com/neomatrix369/AgentVetter.git
-cd tripwire
+cd agentvetter
 node scripts/serve-dashboard.mjs
 ```
 
@@ -195,20 +195,20 @@ After installing the CLI, you can also validate target discovery locally without
 accounts or a scan:
 
 ```bash
-tripwire scan --dry-discover ./fixtures/skills/safe-csv-cleaner
+agentvetter scan --dry-discover ./fixtures/skills/safe-csv-cleaner
 ```
 
 ## What happens next
 
-Tripwire’s Live path is a short pipeline. Each hop uses a concrete piece of the
+AgentVetter’s Live path is a short pipeline. Each hop uses a concrete piece of the
 stack (same names as the badges above):
 
 | Step | What runs | Stack | Setup |
 |---|---|---|---|
-| Discover | CLI finds skills / MCP servers / packages (`tripwire scan --dry-discover` or a real scan; Wave P package path on `main`) | Node.js CLI | [setup-commands](docs/user-guide/setup-commands.md#repository-and-cli-bootstrap) · [prerequisites](docs/user-guide/prerequisites.md#what-can-tripwire-scan) |
-| Scan | Adapters run in an isolated sandbox; CLI prints scanner inventory, coverage ledger, and `[evidence]` honesty rows (slices 63/65/66); optional `tripwire judge` panel (slice 67) | Modal (+ Docker), Cisco / Snyk / Tessl / DepShield / Cargo Audit / Ossprey | [modal-setup](docs/user-guide/modal-setup.md) · [env-vars](docs/user-guide/env-vars.md) |
+| Discover | CLI finds skills / MCP servers / packages (`agentvetter scan --dry-discover` or a real scan; Wave P package path on `main`) | Node.js CLI | [setup-commands](docs/user-guide/setup-commands.md#repository-and-cli-bootstrap) · [prerequisites](docs/user-guide/prerequisites.md#what-can-agentvetter-scan) |
+| Scan | Adapters run in an isolated sandbox; CLI prints scanner inventory, coverage ledger, and `[evidence]` honesty rows (slices 63/65/66); optional `agentvetter judge` panel (slice 67) | Modal (+ Docker), Cisco / Snyk / Tessl / DepShield / Cargo Audit / Ossprey | [modal-setup](docs/user-guide/modal-setup.md) · [env-vars](docs/user-guide/env-vars.md) |
 | Store | Findings and scan_run rows land for the dashboard | Supabase / Postgres | [supabase-setup](docs/user-guide/supabase-setup.md) |
-| Route (optional) | Every item through SIE; escalate only when signaled | Superlinked SIE → Alibaba Cloud Model Studio via `tripwire route` / auto-route | [sie-setup](docs/user-guide/sie-setup.md) · [model-studio-setup](docs/user-guide/model-studio-setup.md) |
+| Route (optional) | Every item through SIE; escalate only when signaled | Superlinked SIE → Alibaba Cloud Model Studio via `agentvetter route` / auto-route | [sie-setup](docs/user-guide/sie-setup.md) · [model-studio-setup](docs/user-guide/model-studio-setup.md) |
 | Review | Heatmap, drawers, pathway strips, Escalated / SIE-only filters; Run→Report chrome on **Workflow** tab (slices 75–77 on `main` #163/#165/#169) | Dashboard (Live or Mock) | [reading-router-results](docs/user-guide/reading-router-results.md) · [screenshots](docs/screenshots/README.md) |
 
 Mock skips Discover→Scan→Store and still shows Review (plus router fixtures).
@@ -278,7 +278,7 @@ How to read strips and filters after Route:
 | Procure scanner and router `.env` keys | [Environment variables](docs/user-guide/env-vars.md) |
 | Run your first Live scan | [Quickstart](QUICKSTART.md#first-live-scan) · [setup commands](docs/user-guide/setup-commands.md) |
 | Preview Mock UI or dry-discover locally | [Optional local validation](QUICKSTART.md#validate-locally-optional) |
-| Enable SIE / Model Studio routing | [SIE setup](docs/user-guide/sie-setup.md) · [Model Studio setup](docs/user-guide/model-studio-setup.md) · [`tripwire route`](docs/user-guide/setup-commands.md#tiered-router-optional) |
+| Enable SIE / Model Studio routing | [SIE setup](docs/user-guide/sie-setup.md) · [Model Studio setup](docs/user-guide/model-studio-setup.md) · [`agentvetter route`](docs/user-guide/setup-commands.md#tiered-router-optional) |
 | Interpret pathway strips / Escalated / SIE-only | [Reading router results](docs/user-guide/reading-router-results.md) |
 | Browse CLI / dashboard / Workflow screenshots | [Screenshot gallery](docs/screenshots/README.md) |
 | Smoke-test SIE or Model Studio alone | [SIE sample CLI](prototypes/sie-studio/README.md) · [Model Studio sample CLI](prototypes/model-studio/README.md) |

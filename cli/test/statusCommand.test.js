@@ -1,5 +1,5 @@
 /**
- * tripwire status (slice 37 — CLI monitoring, read-only). All seams stubbed:
+ * agentvetter status (slice 37 — CLI monitoring, read-only). All seams stubbed:
  * fake supabase records every builder method (read-only enforcement), fake fs
  * records any write attempt, log captured. Covers: happy-path four-section
  * report (literal stdout), stranded-running detection, --json single object,
@@ -13,7 +13,7 @@ import assert from 'node:assert/strict';
 import { runStatus } from '../src/statusCommand.js';
 
 const HOME = '/home/op';
-const CONFIG_PATH = `${HOME}/.tripwire/config.json`;
+const CONFIG_PATH = `${HOME}/.agentvetter/config.json`;
 const SETTINGS_PATH = `${HOME}/.claude/settings.json`;
 const NOW = () => new Date('2026-08-21T12:00:00.000Z');
 
@@ -24,7 +24,7 @@ const SETTINGS_WITH_HOOK = JSON.stringify({
   hooks: {
     PreToolUse: [{
       matcher: '^(Skill|Bash|mcp__.*)$',
-      hooks: [{ type: 'command', command: `${HOME}/.tripwire/hooks/pre-tool-use.sh`, timeout: 10 }],
+      hooks: [{ type: 'command', command: `${HOME}/.agentvetter/hooks/pre-tool-use.sh`, timeout: 10 }],
     }],
   },
 });
@@ -154,7 +154,7 @@ async function run(overrides = {}) {
 test('happy path prints all four sections with literal stdout', async () => {
   const { lines, payload } = await run();
   assert.deepEqual(lines, [
-    '[status] Tripwire monitoring (read-only)',
+    '[status] AgentVetter monitoring (read-only)',
     '',
     'Hooks',
     `  Config:     ${CONFIG_PATH} — enable=true, scan_validity_days=14, repo_root=/repo`,
@@ -231,7 +231,7 @@ test('invalid --limit variants throw with actionable guidance', async () => {
   for (const bad of ['notanumber', '-5', '0', '201', '2.5', '']) {
     await assert.rejects(
       run({ limit: bad }),
-      /--limit must be an integer between 1 and 200 .*tripwire status --limit 50/,
+      /--limit must be an integer between 1 and 200 .*agentvetter status --limit 50/,
       `expected rejection for --limit ${JSON.stringify(bad)}`
     );
   }
@@ -241,10 +241,10 @@ test('missing config.json reports not installed with the setup remedy', async ()
   const fs = makeFakeFs({}); // neither config.json nor settings.json
   const { lines, payload } = await run({ fs });
   assert.ok(lines.includes(
-    `  Config:     not installed (${CONFIG_PATH} missing) — run tripwire setup-agent-hooks`
+    `  Config:     not installed (${CONFIG_PATH} missing) — run agentvetter setup-agent-hooks`
   ));
   assert.ok(lines.includes(
-    `  PreToolUse: not registered at user level (${SETTINGS_PATH}) — a project-scope .claude/settings.json may still register it; run tripwire setup-agent-hooks`
+    `  PreToolUse: not registered at user level (${SETTINGS_PATH}) — a project-scope .claude/settings.json may still register it; run agentvetter setup-agent-hooks`
   ));
   assert.equal(payload.hooks.installed, false);
 });

@@ -8,7 +8,7 @@ real fixture. Everything below is RESEARCH — reconcile against the pinned CLI 
 mcp-scanner CLI (cisco-ai-mcp-scanner ≥4.x, VERIFIED against upstream README 2026-08-01):
 global flags (--format / --analyzers / --log-level) MUST precede a mode subcommand
 (remote | stdio | behavioral | …). A bare path/URL as a positional between flags makes
-argparse print usage and exit nonzero — Tripwire maps that stderr to status=unreachable.
+argparse print usage and exit nonzero — AgentVetter maps that stderr to status=unreachable.
 """
 
 import json
@@ -29,7 +29,7 @@ MAX_CONSOLE_CHARS = 3000  # per-scanner console capture limit for Supabase detai
 _SNYK_CODE_CATEGORY = {
     "E004": "prompt_injection",
     "W008": "hardcoded_secrets",
-    # Open: full E*/W* -> Tripwire category table (adapters doc §2 "Open")
+    # Open: full E*/W* -> AgentVetter category table (adapters doc §2 "Open")
 }
 
 
@@ -92,7 +92,7 @@ def _snyk_iter_path_results(root):
 
 
 def _snyk_severity_from_score(score):
-    """Map Agent Scan v0.6 risk score (0–1000) to Tripwire red/amber."""
+    """Map Agent Scan v0.6 risk score (0–1000) to AgentVetter red/amber."""
     try:
         numeric = int(score)
     except (TypeError, ValueError):
@@ -1562,7 +1562,7 @@ def _ensure_tessl_project(workdir: str, workspace: str) -> tuple[bool, str]:
             )
         return True, ""
 
-    project_name = os.path.basename(os.path.abspath(workdir)) or "tripwire-scan"
+    project_name = os.path.basename(os.path.abspath(workdir)) or "agentvetter-scan"
     code, out, err = _run(_tessl_project_create_argv(workspace, project_name), cwd=workdir)
     if code == 0 and _has_tessl_project_link(workdir):
         return True, ""
@@ -2206,7 +2206,7 @@ def _depshield_handshake(client):
         {
             "protocolVersion": "2024-11-05",
             "capabilities": {},
-            "clientInfo": {"name": "tripwire", "version": "0.4.0"},
+            "clientInfo": {"name": "agentvetter", "version": "0.4.0"},
         },
         call_timeout=DEPSHIELD_HANDSHAKE_TIMEOUT,
     )
@@ -2440,7 +2440,7 @@ def _cargo_audit_cmd():
 
 
 def _cargo_audit_severity(advisory):
-    """Map RustSec advisory severity / CVSS to Tripwire red|amber."""
+    """Map RustSec advisory severity / CVSS to AgentVetter red|amber."""
     if not isinstance(advisory, dict):
         return "amber"
     raw = advisory.get("severity")
@@ -2858,7 +2858,7 @@ def run_ossprey(workdir, item_type="mcp_server"):
     """
     source = "Ossprey"
     # Credential gate FIRST — the actual runtime state today (no ospy_ key).
-    # Tripwire accepts OSSPREY_API_KEY only (not generic API_KEY) until the
+    # AgentVetter accepts OSSPREY_API_KEY only (not generic API_KEY) until the
     # vendor contract is VERIFIED — avoids accidental activation from unrelated keys.
     if not os.environ.get("OSSPREY_API_KEY"):
         return [], [

@@ -34,7 +34,7 @@ Fixed columns (order matters):
 
 When **any** artifact has `will_be_blocked=true`, print **once** under the table:
 
-**Will be blocked when Tripwire is enabled**
+**Will be blocked when AgentVetter is enabled**
 
 Do not repeat that phrase in every Note. RED / STALE / UNSCANNED / NOT FOUND / CHANGED keep distinct Note copy (threshold, remedy, locus, scan offer).
 
@@ -109,7 +109,7 @@ Required per-artifact fields:
 | `quality_score` | number \| null | Tessl skill-review 0–100 from `items.quality_score`; null when absent |
 | `note` | string | Distinct human-facing note (no repeated blocked footer sentence) |
 
-## Observed `tripwire scan` JSON (introspection)
+## Observed `agentvetter scan` JSON (introspection)
 
 Production path: `cli/src/orchestrator.js` → `runScan` prints one JSON object to stdout.
 
@@ -137,7 +137,7 @@ There is **no** synchronous status-lookup CLI. Per-artifact RAG / staleness for 
 
 ### BACKLOG — scan → dual-output map
 
-| Dual-output field | From `tripwire scan` today? | Source for skills 28–30 |
+| Dual-output field | From `agentvetter scan` today? | Source for skills 28–30 |
 |-------------------|-----------------------------|-------------------------|
 | `name` / `type` / `resolved_path` | partial (discover targets only) | Name resolution + discover |
 | `state` / `rag` / `stale` / `scanned_at` | **no** | Supabase `items` + scan_runs |

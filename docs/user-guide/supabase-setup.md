@@ -15,13 +15,13 @@
 |-----|----------------------|----------|
 | `SUPABASE_URL` | Project Settings → API → Project URL (`https://<ref>.supabase.co`) | HTTP clients (CLI probe, Modal, Live dashboard) |
 | `SUPABASE_ANON_KEY` | Project Settings → API → `anon` `public` | Browser Live mode (RLS reads) or omit and use `serve-dashboard.mjs` proxy |
-| `SUPABASE_SERVICE_ROLE_KEY` | Project Settings → API → `service_role` | Server writes; Modal secret `tripwire-supabase` |
+| `SUPABASE_SERVICE_ROLE_KEY` | Project Settings → API → `service_role` | Server writes; Modal secret `agentvetter-supabase` |
 
 Never put `service_role` in browser-facing config. Prefer `node scripts/serve-dashboard.mjs` (local proxy) if you skip the anon key.
 
 ## 3. Database URL (DDL)
 
-`SUPABASE_DB_URL` is a `postgresql://…` URI for `tripwire setup` / first-scan DDL. It is **not** the HTTP API URL. Remote hosts use TLS with certificate verification. `localhost` and `127.0.0.1` connect without SSL.
+`SUPABASE_DB_URL` is a `postgresql://…` URI for `agentvetter setup` / first-scan DDL. It is **not** the HTTP API URL. Remote hosts use TLS with certificate verification. `localhost` and `127.0.0.1` connect without SSL.
 
 1. Open **Project Settings → Database**.
 2. Prefer **Session pooler** if Direct `db.<ref>.supabase.co` fails DNS (`ENOTFOUND`).
@@ -41,16 +41,16 @@ After keys are in `.env` (see [env-vars.md](./env-vars.md)):
 
 ```bash
 cd cli && npm install && npm link && cd ..
-tripwire setup
+agentvetter setup
 # or: ./scripts/setup-supabase.sh
-# After schema pulls: tripwire setup --force
+# After schema pulls: agentvetter setup --force
 ```
 
 > **Never toggle RLS via the Supabase UI.** Enabling or disabling row-level
 > security through the dashboard creates the lock without the matching policies
 > and grants, which silently blocks the browser dashboard (anon key) while the
 > CLI still works (service role bypasses RLS). Always manage schema through
-> `tripwire setup --force` or `./scripts/setup-supabase.sh --force` — these
+> `agentvetter setup --force` or `./scripts/setup-supabase.sh --force` — these
 > apply RLS, policies, and grants together in one idempotent step.
 
 ## 5. Verify
@@ -73,12 +73,12 @@ OK: all tables readable by the anon key.
 ```
 
 If any table shows HTTP 401 or 403, the script prints the fix command
-(`tripwire setup --force`).
+(`agentvetter setup --force`).
 
 ## 6. Data API max rows (Live dashboard fleet size)
 
 Supabase’s **Data API** (PostgREST) caps every REST response at **Max rows**
-(default **1000**). Tripwire’s Live dashboard reads **`dashboard_latest_runs`**
+(default **1000**). AgentVetter’s Live dashboard reads **`dashboard_latest_runs`**
 (one row per item) and **batches** `scan_run_scanners` / `findings` fetches (~40
 run IDs per request). With a large fleet, a low Max rows setting can still
 truncate responses. Symptoms:
@@ -93,7 +93,7 @@ truncate responses. Symptoms:
 This limit is **not** in `.env` or repo config — it is a **project setting** on
 Supabase.
 
-### Raise Max rows (Tripwire live project)
+### Raise Max rows (AgentVetter live project)
 
 1. Open **Integrations → Data API → Settings** for the live project:
    [Data API settings](https://supabase.com/dashboard/project/pdvaedgtternbfkztpkq/integrations/data_api/settings)
@@ -106,7 +106,7 @@ For another Supabase project: **Dashboard → your project → Integrations → 
 API → Settings → Max rows**.
 
 After raising the cap, hard-refresh the Live dashboard (`serve-dashboard.mjs`,
-Guard → Live). Run `tripwire setup --force` once if upgrading to a release that
+Guard → Live). Run `agentvetter setup --force` once if upgrading to a release that
 adds the `dashboard_latest_runs` view (required for per-item latest state).
 
 > **Note:** The dashboard queries `dashboard_latest_runs` instead of a global

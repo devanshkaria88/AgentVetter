@@ -16,13 +16,13 @@
 
 | Stream | File | Owns |
 |--------|------|------|
-| A Stepper | `tripwire-workflow-stepper.js` | Step ids, labels, `buildStepperView(state)`, current-step highlight helpers |
-| B Run | `tripwire-run-progress.js` | Scanner rows + judge progress `N of M answered` |
-| C Triage | `tripwire-triage.js` | Headline, tabs (to_fix / needs_review / dismissed), severity sort, coverage honesty |
-| D Investigate | `tripwire-investigate.js` | Ordered sections + collapsed "How we decided" |
-| E Prefs | `tripwire-workflow-prefs.js` | Expert toggle + triage decision persistence by stable finding id |
-| F Tests | `test/tripwire-workflow.test.js` | GWT-68.1–68.6 unit tests against A–E exports |
-| G Wire | `Tripwire.dc.html` + optional CSS in same file | Mount stepper chrome; call A–E; **only G edits HTML** |
+| A Stepper | `agentvetter-workflow-stepper.js` | Step ids, labels, `buildStepperView(state)`, current-step highlight helpers |
+| B Run | `agentvetter-run-progress.js` | Scanner rows + judge progress `N of M answered` |
+| C Triage | `agentvetter-triage.js` | Headline, tabs (to_fix / needs_review / dismissed), severity sort, coverage honesty |
+| D Investigate | `agentvetter-investigate.js` | Ordered sections + collapsed "How we decided" |
+| E Prefs | `agentvetter-workflow-prefs.js` | Expert toggle + triage decision persistence by stable finding id |
+| F Tests | `test/agentvetter-workflow.test.js` | GWT-68.1–68.6 unit tests against A–E exports |
+| G Wire | `AgentVetter.dc.html` + optional CSS in same file | Mount stepper chrome; call A–E; **only G edits HTML** |
 
 ## Shared state shape (passed into pure builders)
 
@@ -48,28 +48,28 @@
 
 ## Export requirements
 
-### A `tripwire-workflow-stepper.js`
+### A `agentvetter-workflow-stepper.js`
 - `WORKFLOW_STEPS` — frozen array of `{ id, label }` in order Run→…→Report
 - `buildStepperView({ currentStep })` → `{ steps: [{ id, label, current, stateLabel }] }`
   - `stateLabel`: `'current'|'complete'|'upcoming'` (text, not colour-only)
   - `current` true only for `currentStep`
 
-### B `tripwire-run-progress.js`
+### B `agentvetter-run-progress.js`
 - `buildRunProgressView({ scanners, judges })` →
   `{ scannerRows: [...], judgesSummary: 'N of M judges answered', judgeSlots: [...] }`
 
-### C `tripwire-triage.js`
+### C `agentvetter-triage.js`
 - `buildTriageView({ findings, coverage, triageFilter })` →
   `{ headline, tabs, filteredFindings (severity-sorted), coverageHonesty }`
 - headline summarises counts of to_fix / needs_review / dismissed
 
-### D `tripwire-investigate.js`
+### D `agentvetter-investigate.js`
 - `buildInvestigateView({ finding, expertMode })` →
   `{ sections: [{ id, title, body, collapsed? }], hiddenInSimple: string[] }`
 - Section order: title_severity → evidence → source_sink → explanation → verdict → attack_path → prerequisites → evidence_verification → how_we_decided (collapsed default)
 - When `expertMode===false`, omit jargon-heavy IDs/raw judges from visible sections
 
-### E `tripwire-workflow-prefs.js`
+### E `agentvetter-workflow-prefs.js`
 - `loadExpertMode(storage=sessionStorage)` / `saveExpertMode(bool, storage)`
 - `stableFindingId(finding)` — use `finding.id` or hash of title+severity+evidence
 - `loadTriageDecision(id, storage=localStorage)` / `saveTriageDecision(id, status, storage)`

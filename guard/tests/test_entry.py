@@ -238,7 +238,7 @@ def test_given_unknown_skill_then_none(fake_home: Path, tmp_path: Path) -> None:
 @pytest.mark.parametrize(
     "name",
     [
-        "../../hackathonProjects/tripwire/fixtures/skills/safe-changelog-writer",
+        "../../hackathonProjects/agentvetter/fixtures/skills/safe-changelog-writer",
         "../evil",
         "..",
         ".",
@@ -388,11 +388,11 @@ def test_given_claude_json_project_scoped_server_then_resolved(
 
 
 def test_given_demo_manifest_server_then_key_resolved(fake_home: Path, tmp_path: Path) -> None:
-    """~/.tripwire/demo-mcp.json (written by install-demo-artifacts.sh) is a
+    """~/.agentvetter/demo-mcp.json (written by install-demo-artifacts.sh) is a
     resolution locus — demo tool keys resolve by name."""
-    tripwire_dir = fake_home / ".tripwire"
-    tripwire_dir.mkdir()
-    (tripwire_dir / "demo-mcp.json").write_text(
+    agentvetter_dir = fake_home / ".agentvetter"
+    agentvetter_dir.mkdir()
+    (agentvetter_dir / "demo-mcp.json").write_text(
         json.dumps({"mcpServers": {"safe-tool": {"command": "bash", "args": ["run.sh"]}}})
     )
 
@@ -424,14 +424,14 @@ def test_given_demo_mcp_key_when_operator_resolve_then_found(
     hand-searching loci (the LLM locus walk was producing false NOT FOUND).
     Slice: resolve_operator_name — MCP demo keys
 
-    Given ~/.tripwire/demo-mcp.json lists safe-tool,
+    Given ~/.agentvetter/demo-mcp.json lists safe-tool,
     When resolve_operator_name is called with that bare key,
     Then the identifier is the config key and kind is mcp.
     """
     ### Given
-    tripwire_dir = fake_home / ".tripwire"
-    tripwire_dir.mkdir()
-    (tripwire_dir / "demo-mcp.json").write_text(
+    agentvetter_dir = fake_home / ".agentvetter"
+    agentvetter_dir.mkdir()
+    (agentvetter_dir / "demo-mcp.json").write_text(
         json.dumps({"mcpServers": {"safe-tool": {"command": "bash", "args": ["run.sh"]}}})
     )
 
@@ -487,7 +487,7 @@ CONFIG = {
     "enable": True,
     "scan_validity_days": 14,
     "repo_root": "/repo",
-    "cli_bin": "/repo/cli/bin/tripwire.js",
+    "cli_bin": "/repo/cli/bin/agentvetter.js",
     "env_file": "/repo/.env",
     "uv_bin": "/usr/local/bin/uv",
 }
@@ -530,7 +530,7 @@ def test_given_denied_artifact_then_reason_carries_remedies(
     assert "bad-skill" in reason
     assert "/tw-scan bad-skill" in reason  # in-session remedy
     assert "/tw-disable" in reason
-    assert "node /repo/cli/bin/tripwire.js scan" in reason  # out-of-band remedy
+    assert "node /repo/cli/bin/agentvetter.js scan" in reason  # out-of-band remedy
     assert '"enable": false' in reason
 
 
@@ -670,7 +670,7 @@ def _run_main(
     config_path: Path,
     payload: Any,
 ) -> tuple[int, dict]:
-    monkeypatch.setenv("TRIPWIRE_CONFIG", str(config_path))
+    monkeypatch.setenv("AGENTVETTER_CONFIG", str(config_path))
     stdin = io.StringIO(payload if isinstance(payload, str) else json.dumps(payload))
     stdout = io.StringIO()
     code = entry.main(stdin=stdin, stdout=stdout)

@@ -12,7 +12,7 @@ Start here: [QUICKSTART](../../QUICKSTART.md) · Hub: [docs/README](../README.md
 > `skipped_missing_credential`. Missing `TESSL_TOKEN` still runs Lint (auth-free)
 > and marks Review (Quality) / Scenario Generation / Review (Security) `needs_setup`. `TESSL_WORKSPACE`
 > is optional — when unset (or set to a name not in `tessl workspace list`),
-> Tripwire resolves workspace via `tessl whoami` + `tessl workspace list`
+> AgentVetter resolves workspace via `tessl whoami` + `tessl workspace list`
 > (usually the Tessl username). Eval stays `blocked` until
 > Scenario Gen completes (then `needs_setup` if token or workspace/project link
 > cannot be established) — not a complete “all clear.”
@@ -53,7 +53,7 @@ by vendor setup pages and the [prerequisites map](./prerequisites.md#vendor-setu
 Do not duplicate key explanations in the Modal secret reference.
 [OPTIONAL_SCANNER_KEYS.md](../../fixtures/OPTIONAL_SCANNER_KEYS.md)
 only projects a selected subset of these already-defined keys into
-`tripwire-scan-secrets`; repeated names there are operational allowlist entries,
+`agentvetter-scan-secrets`; repeated names there are operational allowlist entries,
 not a second environment-variable schema.
 
 ## Platform plumbing
@@ -63,7 +63,7 @@ not a second environment-variable schema.
 | `SUPABASE_URL` | Platform / Live / Modal HTTP | [supabase-setup](./supabase-setup.md) → Project Settings → API → Project URL |
 | `SUPABASE_ANON_KEY` | Live browser | [supabase-setup](./supabase-setup.md) → API → `anon` `public`; if needed use `scripts/serve-dashboard.mjs` proxy instead |
 | `SUPABASE_SERVICE_ROLE_KEY` | Platform writes + Modal | [supabase-setup](./supabase-setup.md) → API → `service_role` (server only) |
-| `SUPABASE_DB_URL` | `tripwire setup` DDL | [supabase-setup](./supabase-setup.md) → Database → connection string (`postgresql://…`) |
+| `SUPABASE_DB_URL` | `agentvetter setup` DDL | [supabase-setup](./supabase-setup.md) → Database → connection string (`postgresql://…`) |
 | `MODAL_TOKEN_ID` | Non-interactive Modal setup | [modal-setup](./modal-setup.md) → Settings / Tokens or `modal token new` |
 | `MODAL_TOKEN_SECRET` | Non-interactive Modal setup | [modal-setup](./modal-setup.md) → Settings / Tokens or `modal token new` |
 
@@ -98,7 +98,7 @@ not a second environment-variable schema.
 The DepShield dependency-audit adapter (`depshield-mcp`, baked into the Modal
 image) needs **no vendor account and no `.env` keys**: it audits npm and PyPI
 manifests via OSV.dev over plain network egress from the sandbox. There is
-nothing to procure here and nothing to add to `tripwire-scan-secrets`; the
+nothing to procure here and nothing to add to `agentvetter-scan-secrets`; the
 `skipped_missing_credential` degraded path does not apply to this engine.
 
 ## Ossprey — malware scan (access OPEN / pending)
@@ -113,20 +113,20 @@ reports `skipped_missing_credential` and becomes active only once a key is set.
 |-----|--------------|-----------------|
 | `OSSPREY_API_KEY` | Ossprey malware scan (once access lands) | [Vendor procurement quick-steps](#vendor-procurement-quick-steps) in this file — **pending access** |
 
-The value is an `ospy_…` key from `ossprey init` or the vendor dashboard. Tripwire's
+The value is an `ospy_…` key from `ossprey init` or the vendor dashboard. AgentVetter's
 adapter reads **`OSSPREY_API_KEY` only** (generic `API_KEY` is ignored until the
 vendor contract is VERIFIED). The upstream CLI may accept other auth modes (Auth0,
-`API_KEY`); Tripwire does not wire those into Modal secrets. The key is allowlisted in
+`API_KEY`); AgentVetter does not wire those into Modal secrets. The key is allowlisted in
 [OPTIONAL_SCANNER_KEYS.md](../../fixtures/OPTIONAL_SCANNER_KEYS.md) so
-`setup-modal.sh` syncs it into `tripwire-scan-secrets` automatically when it
+`setup-modal.sh` syncs it into `agentvetter-scan-secrets` automatically when it
 becomes available; leave it blank until then. Credential-free `--local` /
 `--dry-run-safe` / `--dry-run-malicious` modes exist for local testing without a
 key.
 
 ## Optional — tiered router (SIE + Model Studio)
 
-Not required for scanner Live coverage. Required for `tripwire route` and for
-post-scan auto-route after `tripwire scan` ([ADR-0016](../adr/0016-tiered-router-sie-model-studio.md)).
+Not required for scanner Live coverage. Required for `agentvetter route` and for
+post-scan auto-route after `agentvetter scan` ([ADR-0016](../adr/0016-tiered-router-sie-model-studio.md)).
 If these keys are absent, scan still completes and auto-route logs a warning
 and skips. Prototype CLIs under `prototypes/sie-studio/` and
 `prototypes/model-studio/` use the same keys (also listed in
@@ -137,7 +137,7 @@ and skips. Prototype CLIs under `prototypes/sie-studio/` and
 | `SIE_ENDPOINT` | Tiered router + SIE sample CLI | [tiered-router-setup](./tiered-router-setup.md) — us-east-2 `https://api.superlinked.com`; EU `https://eu.api.superlinked.com` |
 | `SIE_API_KEY` | Tiered router + SIE sample CLI | [tiered-router-setup](./tiered-router-setup.md) — Superlinked console → Keys (`sk-sie-…`) |
 | `SIE_MODEL` | Optional SIE model override (default `gen-4b`) | [tiered-router-setup](./tiered-router-setup.md) / `prototypes/sie-studio/models.json` |
-| `TRIPWIRE_JUDGE_PANEL` | Opt-in post-scan judge panel (`1` = soft-fail after auto-route; default off) | Slice 67; ADR-0016 route unchanged when unset |
+| `AGENTVETTER_JUDGE_PANEL` | Opt-in post-scan judge panel (`1` = soft-fail after auto-route; default off) | Slice 67; ADR-0016 route unchanged when unset |
 | `DASHSCOPE_API_KEY` | Model Studio escalation + sample CLI | [tiered-router-setup](./tiered-router-setup.md) |
 | `DASHSCOPE_HOST` | Optional host used to derive Model Studio URLs when blank | [tiered-router-setup](./tiered-router-setup.md) |
 | `ALIBABA_OPENAI_BASE_URL` | Router Model Studio chat + `model_studio.py chat` | [tiered-router-setup](./tiered-router-setup.md) |

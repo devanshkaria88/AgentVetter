@@ -186,5 +186,5 @@ def pre_tool_use_hook(tool_call_context):
     content_bytes = tool_call_context["target_content"]  # caller resolves this per skill/server
     result = check_call(content_bytes)
     if not result["allow"]:
-        raise PermissionError(f"Tripwire Guard blocked this call: {result['reason']}")
+        raise PermissionError(f"AgentVetter Guard blocked this call: {result['reason']}")
     return result

@@ -1,6 +1,6 @@
 """Unit tests for _acquire_target dispatch logic.
 
-Author: tripwire
+Author: agentvetter
 Created: 2026-08-01
 Scope: git clone, local copy, archive upload/extract, filesystem-path guard,
        introspection-only empty workdir; _is_git_url / _maybe_pack_local_target

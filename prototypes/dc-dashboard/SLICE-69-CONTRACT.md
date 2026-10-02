@@ -1,7 +1,7 @@
 # Slice 69 — Module Contract (parallel streams)
 
 **Worktree:** `.worktrees/slice-69-fix-propose-apply-clean`
-**Absolute worktree:** `/Users/swami/git-repos/ai-ml-dl-stuff/tools-and-utilities/tripwire/.worktrees/slice-69-fix-propose-apply-clean`
+**Absolute worktree:** `/Users/swami/git-repos/ai-ml-dl-stuff/tools-and-utilities/agentvetter/.worktrees/slice-69-fix-propose-apply-clean`
 **Branch:** `slice/69-fix-propose-apply-clean` (from `main` @ b0b5027, slice 68 merged #152)
 **UI surface:** 1A — extend `prototypes/dc-dashboard/` only
 **Commit only when orchestrator asks** — agents write code + tests; do not commit.
@@ -23,11 +23,11 @@
 
 | Stream | File | Owns |
 |--------|------|------|
-| A Propose | `tripwire-fix-propose.js` | Minimal unified diff, root-cause vs quick-patch label, regression-test suggestion, side-by-side view model |
-| B Apply | `tripwire-apply-clean.js` | Temp-copy apply-clean evaluation; injected I/O port; approved repo never written |
-| C Controls | `tripwire-fix-controls.js` | Mark fixed / won't-fix (reason), copy patch / copy git apply, J/K nav, progress N of M, persistence |
-| D Tests | `test/tripwire-fix.test.js` + `test/tripwire-fix-coverage.test.js` | GWT-69.1–69.4 + branch coverage of A–C |
-| E Wire | `Tripwire.dc.html` + `package.json` `test:coverage --include` | Mount Fix step; import A–C; **only E edits HTML and package.json** |
+| A Propose | `agentvetter-fix-propose.js` | Minimal unified diff, root-cause vs quick-patch label, regression-test suggestion, side-by-side view model |
+| B Apply | `agentvetter-apply-clean.js` | Temp-copy apply-clean evaluation; injected I/O port; approved repo never written |
+| C Controls | `agentvetter-fix-controls.js` | Mark fixed / won't-fix (reason), copy patch / copy git apply, J/K nav, progress N of M, persistence |
+| D Tests | `test/agentvetter-fix.test.js` + `test/agentvetter-fix-coverage.test.js` | GWT-69.1–69.4 + branch coverage of A–C |
+| E Wire | `AgentVetter.dc.html` + `package.json` `test:coverage --include` | Mount Fix step; import A–C; **only E edits HTML and package.json** |
 
 ## Shared finding shape (extends slice 68)
 
@@ -49,7 +49,7 @@ GWT-69.1 happy path uses a true_positive with verified evidence.
 
 ## Export requirements
 
-### A `tripwire-fix-propose.js`
+### A `agentvetter-fix-propose.js`
 
 - `PATCH_CLASSES` — frozen `['root_cause', 'quick_patch']`
 - `isFixCandidate(finding)` → boolean (see above)
@@ -82,7 +82,7 @@ GWT-69.1 happy path uses a true_positive with verified evidence.
   }
   ```
 
-### B `tripwire-apply-clean.js`
+### B `agentvetter-apply-clean.js`
 
 - Inject I/O. Default tests use a fake port; one GWT-69.2 test may use a real temp dir.
 - `evaluateApplyClean({ patch, approvedRepoPath, applyPort })` →
@@ -110,14 +110,14 @@ GWT-69.1 happy path uses a true_positive with verified evidence.
 - Do **not** spawn git against the approved repo. Do **not** execute scanned code.
 - Export `createMemoryApplyPort()` for tests: records calls, `applyPatch` succeeds when patch contains `+++`, fails otherwise; fingerprint is stable.
 
-### C `tripwire-fix-controls.js`
+### C `agentvetter-fix-controls.js`
 
 - Operator decisions: `'fixed' | 'wont_fix' | null`
 - `requireWontFixReason(reason)` → boolean (trim non-empty)
 - `markFixed({ findingId, storage })` — persist `{ status: 'fixed' }`
 - `markWontFix({ findingId, reason, storage })` — if reason empty, return `{ ok: false, error: 'reason_required' }` and persist nothing
 - `loadFixDecision(findingId, storage)` / `applyPersistedFixDecisions(findings, storage)`
-- Storage key prefix: `tripwire-fix:` (do not collide with `tripwire-triage:`)
+- Storage key prefix: `agentvetter-fix:` (do not collide with `agentvetter-triage:`)
 - `copyPatchText(unifiedDiff)` → the diff string (clipboard is the wire layer)
 - `gitApplyCommand(unifiedDiff)` → `git apply <<'EOF'\n${diff}\nEOF` (for copy)
 - `navigateFix({ key, index, count })` → `{ index }`
@@ -127,7 +127,7 @@ GWT-69.1 happy path uses a true_positive with verified evidence.
 - `buildFixProgress({ findings, decisions })` → `{ reviewed, total, label }` where `label` is `"N of M reviewed"`
   - `total` = count of `isFixCandidate` (import from A — allowed; C may import A)
   - `reviewed` = candidates with persisted/in-memory `fixed` or `wont_fix`
-- Import `isFixCandidate` from `./tripwire-fix-propose.js` (top-level import only).
+- Import `isFixCandidate` from `./agentvetter-fix-propose.js` (top-level import only).
 
 ### D Tests
 
@@ -144,9 +144,9 @@ GWT-69.1 happy path uses a true_positive with verified evidence.
 - Coverage file hits remaining branches (null storage, clamp nav, fingerprint mismatch path)
 - Do **not** implement production modules. If imports fail, leave tests as written — orchestrator joins after A–C.
 
-### E Wire (`Tripwire.dc.html` + `package.json`)
+### E Wire (`AgentVetter.dc.html` + `package.json`)
 
-- Add `import('./tripwire-fix-propose.js')`, `import('./tripwire-apply-clean.js')`, `import('./tripwire-fix-controls.js')` to the existing `Promise.all` workflow kit load. Store as `wf.fixPropose`, `wf.applyClean`, `wf.fixControls`.
+- Add `import('./agentvetter-fix-propose.js')`, `import('./agentvetter-apply-clean.js')`, `import('./agentvetter-fix-controls.js')` to the existing `Promise.all` workflow kit load. Store as `wf.fixPropose`, `wf.applyClean`, `wf.fixControls`.
 - `workflowIsFix` when `currentStep === 'fix'`; `workflowIsStub` only for `verify` or `report`.
 - New Fix panel (replace stub **only when step is fix**):
   - Side-by-side problem vs diff (`<pre>` or `white-space:pre-wrap`)

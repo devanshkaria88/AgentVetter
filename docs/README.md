@@ -4,16 +4,16 @@ Use this map to move from a first look to the setup or project detail you need.
 
 Start here: [QUICKSTART](../QUICKSTART.md) · Repo entry: [README](../README.md)
 
-[![CI](https://img.shields.io/github/actions/workflow/status/neomatrix369/tripwire/ci.yml?branch=main&label=CI)](https://github.com/neomatrix369/tripwire/actions/workflows/ci.yml)
-[![Nightly](https://img.shields.io/github/actions/workflow/status/neomatrix369/tripwire/nightly.yml?branch=main&label=Nightly)](https://github.com/neomatrix369/tripwire/actions/workflows/nightly.yml)
-[![Complexity](https://img.shields.io/github/actions/workflow/status/neomatrix369/tripwire/complexity-report.yml?branch=main&label=Complexity)](https://github.com/neomatrix369/tripwire/actions/workflows/complexity-report.yml)
+[![CI](https://img.shields.io/github/actions/workflow/status/neomatrix369/agentvetter/ci.yml?branch=main&label=CI)](https://github.com/neomatrix369/AgentVetter/actions/workflows/ci.yml)
+[![Nightly](https://img.shields.io/github/actions/workflow/status/neomatrix369/agentvetter/nightly.yml?branch=main&label=Nightly)](https://github.com/neomatrix369/AgentVetter/actions/workflows/nightly.yml)
+[![Complexity](https://img.shields.io/github/actions/workflow/status/neomatrix369/agentvetter/complexity-report.yml?branch=main&label=Complexity)](https://github.com/neomatrix369/AgentVetter/actions/workflows/complexity-report.yml)
 
 ## Choose a task
 
 | Your task | Start here | Then |
 |---|---|---|
-| Browse hosted dashboard (no clone) | [GitHub Pages demo](https://neomatrix369.github.io/demos/tripwire-dashboard/) | [Demo video](https://youtu.be/omGOw9ruN3Y) · [QUICKSTART](../QUICKSTART.md) |
-| Watch demo walkthrough (no clone) | [YouTube tour](https://youtu.be/omGOw9ruN3Y) | [Hosted dashboard](https://neomatrix369.github.io/demos/tripwire-dashboard/) · [screenshots](./screenshots/README.md) |
+| Browse hosted dashboard (no clone) | [GitHub Pages demo](https://neomatrix369.github.io/demos/agentvetter-dashboard/) | [Demo video](https://youtu.be/omGOw9ruN3Y) · [QUICKSTART](../QUICKSTART.md) |
+| Watch demo walkthrough (no clone) | [YouTube tour](https://youtu.be/omGOw9ruN3Y) | [Hosted dashboard](https://neomatrix369.github.io/demos/agentvetter-dashboard/) · [screenshots](./screenshots/README.md) |
 | Try demo (no accounts) | [QUICKSTART — demo](../QUICKSTART.md#try-the-demo-recommended) | [Setup commands](./user-guide/setup-commands.md) · [screenshots](./screenshots/README.md) |
 | Check tools and fit | [Prerequisites](./user-guide/prerequisites.md) | [QUICKSTART](../QUICKSTART.md) |
 | Create accounts (Setup) | [Supabase setup](./user-guide/supabase-setup.md) | [Modal setup](./user-guide/modal-setup.md) → optional scanners via [env-vars](./user-guide/env-vars.md#vendor-procurement-quick-steps) |
@@ -21,7 +21,7 @@ Start here: [QUICKSTART](../QUICKSTART.md) · Repo entry: [README](../README.md)
 | Minimum Live (2 accounts) | [QUICKSTART — Live](../QUICKSTART.md#live-advanced) (MVP: Supabase + Modal) | [Setup commands](./user-guide/setup-commands.md#live-environment-bootstrap) |
 | Run a first Live scan | [QUICKSTART — Live](../QUICKSTART.md#live-advanced) | [Setup commands](./user-guide/setup-commands.md) |
 | Maintain Live / re-run | [Setup commands — re-run](./user-guide/setup-commands.md#re-run-and-maintenance-commands) | [When it fails](./user-guide/setup-commands.md#when-it-fails) |
-| Enable optional tiered routing | [Tiered router setup](./user-guide/tiered-router-setup.md) | [`tripwire route`](./user-guide/setup-commands.md#tiered-router-optional) → [read router results](./user-guide/reading-router-results.md) |
+| Enable optional tiered routing | [Tiered router setup](./user-guide/tiered-router-setup.md) | [`agentvetter route`](./user-guide/setup-commands.md#tiered-router-optional) → [read router results](./user-guide/reading-router-results.md) |
 | Understand results, services, and system shape | [Architecture](./ARCHITECTURE.md) | [Capability status](./STATUS.md) · [ADRs](./adr/README.md) · [router UI](./user-guide/reading-router-results.md) |
 | Claude Code agent hooks | [agent-hooks README](../agent-hooks/README.md) | [frontline output contract](./user-guide/frontline-output-contract.md) · [CONTRIBUTING](../CONTRIBUTING.md) |
 | Contribute | [Contributing](../CONTRIBUTING.md) | [Setup and maintenance commands](./user-guide/setup-commands.md) |
@@ -31,7 +31,7 @@ Start here: [QUICKSTART](../QUICKSTART.md) · Repo entry: [README](../README.md)
 
 | Guide | What it covers |
 |---|---|
-| [QUICKSTART.md](../QUICKSTART.md) | Demo (Recommended) then Live (Advanced); [hosted dashboard](https://neomatrix369.github.io/demos/tripwire-dashboard/) · [demo video](https://youtu.be/omGOw9ruN3Y) |
+| [QUICKSTART.md](../QUICKSTART.md) | Demo (Recommended) then Live (Advanced); [hosted dashboard](https://neomatrix369.github.io/demos/agentvetter-dashboard/) · [demo video](https://youtu.be/omGOw9ruN3Y) |
 | [user-guide/prerequisites.md](./user-guide/prerequisites.md) | Required tools, technical fit, capability prerequisites |
 | [user-guide/setup-commands.md](./user-guide/setup-commands.md) | Command SSOT: bootstrap, flags, fails, maintenance |
 | [user-guide/env-vars.md](./user-guide/env-vars.md) | Configure (keys): procurement SSOT for `.env` |
@@ -57,7 +57,7 @@ Start here: [QUICKSTART](../QUICKSTART.md) · Repo entry: [README](../README.md)
 | Inspect project planning | [plan README](./plan/README.md) · [progress](./plan/PROGRESS.md) |
 | LLM usage metering (DECIDED plan — not shipped) | [design/llm-usage-tracking.md](./design/llm-usage-tracking.md) · Wave M in [STATUS](./STATUS.md) |
 | Monk Kit Live packaging (ADR Proposed; Wave O plan-only) | [ADR-0001](./adr/0001-monk-deployment-and-packaging.md) · [TRAIL Wave 15-O](./plan/TRAIL.md) · [STATUS](./STATUS.md) |
-| Git repo skill+MCP fan-out + package/DepShield/Ossprey + CLI scanner inventory (IMPLEMENTED on branch — not on `main`) | [slice 62](./plan/slices/16-P-git-repo-scan/slice-62-git-repo-discover-fanout.md) · [slice 63](./plan/slices/16-P-git-repo-scan/slice-63-cli-scanner-inventory.md) · [slice 64](./plan/slices/16-P-git-repo-scan/slice-64-git-repo-package-scan.md) · Wave P in [STATUS](./STATUS.md) · [prerequisites](./user-guide/prerequisites.md#what-can-tripwire-scan) |
+| Git repo skill+MCP fan-out + package/DepShield/Ossprey + CLI scanner inventory (IMPLEMENTED on branch — not on `main`) | [slice 62](./plan/slices/16-P-git-repo-scan/slice-62-git-repo-discover-fanout.md) · [slice 63](./plan/slices/16-P-git-repo-scan/slice-63-cli-scanner-inventory.md) · [slice 64](./plan/slices/16-P-git-repo-scan/slice-64-git-repo-package-scan.md) · Wave P in [STATUS](./STATUS.md) · [prerequisites](./user-guide/prerequisites.md#what-can-agentvetter-scan) |
 | Check scanner adapter research | [scanner output adapters](./research/adapters/scanner-output-adapters.md) |
 
 ## CI workflows

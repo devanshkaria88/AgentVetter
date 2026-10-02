@@ -10,7 +10,7 @@ const REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..
 const MCP_FIXTURES = path.join(REPO_ROOT, 'fixtures/mcp');
 
 test('single skill folder resolves as one item, not a batch', async () => {
-  const dir = await mkdtemp(path.join(os.tmpdir(), 'tripwire-'));
+  const dir = await mkdtemp(path.join(os.tmpdir(), 'agentvetter-'));
   await writeFile(path.join(dir, 'SKILL.md'), '# test skill');
   const result = await discoverTargets({ targets: [dir], useDefaults: true });
   assert.equal(result.length, 1);
@@ -19,7 +19,7 @@ test('single skill folder resolves as one item, not a batch', async () => {
 });
 
 test('folder of multiple skill subfolders expands to N items', async () => {
-  const root = await mkdtemp(path.join(os.tmpdir(), 'tripwire-'));
+  const root = await mkdtemp(path.join(os.tmpdir(), 'agentvetter-'));
   for (const name of ['a', 'b', 'c']) {
     const sub = path.join(root, name);
     await mkdir(sub);
@@ -50,7 +50,7 @@ test('bare https endpoint is detected as introspection-only mcp_server', async (
 });
 
 test('MCP server directory with server.py resolves as one mcp_server target', async () => {
-  const dir = await mkdtemp(path.join(os.tmpdir(), 'tripwire-mcp-'));
+  const dir = await mkdtemp(path.join(os.tmpdir(), 'agentvetter-mcp-'));
   await writeFile(path.join(dir, 'server.py'), '# mcp server');
   await writeFile(path.join(dir, 'run.sh'), '#!/bin/bash');
   const result = await discoverTargets({ targets: [dir], useDefaults: false });
@@ -62,7 +62,7 @@ test('MCP server directory with server.py resolves as one mcp_server target', as
 });
 
 test('parent dir containing MCP server subdirs expands to N mcp_server targets', async () => {
-  const root = await mkdtemp(path.join(os.tmpdir(), 'tripwire-mcp-'));
+  const root = await mkdtemp(path.join(os.tmpdir(), 'agentvetter-mcp-'));
   for (const name of ['server-a', 'server-b']) {
     const sub = path.join(root, name);
     await mkdir(sub);
@@ -94,7 +94,7 @@ test('real fixture: fixtures/mcp parent dir expands all MCP server subdirs', asy
 // --- slice-40: typeFilter ---
 
 async function makeMixedFolder() {
-  const root = await mkdtemp(path.join(os.tmpdir(), 'tripwire-mixed-'));
+  const root = await mkdtemp(path.join(os.tmpdir(), 'agentvetter-mixed-'));
   const skill = path.join(root, 'my-skill');
   const mcp = path.join(root, 'my-mcp');
   await mkdir(skill);
@@ -168,7 +168,7 @@ test('typeFilter=skill with useDefaults=true on fixture defaults — only skills
    *   Then every returned item has type 'skill' — MCP defaults are filtered out.
    *
    * This exercises discovery.js lines 165-167 — the production code path triggered
-   * by `tripwire scan --type skill` with no explicit targets.
+   * by `agentvetter scan --type skill` with no explicit targets.
    */
   // -- Given --
   const dir = await mkdtemp(path.join(os.tmpdir(), 'tw-deftype-'));
@@ -206,7 +206,7 @@ test('manifest entry WITH packPath pointing to server.py dir → locus=local ava
    * Slice: 42 / A3 — MCP server locus detection fix
    */
   // ### Given
-  const dir = await mkdtemp(path.join(os.tmpdir(), 'tripwire-mcp-packpath-'));
+  const dir = await mkdtemp(path.join(os.tmpdir(), 'agentvetter-mcp-packpath-'));
   await writeFile(path.join(dir, 'server.py'), '# mcp stub');
   await writeFile(path.join(dir, 'run.sh'), '#!/bin/bash\necho hello');
   const manifest = path.join(dir, 'mcp.json');
@@ -236,7 +236,7 @@ test('manifest entry WITHOUT packPath (bare-binary command) → locus=local avai
    * Slice: 42 / A3 — MCP server locus detection fix
    */
   // ### Given
-  const dir = await mkdtemp(path.join(os.tmpdir(), 'tripwire-mcp-bare-'));
+  const dir = await mkdtemp(path.join(os.tmpdir(), 'agentvetter-mcp-bare-'));
   const manifest = path.join(dir, 'mcp.json');
   await writeFile(manifest, JSON.stringify({
     mcpServers: { 'context7': { command: 'npx', args: ['context7'] } },

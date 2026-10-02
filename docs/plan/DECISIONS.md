@@ -1,4 +1,4 @@
-# Tripwire — Planning Decisions
+# AgentVetter — Planning Decisions
 
 | Date | Topic | Decision | Notes |
 |------|-------|----------|-------|

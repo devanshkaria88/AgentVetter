@@ -16,7 +16,9 @@ import {
 } from './scannerInventory.js';
 
 function judgePanelEnvEnabled() {
-  return process.env.TRIPWIRE_JUDGE_PANEL === '1';
+  const primary = process.env.AGENTVETTER_JUDGE_PANEL;
+  const legacy = process.env.TRIPWIRE_JUDGE_PANEL;
+  return primary === '1' || (primary === undefined && legacy === '1');
 }
 
 async function mapWithConcurrency(items, limit, fn) {
@@ -119,7 +121,7 @@ async function dispatchTarget(supabase, target, { batchId, force, spawnFn }) {
     } catch (err) {
       console.error(`[error] sandbox failed for ${target.target}: ${err.message}`);
       await supabase.from('scan_runs').update({ status: 'failed', completed_at: new Date().toISOString() }).eq('id', run.id);
-      await supabase.rpc('tripwire_rollup_item', { p_item_id: item.id });
+      await supabase.rpc('agentvetter_rollup_item', { p_item_id: item.id });
       return { target: target.target, scanRunId: run.id, error: err.message };
     }
   } catch (err) {
@@ -214,7 +216,7 @@ async function routeBatchSafely(routeFn, batchId) {
   }
 }
 
-/** Soft-fail post-route judge panel — only when TRIPWIRE_JUDGE_PANEL=1 (default off). */
+/** Soft-fail post-route judge panel — only when AGENTVETTER_JUDGE_PANEL=1 (default off). */
 async function judgeBatchSafely(judgeFn, batchId) {
   try {
     await judgeFn(batchId);

@@ -7,30 +7,30 @@ import path from 'node:path';
 import { promisify } from 'node:util';
 
 const exec = promisify(execFile);
-const tripwireBin = new URL('../bin/tripwire.js', import.meta.url).pathname;
+const agentvetterBin = new URL('../bin/agentvetter.js', import.meta.url).pathname;
 
-test('tripwire scan --help includes --force flag with description', async () => {
-  const { stdout } = await exec('node', [tripwireBin, 'scan', '--help']);
+test('agentvetter scan --help includes --force flag with description', async () => {
+  const { stdout } = await exec('node', [agentvetterBin, 'scan', '--help']);
   assert.match(stdout, /--force/, 'Expected --force flag in scan help');
   assert.match(stdout, /re-scan even if content hash is unchanged/,
     'Expected descriptive help text for --force');
 });
 
-test('tripwire setup --help retains its own --force (no collision)', async () => {
-  const { stdout } = await exec('node', [tripwireBin, 'setup', '--help']);
+test('agentvetter setup --help retains its own --force (no collision)', async () => {
+  const { stdout } = await exec('node', [agentvetterBin, 'setup', '--help']);
   assert.match(stdout, /--force/, 'Expected --force flag in setup help');
   assert.match(stdout, /re-apply schema/,
     'setup --force description should be about schema, not scanning');
 });
 
 test('scan --force is a boolean flag (no argument required)', async () => {
-  const { stdout } = await exec('node', [tripwireBin, 'scan', '--help']);
+  const { stdout } = await exec('node', [agentvetterBin, 'scan', '--help']);
   assert.doesNotMatch(stdout, /--force </, '--force should not require an argument');
 });
 
 test('scan --no-defaults exits with actionable guidance when no targets are supplied', async () => {
   // -- Given --
-  const args = [tripwireBin, 'scan', '--no-defaults'];
+  const args = [agentvetterBin, 'scan', '--no-defaults'];
 
   // -- When / Then --
   await assert.rejects(
@@ -49,7 +49,7 @@ test('scan with explicit target that has no artifacts exits 0 with zero-artifact
   const emptyDir = await mkdtemp(path.join(tmpdir(), 'tw-empty-'));
   try {
     // -- When --
-    const { stdout, stderr } = await exec('node', [tripwireBin, 'scan', emptyDir, '--no-defaults']);
+    const { stdout, stderr } = await exec('node', [agentvetterBin, 'scan', emptyDir, '--no-defaults']);
 
     // -- Then --
     assert.equal(stderr, '');
@@ -66,7 +66,7 @@ test('scan with explicit target that has no artifacts exits 0 with zero-artifact
 
 test('setup reports its environment requirement instead of applying schema without credentials', async () => {
   // -- Given --
-  const args = [tripwireBin, 'setup'];
+  const args = [agentvetterBin, 'setup'];
   const env = { ...process.env, SUPABASE_URL: '', SUPABASE_ANON_KEY: '', SUPABASE_DB_URL: '' };
 
   // -- When / Then --
@@ -82,7 +82,7 @@ test('setup reports its environment requirement instead of applying schema witho
 
 test('given invalid concurrency when scan starts then it exits before discovery or persistence', async () => {
   // -- Given --
-  const args = [tripwireBin, 'scan', '--concurrency', '0', '--no-defaults'];
+  const args = [agentvetterBin, 'scan', '--concurrency', '0', '--no-defaults'];
 
   // -- When / Then --
   await assert.rejects(
@@ -100,7 +100,7 @@ test('given malformed targets JSON when dry discovery runs then it exits with an
   // -- When / Then --
   try {
     await assert.rejects(
-      () => exec('node', [tripwireBin, 'scan', '--targets', targets, '--dry-discover']),
+      () => exec('node', [agentvetterBin, 'scan', '--targets', targets, '--dry-discover']),
       (error) => error.code === 1 && /JSON|property name/.test(error.stderr),
     );
   } finally {
@@ -113,7 +113,7 @@ test('given an explicit MCP endpoint when dry discovery runs then it reports the
   const endpoint = 'https://mcp.example.test/sse';
 
   // -- When --
-  const { stdout } = await exec('node', [tripwireBin, 'scan', endpoint, '--dry-discover']);
+  const { stdout } = await exec('node', [agentvetterBin, 'scan', endpoint, '--dry-discover']);
 
   // -- Then --
   assert.match(stdout, /mcp\.example\.test/);
@@ -128,7 +128,7 @@ test('given invalid --type value when scan starts then it exits non-zero with va
    * Then the process exits non-zero with a message explaining valid values.
    */
   // -- Given --
-  const args = [tripwireBin, 'scan', '--type', 'badvalue', '--dry-discover'];
+  const args = [agentvetterBin, 'scan', '--type', 'badvalue', '--dry-discover'];
 
   // -- When / Then --
   await assert.rejects(
@@ -137,13 +137,13 @@ test('given invalid --type value when scan starts then it exits non-zero with va
   );
 });
 
-test('given no database credentials when tripwire route runs then exits non-zero', async () => {
+test('given no database credentials when agentvetter route runs then exits non-zero', async () => {
   /**
    * Scenario: route action try/catch fires when runRoute throws.
-   * Slice: coverage — tripwire.js lines 70-78 (route command action catch branch)
+   * Slice: coverage — agentvetter.js lines 70-78 (route command action catch branch)
    *
    * Given no Supabase credentials in the environment,
-   * When `tripwire route --batch-id test-batch` is invoked as a CLI subprocess,
+   * When `agentvetter route --batch-id test-batch` is invoked as a CLI subprocess,
    * Then the process exits with a non-zero code (runRoute throws, catch sets exitCode=1).
    */
   // -- Given --
@@ -153,14 +153,14 @@ test('given no database credentials when tripwire route runs then exits non-zero
 
   // -- When / Then --
   await assert.rejects(
-    () => exec('node', [tripwireBin, 'route', '--batch-id', 'test-batch'], { env }),
+    () => exec('node', [agentvetterBin, 'route', '--batch-id', 'test-batch'], { env }),
     (error) => error.code !== 0,
   );
 });
 
 test('scan --help includes --reveal-secrets masked-by-default contract', async () => {
   // -- Given / When --
-  const { stdout } = await exec('node', [tripwireBin, 'scan', '--help']);
+  const { stdout } = await exec('node', [agentvetterBin, 'scan', '--help']);
 
   // -- Then --
   assert.match(stdout, /--reveal-secrets/, 'Expected --reveal-secrets flag in scan help');
@@ -169,10 +169,10 @@ test('scan --help includes --reveal-secrets masked-by-default contract', async (
 
 test('GWT-66.3: dry-discover of injection fixture prints an evidence warning', async () => {
   // -- Given --
-  const skillDir = path.join(path.dirname(tripwireBin), '../../fixtures/skills/vuln-prompt-injection-notes');
+  const skillDir = path.join(path.dirname(agentvetterBin), '../../fixtures/skills/vuln-prompt-injection-notes');
 
   // -- When --
-  const { stdout } = await exec('node', [tripwireBin, 'scan', skillDir, '--dry-discover', '--no-defaults']);
+  const { stdout } = await exec('node', [agentvetterBin, 'scan', skillDir, '--dry-discover', '--no-defaults']);
 
   // -- Then --
   assert.match(stdout, /\[evidence]/, 'pre-scan evidence report required');

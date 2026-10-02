@@ -1,4 +1,4 @@
-# Scanner output → Tripwire findings adapters (research)
+# Scanner output → AgentVetter findings adapters (research)
 
 **Status:** RESEARCH (in progress — schemas inventoried from primary docs; fixture VERIFIED maps still open)
 **Started:** 2026-08-01
@@ -26,7 +26,7 @@ Adapters always: upload raw blob → emit `Finding[]` → write `scan_run_scanne
 
 ## 1. Cross-cutting severity collapse (PROPOSED)
 
-| Upstream | Tripwire `severity` |
+| Upstream | AgentVetter `severity` |
 |---|---|
 | CRITICAL, HIGH, `E*` (Snyk) | `red` |
 | MEDIUM, LOW, most `W*` (Snyk) | `amber` |
@@ -64,7 +64,7 @@ Root = map `absolute_path → ScanPathResult`:
 
 **Issue:**
 
-| Field | Map to Tripwire |
+| Field | Map to AgentVetter |
 |---|---|
 | `code` | → `category` via lookup (E004→`prompt_injection`, W008→`hardcoded_secrets`, …) |
 | `message` | → `message` |
@@ -89,13 +89,13 @@ Root = map `absolute_path → ScanPathResult`:
 | README stability notice | https://github.com/snyk/agent-scan | 2026-08-01 | high | Exa |
 | PyPI | https://pypi.org/project/snyk-agent-scan/ | 2026-08-01 | high | Exa |
 
-**Open:** Full E*/W* → Tripwire category table; golden `--json` from fixtures.
+**Open:** Full E*/W* → AgentVetter category table; golden `--json` from fixtures.
 
 ---
 
 ## 3. Cisco Skill Scanner (`skill-scanner`)
 
-Upstream tool Tripwire wraps; product CLI is `tripwire`.
+Upstream tool AgentVetter wraps; product CLI is `agentvetter`.
 
 ### Capture (RESEARCH)
 
@@ -110,9 +110,9 @@ Prefer **JSON** for adapters; optionally also keep **SARIF** blob in Storage for
 
 Top-level: `skill_name`, `skill_path`, `is_safe`, `max_severity`, `findings_count`, `findings[]`, `analyzers_used`, `scan_metadata`, …
 
-**Finding object (high fidelity for Tripwire):**
+**Finding object (high fidelity for AgentVetter):**
 
-| Upstream field | Tripwire column | Confidence |
+| Upstream field | AgentVetter column | Confidence |
 |---|---|---|
 | `severity` (CRITICAL/HIGH/…) | `severity` via collapse table | high |
 | `category` (e.g. `data_exfiltration`) | `category` (map snake_case → taxonomy) | high |
@@ -136,13 +136,13 @@ Top-level: `skill_name`, `skill_path`, `is_safe`, `max_severity`, `findings_coun
 | Context7 lib | `/cisco-ai-defense/skill-scanner` | 2026-08-01 | medium | indexed |
 | README | https://github.com/cisco-ai-defense/skill-scanner | 2026-08-01 | high | Exa |
 
-**Open:** Category string → Tripwire taxonomy map; per-analyzer `scanner_source` naming convention.
+**Open:** Category string → AgentVetter taxonomy map; per-analyzer `scanner_source` naming convention.
 
 ---
 
 ## 4. Cisco MCP Scanner (`mcp-scanner`)
 
-Upstream tool Tripwire wraps; product CLI is `tripwire`.
+Upstream tool AgentVetter wraps; product CLI is `agentvetter`.
 
 ### Capture (RESEARCH — prefer enveloped JSON)
 
@@ -171,7 +171,7 @@ Product note that file `--output` was flaky on a tested build: re-test on pin; p
 
 **Per-analyzer entry** (keys like `yara_analyzer`, `llm_analyzer`, `api_analyzer`, …):
 
-| Field | Map to Tripwire |
+| Field | Map to AgentVetter |
 |---|---|
 | `severity` HIGH/MEDIUM/LOW/SAFE | collapse → `severity`; skip SAFE |
 | `threat_names[]` | seed `category` / message |
@@ -344,7 +344,7 @@ there is no amber/green malware verdict). Clean/skipped → no row.
 ### Auth (RESEARCH)
 
 API key `ospy_...` via `--api-key` or `OSSPREY_API_KEY` env (the upstream CLI
-also accepts generic `API_KEY`; **Tripwire's adapter reads `OSSPREY_API_KEY`
+also accepts generic `API_KEY`; **AgentVetter's adapter reads `OSSPREY_API_KEY`
 only** until the contract is VERIFIED); or Auth0 browser login. Key procurement is **[OPEN]** — no key
 exists in this environment (slice 35 `🔴 BLOCKED`), so the adapter's live path
 is `skipped_missing_credential` today. The credential-free `--local` /
@@ -394,10 +394,10 @@ Golden samples: `fixtures/scanner-samples/{engine}/{fixture-name}.json` once smo
 - [x] Seed `.nwave/trusted-source-domains.yaml`
 - [x] Inventory primary docs + pull JSON schemas for Snyk, Cisco Skill Scanner, Cisco MCP Scanner
 - [ ] Tessl `--json` field inventory from docs.tessl.io
-- [ ] Full Snyk issue-code → Tripwire category table
-- [ ] Cisco category / AITech → Tripwire taxonomy table
+- [ ] Full Snyk issue-code → AgentVetter category table
+- [ ] Cisco category / AITech → AgentVetter taxonomy table
 - [ ] Pin versions + reconcile mcp-scanner CLI vs spec §8
-- [ ] Capture golden outputs on Tripwire fixtures
+- [ ] Capture golden outputs on AgentVetter fixtures
 - [ ] Storage key layout ADR one-liner
 - [ ] Ossprey: provision access (slice 35 OPEN), pin `ossprey-cli`, reconcile `scan`/`check` + OSSBOM against `--help`, confirm/drop `--json` verdict flag → then VERIFIED
 - [ ] Mark each adapter VERIFIED after Supabase round-trip

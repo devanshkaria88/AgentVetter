@@ -16,7 +16,7 @@
 | Layer | Target | Status |
 |-------|--------|--------|
 | Python `sandbox/` (ship path; omit `guard/`) | ≥95% branch when gated | ✅ gate achieved — slice 11 (`95.91%`, fail_under=95; branch/lines/statements aligned to gate policy) |
-| Full Node CLI (`cli/src` + `cli/bin/tripwire.js`) | ≥95% lines/stmts, with 100% funcs and 85% branches where justified (**DECIDED** / ADR-0013) | ✅ historically achieved (`98.60%` lines); **current enforced** floors are **60/60/80/60** while measured CLI coverage recovers after router land; unit tests: `cli/test/router.test.js` |
+| Full Node CLI (`cli/src` + `cli/bin/agentvetter.js`) | ≥95% lines/stmts, with 100% funcs and 85% branches where justified (**DECIDED** / ADR-0013) | ✅ historically achieved (`98.60%` lines); **current enforced** floors are **60/60/80/60** while measured CLI coverage recovers after router land; unit tests: `cli/test/router.test.js` |
 | Prototype dashboard (`prototypes/dc-dashboard`) | Normal tests run; excluded from coverage and complexity gates | Excluded by scope decision |
 | `guard/`, `support.js`, Remotion, scripts | Out of bar | Won't for this wave |
 | Live Modal/Supabase E2E as CI Must | Won't | optional skip-without-config |
@@ -26,12 +26,12 @@
 | Capability | Evidence label | AT / unit / missing | Notes |
 |------------|----------------|---------------------|-------|
 | Discover skills/MCP + dry-discover | IMPLEMENTED / VERIFIED (unit) | unit (`cli/test`) | AT: GWT-1 path via dashboard tests |
-| Schema bootstrap `tripwire setup` | IMPLEMENTED / VERIFIED (unit) | unit | Security expert verified caveats on Direct DB |
+| Schema bootstrap `agentvetter setup` | IMPLEMENTED / VERIFIED (unit) | unit | Security expert verified caveats on Direct DB |
 | Modal scan + findings write | IMPLEMENTED / VERIFIED (security experts) | AT partial + unit acquire | Slices 8–10 fill parse/`scan_item_inner` |
 | Cisco skill/MCP adapters | IMPLEMENTED | unit status/cmd; **parse missing** | Slice 8 |
 | Snyk / Tessl adapters | IMPLEMENTED (may be unreachable) | unit status; parse/coverage folded into slice 11 stream | Slice 9/11 |
 | Idempotency / `--force` spawn | IMPLEMENTED / VERIFIED (unit) | unit (slice 6) | — |
-| Tiered SIE / Model Studio router | IMPLEMENTED / VERIFIED (unit) | unit (`cli/test/router.test.js`) | `tripwire route` + auto-route; ADR-0016; soft-fail if keys absent; replace-on-success |
+| Tiered SIE / Model Studio router | IMPLEMENTED / VERIFIED (unit) | unit (`cli/test/router.test.js`) | `agentvetter route` + auto-route; ADR-0016; soft-fail if keys absent; replace-on-success |
 | Live dashboard Realtime + poll | IMPLEMENTED / VERIFIED (unit) | unit | Poll: 8s fallback **and** 30s while Realtime+running — STATUS under-claims → slice 16 📦 (reinstate) or note in 15 |
 | Normal-user dashboard path | IMPLEMENTED | unit | Default source is **Live**; select Mock for local demo → slice **17** (onboarding); prose remediations were 16 📦 |
 | Dashboard as ship UI | DECIDED (dc-dashboard as-is) | — | prototypes README “not shipped” tension → slice 16 📦 / claim audit 15 |
@@ -46,7 +46,7 @@ The scenarios below are executable, human-readable checks for the currently gove
 | Requirement | Executable scenario | Level | Status |
 |-------------|---------------------|-------|--------|
 | A schema probe must never certify an unavailable database | Given `completed_at` probe returns an auth/network error, when preflight runs, then it aborts rather than reporting schema ready | CLI acceptance | Verified |
-| User input cannot create an empty successful scan | Given invalid concurrency or malformed target JSON, when `tripwire scan` starts, then it exits nonzero before discovery/persistence | CLI process acceptance | Verified |
+| User input cannot create an empty successful scan | Given invalid concurrency or malformed target JSON, when `agentvetter scan` starts, then it exits nonzero before discovery/persistence | CLI process acceptance | Verified |
 | Multi-target dispatch is observable | Given two discovered targets, when a batch is dispatched, then one batch stores its count/concurrency and reports its batch/run IDs | CLI persistence contract | Verified |
 | A per-target dispatch failure is not hidden | Given one sandbox dispatch fails, when scan orchestration completes, then its run is marked failed, the item rolls up, failed target detail is output, and the CLI exits nonzero | CLI orchestration acceptance | Verified |
 | Scanner output must contain usable evidence | Given Cisco Skill, Cisco MCP, or Tessl returns a zero-exit malformed/empty payload, when results are mapped, then that scanner is unreachable rather than clean | Sandbox adapter acceptance | Verified |

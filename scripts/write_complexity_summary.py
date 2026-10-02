@@ -61,7 +61,7 @@ def render_markdown(
     score, rank, count = python_summary(python_report)
     cli_violations = eslint_violations(cli_report)
     lines = [
-        "<!-- tripwire-complexity:start -->",
+        "<!-- agentvetter-complexity:start -->",
         "## Complexity",
         "",
         "_Automatically refreshed by CI for product-code changes._",
@@ -76,7 +76,7 @@ def render_markdown(
         *format_violations("CLI", cli_violations),
         "",
         "</details>",
-        "<!-- tripwire-complexity:end -->",
+        "<!-- agentvetter-complexity:end -->",
         "",
     ]
     return "\n".join(lines)

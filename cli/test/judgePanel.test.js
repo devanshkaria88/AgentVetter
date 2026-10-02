@@ -271,7 +271,7 @@ test('GWT-67.5: ADR-0016 runRoute behaviour unchanged when panel is enabled', as
    * Scenario: Panel is additive — router triage/escalation persistence still holds.
    * Slice: 67 — GWT-67.5
    *
-   * Given an existing tripwire route path,
+   * Given an existing agentvetter route path,
    * When the panel is also exercised for the same candidate inputs,
    * Then router still writes routing_review and panel does not rewrite tiered_router rows.
    */

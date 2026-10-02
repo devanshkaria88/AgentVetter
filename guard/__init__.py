@@ -1,4 +1,4 @@
-"""Tripwire guard package: enforcement primitives + the Claude Code hook entry.
+"""AgentVetter guard package: enforcement primitives + the Claude Code hook entry.
 
 Supabase imports are lazy throughout, so importing ``guard.*`` works without
 the optional ``guard`` dependency group installed.

@@ -1,7 +1,7 @@
 import { spawn as defaultSpawn } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
-// Resolved package-relatively so `tripwire scan` works from any cwd (T3) —
+// Resolved package-relatively so `agentvetter scan` works from any cwd (T3) —
 // hooks and skills invoke the CLI from arbitrary directories, not the repo root.
 const SCAN_APP = fileURLToPath(new URL('../../sandbox/scan_app.py', import.meta.url));
 

@@ -44,7 +44,7 @@ From repo root, with a filled `.env`:
 What it does:
 
 1. Reads allowlisted non-empty keys from `.env` (never prints values).
-2. Syncs Modal secrets `tripwire-supabase` + `tripwire-scan-secrets` (`--force`).
+2. Syncs Modal secrets `agentvetter-supabase` + `agentvetter-scan-secrets` (`--force`).
 3. Deploys `sandbox/scan_app.py`.
 
 Useful flags:
@@ -62,7 +62,7 @@ Allowlist detail: [OPTIONAL_SCANNER_KEYS.md](../../fixtures/OPTIONAL_SCANNER_KEY
 
 ```bash
 modal app list
-# Expect tripwire-scan (or your deployed app name) after a successful deploy
+# Expect agentvetter-scan (or your deployed app name) after a successful deploy
 ```
 
 Then run a fixture scan and Live dashboard per [QUICKSTART → Live](../../QUICKSTART.md#live-advanced).

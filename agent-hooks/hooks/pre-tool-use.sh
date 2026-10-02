@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Tripwire PreToolUse hook handler (plan §4.3).
+# AgentVetter PreToolUse hook handler (plan §4.3).
 #
 # Contract: ALWAYS exit 0 with exactly one decision JSON line on stdout.
 # In Claude Code a plain non-zero exit from a PreToolUse hook is a
@@ -7,14 +7,23 @@
 # crash, hang, missing config, empty delegate output — must become an
 # explicit DENY decision printed to stdout (fail closed), never a bare exit.
 #
-# Installed to ~/.tripwire/hooks/pre-tool-use.sh by `tripwire setup-agent-hooks`.
-# Source of truth: agent-hooks/hooks/pre-tool-use.sh in the tripwire repo.
+# Installed to ~/.agentvetter/hooks/pre-tool-use.sh by `agentvetter setup-agent-hooks`.
+# Source of truth: agent-hooks/hooks/pre-tool-use.sh in the agentvetter repo.
 #
 # Compatible with macOS /bin/bash 3.2: no mapfile/readarray, no GNU timeout.
 set -euo pipefail
 
-CONFIG_FILE="${HOME}/.tripwire/config.json"
-ENTRY_SHIM="${HOME}/.tripwire/hooks/_guard_entry.py"
+# Prefer ~/.agentvetter; fall back to legacy ~/.tripwire (ADR-0018).
+if [ -f "${HOME}/.agentvetter/config.json" ]; then
+  CONFIG_HOME="${HOME}/.agentvetter"
+elif [ -f "${HOME}/.tripwire/config.json" ]; then
+  CONFIG_HOME="${HOME}/.tripwire"
+  echo "warning: using ~/.tripwire; migrate to ~/.agentvetter (see docs/MIGRATION-AGENTVETTER.md)." >&2
+else
+  CONFIG_HOME="${HOME}/.agentvetter"
+fi
+CONFIG_FILE="${CONFIG_HOME}/config.json"
+ENTRY_SHIM="${CONFIG_HOME}/hooks/_guard_entry.py"
 
 DECISION_EMITTED=0
 STDIN_FILE=""
@@ -31,9 +40,9 @@ _emit_decision() {
     return 0
   fi
   local reason_json
-  reason_json="$(printf '%s' "${2:-tripwire guard error — fail closed}" \
+  reason_json="$(printf '%s' "${2:-agentvetter guard error — fail closed}" \
     | python3 -c 'import json, sys; print(json.dumps(sys.stdin.read()))' 2>/dev/null)" \
-    || reason_json='"tripwire guard error — fail closed"'
+    || reason_json='"agentvetter guard error — fail closed"'
   printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"deny","permissionDecisionReason":%s},"decision":"block","reason":%s}\n' \
     "$reason_json" "$reason_json"
 }
@@ -49,7 +58,7 @@ cleanup_tmp() {
 # ── Failure policy (§4.3.5): if we reach exit without a decision, deny. ──────
 finish() {
   if [ "$DECISION_EMITTED" -ne 1 ]; then
-    emit_deny "tripwire guard error — fail closed (unexpected handler failure; retry, run /tw-verify, or set \"enable\": false in ~/.tripwire/config.json to bypass)"
+    emit_deny "agentvetter guard error — fail closed (unexpected handler failure; retry, run /tw-verify, or set \"enable\": false in ~/.agentvetter/config.json to bypass)"
   fi
   cleanup_tmp
   exit 0
@@ -72,7 +81,7 @@ print(cfg.get("uv_bin", "") or "")
 ' "$CONFIG_FILE" 2>/dev/null)" || CONFIG_LINES=""
 
 if [ -z "$CONFIG_LINES" ]; then
-  emit_deny 'tripwire config missing/corrupt (~/.tripwire/config.json) — re-run `tripwire setup-agent-hooks`, or set "enable": false in that file by hand to bypass'
+  emit_deny 'agentvetter config missing/corrupt (~/.agentvetter/config.json) — re-run `agentvetter setup-agent-hooks`, or set "enable": false in that file by hand to bypass'
   exit 0
 fi
 
@@ -99,8 +108,8 @@ UV_BIN="${CFG_UV_BIN:-uv}"
 # ── 3. Delegate stdin to the guard entry under a portable 8s watchdog ────────
 #      (macOS has no GNU timeout; the hook-level timeout killing us would fail
 #      OPEN, so the hang must become OUR trapped deny well before it).
-STDIN_FILE="$(mktemp "${TMPDIR:-/tmp}/tripwire-hook-stdin.XXXXXX")"
-OUT_FILE="$(mktemp "${TMPDIR:-/tmp}/tripwire-hook-out.XXXXXX")"
+STDIN_FILE="$(mktemp "${TMPDIR:-/tmp}/agentvetter-hook-stdin.XXXXXX")"
+OUT_FILE="$(mktemp "${TMPDIR:-/tmp}/agentvetter-hook-out.XXXXXX")"
 cat > "$STDIN_FILE"
 
 # ── 2b. Fast-path ordinary Bash (no skills-path touch) ───────────────────────
@@ -169,7 +178,7 @@ if kill -0 "$DELEGATE_PID" 2>/dev/null; then
   if kill -0 "$DELEGATE_PID" 2>/dev/null; then
     kill -KILL "$DELEGATE_PID" 2>/dev/null || true
   fi
-  emit_deny 'guard timed out — fail closed (no decision within 8s; retry, check network/Supabase, or set "enable": false in ~/.tripwire/config.json to bypass)'
+  emit_deny 'guard timed out — fail closed (no decision within 8s; retry, check network/Supabase, or set "enable": false in ~/.agentvetter/config.json to bypass)'
   exit 0
 fi
 wait "$DELEGATE_PID" 2>/dev/null || true
@@ -198,9 +207,9 @@ sys.exit(0 if obj.get("decision") else 1)
     printf '%s\n' "$DELEGATE_OUT"
     exit 0
   fi
-  emit_deny 'guard produced invalid decision output — fail closed (delegate stdout was not a decision JSON; re-run `tripwire setup-agent-hooks`, or set "enable": false in ~/.tripwire/config.json to bypass)'
+  emit_deny 'guard produced invalid decision output — fail closed (delegate stdout was not a decision JSON; re-run `agentvetter setup-agent-hooks`, or set "enable": false in ~/.agentvetter/config.json to bypass)'
   exit 0
 fi
 
-emit_deny 'guard produced no decision — fail closed (guard entry exited without output; re-run `tripwire setup-agent-hooks`, or set "enable": false in ~/.tripwire/config.json to bypass)'
+emit_deny 'guard produced no decision — fail closed (guard entry exited without output; re-run `agentvetter setup-agent-hooks`, or set "enable": false in ~/.agentvetter/config.json to bypass)'
 exit 0

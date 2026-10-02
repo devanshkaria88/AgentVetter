@@ -10,15 +10,15 @@
 The Frontline agent-hooks work grew three surfaces around the existing
 CLI + Modal + Supabase + dashboard core:
 
-1. **Enforcement plane** — `~/.tripwire/hooks/pre-tool-use.sh` →
+1. **Enforcement plane** — `~/.agentvetter/hooks/pre-tool-use.sh` →
    `guard/entry.py` → `guard/guard_hook.py` / `guard/status.py` (Python,
    fail-closed, per-call).
-2. **Operator plane** — the five `/tw-*` skills + `tripwire status`
+2. **Operator plane** — the five `/tw-*` skills + `agentvetter status`
    (Node + SKILL.md drivers, read-mostly).
-3. **Install plane** — `tripwire setup-agent-hooks` +
+3. **Install plane** — `agentvetter setup-agent-hooks` +
    `scripts/install-demo-artifacts.sh` (Node + bash, write-once).
 
-All three read the same two truth stores (`~/.tripwire/config.json` locally,
+All three read the same two truth stores (`~/.agentvetter/config.json` locally,
 Supabase remotely) — that discipline (no third store) is the main thing the
 current shape gets right and any rearchitecture must preserve.
 
@@ -28,7 +28,7 @@ current shape gets right and any rearchitecture must preserve.
    (fresh/stale/unscanned/scanning/not-found/red) lives once in Python
    (`guard/status.py`, authoritative for enforcement) and is re-derived in
    Node (`cli/src/statusCommand.js`) and in the SKILL.md drivers. Target: one
-   queryable backend surface — either a `tripwire status --artifact <id>`
+   queryable backend surface — either a `agentvetter status --artifact <id>`
    JSON contract the Python layer shells to, or a small PostgREST view
    (`item_effective_status`) both languages read — so the state machine has
    exactly one implementation.

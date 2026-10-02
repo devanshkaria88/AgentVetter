@@ -31,7 +31,7 @@ if str(_SANDBOX_DIR) not in sys.path:
 
 from scanners import TESSL_SOURCES, run_all_scanners  # noqa: E402
 
-app = modal.App("tripwire-scan")
+app = modal.App("agentvetter-scan")
 
 # Bake scanners.py into the image (copy=True). Mount-only defaults leave remote
 # workers without the sibling module → ModuleNotFoundError: scanners.
@@ -130,7 +130,7 @@ def _safe_insert(supabase, table: str, row: dict, context: str) -> None:
         if not _is_column_error(exc):
             raise _to_runtime_error(exc, context) from exc
         print(
-            f"[tripwire] WARN column-missing ({exc}); retrying {table} "
+            f"[agentvetter] WARN column-missing ({exc}); retrying {table} "
             f"insert with legacy columns — apply db/schema.sql to fix"
         )
         fallback = {k: v for k, v in row.items() if k in _LEGACY_SCANNER_KEYS}
@@ -145,7 +145,7 @@ def _safe_insert(supabase, table: str, row: dict, context: str) -> None:
             raise _to_runtime_error(
                 inner,
                 f"Supabase {table} insert failed even with legacy columns. "
-                "Apply db/schema.sql migration (tripwire setup --force)",
+                "Apply db/schema.sql migration (agentvetter setup --force)",
             ) from inner
 
 
@@ -167,8 +167,8 @@ def _safe_rpc(supabase, fn: str, params: dict, context: str) -> None:
 @app.function(
     image=image,
     secrets=[
-        modal.Secret.from_name("tripwire-supabase"),
-        modal.Secret.from_name("tripwire-scan-secrets"),
+        modal.Secret.from_name("agentvetter-supabase"),
+        modal.Secret.from_name("agentvetter-scan-secrets"),
     ],
     timeout=TIMEOUT_SECONDS,
 )
@@ -212,7 +212,9 @@ def _scan_item_inner(
             scan_run_id,
             "mark scan_run failed",
         )
-        _safe_rpc(supabase, "tripwire_rollup_item", {"p_item_id": item_id}, "rollup after failure")
+        _safe_rpc(
+            supabase, "agentvetter_rollup_item", {"p_item_id": item_id}, "rollup after failure"
+        )
 
     workdir = "/tmp/scan-target"
     try:
@@ -354,7 +356,7 @@ def _scan_item_inner(
         scan_run_id,
         "mark scan_run completed",
     )
-    _safe_rpc(supabase, "tripwire_rollup_item", {"p_item_id": item_id}, "rollup after scan")
+    _safe_rpc(supabase, "agentvetter_rollup_item", {"p_item_id": item_id}, "rollup after scan")
 
 
 @app.local_entrypoint()
@@ -386,7 +388,9 @@ def main(
     )
 
 
-_CLONE_TIMEOUT = int(os.environ.get("TRIPWIRE_CLONE_TIMEOUT", 120))
+_CLONE_TIMEOUT = int(
+    os.environ.get("AGENTVETTER_CLONE_TIMEOUT") or os.environ.get("TRIPWIRE_CLONE_TIMEOUT") or 120
+)
 
 
 def _is_git_url(target: str) -> bool:
@@ -405,7 +409,7 @@ def _is_git_url(target: str) -> bool:
 
 
 def _is_git_forge_url(target: str) -> bool:
-    """True when an http(s) URL's host is a git forge Tripwire clones."""
+    """True when an http(s) URL's host is a git forge AgentVetter clones."""
     parsed = urlsplit(target)
     if parsed.scheme not in {"http", "https"}:
         return False
