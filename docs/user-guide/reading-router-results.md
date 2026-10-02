@@ -35,10 +35,10 @@ Simple/Expert on Workflow only changes finding-detail density. Operator-visible
 judge/coverage/evidence-verify narration **and** L→R soft-amend (parent meta,
 multi-select, role-labelled models) are **IMPLEMENTED / VERIFIED** (unit) on
 `main` via Wave R slice 75
-([PR #163](https://github.com/neomatrix369/tripwire/pull/163)); denser Triage
+([PR #163](https://github.com/neomatrix369/AgentVetter/pull/163)); denser Triage
 filters + shared panel typography via slice 76
-([PR #165](https://github.com/neomatrix369/tripwire/pull/165)) — see
-[STATUS.md](../STATUS.md). Optional `TRIPWIRE_JUDGE_PANEL=1` enables the CLI
+([PR #165](https://github.com/neomatrix369/AgentVetter/pull/165)) — see
+[STATUS.md](../STATUS.md). Optional `AGENTVETTER_JUDGE_PANEL=1` enables the CLI
 panel ([env-vars.md](./env-vars.md)).
 
 ## What you are looking at
@@ -83,7 +83,7 @@ Same `severity` column, different meaning by `category`:
 
 ## Soft-fail behaviour
 
-- **Missing SIE keys** → scan still succeeds; auto-route / `tripwire route` warns
+- **Missing SIE keys** → scan still succeeds; auto-route / `agentvetter route` warns
   and skips. No new router rows for those items.
 - **SIE keys present, Model Studio keys missing** → SIE can still write
   `routing_review` rows; escalation paths that need Model Studio soft-fail into a
@@ -94,7 +94,7 @@ Same `severity` column, different meaning by `category`:
 ## Preview without a Live route
 
 1. Mock dashboard already includes `tiered_router` fixtures — open
-   [http://127.0.0.1:8765/Tripwire.dc.html](http://127.0.0.1:8765/Tripwire.dc.html)
+   [http://127.0.0.1:8765/AgentVetter.dc.html](http://127.0.0.1:8765/AgentVetter.dc.html)
    with `node scripts/serve-dashboard.mjs` and toggle **Escalated** / **SIE-only**.
 2. Gallery shots: [screenshots README](../screenshots/README.md)
    (dashboard router filters + Workflow Run/Triage/Verify).
@@ -113,8 +113,8 @@ seeding.
 ## Manual re-route
 
 ```bash
-tripwire route --batch-id <batch_id>
-# tripwire route --batch-id <batch_id> --sie-model gen-4b --model-studio-model qwen3.8-max
+agentvetter route --batch-id <batch_id>
+# agentvetter route --batch-id <batch_id> --sie-model gen-4b --model-studio-model qwen3.8-max
 ```
 
 See [setup-commands.md](./setup-commands.md#tiered-router-optional) for the key

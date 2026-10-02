@@ -2,13 +2,13 @@
 
 - **Status:** Accepted
 - **Date:** 2026-08-01
-- **Deciders:** Tripwire maintainers
+- **Deciders:** AgentVetter maintainers
 - **Tags:** dashboard, acl, strangler, live, mock
 
 ## Context
 
 The dashboard existed as a prototype fed by static mock data
-(`tripwire-data.js`) before Live Supabase writes were reliable. Rewriting the
+(`agentvetter-data.js`) before Live Supabase writes were reliable. Rewriting the
 UI against PostgREST shapes would block shipping Detection + Sandbox. Operators
 also need a no-account preview that must not be mistaken for a scan result.
 
@@ -19,7 +19,7 @@ anti-corruption layer for Live, and use an explicit kill switch.
 
 Keep one dashboard document and two data sources.
 
-- **ACL:** `prototypes/dc-dashboard/tripwire-live.js` fetches
+- **ACL:** `prototypes/dc-dashboard/agentvetter-live.js` fetches
   `items` / `scan_runs` / `scan_run_scanners` / `findings` and reshapes them
   into the mock item structure.
 - **Kill switch:** data-source dropdown (Live vs Mock), persisted in
@@ -54,4 +54,4 @@ Rejected: doubles UX drift; the dropdown is the explicit seam.
 
 - [docs/plan/DECISIONS.md](../plan/DECISIONS.md) Strangler+ACL (2026-08-01)
 - [prototypes/README.md](../../prototypes/README.md)
-- `prototypes/dc-dashboard/tripwire-live.js`
+- `prototypes/dc-dashboard/agentvetter-live.js`

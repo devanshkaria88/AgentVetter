@@ -10,12 +10,12 @@
 
 **Missing filled matrix ⇒ halt/HITL** until USER_FIX completes.
 > Portable contract: always-on `decision-ownership` rule.
-> Instantiated for Tripwire execution 2026-09-09 (slice 62) from portable roles + existing DECISIONS — not a ceiling raise.
+> Instantiated for AgentVetter execution 2026-09-09 (slice 62) from portable roles + existing DECISIONS — not a ceiling raise.
 
 | Who | Owns |
 |-----|------|
 | **Human** | MoSCoW / YAGNI; irreversible ADRs (Accept); trust/safety *policy*; quality *thresholds*; flag *defaults*; gate *topology*/order; ceiling **raises**; identity namespace registry; merge/release; ambiguous product intent |
-| **Agent** | Reversible implementation within slice AC; gate *wiring* inside locked topology; enforce ceilings/tripwires; docs/diagram sync; safe Adapt; Red→Green; strengthen tests only (never weaken/skip/delete assertions) |
+| **Agent** | Reversible implementation within slice AC; gate *wiring* inside locked topology; enforce ceilings/agentvetters; docs/diagram sync; safe Adapt; Red→Green; strengthen tests only (never weaken/skip/delete assertions) |
 | **Shared** | ADR draft → human Accept; CF deferrals with owner slice; reviewer SKIPPED only on wrong-repo evidence + human confirm |
 
 ## Fail-closed (agent must not loosen)

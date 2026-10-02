@@ -3,7 +3,7 @@
 
 ## What was provided (explicit inputs)
 - Horizon **A only**: gap-close Saturday **3-lite + demo video**; later ask about expanding to **1+C**.
-- Product SoT: private references; demo lens: `01_demo_video/00-tripwire-demo-script.md`; gates: `build-day-decisions.md` §8.
+- Product SoT: private references; demo lens: `01_demo_video/00-agentvetter-demo-script.md`; gates: `build-day-decisions.md` §8.
 - Must-show fixtures: skill `vuln-prompt-injection-notes`, MCP `vuln-command-injection-server`.
 - Demo-blocking: **none** — operator reports capture-ready.
 - Done = **2b**: filmable 3-lite + dress-rehearsal **and** VO/Remotion assembled (Detection + Sandbox; no Drift/Phase-5 claims).
@@ -16,7 +16,7 @@
 
 ## What was inferred
 - Repo already has `db/`, `cli/`, `sandbox/`, Live/Mock dashboard, `guard/` stub — past morning “docs-only” note; build-day checkboxes likely stale.
-- Remotion/VO lives outside this repo (`claude-remotion-kickstart` tripwire project).
+- Remotion/VO lives outside this repo (`claude-remotion-kickstart` agentvetter project).
 - Spec level raised to GWT (level 5) via accepted GWT-1/2/3; full product Drift/Guard/Reconciler out of A.
 
 ## What is missing / assumed
@@ -45,14 +45,14 @@
 - Branch: `frontline-hackathon-london-2026-agent-hooks`.
 - Path: **Add** Wave H; keep Horizon A / Waves A–G; Wave G not resumed during H1–H3.
 - Mode: plan artifacts + phase gates only — no product execution yet.
-- Architecture: PreToolUse → handler → `guard.guard_hook` → Supabase RAG; skills call existing `tripwire scan` + Supabase status.
-- Config: `~/.tripwire/config.json` — `enable` default **true**, `scan_validity_days` default **14**.
+- Architecture: PreToolUse → handler → `guard.guard_hook` → Supabase RAG; skills call existing `agentvetter scan` + Supabase status.
+- Config: `~/.agentvetter/config.json` — `enable` default **true**, `scan_validity_days` default **14**.
 - Skills: `/tw-verify`, `/tw-scan`, `/tw-enable`, `/tw-disable`, `/tw-self-check` with dual human/JSON output.
-- Install: single path `tripwire setup-agent-hooks`.
+- Install: single path `agentvetter setup-agent-hooks`.
 - Sequence phases: H1 enforcement skeleton → H2 control skills → H3 demos + Phase 1 regression hard gate → H4 DepShield → H5 Ossprey (access OPEN) → H6 monitoring/full-chain; FE/BE Could/deferred.
 
 ## What was inferred (Wave H)
-- Foundation exists: `guard/guard_hook.py` stub, `tripwire scan`, fixtures; integration layer absent.
+- Foundation exists: `guard/guard_hook.py` stub, `agentvetter scan`, fixtures; integration layer absent.
 - No Claude Code native install-event hook — workaround is setup command.
 - Status lookup is Supabase-direct (no status CLI), matching guard pattern.
 
@@ -72,7 +72,7 @@
 
 ## What was provided (Wave O)
 - ADR-0001 Proposed (merged via PR #63): Monk Kit as intended Live packaging/deploy path; 3-tier vendors; MVL vs full-coverage done-definitions; workstation path remains supported until implemented.
-- PoC branch: nooga/tripwire feat/monk-live-supabase-modal-kit (MANIFEST, common/latest/v1.0.0.yaml, bootstrap Dockerfile + in-cluster schema/Modal bootstrap, nginx Live dashboard).
+- PoC branch: nooga/agentvetter feat/monk-live-supabase-modal-kit (MANIFEST, common/latest/v1.0.0.yaml, bootstrap Dockerfile + in-cluster schema/Modal bootstrap, nginx Live dashboard).
 - Monk.io docs grounding: Package Ecosystem (inherits/compose), First Deployment, Local Dashboard (secrets never in chat), Capsules/CI/CD deferred.
 - Slice may be retrospective and tweaked as PoC is made to work toward ADR goals.
 

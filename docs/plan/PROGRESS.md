@@ -1,5 +1,12 @@
 # Progress
-> Last updated: 2026-09-21
+> Last updated: 2026-10-02
+
+## Brand Timeline
+
+| Date | Event | Evidence |
+|------|-------|----------|
+| 2026-10-02 | **AgentVetter** rebrand accepted (ADR-0018) | [ADR-0018](../adr/0018-agentvetter-rebrand.md) · [MIGRATION-AGENTVETTER.md](../MIGRATION-AGENTVETTER.md) · branch `chore/rename-agentvetter` |
+| pre-2026-10 | Product shipped as Tripwire; README partially pointed at AgentVetter URLs | Historical slices / `gate-evidence/**` retain Tripwire-era text |
 
 ## Slice groups (execution sequence)
 

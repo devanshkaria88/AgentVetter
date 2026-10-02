@@ -1,4 +1,4 @@
-# Dependency update bots for Tripwire CI/runtime stacks.
+# Dependency update bots for AgentVetter CI/runtime stacks.
 # Stack badges (Cursor · Modal · Supabase · scanners) live in README / docs/.
 version: 2
 updates:

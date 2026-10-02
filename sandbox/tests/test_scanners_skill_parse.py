@@ -36,7 +36,7 @@ def _load(name: str) -> str:
 
 def test_given_happy_skill_json_when_scanner_runs_then_findings_mapped() -> None:
     """
-    Scenario: Recorded skill-scanner JSON maps into Tripwire finding shape.
+    Scenario: Recorded skill-scanner JSON maps into AgentVetter finding shape.
     Slice: slice-8 — skill happy path
 
     Given happy skill-scanner JSON and stubbed subprocess,
@@ -123,7 +123,7 @@ def test_given_malformed_payload_when_scanner_runs_then_marks_the_engine_unreach
 
 
 @pytest.mark.parametrize(("raw", "expected"), SEVERITY_COLLAPSE_CASES)
-def test_given_upstream_severity_when_mapped_then_tripwire_severity(
+def test_given_upstream_severity_when_mapped_then_agentvetter_severity(
     raw: str, expected: str | None
 ) -> None:
     """
@@ -132,7 +132,7 @@ def test_given_upstream_severity_when_mapped_then_tripwire_severity(
 
     Given a skill finding with an upstream severity string,
     When _map_skill_findings runs,
-    Then Tripwire severity matches the collapse contract (or finding omitted when SAFE).
+    Then AgentVetter severity matches the collapse contract (or finding omitted when SAFE).
     """
     ### Given
     parsed = {

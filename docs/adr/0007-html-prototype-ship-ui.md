@@ -2,7 +2,7 @@
 
 - **Status:** Accepted
 - **Date:** 2026-08-01
-- **Deciders:** Tripwire maintainers
+- **Deciders:** AgentVetter maintainers
 - **Tags:** frontend, dashboard, prototype
 
 ## Context
@@ -19,14 +19,14 @@ planning overrode that for Horizon A: the prototype **is** the ship UI.
 
 Ship **`prototypes/dc-dashboard` as-is**.
 
-- Static HTML (`Tripwire.dc.html`) + JS modules. No React/Vue rewrite, no
+- Static HTML (`AgentVetter.dc.html`) + JS modules. No React/Vue rewrite, no
   `/frontend-advisor` pass.
 - Live client loads `@supabase/supabase-js` from an ESM CDN so the HTML
   prototype needs no bundler for Realtime.
 - Local preview: `node scripts/serve-dashboard.mjs` (binds 127.0.0.1, can
   proxy REST so `service_role` never enters the browser).
 - Direct browser → Supabase needs `SUPABASE_ANON_KEY` synced into
-  `tripwire-dashboard.config.js` (gitignored).
+  `agentvetter-dashboard.config.js` (gitignored).
 - Dashboard remains **outside** governed coverage and complexity thresholds;
   normal tests stay mandatory. Live ACL four files are coverage-gated
   ([ADR-0013](./0013-ship-path-quality-gates.md)).

@@ -2,12 +2,12 @@
 
 - **Status:** Accepted
 - **Date:** 2026-08-01
-- **Deciders:** Tripwire maintainers
+- **Deciders:** AgentVetter maintainers
 - **Tags:** runtime, cli, sandbox, languages
 
 ## Context
 
-Tripwire must run on an operator workstation (discover targets, bootstrap schema,
+AgentVetter must run on an operator workstation (discover targets, bootstrap schema,
 spawn jobs) and inside an isolated scan environment (install scanner CLIs, parse
 JSON, write findings). Those jobs have different language ecosystems: Node is
 natural for a `npm`-distributed CLI and the HTML dashboard; Cisco / Snyk / Tessl

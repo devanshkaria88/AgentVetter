@@ -1,5 +1,5 @@
--- Tripwire schema (Supabase / Postgres). Source of truth: spec Section 4.
--- Idempotent: safe to re-run via `tripwire setup` / first-scan auto-bootstrap.
+-- AgentVetter schema (Supabase / Postgres). Source of truth: spec Section 4.
+-- Idempotent: safe to re-run via `agentvetter setup` / first-scan auto-bootstrap.
 
 create extension if not exists pgcrypto;
 
@@ -226,7 +226,7 @@ grant select on dashboard_latest_runs to anon, authenticated;
 -- else green when ≥1 engine completed). risk_score stays weighted density for sort/trend.
 -- complete with zero completed engines (all not_applicable / skipped) → grey (unscanned),
 -- not a false green. partial-failed with zero completed → error. failed / running → error.
-create or replace function tripwire_rollup_item(p_item_id uuid) returns void as $$
+create or replace function agentvetter_rollup_item(p_item_id uuid) returns void as $$
 declare
   v_latest_run_id uuid;
   v_latest_status text;
@@ -283,6 +283,14 @@ begin
 
   update items set heatmap_status = v_bucket, risk_score = v_risk, updated_at = now() where id = p_item_id;
   update scan_runs set risk_score = v_risk where id = v_latest_run_id;
+end;
+$$ language plpgsql;
+
+-- Compat alias for the Tripwire-era function name. Call sites use agentvetter_rollup_item.
+-- Dropping this alias is a deferred operator migration — see docs/MIGRATION-AGENTVETTER.md.
+create or replace function tripwire_rollup_item(p_item_id uuid) returns void as $$
+begin
+  perform agentvetter_rollup_item(p_item_id);
 end;
 $$ language plpgsql;
 

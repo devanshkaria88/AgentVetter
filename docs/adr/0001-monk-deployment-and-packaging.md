@@ -2,7 +2,7 @@
 
 - **Status:** Proposed
 - **Date:** 2026-08-11 (updated 2026-09-08)
-- **Deciders:** Tripwire maintainers
+- **Deciders:** AgentVetter maintainers
 - **Tags:** deployment, packaging, monk, supabase, modal
 
 > **This is a proposal, not a shipped capability.** Nothing here is implemented
@@ -10,7 +10,7 @@
 > Live path remains the operator workstation flow: clone the repo, fill a local
 > `.env`, run the setup commands, point the dashboard at hosted Supabase and
 > Modal. See [QUICKSTART](../../QUICKSTART.md) and
-> [setup-commands](../user-guide/setup-commands.md). Tripwire is **not**
+> [setup-commands](../user-guide/setup-commands.md). AgentVetter is **not**
 > currently deployable or redistributable via Monk.
 
 **Monk**, in one line: a packaging and deploy runtime that consumes a *Kit* — a
@@ -18,15 +18,15 @@ manifest, templates, and secrets — and provisions the described stack.
 
 ## Context
 
-Tripwire's Live path today assumes an operator workstation. That works for
+AgentVetter's Live path today assumes an operator workstation. That works for
 contributors who already have the tooling, but it does not make the project
 **immediately deployable** or **redistributable as a package**.
 
 We want a packaging and deploy story where:
 
-1. Anyone can pull this repo and ask Monk to deploy Tripwire on their cloud.
+1. Anyone can pull this repo and ask Monk to deploy AgentVetter on their cloud.
 2. Once published to the Monk registry, users can install Monk and ask to deploy
-   Tripwire without assembling the stack by hand (public container images
+   AgentVetter without assembling the stack by hand (public container images
    become part of that publish path).
 3. As the project grows, the template lives in this repo; shipping a new version
    is committing an updated template and publishing images from CI.
@@ -38,7 +38,7 @@ backends are natural **package flavors** rather than forks of the whole project.
 
 ## Decision
 
-**Package Tripwire as a Monk Kit** and treat Monk as the intended path that takes
+**Package AgentVetter as a Monk Kit** and treat Monk as the intended path that takes
 a user from zero to a running Live instance, *once implemented*.
 
 Two motivations carry equal weight. The first is redistribution: pull the repo,
@@ -101,7 +101,7 @@ the same way.
 ### Intended user path (after implementation)
 
 1. Install Monk.
-2. Ask Monk to deploy Tripwire (from this repo; later from the Monk registry).
+2. Ask Monk to deploy AgentVetter (from this repo; later from the Monk registry).
 3. Monk collects the Tier 1 secrets it needs to deploy at all, plus whichever
    Tier 2 and Tier 3 secrets the operator holds.
 4. Monk wires providers and provisions the required services and compute.
@@ -125,7 +125,7 @@ the same way.
 
 An MVL-complete deploy is a successful Live instance with **partial scanner
 coverage**; only full-coverage-complete gives an operator every scanner
-Tripwire can run.
+AgentVetter can run.
 
 ## Coexistence with today's docs
 
@@ -187,7 +187,7 @@ Maintain cloud-specific Actions or Terraform as the primary deploy story.
 **Not the primary path.** The next step after a working Kit is the opposite
 direction: **Monk generates** the CI/CD action that deploys to an existing
 cluster. That generation is an existing Monk capability, not a future one —
-but Tripwire does not use it yet, and adopting it is follow-up work outside
+but AgentVetter does not use it yet, and adopting it is follow-up work outside
 this ADR. Secrets remain handled by Monk; the workflow needs cluster
 coordinates and the Kit's manifest and templates. Custom pipelines remain
 possible for advanced operators, but they are not the default we are packaging
@@ -210,7 +210,7 @@ ADR is choosing.
   then Terraform provisions and something else deploys and something else holds
   secrets — three tools where the Kit is one.
 - **Versioned Kit plus a registry.** A manifest with versioned templates and a
-  registry install path is what makes "install Monk, deploy Tripwire" work
+  registry install path is what makes "install Monk, deploy AgentVetter" work
   without assembling the stack by hand. Helm has charts and repositories but no
   provisioning story; Terraform has modules and a registry but no packaged
   runtime.

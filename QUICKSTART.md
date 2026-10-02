@@ -1,12 +1,12 @@
 # Quickstart
 
-> Get Tripwire working in a few steps.
+> Get AgentVetter working in a few steps.
 
-**Tripwire** finds AI add-ons, checks them for risk, and shows results in one screen.
+**AgentVetter** finds AI add-ons, checks them for risk, and shows results in one screen.
 
 | Path | Effort | What you get |
 |---|---|---|
-| [Hosted dashboard](https://neomatrix369.github.io/demos/tripwire-dashboard/) | **No clone** — browse in browser | Mock UI preview on GitHub Pages |
+| [Hosted dashboard](https://neomatrix369.github.io/demos/agentvetter-dashboard/) | **No clone** — browse in browser | Mock UI preview on GitHub Pages |
 | [Demo walkthrough (video)](https://youtu.be/omGOw9ruN3Y) | **No clone** — watch first | End-to-end tour of the dashboard |
 | [Try the demo](#try-the-demo-recommended) | **Recommended** — no cloud accounts | Local discovery + Mock dashboard |
 | [Live scan](#live-advanced) | **Advanced** — five vendors + `.env` | Real scans stored online |
@@ -21,15 +21,15 @@ Hub for every other task: [docs/README.md](docs/README.md).
 2. Install the CLI:
 
 ```bash
-git clone https://github.com/neomatrix369/tripwire.git
-cd tripwire
+git clone https://github.com/neomatrix369/AgentVetter.git
+cd AgentVetter
 cd cli && npm install && npm link && cd ..
 ```
 
 3. Run a safe discovery check and open the Mock dashboard:
 
 ```bash
-tripwire scan --dry-discover ./fixtures/skills/safe-csv-cleaner
+agentvetter scan --dry-discover ./fixtures/skills/safe-csv-cleaner
 node scripts/serve-dashboard.mjs
 ```
 
@@ -62,14 +62,14 @@ Do these in order. Do not expect Live findings until accounts, `.env`, schema, a
 ```bash
 cp .env.example .env
 # fill keys using env-vars.md
-tripwire setup
+agentvetter setup
 ./scripts/setup-modal.sh
 ```
 
 6. **Scan + review**:
 
 ```bash
-tripwire scan ./fixtures/skills/safe-csv-cleaner
+agentvetter scan ./fixtures/skills/safe-csv-cleaner
 node scripts/serve-dashboard.mjs
 # Open Live (Supabase) in the dashboard
 ```
@@ -79,7 +79,7 @@ node scripts/serve-dashboard.mjs
 7. **Optional router** (after Live works) — [tiered-router-setup](docs/user-guide/tiered-router-setup.md), then:
 
 ```bash
-tripwire route --batch-id <batch_id>
+agentvetter route --batch-id <batch_id>
 ```
 
 Read strips and filters: [reading-router-results.md](docs/user-guide/reading-router-results.md).
@@ -94,8 +94,8 @@ Read strips and filters: [reading-router-results.md](docs/user-guide/reading-rou
 
 Cheat lines (full catalog linked):
 
-- Re-scan unchanged content: `tripwire scan --force <path>` — [re-run](docs/user-guide/setup-commands.md#re-run-and-maintenance-commands)
-- Re-route a batch: `tripwire route --batch-id <batch_id>` — [tiered router](docs/user-guide/setup-commands.md#tiered-router-optional)
+- Re-scan unchanged content: `agentvetter scan --force <path>` — [re-run](docs/user-guide/setup-commands.md#re-run-and-maintenance-commands)
+- Re-route a batch: `agentvetter route --batch-id <batch_id>` — [tiered router](docs/user-guide/setup-commands.md#tiered-router-optional)
 - Secrets-only Modal redeploy: `./scripts/setup-modal.sh --secrets-only` — [same section](docs/user-guide/setup-commands.md#re-run-and-maintenance-commands)
 - Failures: [When it fails](docs/user-guide/setup-commands.md#when-it-fails)
 
@@ -103,7 +103,7 @@ Cheat lines (full catalog linked):
 
 ## Next
 
-- Hosted UI (no clone): [neomatrix369.github.io/demos/tripwire-dashboard/](https://neomatrix369.github.io/demos/tripwire-dashboard/)
+- Hosted UI (no clone): [neomatrix369.github.io/demos/agentvetter-dashboard/](https://neomatrix369.github.io/demos/agentvetter-dashboard/)
 - Demo video: [YouTube walkthrough](https://youtu.be/omGOw9ruN3Y)
 - Docs map: [docs/README.md](docs/README.md)
 - Architecture: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)

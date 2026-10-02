@@ -1,11 +1,11 @@
 {
-  "name": "tripwire-dc-dashboard",
+  "name": "agentvetter-dc-dashboard",
   "private": true,
   "type": "module",
   "scripts": {
     "lint": "eslint *.js test/",
     "test": "node --test test/*.test.js",
-    "test:coverage": "c8 --include 'tripwire-live.js' --include 'tripwire-status.js' --include 'tripwire-realtime.js' --include 'tripwire-data.js' --include 'tripwire-workflow-stepper.js' --include 'tripwire-workflow-models.js' --include 'tripwire-workflow-pipeline.js' --include 'tripwire-run-progress.js' --include 'tripwire-triage.js' --include 'tripwire-investigate.js' --include 'tripwire-workflow-prefs.js' --include 'tripwire-fix-propose.js' --include 'tripwire-apply-clean.js' --include 'tripwire-fix-controls.js' --include 'tripwire-verify-rescan.js' --include 'tripwire-verify-view.js' --include 'tripwire-report.js' --include 'tripwire-report-export.js' --exclude 'support.js' --reporter text --reporter text-summary --check-coverage --lines 95 --functions 85 --branches 80 --statements 95 node --test test/*.test.js"
+    "test:coverage": "c8 --include 'agentvetter-live.js' --include 'agentvetter-status.js' --include 'agentvetter-realtime.js' --include 'agentvetter-data.js' --include 'agentvetter-workflow-stepper.js' --include 'agentvetter-workflow-models.js' --include 'agentvetter-workflow-pipeline.js' --include 'agentvetter-run-progress.js' --include 'agentvetter-triage.js' --include 'agentvetter-investigate.js' --include 'agentvetter-workflow-prefs.js' --include 'agentvetter-fix-propose.js' --include 'agentvetter-apply-clean.js' --include 'agentvetter-fix-controls.js' --include 'agentvetter-verify-rescan.js' --include 'agentvetter-verify-view.js' --include 'agentvetter-report.js' --include 'agentvetter-report-export.js' --exclude 'support.js' --reporter text --reporter text-summary --check-coverage --lines 95 --functions 85 --branches 80 --statements 95 node --test test/*.test.js"
   },
   "engines": {
     "node": ">=18"

@@ -1,7 +1,7 @@
 /**
  * SIE judge panel + final judge (slice 67).
  *
- * ADR-0016 `tripwire route` / auto-route stays unchanged; this module is additive.
+ * ADR-0016 `agentvetter route` / auto-route stays unchanged; this module is additive.
  * Panel inputs include tiered_router analysis/escalation rows when present.
  * Scanned content is wrapped as untrusted data (never instruction channel).
  *
@@ -380,7 +380,7 @@ export async function runPanelForCandidate(candidate, opts = {}) {
 }
 
 /**
- * Entry point used by `tripwire judge --batch-id` and opt-in auto-judge.
+ * Entry point used by `agentvetter judge --batch-id` and opt-in auto-judge.
  * Inject `candidates` + `callChatApiFn` / `listModelsFn` in tests (router-style).
  */
 export async function runJudgePanel(batchId, opts = {}) {

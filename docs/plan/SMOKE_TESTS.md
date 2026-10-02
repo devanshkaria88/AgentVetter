@@ -39,7 +39,7 @@ must not satisfy a scan, provider-coverage, or dashboard-result assertion.
 onboarding, setup, running, maintenance, or contribution guidance. The executor
 records the evidence and fixes the gap or links the follow-up issue before handoff.
 
-Run this from a fresh clone when practical. Record whether `tripwire` was already
+Run this from a fresh clone when practical. Record whether `agentvetter` was already
 globally linked and whether `.env` already existed. Never record tokens,
 service-role keys, or credential-bearing URLs.
 
@@ -100,9 +100,9 @@ Run (per section order):
 ```bash
 cd /path/to/repo
 
-git clone https://github.com/neomatrix369/tripwire.git
+git clone https://github.com/neomatrix369/AgentVetter.git
 after_dir=$PWD
-cd tripwire
+cd agentvetter
 cd cli
 npm install
 npm link
@@ -121,8 +121,8 @@ Expected result:
 Run:
 
 ```bash
-tripwire --help
-tripwire scan --help
+agentvetter --help
+agentvetter scan --help
 ```
 
 Checks:
@@ -137,13 +137,13 @@ File: [QUICKSTART.md](../QUICKSTART.md)
 Run:
 
 ```bash
-cd /path/to/repo/tripwire
+cd /path/to/repo/agentvetter
 
 git --version
 node -v
 npm -v
-tripwire scan --dry-discover ./fixtures/skills/safe-csv-cleaner
-tripwire scan --dry-discover ./fixtures/mcp/mcp_manifest.json
+agentvetter scan --dry-discover ./fixtures/skills/safe-csv-cleaner
+agentvetter scan --dry-discover ./fixtures/mcp/mcp_manifest.json
 node scripts/serve-dashboard.mjs
 ```
 
@@ -191,7 +191,7 @@ and Cisco AI Defense. Do not paste credentials into this document or command
 output.
 
 ```bash
-tripwire setup
+agentvetter setup
 ./scripts/setup-modal.sh --secrets-only
 ./scripts/setup-modal.sh --deploy-only
 ```
@@ -209,7 +209,7 @@ Checks:
 Run a fixture scan using the available mode, then start the dashboard:
 
 ```bash
-tripwire scan ./fixtures/skills/safe-csv-cleaner
+agentvetter scan ./fixtures/skills/safe-csv-cleaner
 node scripts/serve-dashboard.mjs
 ```
 
@@ -231,7 +231,7 @@ Checks:
   complete-Live result.
 - Modal authentication failures point to the documented login/setup path.
 - Supabase connection or schema failures point to the documented setup or
-  `tripwire setup --force` recovery path.
+  `agentvetter setup --force` recovery path.
 - A failure is recorded as `fail` or `blocked-by-env`; do not mask it with `|| true`.
 
 ### 5d) Optional tiered router docs
@@ -251,7 +251,7 @@ File: [CONTRIBUTING.md](../CONTRIBUTING.md)
 Run:
 
 ```bash
-cd /path/to/repo/tripwire
+cd /path/to/repo/agentvetter
 
 ./scripts/quality-gates.sh --quick
 ```
@@ -290,9 +290,9 @@ File: [docs/user-guide/setup-commands.md](./user-guide/setup-commands.md)
 Run:
 
 ```bash
-cd /path/to/repo/tripwire
+cd /path/to/repo/agentvetter
 
-tripwire setup --force
+agentvetter setup --force
 ./scripts/setup-modal.sh --secrets-only
 ./scripts/setup-modal.sh --deploy-only
 ./scripts/quality-gates.sh

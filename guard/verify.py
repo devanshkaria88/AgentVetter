@@ -18,14 +18,14 @@ from typing import Any, Literal
 
 UiState = Literal["fresh", "stale", "unscanned", "scanning", "not-found", "red"]
 
-BLOCKED_FOOTER = "Will be blocked when Tripwire is enabled"
+BLOCKED_FOOTER = "Will be blocked when AgentVetter is enabled"
 SOURCES_FOOTER = (
     "Sources: Quality is from Tessl (Review Quality). "
     "Security-related Status (GREEN/AMBER/RED) is from Cisco AI Defense and Snyk."
 )
 NOT_FOUND_NOTE = (
     "No match in ~/.claude/skills, .claude/skills, .mcp.json, ~/.claude.json, "
-    "~/.tripwire/demo-mcp.json, fixtures manifest"
+    "~/.agentvetter/demo-mcp.json, fixtures manifest"
 )
 TABLE_HEADER = "| Name | Type | Status | Quality | Note |"
 TABLE_SEP = "|------|------|--------|---------|------|"

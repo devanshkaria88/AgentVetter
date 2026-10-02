@@ -111,8 +111,8 @@ try {
   console.log('Conflict batch ID: ', conflictBatchId);
   console.log('Triage batch ID:   ', triageBatchId);
   console.log('\nRun router against these with:');
-  console.log(`  node cli/bin/tripwire.js route --batch-id ${conflictBatchId}`);
-  console.log(`  node cli/bin/tripwire.js route --batch-id ${triageBatchId}`);
+  console.log(`  node cli/bin/agentvetter.js route --batch-id ${conflictBatchId}`);
+  console.log(`  node cli/bin/agentvetter.js route --batch-id ${triageBatchId}`);
 } catch (err) {
   console.error('Seed failed:', err.message || err);
   process.exit(1);

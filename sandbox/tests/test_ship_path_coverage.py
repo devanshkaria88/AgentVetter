@@ -231,7 +231,7 @@ def test_given_findings_when_completed_then_detail_summarises_worst() -> None:
 
 def test_given_mcp_envelope_when_mapped_then_findings_and_rows() -> None:
     """
-    Scenario: MCP envelope maps analyzer findings into Tripwire rows.
+    Scenario: MCP envelope maps analyzer findings into AgentVetter rows.
     Slice: slice-11 — _map_mcp_envelope
 
     Given a raw envelope with yara HIGH and SAFE entries,
@@ -664,7 +664,7 @@ def test_given_snyk_v06_clean_scan_path_responses_when_run_then_completed() -> N
 
 def test_given_snyk_v06_risk_indexes_when_run_then_red_and_amber_findings() -> None:
     """
-    Scenario: v0.6 risk_indexes map to Tripwire findings by score band.
+    Scenario: v0.6 risk_indexes map to AgentVetter findings by score band.
     Slice: slice-11 — run_snyk v0.6 risks
 
     Given skill risk score 1000 and server risk score 300,

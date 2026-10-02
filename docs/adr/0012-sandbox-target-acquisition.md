@@ -2,7 +2,7 @@
 
 - **Status:** Accepted
 - **Date:** 2026-08-01
-- **Deciders:** Tripwire maintainers
+- **Deciders:** AgentVetter maintainers
 - **Tags:** sandbox, acquisition, isolation, modal
 
 ## Context
@@ -57,7 +57,7 @@ skill root (`_pack_local_dir` filter). Non-Tessl trees keep `evals/`.
 Git clone and `hashLocalPath` still walk on-disk `evals/`.
 See [plan/DECISIONS.md](../plan/DECISIONS.md) (2026-08-24 packing).
 
-**2026-09-27 (IMPLEMENTED, acquire path VERIFIED):** HTTP(S) is a git URL only for GitHub, GitLab (hostname contains `gitlab`), Bitbucket, Codeberg, or a trailing `.git`. Other HTTP(S) URLs, including live MCP endpoints, stay introspection-only. VERIFIED 2026-09-27: `tripwire scan --force https://api.everesteer.ai/mcp/` finished with an empty `failed_targets` list and no git clone.
+**2026-09-27 (IMPLEMENTED, acquire path VERIFIED):** HTTP(S) is a git URL only for GitHub, GitLab (hostname contains `gitlab`), Bitbucket, Codeberg, or a trailing `.git`. Other HTTP(S) URLs, including live MCP endpoints, stay introspection-only. VERIFIED 2026-09-27: `agentvetter scan --force https://api.everesteer.ai/mcp/` finished with an empty `failed_targets` list and no git clone.
 
 **Wave P / slice 62 (✅ on `main` via #145/#146):** GitHub browse URLs (`…/tree/…`,
 `…/blob/…`) normalize to cloneable repo root before clone; a repo URL fans out
@@ -71,7 +71,7 @@ sandbox scanners for package are Snyk (`snyk test` SCA) / DepShield / Ossprey on
 Cargo-only honesty: unsupported engines → `not_applicable`; all-N/A complete →
 UNSCANNED. See
 [slice-64](../plan/slices/16-P-git-repo-scan/slice-64-git-repo-package-scan.md),
-[prerequisites — What can Tripwire scan?](../user-guide/prerequisites.md#what-can-tripwire-scan),
+[prerequisites — What can AgentVetter scan?](../user-guide/prerequisites.md#what-can-agentvetter-scan),
 and [STATUS.md](../STATUS.md) Wave P.
 
 ## References

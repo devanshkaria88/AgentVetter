@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Apply Tripwire DDL to Supabase (idempotent). Same path the CLI uses on first scan.
+# Apply AgentVetter DDL to Supabase (idempotent). Same path the CLI uses on first scan.
 #
 # Requires in .env:
 #   SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY  — probe via HTTP API
@@ -14,9 +14,9 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
 
-if [[ -x "$ROOT/cli/bin/tripwire.js" ]] || [[ -f "$ROOT/cli/bin/tripwire.js" ]]; then
-  exec node "$ROOT/cli/bin/tripwire.js" setup "$@"
+if [[ -x "$ROOT/cli/bin/agentvetter.js" ]] || [[ -f "$ROOT/cli/bin/agentvetter.js" ]]; then
+  exec node "$ROOT/cli/bin/agentvetter.js" setup "$@"
 fi
 
-echo "error: cli/bin/tripwire.js not found" >&2
+echo "error: cli/bin/agentvetter.js not found" >&2
 exit 1

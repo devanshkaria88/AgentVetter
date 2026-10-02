@@ -58,7 +58,7 @@ if [[ ${#FAILED[@]} -gt 0 ]]; then
   echo "This usually means RLS was enabled without the anon SELECT policies."
   echo "Fix: re-apply the full schema (idempotent):"
   echo
-  echo "  tripwire setup --force"
+  echo "  agentvetter setup --force"
   echo "  # or: ./scripts/setup-supabase.sh --force"
   echo
   echo "Never toggle RLS via the Supabase UI — always manage schema through"

@@ -2,7 +2,7 @@
 
 - **Status:** Accepted
 - **Date:** 2026-08-01
-- **Deciders:** Tripwire maintainers
+- **Deciders:** AgentVetter maintainers
 - **Tags:** security, rls, auth, supabase
 
 ## Context
@@ -21,13 +21,13 @@ works.
 Split keys by trust boundary.
 
 - **Writes:** `SUPABASE_SERVICE_ROLE_KEY` on the CLI and in Modal secret
-  `tripwire-supabase`. Service role bypasses RLS.
+  `agentvetter-supabase`. Service role bypasses RLS.
 - **Browser reads:** `SUPABASE_ANON_KEY` with RLS enabled and `anon` SELECT
   policies + GRANTs on `items`, `scan_runs`, `scan_run_scanners`, `findings`.
-- **Never** put `service_role` in `tripwire-dashboard.config.js`. Prefer
+- **Never** put `service_role` in `agentvetter-dashboard.config.js`. Prefer
   `serve-dashboard.mjs` local proxy when the anon key is omitted.
 - **Never** toggle RLS in the Supabase UI. Apply `db/schema.sql` via
-  `tripwire setup --force` so policies and GRANTs land together.
+  `agentvetter setup --force` so policies and GRANTs land together.
 - No end-user login (Auth0/Clerk/Keycloak) for Horizon A. Shared-instance auth
   is deferred to future packaging work (ADR 0001 reserved; draft under review).
 

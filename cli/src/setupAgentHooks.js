@@ -5,6 +5,7 @@ import { exec as execCb, spawn } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { promisify } from 'node:util';
 import { parse as parseDotenv } from 'dotenv';
+import { isAgentVetterHookCommand } from './configHome.js';
 
 const execAsync = promisify(execCb);
 
@@ -15,13 +16,10 @@ const execAsync = promisify(execCb);
 export const HOOK_MATCHER = '^(Skill|Bash|mcp__.*)$';
 const HOOK_TIMEOUT_SECONDS = 10;
 const HANDLER_FILES = ['pre-tool-use.sh', '_guard_entry.py'];
-// Any registration form of our handler ends with this suffix (absolute or `~/…`).
-const HOOK_COMMAND_SUFFIX = '/.tripwire/hooks/pre-tool-use.sh';
-
 // Demo SKILL dirs installed by scripts/install-demo-artifacts.sh into
 // ~/.claude/skills/. The demo MCP artifacts (safe-tool/vuln-tool/amber-tool)
 // are NEVER installed there — they exist only as keys in the manifest
-// ~/.tripwire/demo-mcp.json and are swept as that manifest FILE (plan §5.4).
+// ~/.agentvetter/demo-mcp.json and are swept as that manifest FILE (plan §5.4).
 export const DEMO_SKILL_NAMES = ['safe-skill', 'vuln-skill', 'amber-skill'];
 const DEMO_MCP_MANIFEST = 'demo-mcp.json';
 // Manifest regenerated each run from ~/.claude.json's mcpServers (see mcpSweepManifests).
@@ -86,7 +84,7 @@ function matchingBrace(text, start) {
 }
 
 /**
- * Extract the scan-result JSON object from `tripwire scan`'s mixed stdout
+ * Extract the scan-result JSON object from `agentvetter scan`'s mixed stdout
  * ([skip] lines before, [route]/[sie] lines after — plan §0.3): from each `{`
  * in order, take the brace-matched slice; first slice that parses wins.
  */
@@ -129,12 +127,12 @@ async function preflight({ nodeVersion, envFile, fs, execFn }) {
   const major = Number(String(nodeVersion).split('.')[0]);
   if (!Number.isInteger(major) || major < 18) {
     throw new Error(
-      `Node >= 18 required (found ${nodeVersion}). Install a newer Node (e.g. via nvm), then re-run \`tripwire setup-agent-hooks\`.`
+      `Node >= 18 required (found ${nodeVersion}). Install a newer Node (e.g. via nvm), then re-run \`agentvetter setup-agent-hooks\`.`
     );
   }
   if (!fs.existsSync(envFile)) {
     throw new Error(
-      `Missing ${envFile}. Copy .env.example to .env and fill in SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY, then re-run \`tripwire setup-agent-hooks\`.`
+      `Missing ${envFile}. Copy .env.example to .env and fill in SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY, then re-run \`agentvetter setup-agent-hooks\`.`
     );
   }
   // Parse VALUES, not just key presence: an empty or placeholder credential arms
@@ -143,10 +141,10 @@ async function preflight({ nodeVersion, envFile, fs, execFn }) {
   for (const key of ['SUPABASE_URL', 'SUPABASE_SERVICE_ROLE_KEY']) {
     const value = (envValues[key] ?? '').trim();
     if (!value) {
-      throw new Error(`${envFile} has no value for ${key}. Fill it in (see .env.example), then re-run \`tripwire setup-agent-hooks\`.`);
+      throw new Error(`${envFile} has no value for ${key}. Fill it in (see .env.example), then re-run \`agentvetter setup-agent-hooks\`.`);
     }
     if (isPlaceholderEnvValue(value)) {
-      throw new Error(`${envFile} still has a placeholder value for ${key} ("${value}"). Fill in the real value, then re-run \`tripwire setup-agent-hooks\`.`);
+      throw new Error(`${envFile} still has a placeholder value for ${key} ("${value}"). Fill in the real value, then re-run \`agentvetter setup-agent-hooks\`.`);
     }
   }
   const uvBin = await resolveBinary(
@@ -194,7 +192,7 @@ function installHandlers({ fs, hooksSourceDir, hooksDestDir }) {
   for (const name of HANDLER_FILES) {
     const src = path.join(hooksSourceDir, name);
     if (!fs.existsSync(src)) {
-      throw new Error(`Handler source missing: ${src}. Ensure your checkout includes agent-hooks/hooks/, then re-run \`tripwire setup-agent-hooks\`.`);
+      throw new Error(`Handler source missing: ${src}. Ensure your checkout includes agent-hooks/hooks/, then re-run \`agentvetter setup-agent-hooks\`.`);
     }
     const dest = path.join(hooksDestDir, name);
     fs.copyFileSync(src, dest);
@@ -230,7 +228,7 @@ function readSettingsForMerge({ fs, settingsPath }) {
     return { settings: JSON.parse(raw), existed: true };
   } catch (err) {
     throw new Error(
-      `${settingsPath} is not valid JSON (${err.message}) — refusing to modify it. Fix the file by hand, then re-run \`tripwire setup-agent-hooks\`.`,
+      `${settingsPath} is not valid JSON (${err.message}) — refusing to modify it. Fix the file by hand, then re-run \`agentvetter setup-agent-hooks\`.`,
       { cause: err }
     );
   }
@@ -252,22 +250,11 @@ function assertMergeableShape(settings, settingsPath) {
 }
 
 /**
- * True when `command` already registers our handler, whatever form it was
- * written in: absolute path, or a hand-installed `~/…` form (leading `~`
- * expanded, then matched by the /.tripwire/hooks/pre-tool-use.sh suffix).
- */
-function isTripwireHookCommand(command, homedir) {
-  if (typeof command !== 'string') return false;
-  const expanded = command.startsWith('~/') ? path.join(homedir, command.slice(2)) : command;
-  return expanded.endsWith(HOOK_COMMAND_SUFFIX);
-}
-
-/**
  * JSON-merge the PreToolUse hook into ~/.claude/settings.json: timestamped backup
- * before any modification, idempotent by handler-command suffix, all other keys
- * preserved, atomic replace on write. Re-runs refresh the matcher when our
- * handler is already present but the matcher is stale (e.g. Skill|mcp →
- * Skill|Bash|mcp) without duplicating the entry.
+ * before any modification, idempotent by handler-command suffix (`.agentvetter`
+ * or legacy `.tripwire`), all other keys preserved, atomic replace on write.
+ * Re-runs refresh the matcher when our handler is already present but the
+ * matcher is stale (e.g. Skill|mcp → Skill|Bash|mcp) without duplicating the entry.
  */
 function mergeSettings({ fs, settingsPath, hookCommand, homedir, now, log }) {
   const { settings, existed } = readSettingsForMerge({ fs, settingsPath });
@@ -275,7 +262,7 @@ function mergeSettings({ fs, settingsPath, hookCommand, homedir, now, log }) {
   const preToolUse = hooks.PreToolUse || [];
 
   const oursIdx = preToolUse.findIndex(entry =>
-    entry && Array.isArray(entry.hooks) && entry.hooks.some(h => h && isTripwireHookCommand(h.command, homedir)));
+    entry && Array.isArray(entry.hooks) && entry.hooks.some(h => h && isAgentVetterHookCommand(h.command, homedir)));
 
   if (oursIdx >= 0) {
     if (preToolUse[oursIdx].matcher === HOOK_MATCHER) {
@@ -284,7 +271,7 @@ function mergeSettings({ fs, settingsPath, hookCommand, homedir, now, log }) {
     }
     let backupPath = null;
     if (existed) {
-      backupPath = `${settingsPath}.tripwire-bak-${now().toISOString()}`;
+      backupPath = `${settingsPath}.agentvetter-bak-${now().toISOString()}`;
       fs.copyFileSync(settingsPath, backupPath);
       log(`[setup-agent-hooks] Backed up ${settingsPath} -> ${backupPath}`);
     }
@@ -293,13 +280,13 @@ function mergeSettings({ fs, settingsPath, hookCommand, homedir, now, log }) {
     settings.hooks = hooks;
     fs.mkdirSync(path.dirname(settingsPath), { recursive: true });
     writeFileAtomic({ fs, filePath: settingsPath, data: JSON.stringify(settings, null, 2) + '\n', mode: 0o600 });
-    log(`[setup-agent-hooks] Refreshed Tripwire PreToolUse matcher in ${settingsPath}.`);
+    log(`[setup-agent-hooks] Refreshed AgentVetter PreToolUse matcher in ${settingsPath}.`);
     return { changed: true, backupPath };
   }
 
   let backupPath = null;
   if (existed) {
-    backupPath = `${settingsPath}.tripwire-bak-${now().toISOString()}`;
+    backupPath = `${settingsPath}.agentvetter-bak-${now().toISOString()}`;
     fs.copyFileSync(settingsPath, backupPath);
     log(`[setup-agent-hooks] Backed up ${settingsPath} -> ${backupPath}`);
   }
@@ -318,13 +305,13 @@ function mergeSettings({ fs, settingsPath, hookCommand, homedir, now, log }) {
   return { changed: true, backupPath };
 }
 
-/** Overwrite-sync each agent-hooks/skills/tw-* dir into ~/.claude/skills/. */
+/** Overwrite-sync each agent-hooks/skills/av-* dir into ~/.claude/skills/. */
 function installSkills({ fs, skillsSourceDir, skillsDestRoot, log }) {
   if (!fs.existsSync(skillsSourceDir)) {
-    throw new Error(`Skills source missing: ${skillsSourceDir}. Ensure your checkout includes agent-hooks/skills/, then re-run \`tripwire setup-agent-hooks\`.`);
+    throw new Error(`Skills source missing: ${skillsSourceDir}. Ensure your checkout includes agent-hooks/skills/, then re-run \`agentvetter setup-agent-hooks\`.`);
   }
   const dirs = fs.readdirSync(skillsSourceDir, { withFileTypes: true })
-    .filter(entry => entry.isDirectory() && entry.name.startsWith('tw-'))
+    .filter(entry => entry.isDirectory() && entry.name.startsWith('av-'))
     .map(entry => entry.name)
     .sort();
   fs.mkdirSync(skillsDestRoot, { recursive: true });
@@ -335,7 +322,7 @@ function installSkills({ fs, skillsSourceDir, skillsDestRoot, log }) {
     fs.cpSync(path.join(skillsSourceDir, name), dest, { recursive: true });
     installed.push(dest);
   }
-  log(`[setup-agent-hooks] Installed ${installed.length} /tw-* skill(s) into ${skillsDestRoot}.`);
+  log(`[setup-agent-hooks] Installed ${installed.length} /av-* skill(s) into ${skillsDestRoot} (tw-* aliases in SKILL.md).`);
   return installed;
 }
 
@@ -358,7 +345,7 @@ async function installDemoArtifacts({ fs, execFn, repoRoot, log }) {
 /**
  * Demo SKILL dirs actually installed under ~/.claude/skills/ — only the three
  * demo skills ever live there. The demo MCP artifacts are manifest-only
- * (~/.tripwire/demo-mcp.json) and are swept as a manifest FILE instead.
+ * (~/.agentvetter/demo-mcp.json) and are swept as a manifest FILE instead.
  */
 function demoSkillPaths({ fs, skillsDestRoot }) {
   return DEMO_SKILL_NAMES
@@ -404,16 +391,16 @@ function readClaudeJsonServers({ fs, homedir, cwd }) {
  * row, and MCP verdicts carry no content binding (pending hash).
  *
  * Files swept: <cwd>/.mcp.json (when it has servers); a manifest generated
- * under ~/.tripwire/ from ~/.claude.json's mcpServers (top-level +
- * projects[<cwd>]); and ~/.tripwire/demo-mcp.json when --with-demo.
+ * under ~/.agentvetter/ from ~/.claude.json's mcpServers (top-level +
+ * projects[<cwd>]); and ~/.agentvetter/demo-mcp.json when --with-demo.
  */
-function mcpSweepManifests({ fs, cwd, homedir, tripwireDir, withDemo, log }) {
+function mcpSweepManifests({ fs, cwd, homedir, agentvetterDir, withDemo, log }) {
   const manifests = [];
 
   const projectManifest = path.join(cwd, '.mcp.json');
   if (readMcpServers(fs, projectManifest)) manifests.push(projectManifest);
 
-  const generatedPath = path.join(tripwireDir, CLAUDE_JSON_SWEEP_MANIFEST);
+  const generatedPath = path.join(agentvetterDir, CLAUDE_JSON_SWEEP_MANIFEST);
   const claudeJsonServers = readClaudeJsonServers({ fs, homedir, cwd });
   if (claudeJsonServers) {
     // Regenerated every run; ~/.claude.json itself is never passed (it is not
@@ -426,7 +413,7 @@ function mcpSweepManifests({ fs, cwd, homedir, tripwireDir, withDemo, log }) {
   }
 
   if (withDemo) {
-    const demoManifest = path.join(tripwireDir, DEMO_MCP_MANIFEST);
+    const demoManifest = path.join(agentvetterDir, DEMO_MCP_MANIFEST);
     if (fs.existsSync(demoManifest)) manifests.push(demoManifest);
   }
   return manifests;
@@ -459,7 +446,7 @@ function printSummary({ log, configState, configPath, hookCommand, settingsPath,
       ? 'OFF (existing config has "enable": false — run /tw-enable to arm)'
       : `UNKNOWN — ${configPath} is unparseable; the hook treats that as tampering and DENIES. Delete it and re-run setup, or restore valid JSON.`;
   log('');
-  log('[setup-agent-hooks] Tripwire Claude Code hooks installed.');
+  log('[setup-agent-hooks] AgentVetter Claude Code hooks installed.');
   log(`  Enforcement: ${enforcement}`);
   log(`  Config:      ${configPath}`);
   log(`  Handler:     ${hookCommand} (registered in ${settingsPath}${backupPath ? `; backup: ${backupPath}` : ''})`);
@@ -500,7 +487,7 @@ function resolveOptions(opts) {
 }
 
 /** Sweep targets: installed tw-* skills (realpaths) + demo skill dirs + MCP manifest FILES. */
-async function gatherSweepTargets({ fs, withDemo, execFn, repoRoot, installedSkills, skillsDestRoot, cwd, homedir, tripwireDir, log }) {
+async function gatherSweepTargets({ fs, withDemo, execFn, repoRoot, installedSkills, skillsDestRoot, cwd, homedir, agentvetterDir, log }) {
   if (withDemo) {
     await installDemoArtifacts({ fs, execFn, repoRoot, log });
   }
@@ -508,12 +495,12 @@ async function gatherSweepTargets({ fs, withDemo, execFn, repoRoot, installedSki
   if (withDemo) {
     targets.push(...demoSkillPaths({ fs, skillsDestRoot }).map(p => fs.realpathSync(p)));
   }
-  targets.push(...mcpSweepManifests({ fs, cwd, homedir, tripwireDir, withDemo, log }));
+  targets.push(...mcpSweepManifests({ fs, cwd, homedir, agentvetterDir, withDemo, log }));
   return [...new Set(targets)];
 }
 
 /**
- * `tripwire setup-agent-hooks` (plan §4.4, A4/T4). Idempotent. Seams
+ * `agentvetter setup-agent-hooks` (plan §4.4, A4/T4). Idempotent. Seams
  * ({fs, homedir, cwd, execFn, scanFn, now, nodeVersion, repoRoot, log}) are
  * injectable for tests; defaults preserve the production path.
  *
@@ -524,13 +511,14 @@ export async function runSetupAgentHooks(opts = {}) {
   const { withDemo, fs, homedir, cwd, execFn, scanFn, now, nodeVersion, repoRoot, log } = resolveOptions(opts);
 
   const root = path.resolve(repoRoot);
-  const cliBin = path.join(root, 'cli', 'bin', 'tripwire.js');
+  const cliBin = path.join(root, 'cli', 'bin', 'agentvetter.js');
   const envFile = path.join(root, '.env');
   const hooksSourceDir = path.join(root, 'agent-hooks', 'hooks');
   const skillsSourceDir = path.join(root, 'agent-hooks', 'skills');
-  const tripwireDir = path.join(homedir, '.tripwire');
-  const hooksDestDir = path.join(tripwireDir, 'hooks');
-  const configPath = path.join(tripwireDir, 'config.json');
+  // Prefer ~/.agentvetter; new installs always write there (ADR-0018).
+  const agentvetterDir = path.join(homedir, '.agentvetter');
+  const hooksDestDir = path.join(agentvetterDir, 'hooks');
+  const configPath = path.join(agentvetterDir, 'config.json');
   const settingsPath = path.join(homedir, '.claude', 'settings.json');
   const skillsDestRoot = path.join(homedir, '.claude', 'skills');
   const hookCommand = path.join(hooksDestDir, 'pre-tool-use.sh');
@@ -539,7 +527,7 @@ export async function runSetupAgentHooks(opts = {}) {
   log('[setup-agent-hooks] Preflight checks…');
   const { uvBin } = await preflight({ nodeVersion, envFile, fs, execFn });
 
-  // 2. ~/.tripwire + config.json — written BEFORE hooks register (plan §3 tamper
+  // 2. ~/.agentvetter + config.json — written BEFORE hooks register (plan §3 tamper
   //    rule: config-before-hooks; hook registration itself is deferred to step 6).
   fs.mkdirSync(hooksDestDir, { recursive: true });
   ensureConfig({ fs, configPath, repoRoot: root, cliBin, envFile, uvBin, log });
@@ -563,7 +551,7 @@ export async function runSetupAgentHooks(opts = {}) {
   // 5. Demo install (--with-demo) + bootstrap scan sweep: tw skills + demo skill
   //    dirs + MCP manifest files (sweep failures are reported, never thrown).
   const targets = await gatherSweepTargets({
-    fs, withDemo, execFn, repoRoot: root, installedSkills, skillsDestRoot, cwd, homedir, tripwireDir, log,
+    fs, withDemo, execFn, repoRoot: root, installedSkills, skillsDestRoot, cwd, homedir, agentvetterDir, log,
   });
   const scans = await runBootstrapSweep({ scanFn, cliBin, repoRoot: root, targets, log });
 

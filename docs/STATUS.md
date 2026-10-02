@@ -1,6 +1,6 @@
 # Capability status
 
-Evidence-labelled claims for Tripwire.
+Evidence-labelled claims for AgentVetter.
 
 Start here: [QUICKSTART](../QUICKSTART.md) · Hub: [docs/README](./README.md) · Repo: [README.md](../README.md)
 
@@ -20,7 +20,7 @@ RESEARCH · PROPOSED · DECIDED · IMPLEMENTED · VERIFIED · SUPERSEDED.
 [![Cursor](https://img.shields.io/badge/Cursor-000000?style=flat)](https://cursor.com)
 [![Modal](https://img.shields.io/badge/Modal-7C5CFF?style=flat)](https://modal.com)
 [![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=flat&logo=supabase&logoColor=white)](https://supabase.com)
-[![Tripwire](https://img.shields.io/badge/Tripwire-1a1a2e?style=flat)](https://github.com/neomatrix369/AgentVetter)
+[![AgentVetter](https://img.shields.io/badge/AgentVetter-1a1a2e?style=flat)](https://github.com/neomatrix369/AgentVetter)
 
 [![Cisco](https://img.shields.io/badge/Cisco-1BA0D7?style=flat)](https://developer.cisco.com)
 [![Snyk](https://img.shields.io/badge/Snyk-4C4A73?style=flat&logo=snyk&logoColor=white)](https://snyk.io)
@@ -38,17 +38,17 @@ Reachable through production entry points / config:
 
 - Full schema + rollup function + anon SELECT policies/GRANTs + Realtime
   publication on `scan_runs` / `scan_run_scanners` / `findings` — `db/schema.sql`,
-  applied via `tripwire setup` / `cli/src/ensureSchema.js`
+  applied via `agentvetter setup` / `cli/src/ensureSchema.js`
 - `scan_run_scanners` incremental writes from Modal (`running` placeholders,
   `console_output`, `started_at`/`completed_at`; PGRST204-safe fallback when
   columns missing) — `sandbox/`
-- CLI discovery / hashing / idempotency / batching — `cli/` (`tripwire scan`)
+- CLI discovery / hashing / idempotency / batching — `cli/` (`agentvetter scan`)
 - CLI scanner inventory after scan (per-source status + rollup
   `fully successful` / `partly successful` / `fully failed` / `not run`;
   zero-artifact paths list registry as `not_run`) — `cli/src/scannerInventory.js`
   (slice 63 ✅ on `main` via #145/#146). Package expected sources include
   **Cargo Audit** (RustSec) alongside Snyk / DepShield / Ossprey.
-- Language/ecosystem **coverage ledger** (slice 65, Wave R): `tripwire scan`
+- Language/ecosystem **coverage ledger** (slice 65, Wave R): `agentvetter scan`
   / `--dry-discover` prints `[coverage]` rows per discovered ecosystem
   (volume, scanner, action status, unsupported portions, reason) —
   `cli/src/coverageLedger.js`. Marker-driven discovery (not a closed language
@@ -65,11 +65,11 @@ Reachable through production entry points / config:
   Deterministic guards record hidden/encoded instruction attempts; scanned
   content is wrapped as `untrusted_data` (never system/judge instructions).
   Secret-like tokens are masked in logs/prompts unless `--reveal-secrets`.
-  `tripwire scan` / `--dry-discover` print `[evidence]` rows —
+  `agentvetter scan` / `--dry-discover` print `[evidence]` rows —
   `cli/src/evidenceVerify.js`. IMPLEMENTED (host/CLI); finding-row persistence
   stays slice 67.
 - Wave R **workflow stepper** Run→Triage→Investigate (slice 68): IMPLEMENTED /
-  VERIFIED on `main` (#152) — `prototypes/dc-dashboard/tripwire-workflow-*.js`
+  VERIFIED on `main` (#152) — `prototypes/dc-dashboard/agentvetter-workflow-*.js`
   (+ run-progress / triage / investigate) with GWT-68.* tests. **Nav (2026-09-20):**
   primary **Dashboard** tab = inventory (default); stepper + phase panels move to
   secondary **Workflow** tab — IMPLEMENTED on `main`
@@ -80,14 +80,14 @@ Reachable through production entry points / config:
   high/low/unscored), and per-target chips; filters compose with status tabs;
   finding rows show target name. SCA triage titles prefer `package@version · CVE`
   (not bare `dependency_vulnerability`); Live maps `package_name` /
-  `package_version` / `cve_ids`. Module: `tripwire-triage.js` + Triage panel in
-  `Tripwire.dc.html`; GWT-73.* tests.
+  `package_version` / `cve_ids`. Module: `agentvetter-triage.js` + Triage panel in
+  `AgentVetter.dc.html`; GWT-73.* tests.
 - Wave R **workflow model labels** (slice 74): ✅ PASSED (formal close 2026-09-20)
   — IMPLEMENTED / VERIFIED. Stepper tabs show role-aware default model aliases
   for stages that use models (Run panel light/mid + final stronger; Triage SIE;
   Investigate SIE/MS; Fix blank while propose is heuristic). Soft-amend
   (2026-09-20): role labels, Fix empty while heuristic-only, per-target
-  type·name on model lines. Module: `tripwire-workflow-models.js`; GWT-74.1–74.5;
+  type·name on model lines. Module: `agentvetter-workflow-models.js`; GWT-74.1–74.5;
   Gate 4 APPROVED.
 - Wave R **Fix propose + apply-clean** (slice 69): IMPLEMENTED / VERIFIED on
   `main` (#154) — proposed unified diff, root-cause vs quick-patch label,
@@ -100,13 +100,13 @@ Reachable through production entry points / config:
   re-check runs only on a temp worktree/copy (approved repo unchanged);
   scanner missing/failed/timeout → unable, never “finding gone”; never claim
   fixed solely because a patch was generated (slice 69). Modules:
-  `tripwire-verify-rescan.js`, `tripwire-verify-view.js` (dashboard prototype).
+  `agentvetter-verify-rescan.js`, `agentvetter-verify-view.js` (dashboard prototype).
 - Wave R **Expert view + Report export** (slice 71): IMPLEMENTED / VERIFIED on
   `main` (#153) — on the **Workflow** tab, Expert toggle surfaces raw judges,
   model IDs, confidence, weakness/AI-sec IDs, scanner details, data-flow (Simple
   remains the default density); Report step headline (fixed / left / won't fix)
   with JSON/Markdown export + coverage ledger; secrets masked unless Reveal
-  secrets. Modules: `tripwire-report.js`, `tripwire-report-export.js`; GWT-71.*
+  secrets. Modules: `agentvetter-report.js`, `agentvetter-report-export.js`; GWT-71.*
   tests. Expert no longer gates the inventory grid (that is the Dashboard tab).
 - Wave R **operator-visible pipeline** (slice 75 / R-UX-1): IMPLEMENTED /
   VERIFIED (unit) on `main` ([#163](https://github.com/neomatrix369/AgentVetter/pull/163)) —
@@ -115,8 +115,8 @@ Reachable through production entry points / config:
   Investigate auto-select / final-judge lines; Fix does not inject false
   `gen-27b`); L→R soft-amend **IMPLEMENTED** (GWT-75.9–75.11: parent type·name
   on findings, keyboard multi-select + `k of N` progress, role-labelled /
-  parent-attributed model lines). Modules: `tripwire-workflow-pipeline.js`,
-  `tripwire-workflow-models.js` (+ Run/Triage/Investigate/Fix HTML wiring);
+  parent-attributed model lines). Modules: `agentvetter-workflow-pipeline.js`,
+  `agentvetter-workflow-models.js` (+ Run/Triage/Investigate/Fix HTML wiring);
   GWT-75.1–75.11 unit green; Gate 4 APPROVED on landing branch. Spec:
   [plan/slices/18-R-approved-repo-workflow/slice-75-operator-visible-pipeline.md](./plan/slices/18-R-approved-repo-workflow/slice-75-operator-visible-pipeline.md).
 - Wave R **Workflow chrome polish** (slice 76): ✅ PASSED on `main`
@@ -134,16 +134,16 @@ Reachable through production entry points / config:
   disposition buttons persist via idempotent `stableFindingId`; target focus +
   single-select; Verify honesty before/after Mark fixed. Spec:
   [plan/slices/18-R-approved-repo-workflow/slice-77-workflow-smoke-fix-target-flow.md](./plan/slices/18-R-approved-repo-workflow/slice-77-workflow-smoke-fix-target-flow.md).
-- CLI **`tripwire judge --batch-id`** + SIE judge panel module (slice 67, Wave R):
+- CLI **`agentvetter judge --batch-id`** + SIE judge panel module (slice 67, Wave R):
   `cli/src/judgePanel.js` (panel + final judge; open-weight SIE generate models).
-  Optional soft-fail post-route hook only when `TRIPWIRE_JUDGE_PANEL=1` (default
+  Optional soft-fail post-route hook only when `AGENTVETTER_JUDGE_PANEL=1` (default
   off — ADR-0016 auto-route unchanged). Unit tests: `cli/test/judgePanel.test.js`.
   IMPLEMENTED (CLI + unit); Live/gate VERIFIED pending.
 - Git repo `package` discovery target (`items.type=package` when manifests at
   scope root; DepShield / Ossprey / Snyk / Cargo Audit) — `cli/src/discovery.js`,
   `sandbox/scanners.py` `_group_applies` (slice 64 ✅ on `main` via #145/#146;
   Cargo-only SCA honesty VERIFIED on Live — all-N/A → NO COVERAGE, not green)
-- `tripwire setup` / first-scan schema bootstrap (probes `completed_at` column and
+- `agentvetter setup` / first-scan schema bootstrap (probes `completed_at` column and
   live `items_type_check` so pre-package DBs re-apply `db/schema.sql`) —
   `cli/src/ensureSchema.js`
 - `./scripts/setup-modal.sh` secret sync + deploy
@@ -161,7 +161,7 @@ Reachable through production entry points / config:
   dated Live run. Prefer RustSec over LLM Rust analysis (LLM deferred).
 - DepShield dependency-audit adapter (`depshield-mcp` over MCP stdio;
   npm + PyPI via OSV.dev; zero credentials — nothing synced to
-  `tripwire-scan-secrets`; runs for skill, mcp_server, and package
+  `agentvetter-scan-secrets`; runs for skill, mcp_server, and package
   (`applies_to: both`), before Cargo Audit / Ossprey in the
   `SCANNER_GROUPS` registry) — `sandbox/scanners.py`, unit-tested in
   `sandbox/tests/`. IMPLEMENTED only: no live-Modal run recorded yet, so no
@@ -184,26 +184,26 @@ Reachable through production entry points / config:
   Raw output collapsed until expanded, partial-failed “n out of m scanners
   unreachable” copy — `prototypes/dc-dashboard/`;
   `scripts/serve-dashboard.mjs` / `scripts/sync-dashboard-config.sh`
-- Dashboard visual identity v2 (FolderGate cream/tan × Tripwire HUD): paper
+- Dashboard visual identity v2 (FolderGate cream/tan × AgentVetter HUD): paper
   `#F5F2EA`, tan CTA `#C4A574`, Fraunces on intro `h1`/`h2`, AA ink tokens,
   cyan as live signal only; partial-scan / Guard banners use violet/status ink
-  (not dark-theme pastels) — `prototypes/dc-dashboard/Tripwire.dc.html`,
-  `tripwire-status.js` (slice 43 ✅, [PR #96](https://github.com/neomatrix369/AgentVetter/pull/96);
+  (not dark-theme pastels) — `prototypes/dc-dashboard/AgentVetter.dc.html`,
+  `agentvetter-status.js` (slice 43 ✅, [PR #96](https://github.com/neomatrix369/AgentVetter/pull/96);
   alert-ink pile-on on slice 42 branch). Screenshot gallery regenerated 2026-08-20
 - Landing intro screen (threat stats, SEC/01–05 sections, sessionStorage
-  `tripwire-intro-dismissed`, About toggle) — `prototypes/dc-dashboard/Tripwire.dc.html`
+  `agentvetter-intro-dismissed`, About toggle) — `prototypes/dc-dashboard/AgentVetter.dc.html`
   (slice 41 ✅)
 - Tessl `quality_score` (0–100 skill-review) persisted on `items`, mapped by Live
   to `item.quality` / `"Tessl: Review (Quality)"` `output.quality_score`, and surfaced on skill cards as
   compact `Q N` / `Q —` / `Q ?` badges with fixed `#score-tip-portal` hover/focus
-  tips + schedule cues — `sandbox/scanners.py`, `tripwire-live.js`,
-  `tripwire-status.js`, `Tripwire.dc.html` (slice 42 A9–A13 ✅,
+  tips + schedule cues — `sandbox/scanners.py`, `agentvetter-live.js`,
+  `agentvetter-status.js`, `AgentVetter.dc.html` (slice 42 A9–A13 ✅,
   [PR #98](https://github.com/neomatrix369/AgentVetter/pull/98); quality binding
   scoped off `"Tessl: Lint"` in slice 46)
 - Dashboard quality triage tabs — **Quality ≥ 80**, **Quality < 80**, and
   **No quality score** skill-only filters on Tessl `item.quality` (80 threshold),
-  tab counts, empty-state copy, and clear-filters reset — `tripwire-status.js`,
-  `Tripwire.dc.html` (slice 42 A14–A15 IMPLEMENTED)
+  tab counts, empty-state copy, and clear-filters reset — `agentvetter-status.js`,
+  `AgentVetter.dc.html` (slice 42 A14–A15 IMPLEMENTED)
 - `"Tessl: Lint"` scanner row — `run_tessl()` invokes `npx tessl@latest skill lint`
   first (auth-free, no `tessl_run_id`); Review row is `"Tessl: Review (Quality)"`
   and Review `needs_setup` when `TESSL_TOKEN` or `TESSL_WORKSPACE` is absent
@@ -229,7 +229,7 @@ Reachable through production entry points / config:
   unchanged. IMPLEMENTED (unit) +
   VERIFIED (Mock UI 2026-08-24: `safe-changelog-writer` Scanner Outputs (7),
   five Tessl rows, three NAY pills, no chevron; MCP `SCANNER OUTPUTS (3)`
-  unpadded) — `tripwire-status.js` `mergeTesslCapabilityRows`, `Tripwire.dc.html`
+  unpadded) — `agentvetter-status.js` `mergeTesslCapabilityRows`, `AgentVetter.dc.html`
   (slice 48 ✅
   [PR #110](https://github.com/neomatrix369/AgentVetter/pull/110); formal close
   2026-09-21 packing Gate 4 APPROVED). Security Review writes a real DB row from slice 51 (NAY only when
@@ -244,7 +244,7 @@ Reachable through production entry points / config:
   all five Tessl sources as `running`; `run_tessl()` emits per-step progress for
   Lint and Review (Quality) via `on_scanner_progress` (Scenario/Eval/Security
   already did). Fixes frozen-all-Running appearance during Modal scans.
-  IMPLEMENTED — `sandbox/scanners.py` / `sandbox/scan_app.py` / `tripwire-status.js`
+  IMPLEMENTED — `sandbox/scanners.py` / `sandbox/scan_app.py` / `agentvetter-status.js`
 - Tessl Eval auto-chain — `run_tessl()` emits `"Tessl: Eval"` as `blocked` before
   Scenario Generation, then auto-chains to `queued`→`running` when generation
   completes and `<plugin>/evals/` has scenarios; `tessl eval run --runs 3 -y
@@ -257,17 +257,17 @@ Reachable through production entry points / config:
   Security `tessl_run_id` via `review view --last --json`. Dashboard expanded
   Security row shows linked Quality findings when that ID is populated (UI-level,
   no live Tessl fetch — slice 52). IMPLEMENTED (unit) —
-  `sandbox/scanners.py` / `tripwire-status.js` (slice 51 🔀)
+  `sandbox/scanners.py` / `agentvetter-status.js` (slice 51 🔀)
 - Live dashboard latest-state read path — `dashboard_latest_runs` view (one row per
-  item) + batched child-table fetches in `tripwire-live.js`; replaces global
+  item) + batched child-table fetches in `agentvetter-live.js`; replaces global
   `scan_runs?limit=2000` page that could miss per-item newest runs and PostgREST
   single-response truncation on large fleets. IMPLEMENTED (unit); operator applies
-  view via `tripwire setup --force`. Partial slice 21 — 🔀 `fix/dashboard-latest-runs`
-- `risk_score` weighted finding density from `tripwire_rollup_item`; cards show
+  view via `agentvetter setup --force`. Partial slice 21 — 🔀 `fix/dashboard-latest-runs`
+- `risk_score` weighted finding density from `agentvetter_rollup_item`; cards show
   compact `R N.NN` badges with density-formula portal tips (list header **Risk density**);
   card colour remains worst-of `heatmap_status`, not density (slice 42 A11/A13)
 - Tiered post-scan router (SIE triage + optional Model Studio escalation) —
-  `tripwire route`, auto-route after `tripwire scan`
+  `agentvetter route`, auto-route after `agentvetter scan`
   (`cli/src/router.js`, `cli/src/orchestrator.js`); dashboard router strip +
   SIE-only / escalated filters — `prototypes/dc-dashboard/`; sample CLIs —
   `prototypes/sie-studio/`, `prototypes/model-studio/` ([ADR-0016](./adr/0016-tiered-router-sie-model-studio.md))
@@ -289,14 +289,14 @@ Reachable through production entry points / config:
 
 ## VERIFIED (operator, 2026-08-01)
 
-- Modal secrets + `tripwire-scan` deploy with `scanners` packaged
+- Modal secrets + `agentvetter-scan` deploy with `scanners` packaged
   (`add_local_python_source(..., copy=True)`)
 - Host tar packing (`modal run sandbox/scan_app.py` → `[acquire] packed …`)
   delivers fixture `SKILL.md` to scanners — Cisco completed with findings
   (incl. red prompt_injection); Tessl/Snyk may still be unreachable
   (Node≥20 / `uvx` cold-install)
 - Live dashboard reads items when anon key synced (or via local proxy)
-- Live `tripwire setup` against Direct `db.*` host was **not** verified here
+- Live `agentvetter setup` against Direct `db.*` host was **not** verified here
   (`ENOTFOUND`); use Session pooler URI when needed
 
 ---
@@ -382,7 +382,7 @@ slices are Wave **15-O** (**O0** + 58–61) under
 landed/verified on `main` (Must **65–69**, Should **70–71**, Could **72**).
 Slice **67** SIE judge panel CLI + module on `main` (#151): model inventory
 `gen-4b` / `gen-27b`; fewer than 3 models → parallel same-model executions;
-opt-in `TRIPWIRE_JUDGE_PANEL=1` (default off). Panel is **additive** to
+opt-in `AGENTVETTER_JUDGE_PANEL=1` (default off). Panel is **additive** to
 [ADR-0016](./adr/0016-tiered-router-sie-model-studio.md). Should **73–76** Workflow UI (triage filters, model labels, operator-visible
 pipeline / R-UX-1, chrome polish) **IMPLEMENTED / VERIFIED** (unit) on `main` —
 **75** via [#163](https://github.com/neomatrix369/AgentVetter/pull/163); **76** via
@@ -407,7 +407,7 @@ documentarist pile-on **APPROVED WITH FOLLOW-ON**; DIVIO purity rewrites
 
 **Wave H — Frontline agent hooks (2026-08-15):** **H0 governance ✅**
 (2026-09-21 — [phase-H0-governance](./plan/slices/08-H-frontline-agent-hooks/phase-H0-governance.md)).
-Claude Code PreToolUse handlers, `tripwire setup-agent-hooks`, and five `/tw-*`
+Claude Code PreToolUse handlers, `agentvetter setup-agent-hooks`, and five `/tw-*`
 skills landed on `main` via Phase 1 agent-hooks (see `agent-hooks/`). **Slice 28**
 (`/tw-verify` Quality `N/100` + blocked footer + Sources: Tessl Quality /
 Cisco+Snyk Status) is ✅ **PASSED** on `main`
@@ -443,9 +443,9 @@ captured; **not IMPLEMENTED**. **Not** filed under J (dashboard quality A1–A13
 L (Tessl rows), or G (ATDD parked). Spec:
 [design/llm-usage-tracking.md](./design/llm-usage-tracking.md),
 [slice 53](./plan/slices/13-M-llm-usage-tracking/slice-53-llm-usage-tracking.md).
-Dedicated usage table — does **not** resurrect deferred `tripwire.audit`.
+Dedicated usage table — does **not** resurrect deferred `agentvetter.audit`.
 
-**Wave O — Monk Kit Live packaging (2026-09-09):** Group **15-O**. Package Tripwire
+**Wave O — Monk Kit Live packaging (2026-09-09):** Group **15-O**. Package AgentVetter
 as a Monk Kit (Tier 1 MVL = Supabase + Modal; Tier 2/3 scanners per ADR-0001).
 **DECIDED** as plan-only (**O0** governance + slices 58–61) on branch
 `docs/monk-kit-wave-o`; ADR-0001 remains **Proposed** until O0 Accept HITL.
@@ -477,7 +477,7 @@ merged via [#147](https://github.com/neomatrix369/AgentVetter/pull/147); coverag
 ledger (slice 65) absorbs that honesty — never claim fully scanned for
 Cargo-only when no scanner completed.
 Operator taxonomy soft-amended in slice **56-a**
-([prerequisites — What can Tripwire scan?](./user-guide/prerequisites.md#what-can-tripwire-scan)).
+([prerequisites — What can AgentVetter scan?](./user-guide/prerequisites.md#what-can-agentvetter-scan)).
 Spec:
 [slice 62](./plan/slices/16-P-git-repo-scan/slice-62-git-repo-discover-fanout.md),
 [slice 63](./plan/slices/16-P-git-repo-scan/slice-63-cli-scanner-inventory.md),
@@ -499,7 +499,7 @@ ADR context ([ADR-0017](./adr/0017-claude-code-agent-guard-integration.md)
 amends [ADR-0015](./adr/0015-horizon-a-excludes-guard-and-drift.md); Drift/trend
 remains Won't (A)):
 
-- PreToolUse enforcement handler at `~/.tripwire/hooks/` (`pre-tool-use.sh` +
+- PreToolUse enforcement handler at `~/.agentvetter/hooks/` (`pre-tool-use.sh` +
   `_guard_entry.py`; repo source `agent-hooks/hooks/`) — fail-closed decision
   JSON with internal timeout budget, identifier lookup + CLI-compatible hash
   comparison, 14-day staleness window — **SUPERSEDED → on `main`** (live
@@ -507,7 +507,7 @@ remains Won't (A)):
 - Five `/tw-*` skills (`tw-verify`, `tw-scan`, `tw-enable`, `tw-disable`,
   `tw-self-check`; repo source `agent-hooks/skills/`, installed to
   `~/.claude/skills/`) — **SUPERSEDED → on `main`** (Quality column: slice 28)
-- `tripwire setup-agent-hooks` installer (preflight, `~/.tripwire/config.json`
+- `agentvetter setup-agent-hooks` installer (preflight, `~/.agentvetter/config.json`
   init, handler install, env pre-warm, `~/.claude/settings.json` JSON-merge,
   skill copy, bootstrap scan sweep) — **SUPERSEDED → on `main`**
 - Local `enable` kill switch AND-ed with Supabase `monitoring_enabled`;

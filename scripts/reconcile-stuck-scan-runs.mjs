@@ -138,7 +138,7 @@ async function main() {
   }
 
   for (const itemId of itemIds) {
-    const rpc = await fetch(`${url}/rest/v1/rpc/tripwire_rollup_item`, {
+    const rpc = await fetch(`${url}/rest/v1/rpc/agentvetter_rollup_item`, {
       method: 'POST',
       headers: authHeaders(key),
       body: JSON.stringify({ p_item_id: itemId }),

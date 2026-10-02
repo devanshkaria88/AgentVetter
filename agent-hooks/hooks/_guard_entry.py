@@ -1,4 +1,4 @@
-"""Installed shim (~/.tripwire/hooks/_guard_entry.py): delegate to guard.entry.
+"""Installed shim (~/.agentvetter/hooks/_guard_entry.py): delegate to guard.entry.
 
 Runs under `uv run --project <repo_root> --extra guard python _guard_entry.py`;
 guard.entry.main() reads the hook payload from stdin, prints exactly one

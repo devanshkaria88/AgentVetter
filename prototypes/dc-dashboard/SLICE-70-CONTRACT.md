@@ -1,7 +1,7 @@
 # Slice 70 — Module Contract (parallel streams)
 
 **Worktree:** `.worktrees/slice-70-verify-worktree-rescan`
-**Absolute worktree:** `/Users/swami/git-repos/ai-ml-dl-stuff/tools-and-utilities/tripwire/.worktrees/slice-70-verify-worktree-rescan`
+**Absolute worktree:** `/Users/swami/git-repos/ai-ml-dl-stuff/tools-and-utilities/agentvetter/.worktrees/slice-70-verify-worktree-rescan`
 **Branch:** `slice/70-verify-worktree-rescan` (from `main` @ 165ef1f, slice 69 merged #154)
 **UI surface:** 1A — extend `prototypes/dc-dashboard/` only
 **Commit only when orchestrator asks** — agents write code + tests; do not commit.
@@ -18,18 +18,18 @@
 - WHY-NEW-FILE comment at top of each new module
 
 ## Depends on (slice 69 — do not rewrite)
-- `tripwire-fix-propose.js` — `buildProposedFix` / `isFixCandidate`
-- `tripwire-apply-clean.js` — apply-clean pattern (port seam); verify may reuse fingerprint/temp ideas but owns its own port
+- `agentvetter-fix-propose.js` — `buildProposedFix` / `isFixCandidate`
+- `agentvetter-apply-clean.js` — apply-clean pattern (port seam); verify may reuse fingerprint/temp ideas but owns its own port
 - Fix step remains as-is; Verify step replaces the stub
 
 ## Files (one owner each)
 
 | Stream | File | Owns |
 |--------|------|------|
-| A Verify | `tripwire-verify-rescan.js` | Apply patch to temp tree, re-run applicable scanners via port, map to outcomes |
-| B View | `tripwire-verify-view.js` | Dashboard Verify step view model (labels, scanner action list, honesty copy) |
-| C Tests | `test/tripwire-verify.test.js` + `test/tripwire-verify-coverage.test.js` | GWT-70.1–70.3 + branch coverage of A–B |
-| D Wire | `Tripwire.dc.html` + `package.json` `test:coverage --include` | Mount Verify step; import A–B; **only D edits HTML and package.json** |
+| A Verify | `agentvetter-verify-rescan.js` | Apply patch to temp tree, re-run applicable scanners via port, map to outcomes |
+| B View | `agentvetter-verify-view.js` | Dashboard Verify step view model (labels, scanner action list, honesty copy) |
+| C Tests | `test/agentvetter-verify.test.js` + `test/agentvetter-verify-coverage.test.js` | GWT-70.1–70.3 + branch coverage of A–B |
+| D Wire | `AgentVetter.dc.html` + `package.json` `test:coverage --include` | Mount Verify step; import A–B; **only D edits HTML and package.json** |
 | E Docs | `docs/STATUS.md`, `CHANGELOG.md`, `docs/plan/PROGRESS.md`, `docs/plan/TRAIL.md`, slice-70 stub Gate Status | STATUS Verify honesty; progress IN PROGRESS → leave COMPLETE mark for orchestrator |
 
 ## Shared shapes
@@ -43,7 +43,7 @@ Finding (from 68/69) plus optional:
 }
 ```
 
-### A `tripwire-verify-rescan.js`
+### A `agentvetter-verify-rescan.js`
 
 - `VERIFICATION_OUTCOMES` — frozen `['finding_gone', 'still_present', 'unable_to_verify']`
 - `verifyFixOnWorktree({ finding, patch, approvedRepoPath, verifyPort })` →
@@ -83,7 +83,7 @@ Finding (from 68/69) plus optional:
 - Fingerprint before/after; mismatch → `approvedRepoUnchanged: false` (contract violation).
 - Export `createMemoryVerifyPort({ applyOk?, scanResult? })` for tests.
 
-### B `tripwire-verify-view.js`
+### B `agentvetter-verify-view.js`
 
 - `OUTCOME_LABELS` — frozen map to operator text:
   - `finding_gone` → `'Finding gone'`
@@ -117,9 +117,9 @@ Finding (from 68/69) plus optional:
   - View labels match outcomes; honesty line present
 - Do **not** implement A/B — leave imports; orchestrator joins after A–B land.
 
-### D Wire (`Tripwire.dc.html` + `package.json`)
+### D Wire (`AgentVetter.dc.html` + `package.json`)
 
-- Import `./tripwire-verify-rescan.js` and `./tripwire-verify-view.js` in workflow kit `Promise.all`. Store as `wf.verifyRescan`, `wf.verifyView`.
+- Import `./agentvetter-verify-rescan.js` and `./agentvetter-verify-view.js` in workflow kit `Promise.all`. Store as `wf.verifyRescan`, `wf.verifyView`.
 - `workflowIsStub` **only** when there is no live step left — Verify is live; Report already live (71). So `stubSteps = false` always for workflow panel OR remove stub for verify only.
 - New Verify panel when `currentStep === 'verify'`:
   - Outcome text (not colour-only): Finding gone | Still present | Unable to verify

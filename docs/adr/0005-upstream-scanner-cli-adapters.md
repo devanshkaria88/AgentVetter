@@ -2,12 +2,12 @@
 
 - **Status:** Accepted
 - **Date:** 2026-08-01
-- **Deciders:** Tripwire maintainers
+- **Deciders:** AgentVetter maintainers
 - **Tags:** scanners, adapters, cisco, snyk, tessl
 
 ## Context
 
-Tripwire is an assessment orchestrator, not a replacement for Cisco Skill/MCP
+AgentVetter is an assessment orchestrator, not a replacement for Cisco Skill/MCP
 Scanner, Snyk Agent Scan, or Tessl. Reimplementing those engines would fork
 their detection quality and lag their CLI flags. The dashboard, however, needs
 one severity model (`red` / `amber` / `green`) and one `findings` table.
@@ -22,7 +22,7 @@ Treat each engine as a **subprocess adapter** in `sandbox/scanners.py`.
 
 - Shell out with real flags (`skill-scanner`, `mcp-scanner`, `snyk-agent-scan`,
   `tessl`); parse documented JSON; map into `findings` + `scan_run_scanners`.
-- Collapse upstream severities into Tripwire `red` / `amber` / `green`.
+- Collapse upstream severities into AgentVetter `red` / `amber` / `green`.
 - Missing vendor credentials → `skipped_missing_credential`, not a silent
   “configured and clean” result.
 - Nonzero exit, timeout, missing binary, or empty/malformed JSON →

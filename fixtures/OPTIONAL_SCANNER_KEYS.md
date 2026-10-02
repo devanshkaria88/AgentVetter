@@ -1,6 +1,6 @@
 # Modal scanner-secret reference
 
-This is the operational reference for `tripwire-scan-secrets`: the scanner
+This is the operational reference for `agentvetter-scan-secrets`: the scanner
 credentials that `./scripts/setup-modal.sh` may sync from `.env`.
 
 For every provider account, credential value, and environment-variable meaning,
@@ -22,7 +22,7 @@ listed capability for the recommended complete Live setup. A missing value safel
 skips that scanner engine (`skipped_missing_credential`); it never creates a
 placeholder token, but this is a degraded diagnostic path.
 
-| Scanner capability | Keys synced to `tripwire-scan-secrets` |
+| Scanner capability | Keys synced to `agentvetter-scan-secrets` |
 |---|---|
 | Snyk scanning | `SNYK_TOKEN` |
 | Tessl Review (Quality + Security), Scenario Gen, Eval | `TESSL_TOKEN`, `TESSL_WORKSPACE` |
@@ -31,14 +31,14 @@ placeholder token, but this is a degraded diagnostic path.
 | Cisco AI Defense | `AI_DEFENSE_API_KEY`, `AI_DEFENSE_API_URL`, `MCP_SCANNER_API_KEY`, `MCP_SCANNER_ENDPOINT` |
 | Ossprey malware scan (access **OPEN** / pending) | `OSSPREY_API_KEY` |
 
-Scanner environment variable names stay upstream. Do not add `TRIPWIRE_*` or
+Scanner environment variable names stay upstream. Do not add `AGENTVETTER_*` or
 `CISCO_AI_DEFENSE_API_KEY` aliases.
 
 **`OSSPREY_API_KEY` is allowlisted but not yet obtainable.** Access provisioning
 for the Ossprey adapter is **[OPEN]** — no key exists in this environment
 ([env-vars.md](../docs/user-guide/env-vars.md) · [DECISIONS.md](../docs/plan/DECISIONS.md)
 2026-08-15, slice 35 `🔴 BLOCKED`). The row is present so that once a key
-(`ospy_…`) is provided, `setup-modal.sh` syncs it into `tripwire-scan-secrets`
+(`ospy_…`) is provided, `setup-modal.sh` syncs it into `agentvetter-scan-secrets`
 with no further change here. Until then the value stays blank and the adapter
 reports `skipped_missing_credential` — unlike DepShield below, Ossprey *does*
 take a credential, so it uses that safe-skip path rather than being credential-free.
@@ -46,7 +46,7 @@ take a credential, so it uses that safe-skip path rather than being credential-f
 **DepShield has no row above by design.** The DepShield adapter
 (`depshield-mcp`, baked into the Modal image) requires **no credentials**: it
 audits npm and PyPI manifests via OSV.dev using plain network egress from the
-sandbox. There is nothing to add to `tripwire-scan-secrets` for DepShield, and
+sandbox. There is nothing to add to `agentvetter-scan-secrets` for DepShield, and
 no `skipped_missing_credential` path exists for it.
 
 ## Sync the secrets
@@ -63,8 +63,8 @@ echo values.
 
 Do not replace `./scripts/setup-modal.sh --secrets-only` with a hand-written
 `modal secret create ... --force` command. The helper filters empty scanner
-values before updating `tripwire-scan-secrets`; a manual command can overwrite
+values before updating `agentvetter-scan-secrets`; a manual command can overwrite
 an existing value with a blank one.
 
-If no scanner keys are set, the helper leaves `tripwire-scan-secrets` unchanged
+If no scanner keys are set, the helper leaves `agentvetter-scan-secrets` unchanged
 and syncs only the required Supabase secret.

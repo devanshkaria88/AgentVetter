@@ -5,7 +5,7 @@ export default [
   {
     files: ['*.js', 'test/**/*.js'],
     // support.js is a generated build artifact (dc-runtime/src/*.ts) — do not lint it.
-    ignores: ['node_modules/**', 'coverage/**', 'tripwire-dashboard.config.js', 'support.js'],
+    ignores: ['node_modules/**', 'coverage/**', 'agentvetter-dashboard.config.js', 'support.js'],
     languageOptions: {
       ecmaVersion: 2022,
       sourceType: 'module',

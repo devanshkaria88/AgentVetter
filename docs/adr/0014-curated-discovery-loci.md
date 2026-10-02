@@ -2,12 +2,12 @@
 
 - **Status:** Accepted
 - **Date:** 2026-08-01
-- **Deciders:** Tripwire maintainers
+- **Deciders:** AgentVetter maintainers
 - **Tags:** discovery, cli, privacy, security
 
 ## Context
 
-Zero-arg `tripwire scan` is a useful operator story (“scan what this machine
+Zero-arg `agentvetter scan` is a useful operator story (“scan what this machine
 already installed”). An unconstrained home-directory crawl would mix unrelated
 projects, leak private paths into Supabase `items.identifier`, and surprise
 people who expected a fixture scan.
@@ -62,7 +62,7 @@ skill and MCP paths after clone — not a single `cloneable`/`mcp_server` row.
 Each row uses `identifier` `org/repo/<relpath>`. Empty/no-artifact repos fail
 closed (discovery returns no targets). See
 [slice-62](../plan/slices/16-P-git-repo-scan/slice-62-git-repo-discover-fanout.md),
-[prerequisites — What can Tripwire scan?](../user-guide/prerequisites.md#what-can-tripwire-scan),
+[prerequisites — What can AgentVetter scan?](../user-guide/prerequisites.md#what-can-agentvetter-scan),
 and [ADR-0012](./0012-sandbox-target-acquisition.md) Later decisions.
 
 **Wave P / slice 64 (✅ on `main` via #145/#146):** When package manifests exist at scope root,

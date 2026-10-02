@@ -11,7 +11,7 @@ name: CI
 # Mon 03:00 CI T3 re-run removed — weekly B already covers SCA; PR/push cover T1–T3 essentials.
 #
 # Status badge: README + docs/README.md (CI).
-# Primary stack (docs): Cursor · Modal · Supabase · Tripwire
+# Primary stack (docs): Cursor · Modal · Supabase · AgentVetter
 # Scanners (docs): Cisco Skill/MCP · Snyk · Tessl
 
 on:

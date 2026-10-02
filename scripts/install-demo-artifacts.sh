@@ -2,7 +2,7 @@
 # Install the Claude Code demo artifacts (plan §9 step 6 / A6):
 #   - three fixture skills copied to ~/.claude/skills/ under demo names
 #     (frontmatter `name:` rewritten so Claude Code registers the demo name),
-#   - a demo MCP manifest at ~/.tripwire/demo-mcp.json (safe-tool / vuln-tool /
+#   - a demo MCP manifest at ~/.agentvetter/demo-mcp.json (safe-tool / vuln-tool /
 #     amber-tool pointing at the fixture run.sh scripts in place),
 #   - a scan of the INSTALLED skill copies' canonical absolute paths (never
 #     the pristine fixture paths — the installed, rewritten copy is what the
@@ -11,7 +11,7 @@
 #     identity, never a server directory path).
 # Idempotent: re-runs overwrite the three skill dirs and re-merge the
 # manifest. Clobber guard: a dir is only rm -rf'd when it carries this
-# script's .tripwire-demo-marker or its SKILL.md frontmatter name equals the
+# script's .agentvetter-demo-marker or its SKILL.md frontmatter name equals the
 # demo name; anything else is moved to a timestamped backup, never deleted.
 set -euo pipefail
 
@@ -23,7 +23,7 @@ for arg in "$@"; do
     --no-scan) NO_SCAN=1 ;;
     -h|--help)
       echo "Usage: $(basename "$0") [--no-scan]"
-      echo "  --no-scan   install artifacts but skip the tripwire scan step"
+      echo "  --no-scan   install artifacts but skip the agentvetter scan step"
       exit 0
       ;;
     *) echo "Unknown argument: $arg (try --help)" >&2; exit 1 ;;
@@ -31,8 +31,8 @@ for arg in "$@"; do
 done
 
 SKILLS_DEST="$HOME/.claude/skills"
-TRIPWIRE_DIR="$HOME/.tripwire"
-DEMO_MCP="$TRIPWIRE_DIR/demo-mcp.json"
+AGENTVETTER_DIR="$HOME/.agentvetter"
+DEMO_MCP="$AGENTVETTER_DIR/demo-mcp.json"
 
 canon() {
   python3 -c 'import os, sys; print(os.path.realpath(sys.argv[1]))' "$1"
@@ -67,7 +67,7 @@ SKILL_SOURCES=(
   "fixtures/skills/disagreement-naive-domain-check:amber-skill"
 )
 
-mkdir -p "$SKILLS_DEST" "$TRIPWIRE_DIR"
+mkdir -p "$SKILLS_DEST" "$AGENTVETTER_DIR"
 
 INSTALLED_SKILL_DIRS=()
 for mapping in "${SKILL_SOURCES[@]}"; do
@@ -86,7 +86,7 @@ for mapping in "${SKILL_SOURCES[@]}"; do
   # demo name). Anything else is a user's own skill that happens to share the
   # name — move it to a timestamped backup instead of destroying it.
   if [[ -d "$dest" ]]; then
-    if [[ -f "$dest/.tripwire-demo-marker" ]] || \
+    if [[ -f "$dest/.agentvetter-demo-marker" ]] || \
        [[ "$(frontmatter_name "$dest/SKILL.md")" == "$demo_name" ]]; then
       # rsync-style overwrite: the installed dir exactly mirrors the fixture
       # on every run (stale files from previous versions are removed).
@@ -94,7 +94,7 @@ for mapping in "${SKILL_SOURCES[@]}"; do
     else
       backup="${dest}.backup-$(date +%Y%m%d-%H%M%S)"
       mv "$dest" "$backup"
-      echo "NOTE: existing $dest was not a Tripwire demo install — moved it to $backup"
+      echo "NOTE: existing $dest was not a AgentVetter demo install — moved it to $backup"
     fi
   fi
   mkdir -p "$dest"
@@ -103,7 +103,7 @@ for mapping in "${SKILL_SOURCES[@]}"; do
   # Fixed content (no timestamp) so the installed dir's content hash is stable
   # across re-runs of the same fixture version.
   printf '%s\n' "installed by scripts/install-demo-artifacts.sh — safe to overwrite on reinstall" \
-    > "$dest/.tripwire-demo-marker"
+    > "$dest/.agentvetter-demo-marker"
 
   # Rewrite only the frontmatter `name:` line of the installed copy (python3,
   # not sed: bounded to the YAML block, hard-fails on malformed frontmatter).
@@ -194,7 +194,7 @@ echo "Wrote demo MCP manifest: $DEMO_MCP (safe-tool, vuln-tool, amber-tool)"
 # this matches the plan §5.4 manifest-only rule. Never pass a bare key (it
 # would be misclassified as a filesystem path) and never a fixture dir.
 SCAN_TARGETS=("${INSTALLED_SKILL_DIRS[@]}" "$DEMO_MCP")
-SCAN_CMD="cd $ROOT && tripwire scan ${SCAN_TARGETS[*]} --no-defaults"
+SCAN_CMD="cd $ROOT && agentvetter scan ${SCAN_TARGETS[*]} --no-defaults"
 
 run_scan() {
   local out status=0
@@ -203,7 +203,7 @@ run_scan() {
   # hard-fail here — extract the batch-result JSON object and surface it. Only
   # a dict carrying "batch_id" counts: trailing [route]/[sie] lines (and merged
   # stderr) can embed unrelated JSON objects that must not shadow the result.
-  out="$(cd "$ROOT" && tripwire scan "${SCAN_TARGETS[@]}" --no-defaults 2>&1)" || status=$?
+  out="$(cd "$ROOT" && agentvetter scan "${SCAN_TARGETS[@]}" --no-defaults 2>&1)" || status=$?
   local json
   json="$(printf '%s' "$out" | python3 -c '
 import json, sys
@@ -241,8 +241,8 @@ if [[ "$NO_SCAN" -eq 1 ]]; then
   echo "Run it later with:"
   echo "  $SCAN_CMD"
   echo "================================"
-elif ! command -v tripwire >/dev/null 2>&1; then
-  echo "=== SCAN SKIPPED ('tripwire' not on PATH — run 'npm link' in cli/) ==="
+elif ! command -v agentvetter >/dev/null 2>&1; then
+  echo "=== SCAN SKIPPED ('agentvetter' not on PATH — run 'npm link' in cli/) ==="
   echo "Run it later with:"
   echo "  $SCAN_CMD"
   echo "======================================================================"

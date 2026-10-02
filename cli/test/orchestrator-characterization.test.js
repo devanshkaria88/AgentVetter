@@ -142,7 +142,7 @@ function createSupabaseStub({ byHashItem = null, itemId = 'item-1', runId = 'run
 }
 
 async function withFixtureDir(fn) {
-  const dir = await mkdtemp(path.join(tmpdir(), 'tripwire-orch-'));
+  const dir = await mkdtemp(path.join(tmpdir(), 'agentvetter-orch-'));
   await writeFile(path.join(dir, 'SKILL.md'), '# fixture\n');
   try {
     return await fn(dir);

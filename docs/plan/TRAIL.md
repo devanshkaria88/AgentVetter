@@ -5,8 +5,8 @@
 - **Brief**: Horizon A — ship path + onboarding + coverage. GWT-1/2 evidence ✅. **Demo/hackathon wave closed 2026-08-02** (VO/Remotion + film-day prose deferred; reinstate if needed). **Wave +coverage**: ship-path ~95% (cli + sandbox + Live ACL); onboarding slice 17; slices 7–15. **Wave H (2026-08-15):** Frontline Hackathon London 2026 — Claude Code agent hooks + `/tw-*` skills (slices 23–39). **H0 ✅ (2026-09-21)**; Phase 1 code on `main` (`agent-hooks/`); formal Must gate closures **23–32** still open; slice **35** Ossprey 🔴.
 - **Scenario**: Brownfield · Flow D · depth 5–8
 Routing: Brownfield · Chosen: 2026-08-02 · Source: health-check-inferred; Wave H Add: 2026-08-15 · Source: `internal-docs/04_frontline/main_prompt.md`
-- **Canonical plan path**: `docs/plan/` (public). Product SoT remains gitignored private references — do not fork parallel plan trees. Enhanced-flow-planner context pack: private references + `01_demo_video/00-tripwire-demo-script.md` (not `02_prototypes/import-stash/`).
-- **Model split** — Planning: gpt-5.6-sol (high) · Execution: gpt-5.6-terra (medium) · Design: slice 43 (FolderGate cream/tan × Tripwire HUD; slice 41 dark-cyan fill superseded)
+- **Canonical plan path**: `docs/plan/` (public). Product SoT remains gitignored private references — do not fork parallel plan trees. Enhanced-flow-planner context pack: private references + `01_demo_video/00-agentvetter-demo-script.md` (not `02_prototypes/import-stash/`).
+- **Model split** — Planning: gpt-5.6-sol (high) · Execution: gpt-5.6-terra (medium) · Design: slice 43 (FolderGate cream/tan × AgentVetter HUD; slice 41 dark-cyan fill superseded)
 
 <!-- harness-scout output -->
 <!-- NOTE: recommendation models below are cached artifacts; live execution model is overridden in DECISIONS (2026-08-03) to OpenAI (`gpt-5.6-sol` for planning, `gpt-5.6-terra` for execution/review). -->
@@ -90,8 +90,8 @@ Groups are ordered by when the wave ran (or will run), not by slice number.
 | 7 | [`slices/07-G-atdd-closure/`](slices/07-G-atdd-closure/) | **G — ATDD closure** | 18, 19, 20, 21, 22 (independent gates) | 📋 |
 | 8 | `slices/08-H-agent-guard-integration/` (stubs pending) | **H — Claude Code Agent Guard integration** | H0 governance → H1–H7 (hackathon plan §9 steps 0–7) | H0 ✅ · product gates open |
 | 8 | [`slices/08-H-frontline-agent-hooks/`](slices/08-H-frontline-agent-hooks/) | **H — Frontline agent hooks** | **H0** ✅ → 23→32 Must · 33–38 Should · 39 Could | Phase 1 on `main` · formal Must closures open · H0 ✅ |
-| 9 | [`slices/09-I-landing-intro-restyle/`](slices/09-I-landing-intro-restyle/) | **I — Landing Intro + Visual Refresh** | 41 ✅ · **43** ✅ | [#96](https://github.com/neomatrix369/tripwire/pull/96) |
-| 10 | [`slices/10-J-dashboard-data-quality/`](slices/10-J-dashboard-data-quality/) | **J — Dashboard Data Quality Fixes** | 42 ✅ A1–A13 ([#98](https://github.com/neomatrix369/tripwire/pull/98)) · **A14–A15** 🔀 quality tabs | `slice/42-quality-score-tabs` |
+| 9 | [`slices/09-I-landing-intro-restyle/`](slices/09-I-landing-intro-restyle/) | **I — Landing Intro + Visual Refresh** | 41 ✅ · **43** ✅ | [#96](https://github.com/neomatrix369/AgentVetter/pull/96) |
+| 10 | [`slices/10-J-dashboard-data-quality/`](slices/10-J-dashboard-data-quality/) | **J — Dashboard Data Quality Fixes** | 42 ✅ A1–A13 ([#98](https://github.com/neomatrix369/AgentVetter/pull/98)) · **A14–A15** 🔀 quality tabs | `slice/42-quality-score-tabs` |
 | 11 | [`slices/11-K-docs-ux-plain-language/`](slices/11-K-docs-ux-plain-language/) | **K — Docs UX plain language + compaction** | **44** 🔀 | — |
 | 15 | [`slices/15-O-monk-kit-live-packaging/`](slices/15-O-monk-kit-live-packaging/) | **O — Monk Kit Live packaging** | **O0** → **58**→**59** Must · **60**–**61** Should | 📋 plan-only · ADR-0001 + PoC |
 | 16 | [`slices/16-P-git-repo-scan/`](slices/16-P-git-repo-scan/) | **P — Git repo discover + fan-out** | **62**→**64** | ✅ landed `main` (#145/#146); formal gate-evidence close optional |
@@ -165,7 +165,7 @@ Groups are ordered by when the wave ran (or will run), not by slice number.
 ### H — Claude Code Agent Guard integration (opened 2026-08-15)
 
 Hackathon work stream (Frontline Hackathon London 2026) on branch
-`tripwire-frontline-hack`. Authoritative spec: "Tripwire × Claude Code
+`agentvetter-frontline-hack`. Authoritative spec: "AgentVetter × Claude Code
 Integration — Implementation Plan" (session working document). Governance:
 [ADR-0017](../adr/0017-claude-code-agent-guard-integration.md) (amends
 ADR-0015) + DECISIONS 2026-08-15 rows + STATUS PROPOSED section. Wave folder
@@ -178,7 +178,7 @@ until stubs exist.
 | H1–H7 | Handler + guard T1/T2 + `guard/status.py` → hook wiring (spike first) → `setup-agent-hooks` → install live → five `/tw-*` skills → demo artifacts → Phase-1 regression gate | Must | 📋 formal gates | H0 ✅ (governance clear); product Must closures 23–32 still open |
 
 **Shared-file sequencing (slice 18 overlap):** `setup-agent-hooks` lands in
-`cli/bin/tripwire.js` — the same file slice 18's Commander-composition refactor
+`cli/bin/agentvetter.js` — the same file slice 18's Commander-composition refactor
 touches. One active slice per shared code area: land the H-wave subcommand
 before slice 18 starts, or rebase it onto slice 18. Do not run both
 concurrently.
@@ -193,7 +193,7 @@ Branch: `frontline-hackathon-london-2026-agent-hooks`. Source: `internal-docs/04
 | # | File | Name | MoSCoW | Status | Depends on | Issue | Read time |
 |---|------|------|--------|--------|------------|-------|-----------|
 | 23 | [slice-23-config-handler-scripts](slices/08-H-frontline-agent-hooks/slice-23-config-handler-scripts.md) | Config + Handler Scripts | Must | 📋 | none | — | ~4 min |
-| 24 | [slice-24-setup-agent-hooks](slices/08-H-frontline-agent-hooks/slice-24-setup-agent-hooks.md) | `tripwire setup-agent-hooks` | Must | 📋 | 23 | — | ~4 min |
+| 24 | [slice-24-setup-agent-hooks](slices/08-H-frontline-agent-hooks/slice-24-setup-agent-hooks.md) | `agentvetter setup-agent-hooks` | Must | 📋 | 23 | — | ~4 min |
 | 25 | [slice-25-live-enforce-smoke](slices/08-H-frontline-agent-hooks/slice-25-live-enforce-smoke.md) | Live Enforce Smoke | Must | 📋 | 24 | — | ~3 min |
 
 #### H2 — Shared contracts + control skills (Must)
@@ -218,14 +218,14 @@ Branch: `frontline-hackathon-london-2026-agent-hooks`. Source: `internal-docs/04
 | # | File | Name | MoSCoW | Status | Depends on | Issue | Read time |
 |---|------|------|--------|--------|------------|-------|-----------|
 | 33 | [slice-33-depshield-install](slices/08-H-frontline-agent-hooks/slice-33-depshield-install.md) | DepShield Install via setup-agent-hooks | Should | 📋 | 32 | — | ~3 min |
-| 34 | [slice-34-depshield-dispatch](slices/08-H-frontline-agent-hooks/slice-34-depshield-dispatch.md) | Tripwire → DepShield Dispatch | Should | 📋 | 33 | — | ~4 min |
+| 34 | [slice-34-depshield-dispatch](slices/08-H-frontline-agent-hooks/slice-34-depshield-dispatch.md) | AgentVetter → DepShield Dispatch | Should | 📋 | 33 | — | ~4 min |
 
 #### H5 — Ossprey (Should)
 
 | # | File | Name | MoSCoW | Status | Depends on | Issue | Read time |
 |---|------|------|--------|--------|------------|-------|-----------|
 | 35 | [slice-35-ossprey-access](slices/08-H-frontline-agent-hooks/slice-35-ossprey-access.md) | Ossprey Access Provisioning | Should | 🔴 | 32 | access OPEN | ~2 min |
-| 36 | [slice-36-ossprey-dispatch](slices/08-H-frontline-agent-hooks/slice-36-ossprey-dispatch.md) | Tripwire → Ossprey Dispatch | Should | 📋 | 35 | — | ~4 min |
+| 36 | [slice-36-ossprey-dispatch](slices/08-H-frontline-agent-hooks/slice-36-ossprey-dispatch.md) | AgentVetter → Ossprey Dispatch | Should | 📋 | 35 | — | ~4 min |
 
 #### H6 — Monitoring + full-chain (Should) / FE-BE (Could)
 
@@ -239,14 +239,14 @@ Branch: `frontline-hackathon-london-2026-agent-hooks`. Source: `internal-docs/04
 
 | # | File | Name | MoSCoW | Status | Depends on | Issue | Read time |
 |---|------|------|--------|--------|------------|-------|-----------|
-| 40 | [slice-40-scan-type-filter](slices/08-H-frontline-agent-hooks/slice-40-scan-type-filter.md) | `tripwire scan --type <skill\|mcp>` filter | Must | ✅ | — | — | ~3 min |
+| 40 | [slice-40-scan-type-filter](slices/08-H-frontline-agent-hooks/slice-40-scan-type-filter.md) | `agentvetter scan --type <skill\|mcp>` filter | Must | ✅ | — | — | ~3 min |
 
 ### I — Landing Intro + Visual Refresh (opened 2026-08-19)
 
 | # | File | Name | MoSCoW | Status | Depends on | Issue | Read time |
 |---|------|------|--------|--------|------------|-------|-----------|
 | 41 | [slice-41-landing-intro-dashboard-restyle](slices/09-I-landing-intro-restyle/slice-41-landing-intro-dashboard-restyle.md) | Landing Page Intro + Dashboard Restyle | Must | ✅ | none | dc8e033 | — |
-| 43 | [slice-43-foldergate-tripwire-visual-blend](slices/09-I-landing-intro-restyle/slice-43-foldergate-tripwire-visual-blend.md) | FolderGate × Tripwire Visual Blend | Must | ✅ | 41 | [#96](https://github.com/neomatrix369/tripwire/pull/96) | ~3 min |
+| 43 | [slice-43-foldergate-agentvetter-visual-blend](slices/09-I-landing-intro-restyle/slice-43-foldergate-agentvetter-visual-blend.md) | FolderGate × AgentVetter Visual Blend | Must | ✅ | 41 | [#96](https://github.com/neomatrix369/AgentVetter/pull/96) | ~3 min |
 
 ### J — Dashboard Data Quality Fixes (opened 2026-08-19)
 
@@ -255,7 +255,7 @@ Audit report: `~/.claude/plans/iterate-through-all-of-lovely-stearns.md`
 
 | # | File | Name | MoSCoW | Status | Depends on | Issue | Read time |
 |---|------|------|--------|--------|------------|-------|-----------|
-| 42 | [slice-42-dashboard-data-quality-fixes](slices/10-J-dashboard-data-quality/slice-42-dashboard-data-quality-fixes.md) | Dashboard Data Quality Fixes (A1–A13 ✅ + **A14–A15** quality tabs) | Must | 🔀 (A14–A15) | none | [#95](https://github.com/neomatrix369/tripwire/pull/95) · [#98](https://github.com/neomatrix369/tripwire/pull/98) | ~3 min + ~45 min delta |
+| 42 | [slice-42-dashboard-data-quality-fixes](slices/10-J-dashboard-data-quality/slice-42-dashboard-data-quality-fixes.md) | Dashboard Data Quality Fixes (A1–A13 ✅ + **A14–A15** quality tabs) | Must | 🔀 (A14–A15) | none | [#95](https://github.com/neomatrix369/AgentVetter/pull/95) · [#98](https://github.com/neomatrix369/AgentVetter/pull/98) | ~3 min + ~45 min delta |
 
 ### K — Docs UX plain language + compaction (opened 2026-08-20)
 
@@ -290,12 +290,12 @@ See `docs/design/tessl-5-row-expansion.md § Open Questions`.
 
 | # | File | Name | MoSCoW | Status | Depends on | Issue | Read time |
 |---|------|------|--------|--------|------------|-------|-----------|
-| 45 | [slice-45-schema-migration](slices/12-L-tessl-5-row-expansion/slice-45-schema-migration.md) | DB Schema Migration (12-state enum + 4 new columns) | Must | ✅ | 44 | [#103](https://github.com/neomatrix369/tripwire/pull/103) | ~3 min |
-| 46 | [slice-46-lint-adapter](slices/12-L-tessl-5-row-expansion/slice-46-lint-adapter.md) | Tessl: Lint Adapter (Row 1) | Must | ✅ | 45 | [#105](https://github.com/neomatrix369/tripwire/pull/105) | ~4 min |
-| 47 | [slice-47-review-quality-split](slices/12-L-tessl-5-row-expansion/slice-47-review-quality-split.md) | Tessl: Review (Quality) Split + `tesslQuality` Scope Fix (Row 2) | Must | ✅ | 45, 46 | [#109](https://github.com/neomatrix369/tripwire/pull/109) | ~4 min |
-| 48 | [slice-48-not-available-yet-ui](slices/12-L-tessl-5-row-expansion/slice-48-not-available-yet-ui.md) | "Not Available Yet" Placeholder Rows (Rows 3–5) | Must | ✅ | 47 | [#110](https://github.com/neomatrix369/tripwire/pull/110) | ~3 min |
-| 49 | [slice-49-scenario-generation](slices/12-L-tessl-5-row-expansion/slice-49-scenario-generation.md) | Tessl: Scenario Generation + Resume Checkpoint (Row 3) | Should | ✅ | 47, 48 | [#112](https://github.com/neomatrix369/tripwire/pull/112) | ~6 min |
-| 50 | [slice-50-eval-auto-chain](slices/12-L-tessl-5-row-expansion/slice-50-eval-auto-chain.md) | Tessl: Eval + Scenario→Eval Auto-Chain (Row 4) | Should | ✅ | 49 | [#113](https://github.com/neomatrix369/tripwire/pull/113) | ~5 min |
+| 45 | [slice-45-schema-migration](slices/12-L-tessl-5-row-expansion/slice-45-schema-migration.md) | DB Schema Migration (12-state enum + 4 new columns) | Must | ✅ | 44 | [#103](https://github.com/neomatrix369/AgentVetter/pull/103) | ~3 min |
+| 46 | [slice-46-lint-adapter](slices/12-L-tessl-5-row-expansion/slice-46-lint-adapter.md) | Tessl: Lint Adapter (Row 1) | Must | ✅ | 45 | [#105](https://github.com/neomatrix369/AgentVetter/pull/105) | ~4 min |
+| 47 | [slice-47-review-quality-split](slices/12-L-tessl-5-row-expansion/slice-47-review-quality-split.md) | Tessl: Review (Quality) Split + `tesslQuality` Scope Fix (Row 2) | Must | ✅ | 45, 46 | [#109](https://github.com/neomatrix369/AgentVetter/pull/109) | ~4 min |
+| 48 | [slice-48-not-available-yet-ui](slices/12-L-tessl-5-row-expansion/slice-48-not-available-yet-ui.md) | "Not Available Yet" Placeholder Rows (Rows 3–5) | Must | ✅ | 47 | [#110](https://github.com/neomatrix369/AgentVetter/pull/110) | ~3 min |
+| 49 | [slice-49-scenario-generation](slices/12-L-tessl-5-row-expansion/slice-49-scenario-generation.md) | Tessl: Scenario Generation + Resume Checkpoint (Row 3) | Should | ✅ | 47, 48 | [#112](https://github.com/neomatrix369/AgentVetter/pull/112) | ~6 min |
+| 50 | [slice-50-eval-auto-chain](slices/12-L-tessl-5-row-expansion/slice-50-eval-auto-chain.md) | Tessl: Eval + Scenario→Eval Auto-Chain (Row 4) | Should | ✅ | 49 | [#113](https://github.com/neomatrix369/AgentVetter/pull/113) | ~5 min |
 | 51 | [slice-51-review-security](slices/12-L-tessl-5-row-expansion/slice-51-review-security.md) | Tessl: Review (Security) Adapter (Row 5) | Could | 🔀 | 47 | — | ~3 min |
 | 52 | [slice-52-id-lineage-wiring](slices/12-L-tessl-5-row-expansion/slice-52-id-lineage-wiring.md) | ID Lineage Cross-Reads + UI Side-by-Side Findings | Could | 📋 | 49, 50, 51; Gap C UI-only | — | ~5 min |
 
@@ -349,8 +349,8 @@ Audit report: [`docs/plan/docs-gap-bridge-audit.md`](docs-gap-bridge-audit.md).
 
 **Sources:**
 - ADR: [`docs/adr/0001-monk-deployment-and-packaging.md`](../adr/0001-monk-deployment-and-packaging.md) (Proposed → Accept via O0 HITL before 59 VERIFIED)
-- PoC: [nooga/tripwire `feat/monk-live-supabase-modal-kit`](https://github.com/nooga/tripwire/tree/feat/monk-live-supabase-modal-kit) (`MANIFEST`, `common.yaml` / `latest.yaml` / `v1.0.0.yaml`, `bootstrap/Dockerfile`)
-- PR context: [#63](https://github.com/neomatrix369/tripwire/pull/63)
+- PoC: [nooga/agentvetter `feat/monk-live-supabase-modal-kit`](https://github.com/nooga/agentvetter/tree/feat/monk-live-supabase-modal-kit) (`MANIFEST`, `common.yaml` / `latest.yaml` / `v1.0.0.yaml`, `bootstrap/Dockerfile`)
+- PR context: [#63](https://github.com/neomatrix369/AgentVetter/pull/63)
 - Monk docs: [Package Ecosystem](https://docs.monk.io/features/service-templates) · [First Deployment](https://docs.monk.io/getting-started/first-deployment) · [Local Dashboard](https://docs.monk.io/getting-started/local-dashboard) · [Capsules](https://docs.monk.io/features/capsules) (later) · [CI/CD](https://docs.monk.io/features/build-and-cicd) (later)
 
 **Intent:** Retrospective land of the PoC Kit, then tweak under real deploy pressure toward ADR MVL-complete → full-coverage-complete. Workstation Live path stays supported and primary until 59 VERIFIED.
@@ -377,7 +377,7 @@ Audit report: [`docs/plan/docs-gap-bridge-audit.md`](docs-gap-bridge-audit.md).
 **Group letter P** (after N; **O** reserved for Monk Kit on `docs/monk-kit-wave-o`, slices 58–61). Folder: [`slices/16-P-git-repo-scan/`](slices/16-P-git-repo-scan/).
 **EFP Path B 2026-09-09** — plan-only; triggered by Live clone fail on GitHub `/tree/…` URLs and product need: one repo URL → N skill+MCP scans with `org/repo` card signature.
 **EFP Path B 2026-09-20** — slice **64** Must: same URL also yields a **package** target (DepShield/Ossprey/Snyk) when manifests exist; slice **63** inventory honesty holds. Soft-amend **56-a** (reuse Wave N stub — no new docs slice).
-**Landed 2026-09-20** — merged to `main` via [#145](https://github.com/neomatrix369/tripwire/pull/145) / [#146](https://github.com/neomatrix369/tripwire/pull/146). Follow-up honesty for Cargo-only SCA: branch `fix/cargo-package-scan-error-status` (feeds Wave **R** slice 65).
+**Landed 2026-09-20** — merged to `main` via [#145](https://github.com/neomatrix369/AgentVetter/pull/145) / [#146](https://github.com/neomatrix369/AgentVetter/pull/146). Follow-up honesty for Cargo-only SCA: branch `fix/cargo-package-scan-error-status` (feeds Wave **R** slice 65).
 
 **Model / harness:** inherits TRAIL Original Material + harness-scout embed. Profile: ambiguity=low · blast_radius=medium · time_box=≤2 Pomos · interactive · Walking Skeleton.
 
@@ -434,7 +434,7 @@ Audit report: [`docs/plan/docs-gap-bridge-audit.md`](docs-gap-bridge-audit.md).
 1. Waves **A–C**, Slice 14, and Slice 17 are merged and closed
 2. Wave **G** closes the acceptance-review findings through independent gates: 18, 19, 20, 21, 22. Prefer one active slice per shared code area to avoid edit conflicts.
 3. Slice 18 is the first pending work. Wave F slices 15 and 16 remain 📦 closed; reinstate either explicitly only for a future live/demo release.
-4. **2026-08-15 addendum:** Wave **H** (Claude Code Agent Guard integration, hackathon) is the active stream on `tripwire-frontline-hack`. It shares `cli/bin/tripwire.js` with slice 18 — slice 18 must not start while H's `setup-agent-hooks` work is open (see the Wave H sequencing note).
+4. **2026-08-15 addendum:** Wave **H** (Claude Code Agent Guard integration, hackathon) is the active stream on `agentvetter-frontline-hack`. It shares `cli/bin/agentvetter.js` with slice 18 — slice 18 must not start while H's `setup-agent-hooks` work is open (see the Wave H sequencing note).
 1. Waves **A–C**, Slice 14, and Slice 17 are merged and closed. Wave F (15–16) remains 📦 closed.
 2. **Active Frontline branch:** Wave **H** Musts **23 → 32** (phase-gated H1→H2→H3). Human test after 25 and 30; **HARD GATE** at 32 before any Should 33+.
 3. Wave **H** Should 33–38 after 32 PASS (35 stays 🔴 until Ossprey access in DECISIONS). Slice 39 stays 📦 unless pulled in.

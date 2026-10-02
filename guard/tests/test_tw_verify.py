@@ -16,8 +16,8 @@ from typing import Any
 import pytest
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
-TW_VERIFY_SKILL = REPO_ROOT / "agent-hooks" / "skills" / "tw-verify" / "SKILL.md"
-BLOCKED_FOOTER = "Will be blocked when Tripwire is enabled"
+TW_VERIFY_SKILL = REPO_ROOT / "agent-hooks" / "skills" / "av-verify" / "SKILL.md"
+BLOCKED_FOOTER = "Will be blocked when AgentVetter is enabled"
 NOW = datetime(2026, 8, 15, 12, 0, 0, tzinfo=UTC)
 
 

@@ -1,4 +1,4 @@
-# Maturity: Serious — full project-hygiene for Tripwire (mixed Python + Node cli/).
+# Maturity: Serious — full project-hygiene for AgentVetter (mixed Python + Node cli/).
 # Principle: one tool per concern; commit stage stays fast; coverage at push.
 #
 # Stages:

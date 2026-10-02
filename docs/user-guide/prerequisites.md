@@ -4,7 +4,7 @@
 
 Start here: [QUICKSTART](../../QUICKSTART.md) · Hub: [docs/README](../README.md)
 
-**No clone:** [hosted dashboard](https://neomatrix369.github.io/demos/tripwire-dashboard/) (Mock on GitHub Pages) · [demo walkthrough video](https://youtu.be/omGOw9ruN3Y).
+**No clone:** [hosted dashboard](https://neomatrix369.github.io/demos/agentvetter-dashboard/) (Mock on GitHub Pages) · [demo walkthrough video](https://youtu.be/omGOw9ruN3Y).
 
 Pins: Node **22** (`.nvmrc`) · Python **3.12** (`.python-version`).
 
@@ -12,19 +12,19 @@ Use this page to determine what must be ready before running any command sequenc
 Cloud and scanner dependency order (diagram): [ARCHITECTURE — dependency order](../ARCHITECTURE.md#dependency-order-what-before-what).
 Full service list: [ARCHITECTURE — External services](../ARCHITECTURE.md#0-external-services-inventory).
 
-## Who can set up and run Tripwire
+## Who can set up and run AgentVetter
 
-Tripwire is for a developer, platform/operations engineer, security-minded
+AgentVetter is for a developer, platform/operations engineer, security-minded
 technical practitioner, or other product user. It is an early-adopter tool with
 a hands-on setup and management component.
 
 | Need | Required familiarity |
 |---|---|
-| Install and configure Tripwire | Terminal and shell commands; Git; Node/Python tooling; careful editing of `.env` and other configuration files |
+| Install and configure AgentVetter | Terminal and shell commands; Git; Node/Python tooling; careful editing of `.env` and other configuration files |
 | Run Live scans | The above, plus cloud account setup, credential handling, and deployment/configuration troubleshooting |
 | Interpret results | Enough security background or interest to interpret findings and decide when to escalate them |
 
-You do not need to be a security expert to install or use Tripwire. Contributors
+You do not need to be a security expert to install or use AgentVetter. Contributors
 follow the same product setup before using the development guide.
 
 ## Tools and capabilities
@@ -48,7 +48,7 @@ python3 -V   # 3.12.x (.python-version)
 - Use the [setup command catalog](./setup-commands.md) for concrete command runs.
 - Use [QUICKSTART.md](../../QUICKSTART.md) for validation and scan workflows.
 
-## What can Tripwire scan?
+## What can AgentVetter scan?
 
 Explicit path or URL arguments (see [ADR-0012](../adr/0012-sandbox-target-acquisition.md) for sandbox dispatch):
 
@@ -60,14 +60,14 @@ Explicit path or URL arguments (see [ADR-0012](../adr/0012-sandbox-target-acquis
 | Live MCP HTTPS endpoint | `https://host/mcp` (not a git forge) | Not cloned. The sandbox workdir stays empty and protocol scanners use the URL. GitHub, GitLab, Bitbucket, Codeberg, and any URL ending in `.git` are still cloned. |
 | Local copy path | `/abs/path/to/dir` | Tar-uploaded to sandbox |
 
-Use `tripwire scan --dry-discover <target>` to list expanded targets before a Live run.
-After a Live `tripwire scan` (or a clear zero-artifact outcome on an explicit target),
+Use `agentvetter scan --dry-discover <target>` to list expanded targets before a Live run.
+After a Live `agentvetter scan` (or a clear zero-artifact outcome on an explicit target),
 the CLI also prints a `[scanners]` inventory + rollup (slice 63 ✅) so
 success / skip / fail / `not_run` is visible without opening the dashboard.
 
 **Findability at scale:** When many artifacts share a basename or skill frontmatter name across paths in one repo, the card title uses the repo-relative path when the leaf equals the GitHub repo name, and the muted `org/repo` signature remains the namespace disambiguator. Filtering/sorting by org or path may follow in later UX work.
 
-**Stale titles:** If cards were scanned before the naming contract, re-run the same `tripwire scan` target — `items.name` refreshes even when content is unchanged (spawn still skips unless `--force`). See [setup-commands — When it fails](./setup-commands.md#when-it-fails) and [ADR-0010](../adr/0010-content-hash-idempotency.md).
+**Stale titles:** If cards were scanned before the naming contract, re-run the same `agentvetter scan` target — `items.name` refreshes even when content is unchanged (spawn still skips unless `--force`). See [setup-commands — When it fails](./setup-commands.md#when-it-fails) and [ADR-0010](../adr/0010-content-hash-idempotency.md).
 
 ## Capability-specific notes
 

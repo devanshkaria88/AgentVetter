@@ -1,4 +1,4 @@
-"""Shared status helpers for the Tripwire Claude Code guard layer (plan §6.1, T1/T2).
+"""Shared status helpers for the AgentVetter Claude Code guard layer (plan §6.1, T1/T2).
 
 Three concerns live here so the PreToolUse handler and the /tw-* skills share one
 deterministic implementation:
@@ -193,7 +193,7 @@ def _rows(response: Any) -> list[Any]:
 def _fetch_config(client: Any) -> dict[str, Any]:
     rows = _rows(client.table("config").select("*").eq("id", 1).limit(1).execute())
     if not rows or not isinstance(rows[0], dict):
-        raise RuntimeError("tripwire Supabase config row missing/unreadable")
+        raise RuntimeError("agentvetter Supabase config row missing/unreadable")
     return rows[0]
 
 

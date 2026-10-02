@@ -193,7 +193,7 @@ export function gitFanoutDisplayName({ type, artifactDir, relPath, repo }) {
 async function discoverGitHubRepo(target, cloneRepoFn) {
   const gitHub = parseGitHubBrowseUrl(target);
   if (!gitHub) return null;
-  const destDir = await mkdtemp(path.join(os.tmpdir(), 'tripwire-git-'));
+  const destDir = await mkdtemp(path.join(os.tmpdir(), 'agentvetter-git-'));
   try {
     await cloneRepoFn(gitHub.cloneUrl, destDir);
     const scopeDir = path.join(destDir, gitHub.scopePath || '');
