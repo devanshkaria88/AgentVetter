@@ -1,6 +1,6 @@
 # Migrating from Tripwire to AgentVetter
 
-**Status:** DECIDED / IMPLEMENTED (in-repo) · operator Modal/Pages steps below  
+**Status:** DECIDED / IMPLEMENTED (in-repo) · operator Modal/Pages steps below
 **ADR:** [ADR-0018](adr/0018-agentvetter-rebrand.md)
 
 Tripwire is now **AgentVetter**. This guide covers clone URLs, packages, CLI,
