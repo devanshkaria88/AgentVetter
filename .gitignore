@@ -22,6 +22,7 @@ internal-docs/
 secrets/
 
 # Dashboard local config (contains Supabase anon key)
+prototypes/dc-dashboard/agentvetter-dashboard.config.js
 prototypes/dc-dashboard/tripwire-dashboard.config.js
 
 # OS / editor
