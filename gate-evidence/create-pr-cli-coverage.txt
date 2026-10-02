@@ -1,0 +1,1687 @@
+
+> tripwire-cli@0.4.0 test:coverage
+> c8 --include 'src/**' --include 'bin/**' --exclude 'test/**' --reporter text --reporter text-summary --reporter lcov --reports-dir .reports/coverage --check-coverage --lines 60 --functions 60 --branches 80 --statements 60 node --test test/*.test.js
+
+TAP version 13
+# Subtest: GWT-65.1: multi-ecosystem checkout lists Node and Rust with volume
+ok 1 - GWT-65.1: multi-ecosystem checkout lists Node and Rust with volume
+  ---
+  duration_ms: 34.087709
+  type: 'test'
+  ...
+# Subtest: GWT-65.1: discovery is marker-driven — empty tree yields no closed language list
+ok 2 - GWT-65.1: discovery is marker-driven — empty tree yields no closed language list
+  ---
+  duration_ms: 1.483542
+  type: 'test'
+  ...
+# Subtest: GWT-65.2: Node ecosystem reuses DepShield/Snyk/Ossprey — no invented scanner
+ok 3 - GWT-65.2: Node ecosystem reuses DepShield/Snyk/Ossprey — no invented scanner
+  ---
+  duration_ms: 12.690625
+  type: 'test'
+  ...
+# Subtest: GWT-65.3: Cargo-only marks Rust unsupported/skipped when no scanner completed
+ok 4 - GWT-65.3: Cargo-only marks Rust unsupported/skipped when no scanner completed
+  ---
+  duration_ms: 10.438125
+  type: 'test'
+  ...
+# Subtest: GWT-65.3: Cargo-only with completed Cargo Audit is covered (reuse, not invent)
+ok 5 - GWT-65.3: Cargo-only with completed Cargo Audit is covered (reuse, not invent)
+  ---
+  duration_ms: 13.922958
+  type: 'test'
+  ...
+# Subtest: GWT-65.4: action statuses are from the canonical set
+ok 6 - GWT-65.4: action statuses are from the canonical set
+  ---
+  duration_ms: 0.29725
+  type: 'test'
+  ...
+# Subtest: GWT-65.4: mixed outcomes never mark failed/timeout/skipped ecosystem as completed
+ok 7 - GWT-65.4: mixed outcomes never mark failed/timeout/skipped ecosystem as completed
+  ---
+  duration_ms: 212.155625
+  type: 'test'
+  ...
+# Subtest: pre-scan ledger uses not_started when no scanner rows
+ok 8 - pre-scan ledger uses not_started when no scanner rows
+  ---
+  duration_ms: 12.141458
+  type: 'test'
+  ...
+# Subtest: GWT-72.1: Cargo-only checkout scopes ledger to Rust/Cargo — not Node/Python
+ok 9 - GWT-72.1: Cargo-only checkout scopes ledger to Rust/Cargo — not Node/Python
+  ---
+  duration_ms: 17.465166
+  type: 'test'
+  ...
+# Subtest: GWT-72.2: Rust/Cargo reuses named Cargo Audit adapter — no invented scanner
+ok 10 - GWT-72.2: Rust/Cargo reuses named Cargo Audit adapter — no invented scanner
+  ---
+  duration_ms: 9.608917
+  type: 'test'
+  ...
+# Subtest: GWT-72.3: Cargo Audit honesty matrix maps completed/failed/timed_out/unreachable
+ok 11 - GWT-72.3: Cargo Audit honesty matrix maps completed/failed/timed_out/unreachable
+  ---
+  duration_ms: 150.930292
+  type: 'test'
+  ...
+# Subtest: GWT-72.4: completed Cargo Audit names the tool; Snyk/DepShield gaps stay explicit
+ok 12 - GWT-72.4: completed Cargo Audit names the tool; Snyk/DepShield gaps stay explicit
+  ---
+  duration_ms: 23.579334
+  type: 'test'
+  ...
+# Subtest: given targetsFile when discover then merges file targets
+ok 13 - given targetsFile when discover then merges file targets
+  ---
+  duration_ms: 115.00775
+  type: 'test'
+  ...
+# Subtest: given mcp manifest json when discover then expands server names
+ok 14 - given mcp manifest json when discover then expands server names
+  ---
+  duration_ms: 12.26
+  type: 'test'
+  ...
+# Subtest: given stdio mcp manifest when discover then sets packPath from args
+ok 15 - given stdio mcp manifest when discover then sets packPath from args
+  ---
+  duration_ms: 153.718334
+  type: 'test'
+  ...
+# Subtest: given malformed manifest when discover then treats as regular target
+ok 16 - given malformed manifest when discover then treats as regular target
+  ---
+  duration_ms: 119.264167
+  type: 'test'
+  ...
+# Subtest: given folder with mcp subdir when expand then includes mcp server
+ok 17 - given folder with mcp subdir when expand then includes mcp server
+  ---
+  duration_ms: 83.18025
+  type: 'test'
+  ...
+# Subtest: given gitlab git url when discover then cloneable
+ok 18 - given gitlab git url when discover then cloneable
+  ---
+  duration_ms: 3.316708
+  type: 'test'
+  ...
+# Subtest: given cwd mcp manifest when useDefaults then discovers server names
+ok 19 - given cwd mcp manifest when useDefaults then discovers server names
+  ---
+  duration_ms: 44.75025
+  type: 'test'
+  ...
+# Subtest: given default mcp.json without mcpServers key when discoverDefaults then no servers added
+ok 20 - given default mcp.json without mcpServers key when discoverDefaults then no servers added
+  ---
+  duration_ms: 230.71525
+  type: 'test'
+  ...
+# Subtest: given null manifest entry when discover then packPath is not set
+ok 21 - given null manifest entry when discover then packPath is not set
+  ---
+  duration_ms: 45.023875
+  type: 'test'
+  ...
+# Subtest: given path-like command pointing to non-existent file when discover then packPath absent
+ok 22 - given path-like command pointing to non-existent file when discover then packPath absent
+  ---
+  duration_ms: 15.648
+  type: 'test'
+  ...
+# Subtest: given path-like command to file in non-MCP dir when discover then packPath absent
+ok 23 - given path-like command to file in non-MCP dir when discover then packPath absent
+  ---
+  duration_ms: 12.371166
+  type: 'test'
+  ...
+# Subtest: GWT-62.1: browse URL parses to clean clone URL and scopes discovery
+ok 24 - GWT-62.1: browse URL parses to clean clone URL and scopes discovery
+  ---
+  duration_ms: 397.747416
+  type: 'test'
+  ...
+# Subtest: GWT-62.2: GitHub root URL fans out typed artifacts with repo identifiers
+ok 25 - GWT-62.2: GitHub root URL fans out typed artifacts with repo identifiers
+  ---
+  duration_ms: 172.76125
+  type: 'test'
+  ...
+# Subtest: GWT-62.6: GitHub repository without skill/MCP/package manifests returns no targets
+ok 26 - GWT-62.6: GitHub repository without skill/MCP/package manifests returns no targets
+  ---
+  duration_ms: 10.020917
+  type: 'test'
+  ...
+# Subtest: GWT-64.1: package.json-only repo yields package target, not skill
+ok 27 - GWT-64.1: package.json-only repo yields package target, not skill
+  ---
+  duration_ms: 16.009
+  type: 'test'
+  ...
+# Subtest: GWT-64.2: package target sits alongside skill/MCP fan-out
+ok 28 - GWT-64.2: package target sits alongside skill/MCP fan-out
+  ---
+  duration_ms: 46.9075
+  type: 'test'
+  ...
+# Subtest: GWT-64.6: package identifier uses @package when org/repo collides
+ok 29 - GWT-64.6: package identifier uses @package when org/repo collides
+  ---
+  duration_ms: 15.789875
+  type: 'test'
+  ...
+# Subtest: GWT-64.4: Cargo.lock alone counts as package manifest
+ok 30 - GWT-64.4: Cargo.lock alone counts as package manifest
+  ---
+  duration_ms: 17.953
+  type: 'test'
+  ...
+# Subtest: GWT-62.1: .git suffix is stripped from repository name
+ok 31 - GWT-62.1: .git suffix is stripped from repository name
+  ---
+  duration_ms: 0.288458
+  type: 'test'
+  ...
+# Subtest: walkArtifacts: skill with package.json is not also an MCP
+ok 32 - walkArtifacts: skill with package.json is not also an MCP
+  ---
+  duration_ms: 147.957542
+  type: 'test'
+  ...
+# Subtest: GWT-62.7: card name is skill identity, not bare GitHub repo name
+ok 33 - GWT-62.7: card name is skill identity, not bare GitHub repo name
+  ---
+  duration_ms: 88.572959
+  type: 'test'
+  ...
+# Subtest: GWT-62.5: frontmatter name wins when it differs from folder basename
+ok 34 - GWT-62.5: frontmatter name wins when it differs from folder basename
+  ---
+  duration_ms: 135.497334
+  type: 'test'
+  ...
+# Subtest: GWT-65.1 local: approved checkout with Node+Cargo yields package target
+ok 35 - GWT-65.1 local: approved checkout with Node+Cargo yields package target
+  ---
+  duration_ms: 57.789042
+  type: 'test'
+  ...
+# Subtest: single skill folder resolves as one item, not a batch
+ok 36 - single skill folder resolves as one item, not a batch
+  ---
+  duration_ms: 95.397625
+  type: 'test'
+  ...
+# Subtest: folder of multiple skill subfolders expands to N items
+ok 37 - folder of multiple skill subfolders expands to N items
+  ---
+  duration_ms: 243.976375
+  type: 'test'
+  ...
+# Subtest: empty args with useDefaults=false returns nothing (caller errors)
+ok 38 - empty args with useDefaults=false returns nothing (caller errors)
+  ---
+  duration_ms: 5.456916
+  type: 'test'
+  ...
+# Subtest: github URL fans out cloned artifacts instead of producing cloneable placeholder
+ok 39 - github URL fans out cloned artifacts instead of producing cloneable placeholder
+  ---
+  duration_ms: 29.964125
+  type: 'test'
+  ...
+# Subtest: bare https endpoint is detected as introspection-only mcp_server
+ok 40 - bare https endpoint is detected as introspection-only mcp_server
+  ---
+  duration_ms: 0.4065
+  type: 'test'
+  ...
+# Subtest: MCP server directory with server.py resolves as one mcp_server target
+ok 41 - MCP server directory with server.py resolves as one mcp_server target
+  ---
+  duration_ms: 12.851792
+  type: 'test'
+  ...
+# Subtest: parent dir containing MCP server subdirs expands to N mcp_server targets
+ok 42 - parent dir containing MCP server subdirs expands to N mcp_server targets
+  ---
+  duration_ms: 19.697209
+  type: 'test'
+  ...
+# Subtest: real fixture: fixtures/mcp/safe-time-server resolves as mcp_server
+ok 43 - real fixture: fixtures/mcp/safe-time-server resolves as mcp_server
+  ---
+  duration_ms: 7.138
+  type: 'test'
+  ...
+# Subtest: real fixture: fixtures/mcp parent dir expands all MCP server subdirs
+ok 44 - real fixture: fixtures/mcp parent dir expands all MCP server subdirs
+  ---
+  duration_ms: 4.973917
+  type: 'test'
+  ...
+# Subtest: typeFilter=skill excludes mcp_server targets from a mixed folder
+ok 45 - typeFilter=skill excludes mcp_server targets from a mixed folder
+  ---
+  duration_ms: 9.166375
+  type: 'test'
+  ...
+# Subtest: typeFilter=mcp excludes skill targets from a mixed folder
+ok 46 - typeFilter=mcp excludes skill targets from a mixed folder
+  ---
+  duration_ms: 159.715625
+  type: 'test'
+  ...
+# Subtest: typeFilter=null returns all types (existing behaviour preserved)
+ok 47 - typeFilter=null returns all types (existing behaviour preserved)
+  ---
+  duration_ms: 45.206625
+  type: 'test'
+  ...
+# Subtest: typeFilter=skill on mixed explicit targets annotates and filters — only skills returned
+ok 48 - typeFilter=skill on mixed explicit targets annotates and filters — only skills returned
+  ---
+  duration_ms: 11.091083
+  type: 'test'
+  ...
+# Subtest: typeFilter=skill with useDefaults=true on fixture defaults — only skills returned
+ok 49 - typeFilter=skill with useDefaults=true on fixture defaults — only skills returned
+  ---
+  duration_ms: 152.361959
+  type: 'test'
+  ...
+# Subtest: manifest entry WITH packPath pointing to server.py dir → locus=local avail=source_on_disk
+ok 50 - manifest entry WITH packPath pointing to server.py dir → locus=local avail=source_on_disk
+  ---
+  duration_ms: 75.032667
+  type: 'test'
+  ...
+# Subtest: manifest entry WITHOUT packPath (bare-binary command) → locus=local avail=introspection_only
+ok 51 - manifest entry WITHOUT packPath (bare-binary command) → locus=local avail=introspection_only
+  ---
+  duration_ms: 29.653
+  type: 'test'
+  ...
+# [tripwire] Applying db/schema.sql to Supabase…
+# [tripwire] Schema ready.
+# [tripwire] Applying db/schema.sql to Supabase…
+# [tripwire] Applying db/schema.sql to Supabase…
+# [tripwire] Schema ready.
+# [tripwire] Applying db/schema.sql to Supabase…
+# Subtest: given items missing when probeSchema then missing
+ok 52 - given items missing when probeSchema then missing
+  ---
+  duration_ms: 1.916458
+  type: 'test'
+  ...
+# Subtest: given completed_at missing when probeSchema then missing
+ok 53 - given completed_at missing when probeSchema then missing
+  ---
+  duration_ms: 0.917458
+  type: 'test'
+  ...
+# Subtest: given judge_panel_runs missing when probeSchema then missing
+ok 54 - given judge_panel_runs missing when probeSchema then missing
+  ---
+  duration_ms: 0.183042
+  type: 'test'
+  ...
+# Subtest: given ready tables when probeSchema then ready
+ok 55 - given ready tables when probeSchema then ready
+  ---
+  duration_ms: 2.343833
+  type: 'test'
+  ...
+# Subtest: given non-schema probe error when probeSchema then throws
+ok 56 - given non-schema probe error when probeSchema then throws
+  ---
+  duration_ms: 3.258666
+  type: 'test'
+  ...
+# Subtest: given completed_at probe auth failure when probeSchema then aborts rather than reporting ready
+ok 57 - given completed_at probe auth failure when probeSchema then aborts rather than reporting ready
+  ---
+  duration_ms: 0.7525
+  type: 'test'
+  ...
+# Subtest: given empty db url when applySchema then throws
+ok 58 - given empty db url when applySchema then throws
+  ---
+  duration_ms: 1.060625
+  type: 'test'
+  ...
+# Subtest: given http url when applySchema then throws
+ok 59 - given http url when applySchema then throws
+  ---
+  duration_ms: 0.480625
+  type: 'test'
+  ...
+# Subtest: given ready probe when ensureSchema then ready without apply
+ok 60 - given ready probe when ensureSchema then ready without apply
+  ---
+  duration_ms: 3.3255
+  type: 'test'
+  ...
+# Subtest: given stale items type check when ensureSchema then applies schema
+ok 61 - given stale items type check when ensureSchema then applies schema
+  ---
+  duration_ms: 3.851958
+  type: 'test'
+  ...
+# Subtest: given constraint def without package when itemsTypeCheckAllowsPackage then false
+ok 62 - given constraint def without package when itemsTypeCheckAllowsPackage then false
+  ---
+  duration_ms: 0.142708
+  type: 'test'
+  ...
+# Subtest: given constraint def with package when itemsTypeCheckAllowsPackage then true
+ok 63 - given constraint def with package when itemsTypeCheckAllowsPackage then true
+  ---
+  duration_ms: 0.307875
+  type: 'test'
+  ...
+# Subtest: given blank or non-postgres url when usablePostgresUrl then null
+ok 64 - given blank or non-postgres url when usablePostgresUrl then null
+  ---
+  duration_ms: 1.686375
+  type: 'test'
+  ...
+# Subtest: given constraint defs when typeCheckStateFromDef then ready or stale
+ok 65 - given constraint defs when typeCheckStateFromDef then ready or stale
+  ---
+  duration_ms: 0.29675
+  type: 'test'
+  ...
+# Subtest: given ready tables and ready type check when schemaNeedsApply then false
+ok 66 - given ready tables and ready type check when schemaNeedsApply then false
+  ---
+  duration_ms: 0.204583
+  type: 'test'
+  ...
+# Subtest: given missing schema when ensureSchema without db url then throws on apply
+ok 67 - given missing schema when ensureSchema without db url then throws on apply
+  ---
+  duration_ms: 1.17025
+  type: 'test'
+  ...
+# Subtest: given fake Client when applySchema then connects and queries
+ok 68 - given fake Client when applySchema then connects and queries
+  ---
+  duration_ms: 1.5075
+  type: 'test'
+  ...
+# Subtest: given Client connect ENOTFOUND when applySchema then hint in error
+ok 69 - given Client connect ENOTFOUND when applySchema then hint in error
+  ---
+  duration_ms: 0.770375
+  type: 'test'
+  ...
+# Subtest: given force apply when ensureSchema then applied
+ok 70 - given force apply when ensureSchema then applied
+  ---
+  duration_ms: 0.279792
+  type: 'test'
+  ...
+# Subtest: isMissingSchemaError with null or undefined returns false
+ok 71 - isMissingSchemaError with null or undefined returns false
+  ---
+  duration_ms: 0.080125
+  type: 'test'
+  ...
+# Subtest: given ECONNREFUSED when applySchema then error hints at Session pooler
+ok 72 - given ECONNREFUSED when applySchema then error hints at Session pooler
+  ---
+  duration_ms: 0.954375
+  type: 'test'
+  ...
+# Subtest: given apply ok but still missing when ensureSchema then throws
+ok 73 - given apply ok but still missing when ensureSchema then throws
+  ---
+  duration_ms: 0.820084
+  type: 'test'
+  ...
+# Subtest: schemaPath points at db/schema.sql
+ok 74 - schemaPath points at db/schema.sql
+  ---
+  duration_ms: 1.732375
+  type: 'test'
+  ...
+# Subtest: isMissingSchemaError detects PostgREST missing-table shapes
+ok 75 - isMissingSchemaError detects PostgREST missing-table shapes
+  ---
+  duration_ms: 1.097666
+  type: 'test'
+  ...
+# Subtest: pgSslConfig verifies TLS for remote Postgres and disables SSL on localhost
+ok 76 - pgSslConfig verifies TLS for remote Postgres and disables SSL on localhost
+  ---
+  duration_ms: 1.398667
+  type: 'test'
+  ...
+# Subtest: isMissingSchemaError detects PGRST204 missing-column errors
+ok 77 - isMissingSchemaError detects PGRST204 missing-column errors
+  ---
+  duration_ms: 0.13
+  type: 'test'
+  ...
+# Subtest: GWT-66.1: matching quote at path:line is evidence verified
+ok 78 - GWT-66.1: matching quote at path:line is evidence verified
+  ---
+  duration_ms: 175.494042
+  type: 'test'
+  ...
+# Subtest: GWT-66.1: mismatched quote is not marked verified
+ok 79 - GWT-66.1: mismatched quote is not marked verified
+  ---
+  duration_ms: 202.119041
+  type: 'test'
+  ...
+# Subtest: GWT-66.2: model citation that does not match disk fails closed
+ok 80 - GWT-66.2: model citation that does not match disk fails closed
+  ---
+  duration_ms: 35.714375
+  type: 'test'
+  ...
+# Subtest: GWT-66.2: missing file is fail-closed and not independently confirmed
+ok 81 - GWT-66.2: missing file is fail-closed and not independently confirmed
+  ---
+  duration_ms: 47.420208
+  type: 'test'
+  ...
+# Subtest: GWT-66.2: path escape is fail-closed and not independently confirmed
+ok 82 - GWT-66.2: path escape is fail-closed and not independently confirmed
+  ---
+  duration_ms: 26.018416
+  type: 'test'
+  ...
+# Subtest: GWT-66.2: empty snippet is fail-closed and not independently confirmed
+ok 83 - GWT-66.2: empty snippet is fail-closed and not independently confirmed
+  ---
+  duration_ms: 16.317292
+  type: 'test'
+  ...
+# Subtest: GWT-66.2: missing location is fail-closed and not independently confirmed
+ok 84 - GWT-66.2: missing location is fail-closed and not independently confirmed
+  ---
+  duration_ms: 7.902375
+  type: 'test'
+  ...
+# Subtest: GWT-66.3: hidden HTML comment with instruction-like content is recorded
+ok 85 - GWT-66.3: hidden HTML comment with instruction-like content is recorded
+  ---
+  duration_ms: 24.403167
+  type: 'test'
+  ...
+# Subtest: GWT-66.3: encoded base64 instruction attempt is recorded
+ok 86 - GWT-66.3: encoded base64 instruction attempt is recorded
+  ---
+  duration_ms: 13.962083
+  type: 'test'
+  ...
+# Subtest: GWT-66.3: scanned content is wrapped as untrusted data, not system instructions
+ok 87 - GWT-66.3: scanned content is wrapped as untrusted data, not system instructions
+  ---
+  duration_ms: 9.444834
+  type: 'test'
+  ...
+# Subtest: GWT-66.3: fixture skill with hidden override is found on disk scan
+ok 88 - GWT-66.3: fixture skill with hidden override is found on disk scan
+  ---
+  duration_ms: 30.91975
+  type: 'test'
+  ...
+# Subtest: GWT-66.4: secret-like tokens are masked by default
+ok 89 - GWT-66.4: secret-like tokens are masked by default
+  ---
+  duration_ms: 14.752084
+  type: 'test'
+  ...
+# Subtest: GWT-66.4: operator reveal keeps secret-like tokens
+ok 90 - GWT-66.4: operator reveal keeps secret-like tokens
+  ---
+  duration_ms: 0.119334
+  type: 'test'
+  ...
+# Subtest: GWT-66.4: wrapped prompt masks secrets unless revealed
+ok 91 - GWT-66.4: wrapped prompt masks secrets unless revealed
+  ---
+  duration_ms: 0.271167
+  type: 'test'
+  ...
+# Subtest: GWT-66.3: zero-width hidden characters are recorded
+ok 92 - GWT-66.3: zero-width hidden characters are recorded
+  ---
+  duration_ms: 16.680333
+  type: 'test'
+  ...
+# Subtest: enrichFindings: verifies quotes and masks snippets by default
+ok 93 - enrichFindings: verifies quotes and masks snippets by default
+  ---
+  duration_ms: 56.020208
+  type: 'test'
+  ...
+# Subtest: evidenceReportForWorkdir: prints injection rows for a skill tree
+ok 94 - evidenceReportForWorkdir: prints injection rows for a skill tree
+  ---
+  duration_ms: 56.097166
+  type: 'test'
+  ...
+# Subtest: enrichFindings: revealSecrets keeps snippet text after a disk match
+ok 95 - enrichFindings: revealSecrets keeps snippet text after a disk match
+  ---
+  duration_ms: 54.02125
+  type: 'test'
+  ...
+# Subtest: formatEvidenceReport: unverified findings are labelled and not confirmed
+ok 96 - formatEvidenceReport: unverified findings are labelled and not confirmed
+  ---
+  duration_ms: 0.563334
+  type: 'test'
+  ...
+# Subtest: identical content hashes identically (idempotency precondition)
+ok 97 - identical content hashes identically (idempotency precondition)
+  ---
+  duration_ms: 327.286375
+  type: 'test'
+  ...
+# Subtest: changed content changes the hash (drift precondition)
+ok 98 - changed content changes the hash (drift precondition)
+  ---
+  duration_ms: 30.090333
+  type: 'test'
+  ...
+# Subtest: hashSchema is stable for identical tool schemas
+ok 99 - hashSchema is stable for identical tool schemas
+  ---
+  duration_ms: 2.645209
+  type: 'test'
+  ...
+# SIE model: gen-4b, Model Studio model: qwen3.8-max
+# [route] Batch batch-1: 1 items
+# [route] safe-csv-cleaner: findings=0, conflicting=false, unusual_status=false
+# [sie] safe-csv-cleaner: escalate=false, low_confidence=false
+# [route] safe-csv-cleaner: routing_review severity=green
+# Subtest: GWT-67.1: discoverJudgeModels inventories generate models and notes reuse when <3
+ok 100 - GWT-67.1: discoverJudgeModels inventories generate models and notes reuse when <3
+  ---
+  duration_ms: 67.749334
+  type: 'test'
+  ...
+# Subtest: GWT-67.2: runJudgePanel starts ≥3 concurrent independent judges without cross-visibility
+ok 101 - GWT-67.2: runJudgePanel starts ≥3 concurrent independent judges without cross-visibility
+  ---
+  duration_ms: 9.437583
+  type: 'test'
+  ...
+# Subtest: GWT-67.3: final verdict needs_review on disagreement + low confidence
+ok 102 - GWT-67.3: final verdict needs_review on disagreement + low confidence
+  ---
+  duration_ms: 3.79075
+  type: 'test'
+  ...
+# Subtest: GWT-67.4: answered_count reflects timeouts; missing judge is not TP/FP
+ok 103 - GWT-67.4: answered_count reflects timeouts; missing judge is not TP/FP
+  ---
+  duration_ms: 48.367042
+  type: 'test'
+  ...
+# Subtest: GWT-67.5: ADR-0016 runRoute behaviour unchanged when panel is enabled
+ok 104 - GWT-67.5: ADR-0016 runRoute behaviour unchanged when panel is enabled
+  ---
+  duration_ms: 12.230708
+  type: 'test'
+  ...
+# Subtest: given .env reachable from cwd walk when loadEnv then returns non-null path
+ok 105 - given .env reachable from cwd walk when loadEnv then returns non-null path
+  ---
+  duration_ms: 207.613167
+  type: 'test'
+  ...
+# Subtest: spawnScanSandbox passes an absolute scan_app.py path (cwd-independent)
+ok 106 - spawnScanSandbox passes an absolute scan_app.py path (cwd-independent)
+  ---
+  duration_ms: 120.386667
+  type: 'test'
+  ...
+# Subtest: spawnScanSandbox appends --pack-path when provided (manifest MCP)
+ok 107 - spawnScanSandbox appends --pack-path when provided (manifest MCP)
+  ---
+  duration_ms: 0.274375
+  type: 'test'
+  ...
+# Subtest: spawnScanSandbox rejects on non-zero sandbox exit
+ok 108 - spawnScanSandbox rejects on non-zero sandbox exit
+  ---
+  duration_ms: 2.94675
+  type: 'test'
+  ...
+# [skip] /var/folders/pw/_vpcsb793b76_51jq5cnn9n00000gn/T/tripwire-orch-kkeVZr — content unchanged since last scan
+# {
+#   "batch_id": "batch-1",
+#   "scan_run_ids": [],
+#   "failed_targets": []
+# }
+# [scanners] /var/folders/pw/_vpcsb793b76_51jq5cnn9n00000gn/T/tripwire-orch-kkeVZr (not dispatched) — not run
+#   Cisco Skill Scanner: static/bytecode/pipeline: not_run
+#   Cisco Skill Scanner: LLM-judge: not_run
+#   Cisco Skill Scanner: AI Defense: not_run
+#   Tessl: Lint: not_run
+#   Tessl: Review (Quality): not_run
+#   Tessl: Scenario Generation: not_run
+#   Tessl: Eval: not_run
+#   Tessl: Review (Security): not_run
+#   Snyk: not_run
+#   DepShield: not_run
+#   Cargo Audit: not_run
+#   Ossprey: not_run
+# [evidence] /var/folders/pw/_vpcsb793b76_51jq5cnn9n00000gn/T/tripwire-orch-kkeVZr — verified=0/0 injections=0
+# [warn] auto-route failed for batch batch-1: ALIBABA_OPENAI_BASE_URL and DASHSCOPE_API_KEY must be set
+# Subtest: given unchanged content_hash when runScan without force then skips spawn
+ok 109 - given unchanged content_hash when runScan without force then skips spawn
+  ---
+  duration_ms: 56.10925
+  type: 'test'
+  ...
+# {
+#   "batch_id": "batch-1",
+#   "scan_run_ids": [
+#     "forced-run"
+#   ],
+#   "failed_targets": []
+# }
+# [scanners] /var/folders/pw/_vpcsb793b76_51jq5cnn9n00000gn/T/tripwire-orch-6jtHtr — not run
+#   Cisco Skill Scanner: static/bytecode/pipeline: not_run
+#   Cisco Skill Scanner: LLM-judge: not_run
+#   Cisco Skill Scanner: AI Defense: not_run
+#   Tessl: Lint: not_run
+#   Tessl: Review (Quality): not_run
+#   Tessl: Scenario Generation: not_run
+#   Tessl: Eval: not_run
+#   Tessl: Review (Security): not_run
+#   Snyk: not_run
+#   DepShield: not_run
+#   Cargo Audit: not_run
+#   Ossprey: not_run
+# [evidence] /var/folders/pw/_vpcsb793b76_51jq5cnn9n00000gn/T/tripwire-orch-6jtHtr — verified=0/0 injections=0
+# [warn] auto-route failed for batch batch-1: ALIBABA_OPENAI_BASE_URL and DASHSCOPE_API_KEY must be set
+# Subtest: given unchanged content_hash when runScan with force then spawns with expected args shape
+ok 110 - given unchanged content_hash when runScan with force then spawns with expected args shape
+  ---
+  duration_ms: 12.691209
+  type: 'test'
+  ...
+# {
+#   "batch_id": "batch-1",
+#   "scan_run_ids": [
+#     "new-run"
+#   ],
+#   "failed_targets": []
+# }
+# [scanners] /var/folders/pw/_vpcsb793b76_51jq5cnn9n00000gn/T/tripwire-orch-jsJzh5 — not run
+#   Cisco MCP Scanner: YARA: not_run
+#   Cisco MCP Scanner: LLM-judge: not_run
+#   Cisco MCP Scanner: AI Defense: not_run
+#   Cisco MCP Scanner: Behavioral Code Scanning: not_run
+#   Snyk: not_run
+#   DepShield: not_run
+#   Cargo Audit: not_run
+#   Ossprey: not_run
+# [evidence] /var/folders/pw/_vpcsb793b76_51jq5cnn9n00000gn/T/tripwire-orch-jsJzh5 — verified=0/0 injections=0
+# [warn] auto-route failed for batch batch-1: ALIBABA_OPENAI_BASE_URL and DASHSCOPE_API_KEY must be set
+# Subtest: given new content when runScan then inserts run and spawns sandbox
+ok 111 - given new content when runScan then inserts run and spawns sandbox
+  ---
+  duration_ms: 16.098667
+  type: 'test'
+  ...
+# {
+#   "batch_id": "batch-1",
+#   "scan_run_ids": [
+#     "run-1"
+#   ],
+#   "failed_targets": []
+# }
+# [scanners] org/repo/skills/foo — not run
+#   Cisco Skill Scanner: static/bytecode/pipeline: not_run
+#   Cisco Skill Scanner: LLM-judge: not_run
+#   Cisco Skill Scanner: AI Defense: not_run
+#   Tessl: Lint: not_run
+#   Tessl: Review (Quality): not_run
+#   Tessl: Scenario Generation: not_run
+#   Tessl: Eval: not_run
+#   Tessl: Review (Security): not_run
+#   Snyk: not_run
+#   DepShield: not_run
+#   Cargo Audit: not_run
+#   Ossprey: not_run
+# [evidence] org/repo/skills/foo — verified=0/0 injections=0
+# Subtest: given git artifact identity when runScan then persists its identifier and name
+ok 112 - given git artifact identity when runScan then persists its identifier and name
+  ---
+  duration_ms: 19.48375
+  type: 'test'
+  ...
+# {
+#   "batch_id": "batch-1",
+#   "scan_run_ids": [
+#     "run-1",
+#     "run-1"
+#   ],
+#   "failed_targets": []
+# }
+# [scanners] org/repo/skills/foo — not run
+#   Cisco Skill Scanner: static/bytecode/pipeline: not_run
+#   Cisco Skill Scanner: LLM-judge: not_run
+#   Cisco Skill Scanner: AI Defense: not_run
+#   Tessl: Lint: not_run
+#   Tessl: Review (Quality): not_run
+#   Tessl: Scenario Generation: not_run
+#   Tessl: Eval: not_run
+#   Tessl: Review (Security): not_run
+#   Snyk: not_run
+#   DepShield: not_run
+#   Cargo Audit: not_run
+#   Ossprey: not_run
+# [evidence] org/repo/skills/foo — verified=0/0 injections=0
+# [scanners] org/repo/mcp/bar — not run
+#   Cisco MCP Scanner: YARA: not_run
+#   Cisco MCP Scanner: LLM-judge: not_run
+#   Cisco MCP Scanner: AI Defense: not_run
+#   Cisco MCP Scanner: Behavioral Code Scanning: not_run
+#   Snyk: not_run
+#   DepShield: not_run
+#   Cargo Audit: not_run
+#   Ossprey: not_run
+# [evidence] org/repo/mcp/bar — verified=0/0 injections=0
+# Subtest: GWT-62.3: multi-artifact runScan spawns once per target with distinct identifiers
+ok 113 - GWT-62.3: multi-artifact runScan spawns once per target with distinct identifiers
+  ---
+  duration_ms: 141.282208
+  type: 'test'
+  ...
+# Subtest: spawnScanSandbox invokes modal run scan_app.py with expected argv (mocked child_process)
+ok 114 - spawnScanSandbox invokes modal run scan_app.py with expected argv (mocked child_process)
+  ---
+  duration_ms: 5.103541
+  type: 'test'
+  ...
+# [error] sandbox failed for /var/folders/pw/_vpcsb793b76_51jq5cnn9n00000gn/T/tw-orch-nOtPMD: modal down
+# {
+#   "batch_id": "batch-1",
+#   "scan_run_ids": [
+#     "run-1"
+#   ],
+#   "failed_targets": [
+#     {
+#       "target": "/var/folders/pw/_vpcsb793b76_51jq5cnn9n00000gn/T/tw-orch-nOtPMD",
+#       "error": "modal down"
+#     }
+#   ]
+# }
+# [scanners] /var/folders/pw/_vpcsb793b76_51jq5cnn9n00000gn/T/tw-orch-nOtPMD — not run
+#   Cisco Skill Scanner: static/bytecode/pipeline: not_run
+#   Cisco Skill Scanner: LLM-judge: not_run
+#   Cisco Skill Scanner: AI Defense: not_run
+#   Tessl: Lint: not_run
+#   Tessl: Review (Quality): not_run
+#   Tessl: Scenario Generation: not_run
+#   Tessl: Eval: not_run
+#   Tessl: Review (Security): not_run
+#   Snyk: not_run
+#   DepShield: not_run
+#   Cargo Audit: not_run
+#   Ossprey: not_run
+# [evidence] /var/folders/pw/_vpcsb793b76_51jq5cnn9n00000gn/T/tw-orch-nOtPMD — verified=0/0 injections=0
+# [warn] auto-route failed for batch batch-1: ALIBABA_OPENAI_BASE_URL and DASHSCOPE_API_KEY must be set
+# Subtest: given spawn failure when runScan then marks failed and rolls up
+ok 115 - given spawn failure when runScan then marks failed and rolls up
+  ---
+  duration_ms: 79.197417
+  type: 'test'
+  ...
+# {
+#   "batch_id": "batch-1",
+#   "scan_run_ids": [
+#     "run-1"
+#   ],
+#   "failed_targets": []
+# }
+# [scanners] /var/folders/pw/_vpcsb793b76_51jq5cnn9n00000gn/T/tw-ident-Asqi7R — not run
+#   Cisco Skill Scanner: static/bytecode/pipeline: not_run
+#   Cisco Skill Scanner: LLM-judge: not_run
+#   Cisco Skill Scanner: AI Defense: not_run
+#   Tessl: Lint: not_run
+#   Tessl: Review (Quality): not_run
+#   Tessl: Scenario Generation: not_run
+#   Tessl: Eval: not_run
+#   Tessl: Review (Security): not_run
+#   Snyk: not_run
+#   DepShield: not_run
+#   Cargo Audit: not_run
+#   Ossprey: not_run
+# [evidence] /var/folders/pw/_vpcsb793b76_51jq5cnn9n00000gn/T/tw-ident-Asqi7R — verified=0/0 injections=0
+# [warn] auto-route failed for batch batch-1: ALIBABA_OPENAI_BASE_URL and DASHSCOPE_API_KEY must be set
+# Subtest: given existing identifier when upsert then updates hash
+ok 116 - given existing identifier when upsert then updates hash
+  ---
+  duration_ms: 23.496417
+  type: 'test'
+  ...
+# [skip] /var/folders/pw/_vpcsb793b76_51jq5cnn9n00000gn/T/tw-rename-Wv9ORN — content unchanged since last scan
+# {
+#   "batch_id": "batch-1",
+#   "scan_run_ids": [],
+#   "failed_targets": []
+# }
+# [scanners] pbakaus/impeccable/.cursor/skills/audit (not dispatched) — not run
+#   Cisco Skill Scanner: static/bytecode/pipeline: not_run
+#   Cisco Skill Scanner: LLM-judge: not_run
+#   Cisco Skill Scanner: AI Defense: not_run
+#   Tessl: Lint: not_run
+#   Tessl: Review (Quality): not_run
+#   Tessl: Scenario Generation: not_run
+#   Tessl: Eval: not_run
+#   Tessl: Review (Security): not_run
+#   Snyk: not_run
+#   DepShield: not_run
+#   Cargo Audit: not_run
+#   Ossprey: not_run
+# [evidence] pbakaus/impeccable/.cursor/skills/audit — verified=0/0 injections=0
+# [warn] auto-route failed for batch batch-1: ALIBABA_OPENAI_BASE_URL and DASHSCOPE_API_KEY must be set
+# Subtest: given stale display name when content hash matches then refreshes name without force
+ok 117 - given stale display name when content hash matches then refreshes name without force
+  ---
+  duration_ms: 9.134
+  type: 'test'
+  ...
+# {
+#   "batch_id": "batch-1",
+#   "scan_run_ids": [
+#     "run-1"
+#   ],
+#   "failed_targets": []
+# }
+# [scanners] pbakaus/impeccable/.cursor/skills/polish — not run
+#   Cisco Skill Scanner: static/bytecode/pipeline: not_run
+#   Cisco Skill Scanner: LLM-judge: not_run
+#   Cisco Skill Scanner: AI Defense: not_run
+#   Tessl: Lint: not_run
+#   Tessl: Review (Quality): not_run
+#   Tessl: Scenario Generation: not_run
+#   Tessl: Eval: not_run
+#   Tessl: Review (Security): not_run
+#   Snyk: not_run
+#   DepShield: not_run
+#   Cargo Audit: not_run
+#   Ossprey: not_run
+# [evidence] pbakaus/impeccable/.cursor/skills/polish — verified=0/0 injections=0
+# [warn] auto-route failed for batch batch-1: ALIBABA_OPENAI_BASE_URL and DASHSCOPE_API_KEY must be set
+# Subtest: given existing identifier when upsert then refreshes display name
+ok 118 - given existing identifier when upsert then refreshes display name
+  ---
+  duration_ms: 32.318417
+  type: 'test'
+  ...
+# {
+#   "batch_id": "batch-1",
+#   "scan_run_ids": [
+#     "run-1",
+#     "run-1"
+#   ],
+#   "failed_targets": []
+# }
+# [scanners] /var/folders/pw/_vpcsb793b76_51jq5cnn9n00000gn/T/tw-batch-fEZEhn/a — not run
+#   Cisco Skill Scanner: static/bytecode/pipeline: not_run
+#   Cisco Skill Scanner: LLM-judge: not_run
+#   Cisco Skill Scanner: AI Defense: not_run
+#   Tessl: Lint: not_run
+#   Tessl: Review (Quality): not_run
+#   Tessl: Scenario Generation: not_run
+#   Tessl: Eval: not_run
+#   Tessl: Review (Security): not_run
+#   Snyk: not_run
+#   DepShield: not_run
+#   Cargo Audit: not_run
+#   Ossprey: not_run
+# [evidence] /var/folders/pw/_vpcsb793b76_51jq5cnn9n00000gn/T/tw-batch-fEZEhn/a — verified=0/0 injections=0
+# [scanners] /var/folders/pw/_vpcsb793b76_51jq5cnn9n00000gn/T/tw-batch-fEZEhn/b — not run
+#   Cisco Skill Scanner: static/bytecode/pipeline: not_run
+#   Cisco Skill Scanner: LLM-judge: not_run
+#   Cisco Skill Scanner: AI Defense: not_run
+#   Tessl: Lint: not_run
+#   Tessl: Review (Quality): not_run
+#   Tessl: Scenario Generation: not_run
+#   Tessl: Eval: not_run
+#   Tessl: Review (Security): not_run
+#   Snyk: not_run
+#   DepShield: not_run
+#   Cargo Audit: not_run
+#   Ossprey: not_run
+# [evidence] /var/folders/pw/_vpcsb793b76_51jq5cnn9n00000gn/T/tw-batch-fEZEhn/b — verified=0/0 injections=0
+# [warn] auto-route failed for batch batch-1: ALIBABA_OPENAI_BASE_URL and DASHSCOPE_API_KEY must be set
+# Subtest: given multiple targets when runScan then creates batch
+ok 119 - given multiple targets when runScan then creates batch
+  ---
+  duration_ms: 41.581958
+  type: 'test'
+  ...
+# Subtest: given batch persistence failure when multiple targets scan then it aborts before dispatch
+ok 120 - given batch persistence failure when multiple targets scan then it aborts before dispatch
+  ---
+  duration_ms: 0.468
+  type: 'test'
+  ...
+# Subtest: given zero concurrency through the orchestration API when scan starts then it rejects before schema work
+ok 121 - given zero concurrency through the orchestration API when scan starts then it rejects before schema work
+  ---
+  duration_ms: 0.719916
+  type: 'test'
+  ...
+# [error] scan dispatch failed for /var/folders/pw/_vpcsb793b76_51jq5cnn9n00000gn/T/tw-outer-catch-YciIKZ: db insert error for scan_runs
+# {
+#   "batch_id": "batch-1",
+#   "scan_run_ids": [],
+#   "failed_targets": [
+#     {
+#       "target": "/var/folders/pw/_vpcsb793b76_51jq5cnn9n00000gn/T/tw-outer-catch-YciIKZ",
+#       "error": "db insert error for scan_runs"
+#     }
+#   ]
+# }
+# [scanners] /var/folders/pw/_vpcsb793b76_51jq5cnn9n00000gn/T/tw-outer-catch-YciIKZ (not dispatched) — not run
+#   Cisco Skill Scanner: static/bytecode/pipeline: not_run
+#   Cisco Skill Scanner: LLM-judge: not_run
+#   Cisco Skill Scanner: AI Defense: not_run
+#   Tessl: Lint: not_run
+#   Tessl: Review (Quality): not_run
+#   Tessl: Scenario Generation: not_run
+#   Tessl: Eval: not_run
+#   Tessl: Review (Security): not_run
+#   Snyk: not_run
+#   DepShield: not_run
+#   Cargo Audit: not_run
+#   Ossprey: not_run
+# [evidence] /var/folders/pw/_vpcsb793b76_51jq5cnn9n00000gn/T/tw-outer-catch-YciIKZ — verified=0/0 injections=0
+# [warn] auto-route failed for batch batch-1: ALIBABA_OPENAI_BASE_URL and DASHSCOPE_API_KEY must be set
+# {
+#   "batch_id": "batch-1",
+#   "scan_run_ids": [
+#     "run-1"
+#   ],
+#   "failed_targets": []
+# }
+# [scanners] https://mcp.example.com/sse — not run
+#   Cisco MCP Scanner: YARA: not_run
+#   Cisco MCP Scanner: LLM-judge: not_run
+#   Cisco MCP Scanner: AI Defense: not_run
+#   Cisco MCP Scanner: Behavioral Code Scanning: not_run
+#   Snyk: not_run
+#   DepShield: not_run
+#   Cargo Audit: not_run
+#   Ossprey: not_run
+# [evidence] https://mcp.example.com/sse — verified=0/0 injections=0
+# [warn] auto-route failed for batch batch-1: ALIBABA_OPENAI_BASE_URL and DASHSCOPE_API_KEY must be set
+# Subtest: given scan_run insert error when dispatch then outer catch returns error without scanRunId
+ok 122 - given scan_run insert error when dispatch then outer catch returns error without scanRunId
+  ---
+  duration_ms: 66.60925
+  type: 'test'
+  ...
+# Subtest: given introspection target when runScan then uses pending hash
+ok 123 - given introspection target when runScan then uses pending hash
+  ---
+  duration_ms: 3.498042
+  type: 'test'
+  ...
+# Subtest: tripwire scan --help includes --force flag with description
+ok 124 - tripwire scan --help includes --force flag with description
+  ---
+  duration_ms: 1353.938042
+  type: 'test'
+  ...
+# Subtest: tripwire setup --help retains its own --force (no collision)
+ok 125 - tripwire setup --help retains its own --force (no collision)
+  ---
+  duration_ms: 577.245583
+  type: 'test'
+  ...
+# Subtest: scan --force is a boolean flag (no argument required)
+ok 126 - scan --force is a boolean flag (no argument required)
+  ---
+  duration_ms: 402.0525
+  type: 'test'
+  ...
+# Subtest: scan --no-defaults exits with actionable guidance when no targets are supplied
+ok 127 - scan --no-defaults exits with actionable guidance when no targets are supplied
+  ---
+  duration_ms: 425.646959
+  type: 'test'
+  ...
+# Subtest: scan with explicit target that has no artifacts exits 0 with zero-artifact message
+ok 128 - scan with explicit target that has no artifacts exits 0 with zero-artifact message
+  ---
+  duration_ms: 380.707083
+  type: 'test'
+  ...
+# Subtest: setup reports its environment requirement instead of applying schema without credentials
+ok 129 - setup reports its environment requirement instead of applying schema without credentials
+  ---
+  duration_ms: 379.978958
+  type: 'test'
+  ...
+# Subtest: given invalid concurrency when scan starts then it exits before discovery or persistence
+ok 130 - given invalid concurrency when scan starts then it exits before discovery or persistence
+  ---
+  duration_ms: 512.138666
+  type: 'test'
+  ...
+# Subtest: given malformed targets JSON when dry discovery runs then it exits with an actionable error
+ok 131 - given malformed targets JSON when dry discovery runs then it exits with an actionable error
+  ---
+  duration_ms: 489.664875
+  type: 'test'
+  ...
+# Subtest: given an explicit MCP endpoint when dry discovery runs then it reports the discovered target without scanning
+ok 132 - given an explicit MCP endpoint when dry discovery runs then it reports the discovered target without scanning
+  ---
+  duration_ms: 409.0175
+  type: 'test'
+  ...
+# Subtest: given invalid --type value when scan starts then it exits non-zero with valid values listed
+ok 133 - given invalid --type value when scan starts then it exits non-zero with valid values listed
+  ---
+  duration_ms: 383.909125
+  type: 'test'
+  ...
+# Subtest: given no database credentials when tripwire route runs then exits non-zero
+ok 134 - given no database credentials when tripwire route runs then exits non-zero
+  ---
+  duration_ms: 10884.039166
+  type: 'test'
+  ...
+# Subtest: scan --help includes --reveal-secrets masked-by-default contract
+ok 135 - scan --help includes --reveal-secrets masked-by-default contract
+  ---
+  duration_ms: 373.488958
+  type: 'test'
+  ...
+# Subtest: GWT-66.3: dry-discover of injection fixture prints an evidence warning
+ok 136 - GWT-66.3: dry-discover of injection fixture prints an evidence warning
+  ---
+  duration_ms: 383.273792
+  type: 'test'
+  ...
+# SIE model: gen-4b, Model Studio model: qwen3.8-max
+# [route] Batch batch-1: 1 items
+# [route] safe-csv-cleaner: findings=0, conflicting=false, unusual_status=false
+# [warn] SIE failed for safe-csv-cleaner: HTTP 503: provisioning — skipping
+# SIE model: gen-4b, Model Studio model: qwen3.8-max
+# [route] Batch batch-1: 1 items
+# [route] safe-csv-cleaner: findings=0, conflicting=false, unusual_status=false
+# [sie] safe-csv-cleaner: escalate=false, low_confidence=false
+# [route] safe-csv-cleaner: routing_review severity=green
+# SIE model: gen-4b, Model Studio model: qwen3.8-max
+# [route] Batch batch-1: 1 items
+# [route] safe-csv-cleaner: findings=2, conflicting=true, unusual_status=false
+# [sie] safe-csv-cleaner: escalate=true, low_confidence=false
+# [ms] safe-csv-cleaner: arbitration severity=amber
+# [route] safe-csv-cleaner: routing_decision severity=amber
+# SIE model: gen-4b, Model Studio model: qwen3.8-max
+# [route] Batch batch-1: 1 items
+# [route] safe-csv-cleaner: findings=1, conflicting=false, unusual_status=false
+# [sie] safe-csv-cleaner: escalate=true, low_confidence=true
+# [warn] MS arbitration failed for safe-csv-cleaner: MS down
+# [warn] MS triage failed for safe-csv-cleaner: triage timeout
+# [route] safe-csv-cleaner: routing_review (ms-fallback) severity=red
+# SIE model: gen-4b, Model Studio model: qwen3.8-max
+# [route] Batch batch-1: 1 items
+# [route] safe-csv-cleaner: findings=0, conflicting=false, unusual_status=true
+# [sie] safe-csv-cleaner: escalate=true, low_confidence=false
+# [ms] safe-csv-cleaner: triage severity=amber
+# [route] safe-csv-cleaner: routing_triage severity=amber
+# SIE model: gen-4b, Model Studio model: qwen3.8-max
+# [route] Batch batch-1: 1 items
+# [route] safe-csv-cleaner: findings=0, conflicting=false, unusual_status=true
+# [sie] safe-csv-cleaner: escalate=true, low_confidence=false
+# [route] safe-csv-cleaner: routing_review (triage-ms-fallback) severity=amber
+# SIE model: gen-4b, Model Studio model: qwen3.8-max
+# [route] Batch batch-1: 1 items
+# [route] safe-csv-cleaner: findings=0, conflicting=false, unusual_status=false
+# [sie] safe-csv-cleaner: escalate=true, low_confidence=true
+# [route] safe-csv-cleaner: routing_review severity=green
+# SIE model: gen-4b, Model Studio model: qwen3.8-max
+# [route] Batch batch-1: 1 items
+# [route] safe-csv-cleaner: findings=0, conflicting=false, unusual_status=false
+# [sie] safe-csv-cleaner: escalate=false, low_confidence=false
+# [critical] Insert failed for scan_run run-1: insert denied
+# SIE model: gen-4b, Model Studio model: qwen3.8-max
+# [route] Batch batch-1: 1 items
+# [route] safe-csv-cleaner: findings=0, conflicting=false, unusual_status=false
+# [sie] safe-csv-cleaner: escalate=false, low_confidence=false
+# [route] safe-csv-cleaner: routing_review severity=green
+# SIE model: gen-4b, Model Studio model: qwen3.8-max
+# [route] Batch batch-1: 1 items
+# [error] fetchItemData failed for safe-csv-cleaner: relation missing
+# SIE model: gen-4b, Model Studio model: qwen3.8-max
+# [route] Batch batch-1: 1 items
+# [route] safe-csv-cleaner: findings=1, conflicting=false, unusual_status=false
+# [sie] safe-csv-cleaner: escalate=true, low_confidence=false
+# [ms] safe-csv-cleaner: arbitration severity=purple
+# [route] safe-csv-cleaner: routing_decision severity=red
+# SIE model: gen-4b, Model Studio model: qwen3.8-max
+# [route] Batch batch-1: 1 items
+# [route] safe-csv-cleaner: findings=0, conflicting=false, unusual_status=false
+# Subtest: given prior routing_review when SIE fails then strip finding is preserved
+ok 137 - given prior routing_review when SIE fails then strip finding is preserved
+  ---
+  duration_ms: 96.286625
+  type: 'test'
+  ...
+# Subtest: given SIE declines escalate when route succeeds then writes routing_review
+ok 138 - given SIE declines escalate when route succeeds then writes routing_review
+  ---
+  duration_ms: 3.1545
+  type: 'test'
+  ...
+# Subtest: given SIE escalates with findings when MS succeeds then writes routing_decision
+ok 139 - given SIE escalates with findings when MS succeeds then writes routing_decision
+  ---
+  duration_ms: 11.24975
+  type: 'test'
+  ...
+# Subtest: given SIE escalates with findings when MS fails then writes routing_review fallback
+ok 140 - given SIE escalates with findings when MS fails then writes routing_review fallback
+  ---
+  duration_ms: 0.840625
+  type: 'test'
+  ...
+# Subtest: given SIE escalates with no findings when MS triage succeeds then writes routing_triage
+ok 141 - given SIE escalates with no findings when MS triage succeeds then writes routing_triage
+  ---
+  duration_ms: 0.682333
+  type: 'test'
+  ...
+# Subtest: given SIE escalates with no findings when MS triage fails then writes amber routing_review
+ok 142 - given SIE escalates with no findings when MS triage fails then writes amber routing_review
+  ---
+  duration_ms: 0.505417
+  type: 'test'
+  ...
+# Subtest: given empty findings and all scanners completed when SIE escalates then clamps to routing_review
+ok 143 - given empty findings and all scanners completed when SIE escalates then clamps to routing_review
+  ---
+  duration_ms: 4.823709
+  type: 'test'
+  ...
+# Subtest: given insert failure after successful SIE when replacing then throws
+ok 144 - given insert failure after successful SIE when replacing then throws
+  ---
+  duration_ms: 2.247
+  type: 'test'
+  ...
+# Subtest: given live SIE HTTP when chat completes then uses real callSie path
+ok 145 - given live SIE HTTP when chat completes then uses real callSie path
+  ---
+  duration_ms: 7.242416
+  type: 'test'
+  ...
+# Subtest: given scanners fetch fails when route runs then item is skipped without wipe
+ok 146 - given scanners fetch fails when route runs then item is skipped without wipe
+  ---
+  duration_ms: 0.50075
+  type: 'test'
+  ...
+# Subtest: given MS returns unknown severity when arbitrating then falls back to scanner severity
+ok 147 - given MS returns unknown severity when arbitrating then falls back to scanner severity
+  ---
+  duration_ms: 0.531375
+  type: 'test'
+  ...
+# [warn] SIE failed for safe-csv-cleaner: HTTP 503: Service Unavailable — skipping
+# SIE model: gen-4b, Model Studio model: qwen3.8-max
+# [route] Batch batch-1: 1 items
+# [route] safe-csv-cleaner: findings=2, conflicting=true, unusual_status=false
+# [sie] safe-csv-cleaner: escalate=true, low_confidence=false
+# [ms] safe-csv-cleaner: arbitration severity=amber
+# [route] safe-csv-cleaner: routing_decision severity=amber
+# SIE model: gen-4b, Model Studio model: qwen3.8-max
+# [route] Batch batch-1: 1 items
+# [route] safe-csv-cleaner: findings=0, conflicting=false, unusual_status=true
+# [sie] safe-csv-cleaner: escalate=true, low_confidence=false
+# [ms] safe-csv-cleaner: triage severity=amber
+# [route] safe-csv-cleaner: routing_triage severity=amber
+# SIE model: gen-4b, Model Studio model: qwen3.8-max
+# [route] Batch batch-1: 1 items
+# [route] safe-csv-cleaner: findings=0, conflicting=false, unusual_status=false
+# [sie] safe-csv-cleaner: escalate=false, low_confidence=false
+# [critical] Delete failed for scan_run run-1: delete denied
+# Subtest: given HTTP non-ok on all SIE attempts when route runs then routing is skipped gracefully
+ok 148 - given HTTP non-ok on all SIE attempts when route runs then routing is skipped gracefully
+  ---
+  duration_ms: 502.280833
+  type: 'test'
+  ...
+# Subtest: given real callMsArbitration path when SIE escalates then MS arbitration fetch is executed
+ok 149 - given real callMsArbitration path when SIE escalates then MS arbitration fetch is executed
+  ---
+  duration_ms: 1.678292
+  type: 'test'
+  ...
+# Subtest: given real callMsTriage path when SIE escalates empty findings then MS triage fetch is executed
+ok 150 - given real callMsTriage path when SIE escalates empty findings then MS triage fetch is executed
+  ---
+  duration_ms: 2.167333
+  type: 'test'
+  ...
+# Subtest: given replace delete fails when writing routing_review then error propagates
+ok 151 - given replace delete fails when writing routing_review then error propagates
+  ---
+  duration_ms: 0.605292
+  type: 'test'
+  ...
+# Subtest: expectedScannersFor skill includes DepShield and Ossprey, excludes MCP-only
+ok 152 - expectedScannersFor skill includes DepShield and Ossprey, excludes MCP-only
+  ---
+  duration_ms: 1.279625
+  type: 'test'
+  ...
+# Subtest: expectedScannersFor mcp includes MCP and both, excludes skill-only
+ok 153 - expectedScannersFor mcp includes MCP and both, excludes skill-only
+  ---
+  duration_ms: 3.070458
+  type: 'test'
+  ...
+# Subtest: GWT-64.5: expectedScannersFor package is DepShield/Ossprey/Snyk/Cargo Audit
+ok 154 - GWT-64.5: expectedScannersFor package is DepShield/Ossprey/Snyk/Cargo Audit
+  ---
+  duration_ms: 1.081083
+  type: 'test'
+  ...
+# Subtest: rollup all completed is fully successful
+ok 155 - rollup all completed is fully successful
+  ---
+  duration_ms: 0.275167
+  type: 'test'
+  ...
+# Subtest: rollup mix completed and skipped is partly successful
+ok 156 - rollup mix completed and skipped is partly successful
+  ---
+  duration_ms: 15.303417
+  type: 'test'
+  ...
+# Subtest: rollup zero completed is fully failed
+ok 157 - rollup zero completed is fully failed
+  ---
+  duration_ms: 0.181875
+  type: 'test'
+  ...
+# Subtest: rollup all not_run is not run
+ok 158 - rollup all not_run is not run
+  ---
+  duration_ms: 0.257583
+  type: 'test'
+  ...
+# Subtest: merge fills missing expected sources as not_run
+ok 159 - merge fills missing expected sources as not_run
+  ---
+  duration_ms: 0.131542
+  type: 'test'
+  ...
+# Subtest: formatScannerInventory includes rollup header and rows
+ok 160 - formatScannerInventory includes rollup header and rows
+  ---
+  duration_ms: 0.740375
+  type: 'test'
+  ...
+# Subtest: preflight rejects Node < 18 with remediation
+ok 161 - preflight rejects Node < 18 with remediation
+  ---
+  duration_ms: 117.246708
+  type: 'test'
+  ...
+# Subtest: preflight rejects when .env is missing
+ok 162 - preflight rejects when .env is missing
+  ---
+  duration_ms: 49.720417
+  type: 'test'
+  ...
+# Subtest: preflight rejects when .env lacks SUPABASE_SERVICE_ROLE_KEY
+ok 163 - preflight rejects when .env lacks SUPABASE_SERVICE_ROLE_KEY
+  ---
+  duration_ms: 112.811417
+  type: 'test'
+  ...
+# Subtest: preflight rejects an EMPTY value (copied .env.example) — key presence is not enough
+ok 164 - preflight rejects an EMPTY value (copied .env.example) — key presence is not enough
+  ---
+  duration_ms: 18.35275
+  type: 'test'
+  ...
+# Subtest: preflight rejects obvious placeholder values
+ok 165 - preflight rejects obvious placeholder values
+  ---
+  duration_ms: 171.480792
+  type: 'test'
+  ...
+# Subtest: preflight accepts quoted real values (dotenv parsing, not raw line matching)
+ok 166 - preflight accepts quoted real values (dotenv parsing, not raw line matching)
+  ---
+  duration_ms: 62.690292
+  type: 'test'
+  ...
+# Subtest: preflight rejects when uv is not on PATH
+ok 167 - preflight rejects when uv is not on PATH
+  ---
+  duration_ms: 27.159875
+  type: 'test'
+  ...
+# Subtest: preflight rejects when modal is not on PATH
+ok 168 - preflight rejects when modal is not on PATH
+  ---
+  duration_ms: 15.286917
+  type: 'test'
+  ...
+# Subtest: creates config.json with enable=true, 14-day validity, absolute paths
+ok 169 - creates config.json with enable=true, 14-day validity, absolute paths
+  ---
+  duration_ms: 23.873042
+  type: 'test'
+  ...
+# Subtest: re-run never overwrites an existing config (enable=false preserved)
+ok 170 - re-run never overwrites an existing config (enable=false preserved)
+  ---
+  duration_ms: 32.612333
+  type: 'test'
+  ...
+# Subtest: installs handler scripts chmod 700 and pre-warms guard env via uv sync
+ok 171 - installs handler scripts chmod 700 and pre-warms guard env via uv sync
+  ---
+  duration_ms: 28.971042
+  type: 'test'
+  ...
+# Subtest: pre-warm failure is a hard error with remediation
+ok 172 - pre-warm failure is a hard error with remediation
+  ---
+  duration_ms: 24.335917
+  type: 'test'
+  ...
+# Subtest: merges hook into existing settings.json, preserving unrelated keys, with backup
+ok 173 - merges hook into existing settings.json, preserving unrelated keys, with backup
+  ---
+  duration_ms: 106.925292
+  type: 'test'
+  ...
+# Subtest: settings merge is idempotent — re-run adds no duplicate entry and no new backup
+ok 174 - settings merge is idempotent — re-run adds no duplicate entry and no new backup
+  ---
+  duration_ms: 50.465875
+  type: 'test'
+  ...
+# Subtest: hand-installed `~/…` hook registration is detected — no duplicate entry, no rewrite
+ok 175 - hand-installed `~/…` hook registration is detected — no duplicate entry, no rewrite
+  ---
+  duration_ms: 27.964375
+  type: 'test'
+  ...
+# Subtest: stale matcher is refreshed on re-run without duplicating the PreToolUse entry
+ok 176 - stale matcher is refreshed on re-run without duplicating the PreToolUse entry
+  ---
+  duration_ms: 34.699792
+  type: 'test'
+  ...
+# Subtest: settings write is atomic: rename-into-place, mode 0600, no temp file left behind
+ok 177 - settings write is atomic: rename-into-place, mode 0600, no temp file left behind
+  ---
+  duration_ms: 31.541542
+  type: 'test'
+  ...
+# Subtest: missing settings.json is treated as {} and created without a backup
+ok 178 - missing settings.json is treated as {} and created without a backup
+  ---
+  duration_ms: 31.350334
+  type: 'test'
+  ...
+# Subtest: corrupt settings.json refuses to merge instead of clobbering
+ok 179 - corrupt settings.json refuses to merge instead of clobbering
+  ---
+  duration_ms: 18.84925
+  type: 'test'
+  ...
+# Subtest: settings merge happens AFTER the bootstrap sweep; config.json still precedes it
+ok 180 - settings merge happens AFTER the bootstrap sweep; config.json still precedes it
+  ---
+  duration_ms: 25.425042
+  type: 'test'
+  ...
+# Subtest: demo install failure aborts BEFORE the hook is registered — live Claude config untouched
+ok 181 - demo install failure aborts BEFORE the hook is registered — live Claude config untouched
+  ---
+  duration_ms: 16.989542
+  type: 'test'
+  ...
+# Subtest: skills-source failure aborts BEFORE the hook is registered
+ok 182 - skills-source failure aborts BEFORE the hook is registered
+  ---
+  duration_ms: 14.930916
+  type: 'test'
+  ...
+# Subtest: copies tw-* skills into ~/.claude/skills with overwrite-sync
+ok 183 - copies tw-* skills into ~/.claude/skills with overwrite-sync
+  ---
+  duration_ms: 20.456292
+  type: 'test'
+  ...
+# Subtest: sweep passes MCP MANIFEST FILES — never bare server keys (blocker regression)
+ok 184 - sweep passes MCP MANIFEST FILES — never bare server keys (blocker regression)
+  ---
+  duration_ms: 24.865584
+  type: 'test'
+  ...
+# Subtest: malformed or key-less MCP configs contribute no sweep targets
+ok 185 - malformed or key-less MCP configs contribute no sweep targets
+  ---
+  duration_ms: 20.0755
+  type: 'test'
+  ...
+# Subtest: --with-demo sweeps demo SKILL dirs + the demo MCP manifest FILE, never *-tool dirs
+ok 186 - --with-demo sweeps demo SKILL dirs + the demo MCP manifest FILE, never *-tool dirs
+  ---
+  duration_ms: 21.149916
+  type: 'test'
+  ...
+# Subtest: demo MCP manifest is swept only with --with-demo
+ok 187 - demo MCP manifest is swept only with --with-demo
+  ---
+  duration_ms: 17.46825
+  type: 'test'
+  ...
+# Subtest: scan invocation failure marks every target failed instead of aborting install
+ok 188 - scan invocation failure marks every target failed instead of aborting install
+  ---
+  duration_ms: 19.894584
+  type: 'test'
+  ...
+# Subtest: unparseable scan stdout marks targets failed
+ok 189 - unparseable scan stdout marks targets failed
+  ---
+  duration_ms: 20.203125
+  type: 'test'
+  ...
+# Subtest: defaultScanFn decodes multibyte characters split across chunk boundaries
+ok 190 - defaultScanFn decodes multibyte characters split across chunk boundaries
+  ---
+  duration_ms: 217.678708
+  type: 'test'
+  ...
+# Subtest: extractTrailingJson pulls the result object out of mixed scan stdout
+ok 191 - extractTrailingJson pulls the result object out of mixed scan stdout
+  ---
+  duration_ms: 0.246208
+  type: 'test'
+  ...
+# Subtest: extractTrailingJson skips prose braces before the JSON object
+ok 192 - extractTrailingJson skips prose braces before the JSON object
+  ---
+  duration_ms: 0.110583
+  type: 'test'
+  ...
+# Subtest: extractTrailingJson handles braces inside JSON strings
+ok 193 - extractTrailingJson handles braces inside JSON strings
+  ---
+  duration_ms: 0.070291
+  type: 'test'
+  ...
+# Subtest: extractTrailingJson returns null when no JSON object exists
+ok 194 - extractTrailingJson returns null when no JSON object exists
+  ---
+  duration_ms: 0.237375
+  type: 'test'
+  ...
+# Subtest: given hooks is a non-object when merging settings then refuses with error
+ok 195 - given hooks is a non-object when merging settings then refuses with error
+  ---
+  duration_ms: 22.35725
+  type: 'test'
+  ...
+# Subtest: given hooks.PreToolUse is not an array when merging settings then refuses with error
+ok 196 - given hooks.PreToolUse is not an array when merging settings then refuses with error
+  ---
+  duration_ms: 21.398208
+  type: 'test'
+  ...
+# {"status":"installed","config_path":"/var/folders/pw/_vpcsb793b76_51jq5cnn9n00000gn/T/tw-setup-AXKy8q/home/.tripwire/config.json","hooks_registered":true,"scans":{"submitted":3,"failed":[{"target":"/tmp/installed/tw-broken","error":"sandbox exited 1"}]}}
+# Subtest: given install-demo-artifacts.sh missing when withDemo then logs warning and continues
+ok 197 - given install-demo-artifacts.sh missing when withDemo then logs warning and continues
+  ---
+  duration_ms: 24.631916
+  type: 'test'
+  ...
+# {"status":"installed","config_path":"/var/folders/pw/_vpcsb793b76_51jq5cnn9n00000gn/T/tw-setup-hhP1WE/home/.tripwire/config.json","hooks_registered":true,"scans":{"submitted":1,"failed":[]}}
+# Subtest: given all scans succeed when setup completes then summary logs submitted count
+ok 198 - given all scans succeed when setup completes then summary logs submitted count
+  ---
+  duration_ms: 18.09425
+  type: 'test'
+  ...
+# Subtest: happy path prints all four sections with literal stdout
+ok 199 - happy path prints all four sections with literal stdout
+  ---
+  duration_ms: 48.943583
+  type: 'test'
+  ...
+# Subtest: stranded running runs older than 30 minutes are called out with the remedy
+ok 200 - stranded running runs older than 30 minutes are called out with the remedy
+  ---
+  duration_ms: 10.049875
+  type: 'test'
+  ...
+# Subtest: --json prints exactly one machine-readable object carrying the same counts
+ok 201 - --json prints exactly one machine-readable object carrying the same counts
+  ---
+  duration_ms: 1.736459
+  type: 'test'
+  ...
+# Subtest: enforcement preservation: select-family reads only, zero writes anywhere
+ok 202 - enforcement preservation: select-family reads only, zero writes anywhere
+  ---
+  duration_ms: 2.164708
+  type: 'test'
+  ...
+# Subtest: invalid --limit variants throw with actionable guidance
+ok 203 - invalid --limit variants throw with actionable guidance
+  ---
+  duration_ms: 22.413792
+  type: 'test'
+  ...
+# Subtest: missing config.json reports not installed with the setup remedy
+ok 204 - missing config.json reports not installed with the setup remedy
+  ---
+  duration_ms: 10.713084
+  type: 'test'
+  ...
+# Subtest: missing Supabase env degrades to local-only output and still resolves
+ok 205 - missing Supabase env degrades to local-only output and still resolves
+  ---
+  duration_ms: 0.380167
+  type: 'test'
+  ...
+# Subtest: local enable vs Supabase monitoring_enabled disagreement prints the two-switch warning
+ok 206 - local enable vs Supabase monitoring_enabled disagreement prints the two-switch warning
+  ---
+  duration_ms: 0.369875
+  type: 'test'
+  ...
+# Subtest: stranded runs beyond the recent-runs page are still counted (fleet-wide head count)
+ok 207 - stranded runs beyond the recent-runs page are still counted (fleet-wide head count)
+  ---
+  duration_ms: 11.030083
+  type: 'test'
+  ...
+# Subtest: given missing supabase env when getSupabase then throws
+ok 208 - given missing supabase env when getSupabase then throws
+  ---
+  duration_ms: 1.415667
+  type: 'test'
+  ...
+# Subtest: given postgres uri in SUPABASE_URL when getSupabase then throws
+ok 209 - given postgres uri in SUPABASE_URL when getSupabase then throws
+  ---
+  duration_ms: 0.217417
+  type: 'test'
+  ...
+# Subtest: given https url and key when getSupabase then returns client
+ok 210 - given https url and key when getSupabase then returns client
+  ---
+  duration_ms: 128.680125
+  type: 'test'
+  ...
+1..210
+# tests 210
+# suites 0
+# pass 210
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 18792.774459
+----------------------|---------|----------|---------|---------|------------------------------------
+File                  | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s                  
+----------------------|---------|----------|---------|---------|------------------------------------
+All files             |   94.72 |    80.76 |   94.53 |   94.72 |                                    
+ bin                  |   85.92 |    74.35 |     100 |   85.92 |                                    
+  tripwire.js         |   85.92 |    74.35 |     100 |   85.92 | ...119-123,171-176,184-189,198-203 
+ src                  |   95.26 |    80.99 |   94.34 |   95.26 |                                    
+  coverageLedger.js   |   95.74 |    68.57 |     100 |   95.74 | ...-95,100-102,187-188,191,216-217 
+  discovery.js        |   96.94 |    89.47 |   96.42 |   96.94 | 142-148,161-162,173,241-243        
+  ensureSchema.js     |   88.26 |     90.9 |   92.85 |   88.26 | 86-93,104-116                      
+  evidenceVerify.js   |   99.19 |    76.13 |     100 |   99.19 | 129-130                            
+  hash.js             |     100 |      100 |     100 |     100 |                                    
+  judgePanel.js       |   81.18 |    47.72 |   83.33 |   81.18 | ...103-114,166,172,289-297,389-390 
+  loadEnv.js          |      96 |    71.42 |     100 |      96 | 24                                 
+  modalClient.js      |     100 |      100 |     100 |     100 |                                    
+  orchestrator.js     |   95.42 |    78.16 |   95.65 |   95.42 | 165-168,199-200,218-224            
+  router.js           |     100 |    86.06 |     100 |     100 | ...208,222,228-230,246,265,335-336 
+  scannerInventory.js |   98.14 |    85.29 |     100 |   98.14 | 41-42                              
+  setupAgentHooks.js  |    97.6 |    90.06 |   90.32 |    97.6 | ...189-190,197-198,219-221,242-243 
+  statusCommand.js    |    98.4 |    76.92 |   93.33 |    98.4 | 90-91,244,252-253,277              
+  supabaseClient.js   |     100 |      100 |     100 |     100 |                                    
+----------------------|---------|----------|---------|---------|------------------------------------
+
+=============================== Coverage summary ===============================
+Statements   : 94.72% ( 3395/3584 )
+Branches     : 80.76% ( 907/1123 )
+Functions    : 94.53% ( 225/238 )
+Lines        : 94.72% ( 3395/3584 )
+================================================================================
+npm notice
+npm notice New major version of npm available! 10.9.2 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice

@@ -1,0 +1,2625 @@
+
+> test:coverage
+> c8 --include 'tripwire-live.js' --include 'tripwire-status.js' --include 'tripwire-realtime.js' --include 'tripwire-data.js' --include 'tripwire-workflow-stepper.js' --include 'tripwire-workflow-models.js' --include 'tripwire-workflow-pipeline.js' --include 'tripwire-run-progress.js' --include 'tripwire-triage.js' --include 'tripwire-investigate.js' --include 'tripwire-workflow-prefs.js' --include 'tripwire-fix-propose.js' --include 'tripwire-apply-clean.js' --include 'tripwire-fix-controls.js' --include 'tripwire-verify-rescan.js' --include 'tripwire-verify-view.js' --include 'tripwire-report.js' --include 'tripwire-report-export.js' --exclude 'support.js' --reporter text --reporter text-summary --check-coverage --lines 95 --functions 85 --branches 80 --statements 95 node --test test/*.test.js
+
+TAP version 13
+# Subtest: GWT-76.1 given Workflow html when inspected then shared panel typography tokens exist
+ok 1 - GWT-76.1 given Workflow html when inspected then shared panel typography tokens exist
+  ---
+  duration_ms: 13.168125
+  type: 'test'
+  ...
+# Subtest: GWT-76.1 given Workflow panels when rendered then each step uses shared chrome classes
+ok 2 - GWT-76.1 given Workflow panels when rendered then each step uses shared chrome classes
+  ---
+  duration_ms: 1.750458
+  type: 'test'
+  ...
+# Subtest: GWT-76.2 given Triage filters when rendered then compact toolbar class is used
+ok 3 - GWT-76.2 given Triage filters when rendered then compact toolbar class is used
+  ---
+  duration_ms: 6.830375
+  type: 'test'
+  ...
+# Subtest: GWT-76.3 given Triage filter rows when rendered then group labels are visible
+ok 4 - GWT-76.3 given Triage filter rows when rendered then group labels are visible
+  ---
+  duration_ms: 2.354458
+  type: 'test'
+  ...
+# Subtest: GWT-76.4 given Triage finding overrides when rendered then plain-language labels
+ok 5 - GWT-76.4 given Triage finding overrides when rendered then plain-language labels
+  ---
+  duration_ms: 5.947042
+  type: 'test'
+  ...
+# Subtest: GWT-69.1 given empty proposedPatch unifiedDiff when buildProposedFix then heuristic source
+ok 6 - GWT-69.1 given empty proposedPatch unifiedDiff when buildProposedFix then heuristic source
+  ---
+  duration_ms: 16.592875
+  type: 'test'
+  ...
+# Subtest: GWT-69.1 given generateFn that is not a function when buildProposedFix then heuristic source
+ok 7 - GWT-69.1 given generateFn that is not a function when buildProposedFix then heuristic source
+  ---
+  duration_ms: 2.999833
+  type: 'test'
+  ...
+# Subtest: GWT-69.1 given generateFn returning null when buildProposedFix then heuristic source
+ok 8 - GWT-69.1 given generateFn returning null when buildProposedFix then heuristic source
+  ---
+  duration_ms: 0.240875
+  type: 'test'
+  ...
+# Subtest: GWT-69.1 given generateFn returning a string when buildProposedFix then heuristic source
+ok 9 - GWT-69.1 given generateFn returning a string when buildProposedFix then heuristic source
+  ---
+  duration_ms: 0.101834
+  type: 'test'
+  ...
+# Subtest: GWT-69.1 given finding without source when buildProposedFix then heuristic targets finding-target
+ok 10 - GWT-69.1 given finding without source when buildProposedFix then heuristic targets finding-target
+  ---
+  duration_ms: 0.460542
+  type: 'test'
+  ...
+# Subtest: GWT-69.1 given finding without evidence when buildProposedFix then heuristic uses placeholder line
+ok 11 - GWT-69.1 given finding without evidence when buildProposedFix then heuristic uses placeholder line
+  ---
+  duration_ms: 0.868792
+  type: 'test'
+  ...
+# Subtest: GWT-69.1 given explanation when buildProposedFix heuristic then rootCause is the explanation
+ok 12 - GWT-69.1 given explanation when buildProposedFix heuristic then rootCause is the explanation
+  ---
+  duration_ms: 0.16475
+  type: 'test'
+  ...
+# Subtest: GWT-69.1 given evidence and no explanation when buildProposedFix then rootCause cites source
+ok 13 - GWT-69.1 given evidence and no explanation when buildProposedFix then rootCause cites source
+  ---
+  duration_ms: 0.408458
+  type: 'test'
+  ...
+# Subtest: GWT-69.1 given no title explanation or evidence when buildProposedFix then default rootCause
+ok 14 - GWT-69.1 given no title explanation or evidence when buildProposedFix then default rootCause
+  ---
+  duration_ms: 0.116917
+  type: 'test'
+  ...
+# Subtest: GWT-69.1 given id and no title when buildProposedFix then regressionTest uses id
+ok 15 - GWT-69.1 given id and no title when buildProposedFix then regressionTest uses id
+  ---
+  duration_ms: 0.515875
+  type: 'test'
+  ...
+# Subtest: GWT-69.1 given source without line number when buildProposedFix then file name is kept
+ok 16 - GWT-69.1 given source without line number when buildProposedFix then file name is kept
+  ---
+  duration_ms: 0.384792
+  type: 'test'
+  ...
+# Subtest: GWT-69.1 given missing proposedFix when buildFixProposeView then claimedFixed is still false
+ok 17 - GWT-69.1 given missing proposedFix when buildFixProposeView then claimedFixed is still false
+  ---
+  duration_ms: 0.239583
+  type: 'test'
+  ...
+# Subtest: GWT-69.1 given inbound claimedFixed true when buildFixProposeView then claimedFixed is false
+ok 18 - GWT-69.1 given inbound claimedFixed true when buildFixProposeView then claimedFixed is false
+  ---
+  duration_ms: 0.215833
+  type: 'test'
+  ...
+# Subtest: GWT-69.1 given source and sink when buildFixProposeView then problemText includes Flow
+ok 19 - GWT-69.1 given source and sink when buildFixProposeView then problemText includes Flow
+  ---
+  duration_ms: 0.534417
+  type: 'test'
+  ...
+# Subtest: GWT-69.1 given unknown patchClass when buildFixProposeView then Quick patch label
+ok 20 - GWT-69.1 given unknown patchClass when buildFixProposeView then Quick patch label
+  ---
+  duration_ms: 0.093834
+  type: 'test'
+  ...
+# Subtest: GWT-69.1 given dismissed finding when isFixCandidate then false
+ok 21 - GWT-69.1 given dismissed finding when isFixCandidate then false
+  ---
+  duration_ms: 0.097709
+  type: 'test'
+  ...
+# Subtest: GWT-69.2 given fingerprint mismatch when evaluateApplyClean then approvedRepoUnchanged is false
+ok 22 - GWT-69.2 given fingerprint mismatch when evaluateApplyClean then approvedRepoUnchanged is false
+  ---
+  duration_ms: 0.289625
+  type: 'test'
+  ...
+# Subtest: GWT-69.2 given fingerprint mismatch when evaluateApplyClean then applyPatch still uses temp path
+ok 23 - GWT-69.2 given fingerprint mismatch when evaluateApplyClean then applyPatch still uses temp path
+  ---
+  duration_ms: 0.090667
+  type: 'test'
+  ...
+# Subtest: GWT-69.2 given patch without +++ when evaluateApplyClean then applyClean is false
+ok 24 - GWT-69.2 given patch without +++ when evaluateApplyClean then applyClean is false
+  ---
+  duration_ms: 0.192709
+  type: 'test'
+  ...
+# Subtest: GWT-69.2 given patch without +++ when evaluateApplyClean then error is invalid_patch
+ok 25 - GWT-69.2 given patch without +++ when evaluateApplyClean then error is invalid_patch
+  ---
+  duration_ms: 0.082709
+  type: 'test'
+  ...
+# Subtest: GWT-69.2 given patch without +++ when evaluateApplyClean then appliedTo is still temp
+ok 26 - GWT-69.2 given patch without +++ when evaluateApplyClean then appliedTo is still temp
+  ---
+  duration_ms: 0.0715
+  type: 'test'
+  ...
+# Subtest: GWT-69.2 given successful apply when evaluateApplyClean then cleanup receives the temp path
+ok 27 - GWT-69.2 given successful apply when evaluateApplyClean then cleanup receives the temp path
+  ---
+  duration_ms: 0.832542
+  type: 'test'
+  ...
+# Subtest: GWT-69.3 given null storage when markFixed then loadFixDecision returns null
+ok 28 - GWT-69.3 given null storage when markFixed then loadFixDecision returns null
+  ---
+  duration_ms: 0.152208
+  type: 'test'
+  ...
+# Subtest: GWT-69.3 given undefined storage when markWontFix with reason then ok
+ok 29 - GWT-69.3 given undefined storage when markWontFix with reason then ok
+  ---
+  duration_ms: 0.140125
+  type: 'test'
+  ...
+# Subtest: GWT-69.3 given storage without setItem when markFixed then no persist
+ok 30 - GWT-69.3 given storage without setItem when markFixed then no persist
+  ---
+  duration_ms: 0.077083
+  type: 'test'
+  ...
+# Subtest: GWT-69.3 given throwing getItem when loadFixDecision then null
+ok 31 - GWT-69.3 given throwing getItem when loadFixDecision then null
+  ---
+  duration_ms: 0.304792
+  type: 'test'
+  ...
+# Subtest: GWT-69.3 given throwing setItem when markFixed then operator is not thrown
+ok 32 - GWT-69.3 given throwing setItem when markFixed then operator is not thrown
+  ---
+  duration_ms: 0.206917
+  type: 'test'
+  ...
+# Subtest: GWT-69.3 given garbage JSON when loadFixDecision then null
+ok 33 - GWT-69.3 given garbage JSON when loadFixDecision then null
+  ---
+  duration_ms: 2.27925
+  type: 'test'
+  ...
+# Subtest: GWT-69.3 given stored wont_fix without reason when loadFixDecision then null
+ok 34 - GWT-69.3 given stored wont_fix without reason when loadFixDecision then null
+  ---
+  duration_ms: 0.583083
+  type: 'test'
+  ...
+# Subtest: GWT-69.3 given unknown stored status when loadFixDecision then null
+ok 35 - GWT-69.3 given unknown stored status when loadFixDecision then null
+  ---
+  duration_ms: 2.601583
+  type: 'test'
+  ...
+# Subtest: GWT-69.3 given empty findingId when markFixed then nothing is stored
+ok 36 - GWT-69.3 given empty findingId when markFixed then nothing is stored
+  ---
+  duration_ms: 0.111708
+  type: 'test'
+  ...
+# Subtest: GWT-69.3 given j at last index when navigateFix then index is clamped
+ok 37 - GWT-69.3 given j at last index when navigateFix then index is clamped
+  ---
+  duration_ms: 0.312208
+  type: 'test'
+  ...
+# Subtest: GWT-69.3 given J at last index when navigateFix then index is clamped
+ok 38 - GWT-69.3 given J at last index when navigateFix then index is clamped
+  ---
+  duration_ms: 0.314041
+  type: 'test'
+  ...
+# Subtest: GWT-69.3 given k at first index when navigateFix then index is clamped
+ok 39 - GWT-69.3 given k at first index when navigateFix then index is clamped
+  ---
+  duration_ms: 0.141791
+  type: 'test'
+  ...
+# Subtest: GWT-69.3 given K at first index when navigateFix then index is clamped
+ok 40 - GWT-69.3 given K at first index when navigateFix then index is clamped
+  ---
+  duration_ms: 0.132458
+  type: 'test'
+  ...
+# Subtest: GWT-69.3 given index past count when navigateFix then index clamps before moving
+ok 41 - GWT-69.3 given index past count when navigateFix then index clamps before moving
+  ---
+  duration_ms: 1.069875
+  type: 'test'
+  ...
+# Subtest: GWT-69.3 given count 0 when navigateFix then index is 0
+ok 42 - GWT-69.3 given count 0 when navigateFix then index is 0
+  ---
+  duration_ms: 0.412375
+  type: 'test'
+  ...
+# Subtest: GWT-69.3 given negative index when navigateFix then index clamps to 0
+ok 43 - GWT-69.3 given negative index when navigateFix then index clamps to 0
+  ---
+  duration_ms: 1.139834
+  type: 'test'
+  ...
+# Subtest: GWT-69.3 given empty findings when buildFixProgress then 0 of 0 reviewed
+ok 44 - GWT-69.3 given empty findings when buildFixProgress then 0 of 0 reviewed
+  ---
+  duration_ms: 0.471
+  type: 'test'
+  ...
+# Subtest: GWT-69.3 given null findings when buildFixProgress then 0 of 0 reviewed
+ok 45 - GWT-69.3 given null findings when buildFixProgress then 0 of 0 reviewed
+  ---
+  duration_ms: 0.105458
+  type: 'test'
+  ...
+# Subtest: GWT-69.3 given finding.fixDecision when buildFixProgress then reviewed counts in-memory decisions
+ok 46 - GWT-69.3 given finding.fixDecision when buildFixProgress then reviewed counts in-memory decisions
+  ---
+  duration_ms: 0.171459
+  type: 'test'
+  ...
+# Subtest: GWT-69.3 given finding without id when applyPersistedFixDecisions then finding is unchanged
+ok 47 - GWT-69.3 given finding without id when applyPersistedFixDecisions then finding is unchanged
+  ---
+  duration_ms: 0.1425
+  type: 'test'
+  ...
+# Subtest: GWT-69.3 given undefined findings when applyPersistedFixDecisions then empty array
+ok 48 - GWT-69.3 given undefined findings when applyPersistedFixDecisions then empty array
+  ---
+  duration_ms: 0.083708
+  type: 'test'
+  ...
+# Subtest: GWT-69.1 given true_positive with verified evidence when isFixCandidate then true
+ok 49 - GWT-69.1 given true_positive with verified evidence when isFixCandidate then true
+  ---
+  duration_ms: 4.30025
+  type: 'test'
+  ...
+# Subtest: GWT-69.1 given triageStatus to_fix when isFixCandidate then true
+ok 50 - GWT-69.1 given triageStatus to_fix when isFixCandidate then true
+  ---
+  duration_ms: 1.241666
+  type: 'test'
+  ...
+# Subtest: GWT-69.1 given provided proposedPatch when buildProposedFix then source is provided
+ok 51 - GWT-69.1 given provided proposedPatch when buildProposedFix then source is provided
+  ---
+  duration_ms: 0.497
+  type: 'test'
+  ...
+# Subtest: GWT-69.1 given provided proposedPatch when buildProposedFix then unifiedDiff is the inbound patch
+ok 52 - GWT-69.1 given provided proposedPatch when buildProposedFix then unifiedDiff is the inbound patch
+  ---
+  duration_ms: 0.099958
+  type: 'test'
+  ...
+# Subtest: GWT-69.1 given generateFn and no proposedPatch when buildProposedFix then source is generateFn
+ok 53 - GWT-69.1 given generateFn and no proposedPatch when buildProposedFix then source is generateFn
+  ---
+  duration_ms: 0.113958
+  type: 'test'
+  ...
+# Subtest: GWT-69.1 given generateFn when buildProposedFix then unifiedDiff comes from generateFn
+ok 54 - GWT-69.1 given generateFn when buildProposedFix then unifiedDiff comes from generateFn
+  ---
+  duration_ms: 0.08
+  type: 'test'
+  ...
+# Subtest: GWT-69.1 given true_positive verified finding when buildProposedFix heuristic then source is heuristic
+ok 55 - GWT-69.1 given true_positive verified finding when buildProposedFix heuristic then source is heuristic
+  ---
+  duration_ms: 0.46925
+  type: 'test'
+  ...
+# Subtest: GWT-69.1 given heuristic when buildProposedFix then unifiedDiff is a minimal ---/+++ @@ patch
+ok 56 - GWT-69.1 given heuristic when buildProposedFix then unifiedDiff is a minimal ---/+++ @@ patch
+  ---
+  duration_ms: 7.857
+  type: 'test'
+  ...
+# Subtest: GWT-69.1 given heuristic when buildProposedFix then patchClass is quick_patch
+ok 57 - GWT-69.1 given heuristic when buildProposedFix then patchClass is quick_patch
+  ---
+  duration_ms: 0.161792
+  type: 'test'
+  ...
+# Subtest: GWT-69.1 given heuristic when buildProposedFix then regressionTest names the finding
+ok 58 - GWT-69.1 given heuristic when buildProposedFix then regressionTest names the finding
+  ---
+  duration_ms: 0.106208
+  type: 'test'
+  ...
+# Subtest: GWT-69.1 given provided root_cause patch when buildFixProposeView then patchClassLabel is Root-cause fix
+ok 59 - GWT-69.1 given provided root_cause patch when buildFixProposeView then patchClassLabel is Root-cause fix
+  ---
+  duration_ms: 0.84275
+  type: 'test'
+  ...
+# Subtest: GWT-69.1 given heuristic quick_patch when buildFixProposeView then patchClassLabel is Quick patch
+ok 60 - GWT-69.1 given heuristic quick_patch when buildFixProposeView then patchClassLabel is Quick patch
+  ---
+  duration_ms: 0.238709
+  type: 'test'
+  ...
+# Subtest: GWT-69.1 given verified true_positive when buildFixProposeView then problemText shows evidence
+ok 61 - GWT-69.1 given verified true_positive when buildFixProposeView then problemText shows evidence
+  ---
+  duration_ms: 0.118542
+  type: 'test'
+  ...
+# Subtest: GWT-69.1 given provided patch when buildFixProposeView then diffText is the unified diff
+ok 62 - GWT-69.1 given provided patch when buildFixProposeView then diffText is the unified diff
+  ---
+  duration_ms: 0.085917
+  type: 'test'
+  ...
+# Subtest: GWT-69.1 given provided patch when buildFixProposeView then regressionTest is present
+ok 63 - GWT-69.1 given provided patch when buildFixProposeView then regressionTest is present
+  ---
+  duration_ms: 0.293333
+  type: 'test'
+  ...
+# Subtest: GWT-69.1 given PATCH_CLASSES when read then root_cause and quick_patch
+ok 64 - GWT-69.1 given PATCH_CLASSES when read then root_cause and quick_patch
+  ---
+  duration_ms: 2.689625
+  type: 'test'
+  ...
+# Subtest: GWT-69.1 given PATCH_CLASSES when Object.isFrozen then true
+ok 65 - GWT-69.1 given PATCH_CLASSES when Object.isFrozen then true
+  ---
+  duration_ms: 0.113417
+  type: 'test'
+  ...
+# Subtest: GWT-69.1 given null finding when isFixCandidate then false
+ok 66 - GWT-69.1 given null finding when isFixCandidate then false
+  ---
+  duration_ms: 0.091084
+  type: 'test'
+  ...
+# Subtest: GWT-69.1 given undefined finding when isFixCandidate then false
+ok 67 - GWT-69.1 given undefined finding when isFixCandidate then false
+  ---
+  duration_ms: 0.056916
+  type: 'test'
+  ...
+# Subtest: GWT-69.1 given empty object when isFixCandidate then false
+ok 68 - GWT-69.1 given empty object when isFixCandidate then false
+  ---
+  duration_ms: 0.059458
+  type: 'test'
+  ...
+# Subtest: GWT-69.1 given non-object string when isFixCandidate then false
+ok 69 - GWT-69.1 given non-object string when isFixCandidate then false
+  ---
+  duration_ms: 0.045792
+  type: 'test'
+  ...
+# Subtest: GWT-69.1 given false_positive verdict when isFixCandidate then false
+ok 70 - GWT-69.1 given false_positive verdict when isFixCandidate then false
+  ---
+  duration_ms: 1.118375
+  type: 'test'
+  ...
+# Subtest: GWT-69.1 given null finding when buildProposedFix then empty not_verified quick_patch
+ok 71 - GWT-69.1 given null finding when buildProposedFix then empty not_verified quick_patch
+  ---
+  duration_ms: 0.231041
+  type: 'test'
+  ...
+# Subtest: GWT-69.1 given undefined finding when buildProposedFix then empty not_verified quick_patch
+ok 72 - GWT-69.1 given undefined finding when buildProposedFix then empty not_verified quick_patch
+  ---
+  duration_ms: 0.057917
+  type: 'test'
+  ...
+# Subtest: GWT-69.1 given empty object when buildProposedFix then empty not_verified quick_patch
+ok 73 - GWT-69.1 given empty object when buildProposedFix then empty not_verified quick_patch
+  ---
+  duration_ms: 0.051834
+  type: 'test'
+  ...
+# Subtest: GWT-69.1 given null finding when buildFixProposeView then patchClassLabel is Quick patch
+ok 74 - GWT-69.1 given null finding when buildFixProposeView then patchClassLabel is Quick patch
+  ---
+  duration_ms: 0.103459
+  type: 'test'
+  ...
+# Subtest: GWT-69.1 given null finding when buildFixProposeView then diffText is empty
+ok 75 - GWT-69.1 given null finding when buildFixProposeView then diffText is empty
+  ---
+  duration_ms: 0.069958
+  type: 'test'
+  ...
+# Subtest: GWT-69.2 given proposed patch when evaluateApplyClean then applyPatch uses only the temp path
+ok 76 - GWT-69.2 given proposed patch when evaluateApplyClean then applyPatch uses only the temp path
+  ---
+  duration_ms: 0.359084
+  type: 'test'
+  ...
+# Subtest: GWT-69.2 given proposed patch when evaluateApplyClean then applyPatch path is not the approved repo
+ok 77 - GWT-69.2 given proposed patch when evaluateApplyClean then applyPatch path is not the approved repo
+  ---
+  duration_ms: 0.122125
+  type: 'test'
+  ...
+# Subtest: GWT-69.2 given proposed patch when evaluateApplyClean then applyClean is true
+ok 78 - GWT-69.2 given proposed patch when evaluateApplyClean then applyClean is true
+  ---
+  duration_ms: 0.075167
+  type: 'test'
+  ...
+# Subtest: GWT-69.2 given proposed patch when evaluateApplyClean then appliedTo is temp
+ok 79 - GWT-69.2 given proposed patch when evaluateApplyClean then appliedTo is temp
+  ---
+  duration_ms: 0.072583
+  type: 'test'
+  ...
+# Subtest: GWT-69.2 given memory port when evaluateApplyClean then approved fingerprint is unchanged
+ok 80 - GWT-69.2 given memory port when evaluateApplyClean then approved fingerprint is unchanged
+  ---
+  duration_ms: 0.257583
+  type: 'test'
+  ...
+# Subtest: GWT-69.2 given empty patch when evaluateApplyClean then applyPatch is not called
+ok 81 - GWT-69.2 given empty patch when evaluateApplyClean then applyPatch is not called
+  ---
+  duration_ms: 0.110292
+  type: 'test'
+  ...
+# Subtest: GWT-69.2 given empty patch when evaluateApplyClean then appliedTo is none
+ok 82 - GWT-69.2 given empty patch when evaluateApplyClean then appliedTo is none
+  ---
+  duration_ms: 0.0775
+  type: 'test'
+  ...
+# Subtest: GWT-69.2 given missing args when evaluateApplyClean then none and unchanged
+ok 83 - GWT-69.2 given missing args when evaluateApplyClean then none and unchanged
+  ---
+  duration_ms: 0.065375
+  type: 'test'
+  ...
+# Subtest: GWT-69.2 given null patch when evaluateApplyClean then none and unchanged
+ok 84 - GWT-69.2 given null patch when evaluateApplyClean then none and unchanged
+  ---
+  duration_ms: 0.090875
+  type: 'test'
+  ...
+# Subtest: GWT-69.2 given whitespace patch when evaluateApplyClean then none and unchanged
+ok 85 - GWT-69.2 given whitespace patch when evaluateApplyClean then none and unchanged
+  ---
+  duration_ms: 0.045584
+  type: 'test'
+  ...
+# Subtest: GWT-69.2 given non-string patch when evaluateApplyClean then none and unchanged
+ok 86 - GWT-69.2 given non-string patch when evaluateApplyClean then none and unchanged
+  ---
+  duration_ms: 0.048166
+  type: 'test'
+  ...
+# Subtest: GWT-69.3 given empty reason when markWontFix then reason_required
+ok 87 - GWT-69.3 given empty reason when markWontFix then reason_required
+  ---
+  duration_ms: 0.137833
+  type: 'test'
+  ...
+# Subtest: GWT-69.3 given empty reason when markWontFix then nothing is persisted
+ok 88 - GWT-69.3 given empty reason when markWontFix then nothing is persisted
+  ---
+  duration_ms: 0.132708
+  type: 'test'
+  ...
+# Subtest: GWT-69.3 given whitespace reason when requireWontFixReason then false
+ok 89 - GWT-69.3 given whitespace reason when requireWontFixReason then false
+  ---
+  duration_ms: 0.067458
+  type: 'test'
+  ...
+# Subtest: GWT-69.3 given a reason when markWontFix then the trimmed decision persists
+ok 90 - GWT-69.3 given a reason when markWontFix then the trimmed decision persists
+  ---
+  duration_ms: 1.093416
+  type: 'test'
+  ...
+# Subtest: GWT-69.3 given findingId when markFixed then persisted status is fixed
+ok 91 - GWT-69.3 given findingId when markFixed then persisted status is fixed
+  ---
+  duration_ms: 0.112334
+  type: 'test'
+  ...
+# Subtest: GWT-69.3 given persisted decisions when applyPersistedFixDecisions then overlays fixDecision
+ok 92 - GWT-69.3 given persisted decisions when applyPersistedFixDecisions then overlays fixDecision
+  ---
+  duration_ms: 0.192959
+  type: 'test'
+  ...
+# Subtest: GWT-69.3 given j when navigateFix then index advances
+ok 93 - GWT-69.3 given j when navigateFix then index advances
+  ---
+  duration_ms: 0.129041
+  type: 'test'
+  ...
+# Subtest: GWT-69.3 given J when navigateFix then index advances
+ok 94 - GWT-69.3 given J when navigateFix then index advances
+  ---
+  duration_ms: 0.0755
+  type: 'test'
+  ...
+# Subtest: GWT-69.3 given k when navigateFix then index retreats
+ok 95 - GWT-69.3 given k when navigateFix then index retreats
+  ---
+  duration_ms: 0.861541
+  type: 'test'
+  ...
+# Subtest: GWT-69.3 given K when navigateFix then index retreats
+ok 96 - GWT-69.3 given K when navigateFix then index retreats
+  ---
+  duration_ms: 11.013458
+  type: 'test'
+  ...
+# Subtest: GWT-69.3 given other key when navigateFix then index is unchanged
+ok 97 - GWT-69.3 given other key when navigateFix then index is unchanged
+  ---
+  duration_ms: 6.067375
+  type: 'test'
+  ...
+# Subtest: GWT-69.3 given mixed candidates when buildFixProgress then label is N of M reviewed
+ok 98 - GWT-69.3 given mixed candidates when buildFixProgress then label is N of M reviewed
+  ---
+  duration_ms: 0.40125
+  type: 'test'
+  ...
+# Subtest: GWT-69.3 given mixed candidates when buildFixProgress then reviewed counts decided candidates
+ok 99 - GWT-69.3 given mixed candidates when buildFixProgress then reviewed counts decided candidates
+  ---
+  duration_ms: 0.108875
+  type: 'test'
+  ...
+# Subtest: GWT-69.3 given mixed candidates when buildFixProgress then total counts fix candidates only
+ok 100 - GWT-69.3 given mixed candidates when buildFixProgress then total counts fix candidates only
+  ---
+  duration_ms: 0.188166
+  type: 'test'
+  ...
+# Subtest: GWT-69.3 given unifiedDiff when copyPatchText then the diff string is returned
+ok 101 - GWT-69.3 given unifiedDiff when copyPatchText then the diff string is returned
+  ---
+  duration_ms: 0.09375
+  type: 'test'
+  ...
+# Subtest: GWT-69.3 given unifiedDiff when gitApplyCommand then heredoc git apply is returned
+ok 102 - GWT-69.3 given unifiedDiff when gitApplyCommand then heredoc git apply is returned
+  ---
+  duration_ms: 0.087042
+  type: 'test'
+  ...
+# Subtest: GWT-69.3 given fix persist when storage keys then tripwire-fix prefix is used
+ok 103 - GWT-69.3 given fix persist when storage keys then tripwire-fix prefix is used
+  ---
+  duration_ms: 0.107459
+  type: 'test'
+  ...
+# Subtest: GWT-69.3 given existing triage key when markFixed then triage key is unchanged
+ok 104 - GWT-69.3 given existing triage key when markFixed then triage key is unchanged
+  ---
+  duration_ms: 0.084542
+  type: 'test'
+  ...
+# Subtest: GWT-69.3 given null reason when requireWontFixReason then false
+ok 105 - GWT-69.3 given null reason when requireWontFixReason then false
+  ---
+  duration_ms: 0.069833
+  type: 'test'
+  ...
+# Subtest: GWT-69.3 given undefined reason when requireWontFixReason then false
+ok 106 - GWT-69.3 given undefined reason when requireWontFixReason then false
+  ---
+  duration_ms: 0.047667
+  type: 'test'
+  ...
+# Subtest: GWT-69.3 given empty string when requireWontFixReason then false
+ok 107 - GWT-69.3 given empty string when requireWontFixReason then false
+  ---
+  duration_ms: 0.046959
+  type: 'test'
+  ...
+# Subtest: GWT-69.3 given whitespace only when requireWontFixReason then false
+ok 108 - GWT-69.3 given whitespace only when requireWontFixReason then false
+  ---
+  duration_ms: 0.046375
+  type: 'test'
+  ...
+# Subtest: GWT-69.3 given empty findingId when loadFixDecision then null
+ok 109 - GWT-69.3 given empty findingId when loadFixDecision then null
+  ---
+  duration_ms: 0.068708
+  type: 'test'
+  ...
+# Subtest: GWT-69.3 given null findingId when loadFixDecision then null
+ok 110 - GWT-69.3 given null findingId when loadFixDecision then null
+  ---
+  duration_ms: 0.043584
+  type: 'test'
+  ...
+# Subtest: GWT-69.3 given undefined storage when loadFixDecision then null
+ok 111 - GWT-69.3 given undefined storage when loadFixDecision then null
+  ---
+  duration_ms: 0.044
+  type: 'test'
+  ...
+# Subtest: GWT-69.3 given null diff when copyPatchText then empty string
+ok 112 - GWT-69.3 given null diff when copyPatchText then empty string
+  ---
+  duration_ms: 0.066417
+  type: 'test'
+  ...
+# Subtest: GWT-69.3 given undefined diff when copyPatchText then empty string
+ok 113 - GWT-69.3 given undefined diff when copyPatchText then empty string
+  ---
+  duration_ms: 0.041875
+  type: 'test'
+  ...
+# Subtest: GWT-69.3 given null findings when applyPersistedFixDecisions then empty array
+ok 114 - GWT-69.3 given null findings when applyPersistedFixDecisions then empty array
+  ---
+  duration_ms: 0.078875
+  type: 'test'
+  ...
+# Subtest: GWT-69.3 given null unifiedDiff when gitApplyCommand then empty heredoc
+ok 115 - GWT-69.3 given null unifiedDiff when gitApplyCommand then empty heredoc
+  ---
+  duration_ms: 0.070125
+  type: 'test'
+  ...
+# Subtest: GWT-69.3 given missing args when navigateFix then index 0
+ok 116 - GWT-69.3 given missing args when navigateFix then index 0
+  ---
+  duration_ms: 0.080833
+  type: 'test'
+  ...
+# Subtest: GWT-69.3 given missing args when buildFixProgress then 0 of 0 reviewed
+ok 117 - GWT-69.3 given missing args when buildFixProgress then 0 of 0 reviewed
+  ---
+  duration_ms: 0.075375
+  type: 'test'
+  ...
+# Subtest: GWT-69.4 given provided patch when buildProposedFix then claimedFixed is false
+ok 118 - GWT-69.4 given provided patch when buildProposedFix then claimedFixed is false
+  ---
+  duration_ms: 0.132042
+  type: 'test'
+  ...
+# Subtest: GWT-69.4 given provided patch when buildProposedFix then verificationStatus is not_verified
+ok 119 - GWT-69.4 given provided patch when buildProposedFix then verificationStatus is not_verified
+  ---
+  duration_ms: 0.069875
+  type: 'test'
+  ...
+# Subtest: GWT-69.4 given provided patch when buildFixProposeView then fixedClaimForbidden is true
+ok 120 - GWT-69.4 given provided patch when buildFixProposeView then fixedClaimForbidden is true
+  ---
+  duration_ms: 0.084375
+  type: 'test'
+  ...
+# Subtest: GWT-69.4 given generateFn patch when buildProposedFix then claimedFixed is false
+ok 121 - GWT-69.4 given generateFn patch when buildProposedFix then claimedFixed is false
+  ---
+  duration_ms: 0.052291
+  type: 'test'
+  ...
+# Subtest: GWT-69.4 given generateFn patch when buildProposedFix then verificationStatus is not_verified
+ok 122 - GWT-69.4 given generateFn patch when buildProposedFix then verificationStatus is not_verified
+  ---
+  duration_ms: 0.046166
+  type: 'test'
+  ...
+# Subtest: GWT-69.4 given generateFn patch when buildFixProposeView then fixedClaimForbidden is true
+ok 123 - GWT-69.4 given generateFn patch when buildFixProposeView then fixedClaimForbidden is true
+  ---
+  duration_ms: 0.048792
+  type: 'test'
+  ...
+# Subtest: GWT-69.4 given heuristic patch when buildProposedFix then claimedFixed is false
+ok 124 - GWT-69.4 given heuristic patch when buildProposedFix then claimedFixed is false
+  ---
+  duration_ms: 0.087541
+  type: 'test'
+  ...
+# Subtest: GWT-69.4 given heuristic patch when buildProposedFix then verificationStatus is not_verified
+ok 125 - GWT-69.4 given heuristic patch when buildProposedFix then verificationStatus is not_verified
+  ---
+  duration_ms: 0.049208
+  type: 'test'
+  ...
+# Subtest: GWT-69.4 given heuristic patch when buildFixProposeView then fixedClaimForbidden is true
+ok 126 - GWT-69.4 given heuristic patch when buildFixProposeView then fixedClaimForbidden is true
+  ---
+  duration_ms: 0.071875
+  type: 'test'
+  ...
+# Subtest: GWT-69.1 given dashboard html when Fix step then side-by-side problem and proposed patch panes exist
+ok 127 - GWT-69.1 given dashboard html when Fix step then side-by-side problem and proposed patch panes exist
+  ---
+  duration_ms: 0.127959
+  type: 'test'
+  ...
+# Subtest: GWT-69.1 given dashboard html when proposed patch pane then full diff is scrollable not clipped
+ok 128 - GWT-69.1 given dashboard html when proposed patch pane then full diff is scrollable not clipped
+  ---
+  duration_ms: 2.91925
+  type: 'test'
+  ...
+# Subtest: GWT-69.1 given dashboard html when primary tabs then inventory is default and workflow is secondary
+ok 129 - GWT-69.1 given dashboard html when primary tabs then inventory is default and workflow is secondary
+  ---
+  duration_ms: 4.063375
+  type: 'test'
+  ...
+# Subtest: GWT-69.1 given dashboard html when Fix step then typography separates prose from mono diff
+ok 130 - GWT-69.1 given dashboard html when Fix step then typography separates prose from mono diff
+  ---
+  duration_ms: 3.150708
+  type: 'test'
+  ...
+# Subtest: GWT-69.2 given dashboard html when Fix step then apply-clean line is yes or no text
+ok 131 - GWT-69.2 given dashboard html when Fix step then apply-clean line is yes or no text
+  ---
+  duration_ms: 1.454458
+  type: 'test'
+  ...
+# Subtest: GWT-69.3 given dashboard html when Fix step then operator copy mark and J/K handlers exist
+ok 132 - GWT-69.3 given dashboard html when Fix step then operator copy mark and J/K handlers exist
+  ---
+  duration_ms: 1.225875
+  type: 'test'
+  ...
+# Subtest: GWT-69.4 given dashboard html when operator marks fixed then copy says not verified
+ok 133 - GWT-69.4 given dashboard html when operator marks fixed then copy says not verified
+  ---
+  duration_ms: 0.736833
+  type: 'test'
+  ...
+# [tripwire-dashboard] Supabase not configured — using demo data
+# Subtest: given no live config when loadData live then source is not-configured mock without fetch
+ok 134 - given no live config when loadData live then source is not-configured mock without fetch
+  ---
+  duration_ms: 234.771875
+  type: 'test'
+  ...
+# [tripwire-dashboard] Supabase not configured — using demo data
+# Subtest: given empty anon key when loadData live then source is mock and fetch is skipped
+ok 135 - given empty anon key when loadData live then source is mock and fetch is skipped
+  ---
+  duration_ms: 13.248041
+  type: 'test'
+  ...
+# [tripwire-dashboard] loaded 1 items from Supabase
+# Subtest: given live config when loadData live then fetches expected Supabase tables with anon headers
+ok 136 - given live config when loadData live then fetches expected Supabase tables with anon headers
+  ---
+  duration_ms: 31.759958
+  type: 'test'
+  ...
+# [tripwire-dashboard] loaded 1 items from Supabase
+# Subtest: given successful supabase rows when loadData live then maps UI item shape
+ok 137 - given successful supabase rows when loadData live then maps UI item shape
+  ---
+  duration_ms: 8.864
+  type: 'test'
+  ...
+# [tripwire-dashboard] loaded 1 items from Supabase
+# Subtest: given partial-failed run with heatmap risk when loadData live then keeps risk status not hard error
+ok 138 - given partial-failed run with heatmap risk when loadData live then keeps risk status not hard error
+  ---
+  duration_ms: 59.487584
+  type: 'test'
+  ...
+# [tripwire-dashboard] Supabase connected — 0 items
+# Subtest: given zero items when loadData live then source is live-empty not mock
+ok 139 - given zero items when loadData live then source is live-empty not mock
+  ---
+  duration_ms: 11.057167
+  type: 'test'
+  ...
+# [tripwire-dashboard] live fetch failed: Supabase items: 401
+# Subtest: given supabase http error when loadData live then source is mock-failed without fallback wording
+ok 140 - given supabase http error when loadData live then source is mock-failed without fallback wording
+  ---
+  duration_ms: 30.756625
+  type: 'test'
+  ...
+# [tripwire-dashboard] using demo data (user selected)
+# Subtest: given mock mode when loadData then source is mock-selected and fetch is unused
+ok 141 - given mock mode when loadData then source is mock-selected and fetch is unused
+  ---
+  duration_ms: 8.071625
+  type: 'test'
+  ...
+# Subtest: given dashboard html when inspecting chips then no fallback user-visible copy
+ok 142 - given dashboard html when inspecting chips then no fallback user-visible copy
+  ---
+  duration_ms: 41.533083
+  type: 'test'
+  ...
+# Subtest: given dashboard html when inspecting triage then type quality and target filter bars exist
+ok 143 - given dashboard html when inspecting triage then type quality and target filter bars exist
+  ---
+  duration_ms: 6.780291
+  type: 'test'
+  ...
+# Subtest: given dashboard html when filters match nothing then empty-state copy is defined
+ok 144 - given dashboard html when filters match nothing then empty-state copy is defined
+  ---
+  duration_ms: 14.189291
+  type: 'test'
+  ...
+# Subtest: given dashboard html when filter bar wraps then chips stay grouped without orphan spacer
+ok 145 - given dashboard html when filter bar wraps then chips stay grouped without orphan spacer
+  ---
+  duration_ms: 17.574
+  type: 'test'
+  ...
+# [live-smoke] items returned: 5
+# [live-smoke] sample types/heatmaps: [
+#   { type: 'mcp_server', heatmap: 'error' },
+#   { type: 'skill', heatmap: 'amber' },
+#   { type: 'mcp_server', heatmap: 'red' }
+# ]
+# Subtest: optional smoke: given local live config when fetching items then supabase responds
+ok 146 - optional smoke: given local live config when fetching items then supabase responds
+  ---
+  duration_ms: 8192.847917
+  type: 'test'
+  ...
+# [tripwire-dashboard] loaded 1 items from Supabase
+# Subtest: given running run with stale green heatmap when loadData live then status is running
+ok 147 - given running run with stale green heatmap when loadData live then status is running
+  ---
+  duration_ms: 15.885041
+  type: 'test'
+  ...
+# [tripwire-dashboard] loaded 1 items from Supabase
+# Subtest: given error heatmap with red findings when loadData live then status is red
+ok 148 - given error heatmap with red findings when loadData live then status is red
+  ---
+  duration_ms: 5.583458
+  type: 'test'
+  ...
+# [tripwire-dashboard] loaded 1 items from Supabase
+# Subtest: given completed scanner with detail when loadData live then output.raw_summary from detail
+ok 149 - given completed scanner with detail when loadData live then output.raw_summary from detail
+  ---
+  duration_ms: 11.772167
+  type: 'test'
+  ...
+# [tripwire-dashboard] loaded 1 items from Supabase
+# Subtest: given completed scanner without detail when loadData live then synthesizes raw_summary from findings
+ok 150 - given completed scanner without detail when loadData live then synthesizes raw_summary from findings
+  ---
+  duration_ms: 14.790708
+  type: 'test'
+  ...
+# [tripwire-dashboard] loaded 1 items from Supabase
+# Subtest: given completed scanner without detail and no findings when loadData live then synthesizes clean pass summary
+ok 151 - given completed scanner without detail and no findings when loadData live then synthesizes clean pass summary
+  ---
+  duration_ms: 8.339666
+  type: 'test'
+  ...
+# [tripwire-dashboard] loaded 1 items from Supabase
+# Subtest: given Lint and Review rows when loadData live then Lint is first Tessl row without quality_score
+ok 152 - given Lint and Review rows when loadData live then Lint is first Tessl row without quality_score
+  ---
+  duration_ms: 3.421959
+  type: 'test'
+  ...
+# [tripwire-dashboard] loaded 1 items from Supabase
+# Subtest: given unsorted scanner rows when loadData live then scanners are A-Z by source
+ok 153 - given unsorted scanner rows when loadData live then scanners are A-Z by source
+  ---
+  duration_ms: 7.208666
+  type: 'test'
+  ...
+# [tripwire-dashboard] loaded 1 items from Supabase
+# Subtest: given running scanner with console_output when loadData live then output.console_output relayed
+ok 154 - given running scanner with console_output when loadData live then output.console_output relayed
+  ---
+  duration_ms: 13.776792
+  type: 'test'
+  ...
+# [tripwire-dashboard] loaded 1 items from Supabase
+# Subtest: given completed scanner with console_output when loadData live then console text in output
+ok 155 - given completed scanner with console_output when loadData live then console text in output
+  ---
+  duration_ms: 6.916625
+  type: 'test'
+  ...
+# [tripwire-dashboard] loaded 1 items from Supabase
+# Subtest: given running scanner with detail when loadData live then detail maps to raw_summary
+ok 156 - given running scanner with detail when loadData live then detail maps to raw_summary
+  ---
+  duration_ms: 3.774709
+  type: 'test'
+  ...
+# [tripwire-dashboard] using demo data (user selected)
+# Subtest: given mock mode running item when loadData mock then scanners array has running entries
+ok 157 - given mock mode running item when loadData mock then scanners array has running entries
+  ---
+  duration_ms: 5.341792
+  type: 'test'
+  ...
+# Subtest: given tripwire-realtime module exists then it exports subscribe unsubscribe connected
+ok 158 - given tripwire-realtime module exists then it exports subscribe unsubscribe connected
+  ---
+  duration_ms: 3.630958
+  type: 'test'
+  ...
+# Subtest: given realtime module when no config then subscribe returns null
+ok 159 - given realtime module when no config then subscribe returns null
+  ---
+  duration_ms: 5.695375
+  type: 'test'
+  ...
+# Subtest: given realtime module when empty anon key then subscribe returns null
+ok 160 - given realtime module when empty anon key then subscribe returns null
+  ---
+  duration_ms: 4.872625
+  type: 'test'
+  ...
+# Subtest: given dashboard html when inspecting chip labels then live-realtime chip exists
+ok 161 - given dashboard html when inspecting chip labels then live-realtime chip exists
+  ---
+  duration_ms: 1.891375
+  type: 'test'
+  ...
+# Subtest: given dashboard html when inspecting state then realtimeConnected initialised false
+ok 162 - given dashboard html when inspecting state then realtimeConnected initialised false
+  ---
+  duration_ms: 6.171958
+  type: 'test'
+  ...
+# Subtest: given dashboard html when inspecting chip logic then realtimeConnected drives chip key
+ok 163 - given dashboard html when inspecting chip logic then realtimeConnected drives chip key
+  ---
+  duration_ms: 4.765375
+  type: 'test'
+  ...
+# Subtest: given schema sql when inspecting realtime then publication adds required tables
+ok 164 - given schema sql when inspecting realtime then publication adds required tables
+  ---
+  duration_ms: 7.613375
+  type: 'test'
+  ...
+# [tripwire-dashboard] loaded 45 items from Supabase
+# Subtest: given many latest run ids when loadData live then batches scan_run_scanners fetches
+ok 165 - given many latest run ids when loadData live then batches scan_run_scanners fetches
+  ---
+  duration_ms: 5.274542
+  type: 'test'
+  ...
+# [tripwire-dashboard] loaded 1 items from Supabase
+# Subtest: given view returns newest run only when loadData live then card reflects that run
+ok 166 - given view returns newest run only when loadData live then card reflects that run
+  ---
+  duration_ms: 2.656708
+  type: 'test'
+  ...
+# Subtest: given dashboard html when inspecting decorateItem then scannerStatBadge logic exists
+ok 167 - given dashboard html when inspecting decorateItem then scannerStatBadge logic exists
+  ---
+  duration_ms: 1.443542
+  type: 'test'
+  ...
+# Subtest: given dashboard html when inspecting card template then scanner stat badge element exists
+ok 168 - given dashboard html when inspecting card template then scanner stat badge element exists
+  ---
+  duration_ms: 1.421292
+  type: 'test'
+  ...
+# [tripwire-dashboard] loaded 1 items from Supabase
+# Subtest: given item with mixed scanner statuses when loadData live then scanners shape is correct for badge
+ok 169 - given item with mixed scanner statuses when loadData live then scanners shape is correct for badge
+  ---
+  duration_ms: 4.314416
+  type: 'test'
+  ...
+# [tripwire-dashboard] loaded 1 items from Supabase
+# Subtest: given item with all scanners completed when loadData live then badge is success-only
+ok 170 - given item with all scanners completed when loadData live then badge is success-only
+  ---
+  duration_ms: 2.242833
+  type: 'test'
+  ...
+# [tripwire-dashboard] loaded 1 items from Supabase
+# Subtest: given unscanned item when loadData live then scanners array is empty and badge is null
+ok 171 - given unscanned item when loadData live then scanners array is empty and badge is null
+  ---
+  duration_ms: 4.386167
+  type: 'test'
+  ...
+# Subtest: given dashboard html when inspecting cards then quality badge and risk density chrome exist
+ok 172 - given dashboard html when inspecting cards then quality badge and risk density chrome exist
+  ---
+  duration_ms: 11.346833
+  type: 'test'
+  ...
+# Subtest: given dashboard html when inspecting locus avail then glossary phrases present
+ok 173 - given dashboard html when inspecting locus avail then glossary phrases present
+  ---
+  duration_ms: 3.441584
+  type: 'test'
+  ...
+# [tripwire-dashboard] loaded 2 items from Supabase
+# Subtest: given must-show skill and MCP live rows when loadData live then GWT-1 detection mapping holds
+ok 174 - given must-show skill and MCP live rows when loadData live then GWT-1 detection mapping holds
+  ---
+  duration_ms: 4.670583
+  type: 'test'
+  ...
+# [tripwire-dashboard] loaded 1 items from Supabase
+# Subtest: given must-show MCP completed scan_run when loadData live then GWT-2 sandbox evidence holds
+ok 175 - given must-show MCP completed scan_run when loadData live then GWT-2 sandbox evidence holds
+  ---
+  duration_ms: 4.367583
+  type: 'test'
+  ...
+# [tripwire-realtime] CDN load failed: cdn down
+# Subtest: given missing config when subscribe then null
+ok 176 - given missing config when subscribe then null
+  ---
+  duration_ms: 1.278084
+  type: 'test'
+  ...
+# Subtest: given CDN load failure when subscribe then null
+ok 177 - given CDN load failure when subscribe then null
+  ---
+  duration_ms: 18.144417
+  type: 'test'
+  ...
+# [tripwire-realtime] SUBSCRIBED
+# [tripwire-realtime] unsubscribed
+# Subtest: given mocked client when subscribe then SUBSCRIBED and connected
+ok 178 - given mocked client when subscribe then SUBSCRIBED and connected
+  ---
+  duration_ms: 51.710459
+  type: 'test'
+  ...
+# Subtest: given unsubscribe when not connected then safe noop
+ok 179 - given unsubscribe when not connected then safe noop
+  ---
+  duration_ms: 0.234167
+  type: 'test'
+  ...
+# [tripwire-realtime] SUBSCRIBED
+# [tripwire-realtime] unsubscribed
+# Subtest: given channel event when subscribed then debounced onUpdate fires
+ok 180 - given channel event when subscribed then debounced onUpdate fires
+  ---
+  duration_ms: 715.529917
+  type: 'test'
+  ...
+# Subtest: GWT-71.2 given secret text when maskSecrets default then secrets masked
+ok 181 - GWT-71.2 given secret text when maskSecrets default then secrets masked
+  ---
+  duration_ms: 34.36725
+  type: 'test'
+  ...
+# Subtest: GWT-71.2 given revealSecrets true when buildReportPayload then secrets revealed
+ok 182 - GWT-71.2 given revealSecrets true when buildReportPayload then secrets revealed
+  ---
+  duration_ms: 3.58075
+  type: 'test'
+  ...
+# Subtest: GWT-71.2 given finished triage when buildReportPayload then evidence verdicts provenance coverage
+ok 183 - GWT-71.2 given finished triage when buildReportPayload then evidence verdicts provenance coverage
+  ---
+  duration_ms: 4.870709
+  type: 'test'
+  ...
+# Subtest: GWT-71.2 given payload when serializeReportJson and Markdown then non-empty with Coverage
+ok 184 - GWT-71.2 given payload when serializeReportJson and Markdown then non-empty with Coverage
+  ---
+  duration_ms: 1.21325
+  type: 'test'
+  ...
+# Subtest: GWT-71.3 given reviewed findings when buildReportView then headline summarises fixed left wont fix
+ok 185 - GWT-71.3 given reviewed findings when buildReportView then headline summarises fixed left wont fix
+  ---
+  duration_ms: 2.550875
+  type: 'test'
+  ...
+# Subtest: GWT-71.3 given report view when opened then primaryExportLabel is Export report
+ok 186 - GWT-71.3 given report view when opened then primaryExportLabel is Export report
+  ---
+  duration_ms: 0.157667
+  type: 'test'
+  ...
+# Subtest: GWT-71.3 given reportDisposition set when resolved then prefers disposition over triageStatus
+ok 187 - GWT-71.3 given reportDisposition set when resolved then prefers disposition over triageStatus
+  ---
+  duration_ms: 0.130333
+  type: 'test'
+  ...
+# Subtest: GWT-71.3 given triageStatus only when resolved then maps dismissed fixed else left
+ok 188 - GWT-71.3 given triageStatus only when resolved then maps dismissed fixed else left
+  ---
+  duration_ms: 0.107542
+  type: 'test'
+  ...
+# Subtest: GWT-71.3 given mixed severities when buildReportView then findings sorted high to low
+ok 189 - GWT-71.3 given mixed severities when buildReportView then findings sorted high to low
+  ---
+  duration_ms: 0.174
+  type: 'test'
+  ...
+# Subtest: given complete run with no scores when resolve then grey unscanned
+ok 190 - given complete run with no scores when resolve then grey unscanned
+  ---
+  duration_ms: 11.25775
+  type: 'test'
+  ...
+# Subtest: given complete all-not-applicable when resolve then no_coverage not green
+ok 191 - given complete all-not-applicable when resolve then no_coverage not green
+  ---
+  duration_ms: 3.317375
+  type: 'test'
+  ...
+# Subtest: given decorateStatus no_coverage when called then NO COVERAGE label
+ok 192 - given decorateStatus no_coverage when called then NO COVERAGE label
+  ---
+  duration_ms: 0.157291
+  type: 'test'
+  ...
+# Subtest: given partial-failed with zero completed engines when resolve then error
+ok 193 - given partial-failed with zero completed engines when resolve then error
+  ---
+  duration_ms: 0.098375
+  type: 'test'
+  ...
+# Subtest: given null runStatus with heatmap error when resolve then error
+ok 194 - given null runStatus with heatmap error when resolve then error
+  ---
+  duration_ms: 0.108292
+  type: 'test'
+  ...
+# Subtest: given null runStatus with unknown heatmap when resolve then passthrough
+ok 195 - given null runStatus with unknown heatmap when resolve then passthrough
+  ---
+  duration_ms: 0.087209
+  type: 'test'
+  ...
+# Subtest: given nonterminal run with heatmap error when resolve then error
+ok 196 - given nonterminal run with heatmap error when resolve then error
+  ---
+  duration_ms: 9.415708
+  type: 'test'
+  ...
+# Subtest: given nonterminal run with risk when resolve then risk bucket
+ok 197 - given nonterminal run with risk when resolve then risk bucket
+  ---
+  duration_ms: 0.554708
+  type: 'test'
+  ...
+# Subtest: given unknown severity when severityColor then grey
+ok 198 - given unknown severity when severityColor then grey
+  ---
+  duration_ms: 0.246666
+  type: 'test'
+  ...
+# Subtest: given unknown scanner status when scannerExecMeta then grey label
+ok 199 - given unknown scanner status when scannerExecMeta then grey label
+  ---
+  duration_ms: 0.105334
+  type: 'test'
+  ...
+# Subtest: given known status when decorateStatus then flat color fields
+ok 200 - given known status when decorateStatus then flat color fields
+  ---
+  duration_ms: 0.084167
+  type: 'test'
+  ...
+# Subtest: given unknown status when decorateStatus then grey meta
+ok 201 - given unknown status when decorateStatus then grey meta
+  ---
+  duration_ms: 9.096667
+  type: 'test'
+  ...
+# Subtest: given risk scores when statusFromRisk then matches density buckets
+ok 202 - given risk scores when statusFromRisk then matches density buckets
+  ---
+  duration_ms: 6.703458
+  type: 'test'
+  ...
+# Subtest: given running scan when resolveItemStatus then running wins over stale heatmap
+ok 203 - given running scan when resolveItemStatus then running wins over stale heatmap
+  ---
+  duration_ms: 0.297709
+  type: 'test'
+  ...
+# Subtest: given failed scan when resolveItemStatus then error
+ok 204 - given failed scan when resolveItemStatus then error
+  ---
+  duration_ms: 0.449375
+  type: 'test'
+  ...
+# Subtest: given partial-failed with red heatmap when resolveItemStatus then red not error
+ok 205 - given partial-failed with red heatmap when resolveItemStatus then red not error
+  ---
+  duration_ms: 1.069791
+  type: 'test'
+  ...
+# Subtest: given stale error heatmap with red findings when resolveItemStatus then red
+ok 206 - given stale error heatmap with red findings when resolveItemStatus then red
+  ---
+  duration_ms: 0.729625
+  type: 'test'
+  ...
+# Subtest: given stale amber heatmap and one red finding when resolveItemStatus then red
+ok 207 - given stale amber heatmap and one red finding when resolveItemStatus then red
+  ---
+  duration_ms: 0.532834
+  type: 'test'
+  ...
+# Subtest: given amber findings only when resolveItemStatus then amber not red
+ok 208 - given amber findings only when resolveItemStatus then amber not red
+  ---
+  duration_ms: 0.124292
+  type: 'test'
+  ...
+# Subtest: given complete green risk when resolveItemStatus then green
+ok 209 - given complete green risk when resolveItemStatus then green
+  ---
+  duration_ms: 0.115625
+  type: 'test'
+  ...
+# Subtest: given complete with zero completed scanners when resolveItemStatus then no_coverage
+ok 210 - given complete with zero completed scanners when resolveItemStatus then no_coverage
+  ---
+  duration_ms: 0.082625
+  type: 'test'
+  ...
+# Subtest: given no run when resolveItemStatus then grey
+ok 211 - given no run when resolveItemStatus then grey
+  ---
+  duration_ms: 0.115875
+  type: 'test'
+  ...
+# Subtest: given upstream severities when normalizeSeverity then collapse correctly
+ok 212 - given upstream severities when normalizeSeverity then collapse correctly
+  ---
+  duration_ms: 0.33175
+  type: 'test'
+  ...
+# Subtest: given findings when maxFindingStatus then ignores green soft findings
+ok 213 - given findings when maxFindingStatus then ignores green soft findings
+  ---
+  duration_ms: 0.656625
+  type: 'test'
+  ...
+# Subtest: given tiered_router amber when maxFindingStatus then ignores router rows
+ok 214 - given tiered_router amber when maxFindingStatus then ignores router rows
+  ---
+  duration_ms: 0.828708
+  type: 'test'
+  ...
+# Subtest: given mixed findings when formatFindingCountLabel then severity breakdown
+ok 215 - given mixed findings when formatFindingCountLabel then severity breakdown
+  ---
+  duration_ms: 2.503917
+  type: 'test'
+  ...
+# Subtest: given scanner unreachable when scannerExecMeta then uses error violet not vuln red
+ok 216 - given scanner unreachable when scannerExecMeta then uses error violet not vuln red
+  ---
+  duration_ms: 0.198791
+  type: 'test'
+  ...
+# Subtest: given scanner running when scannerExecMeta then uses scanning blue
+ok 217 - given scanner running when scannerExecMeta then uses scanning blue
+  ---
+  duration_ms: 1.380208
+  type: 'test'
+  ...
+# Subtest: given skill with numeric quality when qualitySurfacing then Q badge known
+ok 218 - given skill with numeric quality when qualitySurfacing then Q badge known
+  ---
+  duration_ms: 1.004292
+  type: 'test'
+  ...
+# Subtest: given never-scanned skill when qualitySurfacing then Q em dash
+ok 219 - given never-scanned skill when qualitySurfacing then Q em dash
+  ---
+  duration_ms: 0.818333
+  type: 'test'
+  ...
+# Subtest: given scanned skill without quality when qualitySurfacing then Q question
+ok 220 - given scanned skill without quality when qualitySurfacing then Q question
+  ---
+  duration_ms: 0.475375
+  type: 'test'
+  ...
+# Subtest: given mcp server when qualitySurfacing then omit badge
+ok 221 - given mcp server when qualitySurfacing then omit badge
+  ---
+  duration_ms: 0.622125
+  type: 'test'
+  ...
+# Subtest: given mixed quality skills when high tab filter then only skills with quality >= 80 plus mcp pass-through
+ok 222 - given mixed quality skills when high tab filter then only skills with quality >= 80 plus mcp pass-through
+  ---
+  duration_ms: 0.731417
+  type: 'test'
+  ...
+# Subtest: given mixed quality skills when low tab filter then below-threshold scored skills plus mcp pass-through
+ok 223 - given mixed quality skills when low tab filter then below-threshold scored skills plus mcp pass-through
+  ---
+  duration_ms: 2.205375
+  type: 'test'
+  ...
+# Subtest: given mixed quality skills when unscored tab filter then null and NaN skills plus mcp pass-through
+ok 224 - given mixed quality skills when unscored tab filter then null and NaN skills plus mcp pass-through
+  ---
+  duration_ms: 0.190166
+  type: 'test'
+  ...
+# Subtest: given quality helpers when boundary and type checks then skills-only buckets
+ok 225 - given quality helpers when boundary and type checks then skills-only buckets
+  ---
+  duration_ms: 0.150833
+  type: 'test'
+  ...
+# Subtest: given mixed skills when countSkillsByQualityTab then tallies high low and unscored
+ok 226 - given mixed skills when countSkillsByQualityTab then tallies high low and unscored
+  ---
+  duration_ms: 3.789417
+  type: 'test'
+  ...
+# Subtest: given numeric risk when riskTooltip then covers formula and colour independence
+ok 227 - given numeric risk when riskTooltip then covers formula and colour independence
+  ---
+  duration_ms: 1.033458
+  type: 'test'
+  ...
+# Subtest: given unknown risk when riskTooltip then not zero risk
+ok 228 - given unknown risk when riskTooltip then not zero risk
+  ---
+  duration_ms: 1.482541
+  type: 'test'
+  ...
+# Subtest: given locus and avail enums when operator labels then glossary phrases
+ok 229 - given locus and avail enums when operator labels then glossary phrases
+  ---
+  duration_ms: 0.356042
+  type: 'test'
+  ...
+# Subtest: given Tessl scanner with null score when tesslInnerQuality then not-scored cue
+ok 230 - given Tessl scanner with null score when tesslInnerQuality then not-scored cue
+  ---
+  duration_ms: 0.367834
+  type: 'test'
+  ...
+# Subtest: given Tessl scanner with score when tesslInnerQuality then numeric label
+ok 231 - given Tessl scanner with score when tesslInnerQuality then numeric label
+  ---
+  duration_ms: 0.138083
+  type: 'test'
+  ...
+# Subtest: given Tessl Lint scanner when tesslInnerQuality then null
+ok 232 - given Tessl Lint scanner when tesslInnerQuality then null
+  ---
+  duration_ms: 0.077541
+  type: 'test'
+  ...
+# Subtest: given legacy Tessl scanner when tesslInnerQuality then null
+ok 233 - given legacy Tessl scanner when tesslInnerQuality then null
+  ---
+  duration_ms: 0.068125
+  type: 'test'
+  ...
+# Subtest: given non-Tessl scanner when tesslInnerQuality then null
+ok 234 - given non-Tessl scanner when tesslInnerQuality then null
+  ---
+  duration_ms: 0.067416
+  type: 'test'
+  ...
+# Subtest: given needs_setup when scannerExecMeta then Needs Setup label
+ok 235 - given needs_setup when scannerExecMeta then Needs Setup label
+  ---
+  duration_ms: 0.064209
+  type: 'test'
+  ...
+# Subtest: given Lint and Quality when mergeTesslCapabilityRows then five Tessl sources in design order
+ok 236 - given Lint and Quality when mergeTesslCapabilityRows then five Tessl sources in design order
+  ---
+  duration_ms: 0.358292
+  type: 'test'
+  ...
+# Subtest: given missing Tessl capabilities when mergeTesslCapabilityRows then sentinels are Not Available Yet
+ok 237 - given missing Tessl capabilities when mergeTesslCapabilityRows then sentinels are Not Available Yet
+  ---
+  duration_ms: 0.129583
+  type: 'test'
+  ...
+# Subtest: given other scanners plus two Tessl rows when mergeTesslCapabilityRows then count includes placeholders
+ok 238 - given other scanners plus two Tessl rows when mergeTesslCapabilityRows then count includes placeholders
+  ---
+  duration_ms: 135.576708
+  type: 'test'
+  ...
+# Subtest: given Eval DB row when mergeTesslCapabilityRows then Eval sentinel is replaced
+ok 239 - given Eval DB row when mergeTesslCapabilityRows then Eval sentinel is replaced
+  ---
+  duration_ms: 0.422416
+  type: 'test'
+  ...
+# Subtest: given MCP-only scanners when mergeTesslCapabilityRows then no Tessl sentinels
+ok 240 - given MCP-only scanners when mergeTesslCapabilityRows then no Tessl sentinels
+  ---
+  duration_ms: 0.141625
+  type: 'test'
+  ...
+# Subtest: given Tessl and later-alphabet scanner when mergeTesslCapabilityRows then Tessl block stays contiguous
+ok 241 - given Tessl and later-alphabet scanner when mergeTesslCapabilityRows then Tessl block stays contiguous
+  ---
+  duration_ms: 0.270709
+  type: 'test'
+  ...
+# Subtest: given null scanner list when mergeTesslCapabilityRows then empty list
+ok 242 - given null scanner list when mergeTesslCapabilityRows then empty list
+  ---
+  duration_ms: 0.087292
+  type: 'test'
+  ...
+# Subtest: given not_available_yet when scannerExecMeta then muted Not Available Yet label
+ok 243 - given not_available_yet when scannerExecMeta then muted Not Available Yet label
+  ---
+  duration_ms: 0.632625
+  type: 'test'
+  ...
+# Subtest: given dashboard html when inspecting scannersView then Tessl sentinels are merged
+ok 244 - given dashboard html when inspecting scannersView then Tessl sentinels are merged
+  ---
+  duration_ms: 2.96975
+  type: 'test'
+  ...
+# Subtest: given dashboard html when drawer opens then findings and stored runtime start collapsed
+ok 245 - given dashboard html when drawer opens then findings and stored runtime start collapsed
+  ---
+  duration_ms: 2.65425
+  type: 'test'
+  ...
+# Subtest: given security row with quality id when securityQualityLink then returns quality run id
+ok 246 - given security row with quality id when securityQualityLink then returns quality run id
+  ---
+  duration_ms: 2.180583
+  type: 'test'
+  ...
+# Subtest: given security row without quality id when securityQualityLink then no panel
+ok 247 - given security row without quality id when securityQualityLink then no panel
+  ---
+  duration_ms: 0.347833
+  type: 'test'
+  ...
+# Subtest: given quality findings when linkedQualityFindingsForSecurity then only quality rows
+ok 248 - given quality findings when linkedQualityFindingsForSecurity then only quality rows
+  ---
+  duration_ms: 0.117209
+  type: 'test'
+  ...
+# Subtest: given dashboard html when inspecting security expand then quality findings are wired
+ok 249 - given dashboard html when inspecting security expand then quality findings are wired
+  ---
+  duration_ms: 0.979791
+  type: 'test'
+  ...
+# Subtest: GWT-62.5: repoSignatureFromIdentifier extracts org/repo prefix
+ok 250 - GWT-62.5: repoSignatureFromIdentifier extracts org/repo prefix
+  ---
+  duration_ms: 0.300917
+  type: 'test'
+  ...
+# Subtest: GWT-62.5: dashboard cards bind repoSignature for grid and list
+ok 251 - GWT-62.5: dashboard cards bind repoSignature for grid and list
+  ---
+  duration_ms: 1.502291
+  type: 'test'
+  ...
+# Subtest: given mixed target findings when Skills type filter then only skill findings listed
+ok 252 - given mixed target findings when Skills type filter then only skill findings listed
+  ---
+  duration_ms: 32.118959
+  type: 'test'
+  ...
+# Subtest: given skill findings when quality high tab then only skills meeting floor plus MCP pass-through
+ok 253 - given skill findings when quality high tab then only skills meeting floor plus MCP pass-through
+  ---
+  duration_ms: 2.986166
+  type: 'test'
+  ...
+# Subtest: given multi-target findings when Triage renders then per-target chips include All and each target
+ok 254 - given multi-target findings when Triage renders then per-target chips include All and each target
+  ---
+  duration_ms: 1.245792
+  type: 'test'
+  ...
+# Subtest: given two findings on same target when chips built then count is two
+ok 255 - given two findings on same target when chips built then count is two
+  ---
+  duration_ms: 0.619083
+  type: 'test'
+  ...
+# Subtest: given target chip selected when status to_fix then filters compose
+ok 256 - given target chip selected when status to_fix then filters compose
+  ---
+  duration_ms: 0.273958
+  type: 'test'
+  ...
+# Subtest: given dependency finding when buildWorkflowFindingTitle then package and CVE distinguish rows
+ok 257 - given dependency finding when buildWorkflowFindingTitle then package and CVE distinguish rows
+  ---
+  duration_ms: 19.800833
+  type: 'test'
+  ...
+# Subtest: given same package CVE in different lockfiles when titled then path distinguishes rows
+ok 258 - given same package CVE in different lockfiles when titled then path distinguishes rows
+  ---
+  duration_ms: 14.316333
+  type: 'test'
+  ...
+# Subtest: given identical SCA rows when buildTriageView then duplicates collapse with count
+ok 259 - given identical SCA rows when buildTriageView then duplicates collapse with count
+  ---
+  duration_ms: 0.365625
+  type: 'test'
+  ...
+# Subtest: GWT-70.2 given match by title and source when verifyFixOnWorktree then still_present
+ok 260 - GWT-70.2 given match by title and source when verifyFixOnWorktree then still_present
+  ---
+  duration_ms: 3.541
+  type: 'test'
+  ...
+# Subtest: GWT-70.1 given no id or title match when verifyFixOnWorktree then finding_gone
+ok 261 - GWT-70.1 given no id or title match when verifyFixOnWorktree then finding_gone
+  ---
+  duration_ms: 0.209417
+  type: 'test'
+  ...
+# Subtest: GWT-70.1 given fingerprint mismatch when verifyFixOnWorktree then approvedRepoUnchanged is false
+ok 262 - GWT-70.1 given fingerprint mismatch when verifyFixOnWorktree then approvedRepoUnchanged is false
+  ---
+  duration_ms: 0.250792
+  type: 'test'
+  ...
+# Subtest: GWT-70.1 given fingerprint mismatch when verifyFixOnWorktree then applyPatch still uses temp path
+ok 263 - GWT-70.1 given fingerprint mismatch when verifyFixOnWorktree then applyPatch still uses temp path
+  ---
+  duration_ms: 0.105208
+  type: 'test'
+  ...
+# Subtest: GWT-70.3 given whitespace patch when verifyFixOnWorktree then unable_to_verify no_patch
+ok 264 - GWT-70.3 given whitespace patch when verifyFixOnWorktree then unable_to_verify no_patch
+  ---
+  duration_ms: 2.250625
+  type: 'test'
+  ...
+# Subtest: GWT-70.3 given null patch when verifyFixOnWorktree then unable_to_verify no_patch
+ok 265 - GWT-70.3 given null patch when verifyFixOnWorktree then unable_to_verify no_patch
+  ---
+  duration_ms: 0.279333
+  type: 'test'
+  ...
+# Subtest: GWT-70.3 given missing args when verifyFixOnWorktree then unable_to_verify
+ok 266 - GWT-70.3 given missing args when verifyFixOnWorktree then unable_to_verify
+  ---
+  duration_ms: 0.152417
+  type: 'test'
+  ...
+# Subtest: GWT-70.3 given apply failure when verifyFixOnWorktree then cleanup still runs
+ok 267 - GWT-70.3 given apply failure when verifyFixOnWorktree then cleanup still runs
+  ---
+  duration_ms: 0.114208
+  type: 'test'
+  ...
+# Subtest: GWT-70.3 given applyOk false with port error when verifyFixOnWorktree then reason surfaces
+ok 268 - GWT-70.3 given applyOk false with port error when verifyFixOnWorktree then reason surfaces
+  ---
+  duration_ms: 5.161334
+  type: 'test'
+  ...
+# Subtest: GWT-70.3 given null verification when buildVerifyView then Unable to verify
+ok 269 - GWT-70.3 given null verification when buildVerifyView then Unable to verify
+  ---
+  duration_ms: 0.847291
+  type: 'test'
+  ...
+# Subtest: GWT-70.3 given null verification when buildVerifyView then reasonText reflects not_run
+ok 270 - GWT-70.3 given null verification when buildVerifyView then reasonText reflects not_run
+  ---
+  duration_ms: 1.81325
+  type: 'test'
+  ...
+# Subtest: GWT-70.3 given empty verification when buildVerifyView then claimedFixedForbidden is true
+ok 271 - GWT-70.3 given empty verification when buildVerifyView then claimedFixedForbidden is true
+  ---
+  duration_ms: 0.423875
+  type: 'test'
+  ...
+# Subtest: GWT-70.3 given missing args when buildVerifyView then ariaLabel is Verify
+ok 272 - GWT-70.3 given missing args when buildVerifyView then ariaLabel is Verify
+  ---
+  duration_ms: 0.246
+  type: 'test'
+  ...
+# Subtest: GWT-70.1 given finding_gone with empty reason when buildVerifyView then reasonText is empty
+ok 273 - GWT-70.1 given finding_gone with empty reason when buildVerifyView then reasonText is empty
+  ---
+  duration_ms: 0.104916
+  type: 'test'
+  ...
+# Subtest: GWT-70.2 given scanner action without detail when buildVerifyView then line still names scanner
+ok 274 - GWT-70.2 given scanner action without detail when buildVerifyView then line still names scanner
+  ---
+  duration_ms: 0.290583
+  type: 'test'
+  ...
+# Subtest: GWT-70.3 given unable with empty scannerActions when buildVerifyView then lines are empty
+ok 275 - GWT-70.3 given unable with empty scannerActions when buildVerifyView then lines are empty
+  ---
+  duration_ms: 2.366458
+  type: 'test'
+  ...
+# Subtest: GWT-70.1 given patch that removes issue and scanners ok when verifyFixOnWorktree then finding_gone
+ok 276 - GWT-70.1 given patch that removes issue and scanners ok when verifyFixOnWorktree then finding_gone
+  ---
+  duration_ms: 7.065541
+  type: 'test'
+  ...
+# Subtest: GWT-70.1 given finding_gone when verifyFixOnWorktree then verificationStatus matches outcome
+ok 277 - GWT-70.1 given finding_gone when verifyFixOnWorktree then verificationStatus matches outcome
+  ---
+  duration_ms: 14.8865
+  type: 'test'
+  ...
+# Subtest: GWT-70.1 given finding_gone when verifyFixOnWorktree then approvedRepoUnchanged is true
+ok 278 - GWT-70.1 given finding_gone when verifyFixOnWorktree then approvedRepoUnchanged is true
+  ---
+  duration_ms: 0.276792
+  type: 'test'
+  ...
+# Subtest: GWT-70.1 given finding_gone when buildVerifyView then outcomeLabel is Finding gone
+ok 279 - GWT-70.1 given finding_gone when buildVerifyView then outcomeLabel is Finding gone
+  ---
+  duration_ms: 0.476458
+  type: 'test'
+  ...
+# Subtest: GWT-70.1 given finding_gone when buildVerifyView then honestyLine cites temp worktree
+ok 280 - GWT-70.1 given finding_gone when buildVerifyView then honestyLine cites temp worktree
+  ---
+  duration_ms: 1.438125
+  type: 'test'
+  ...
+# Subtest: GWT-70.1 given finding_gone when buildVerifyView then claimedFixedForbidden is false
+ok 281 - GWT-70.1 given finding_gone when buildVerifyView then claimedFixedForbidden is false
+  ---
+  duration_ms: 0.158667
+  type: 'test'
+  ...
+# Subtest: GWT-70.2 given patch that does not remove issue when verifyFixOnWorktree then still_present
+ok 282 - GWT-70.2 given patch that does not remove issue when verifyFixOnWorktree then still_present
+  ---
+  duration_ms: 0.141791
+  type: 'test'
+  ...
+# Subtest: GWT-70.2 given still_present when verifyFixOnWorktree then scannerActions are recorded
+ok 283 - GWT-70.2 given still_present when verifyFixOnWorktree then scannerActions are recorded
+  ---
+  duration_ms: 0.385625
+  type: 'test'
+  ...
+# Subtest: GWT-70.2 given still_present when buildVerifyView then outcomeLabel is Still present
+ok 284 - GWT-70.2 given still_present when buildVerifyView then outcomeLabel is Still present
+  ---
+  duration_ms: 0.089
+  type: 'test'
+  ...
+# Subtest: GWT-70.2 given still_present when buildVerifyView then claimedFixedForbidden is true
+ok 285 - GWT-70.2 given still_present when buildVerifyView then claimedFixedForbidden is true
+  ---
+  duration_ms: 0.079
+  type: 'test'
+  ...
+# Subtest: GWT-70.2 given still_present when buildVerifyView then honestyLine is present
+ok 286 - GWT-70.2 given still_present when buildVerifyView then honestyLine is present
+  ---
+  duration_ms: 0.169208
+  type: 'test'
+  ...
+# Subtest: GWT-70.3 given missing scanner when verifyFixOnWorktree then unable_to_verify
+ok 287 - GWT-70.3 given missing scanner when verifyFixOnWorktree then unable_to_verify
+  ---
+  duration_ms: 0.092666
+  type: 'test'
+  ...
+# Subtest: GWT-70.3 given missing scanner when verifyFixOnWorktree then reason is missing
+ok 288 - GWT-70.3 given missing scanner when verifyFixOnWorktree then reason is missing
+  ---
+  duration_ms: 0.086292
+  type: 'test'
+  ...
+# Subtest: GWT-70.3 given missing scanner when verifyFixOnWorktree then outcome is never finding_gone
+ok 289 - GWT-70.3 given missing scanner when verifyFixOnWorktree then outcome is never finding_gone
+  ---
+  duration_ms: 0.109542
+  type: 'test'
+  ...
+# Subtest: GWT-70.3 given failed scanner when verifyFixOnWorktree then unable_to_verify
+ok 290 - GWT-70.3 given failed scanner when verifyFixOnWorktree then unable_to_verify
+  ---
+  duration_ms: 2.955334
+  type: 'test'
+  ...
+# Subtest: GWT-70.3 given failed scanner when verifyFixOnWorktree then reason is failed
+ok 291 - GWT-70.3 given failed scanner when verifyFixOnWorktree then reason is failed
+  ---
+  duration_ms: 2.384625
+  type: 'test'
+  ...
+# Subtest: GWT-70.3 given failed scanner when verifyFixOnWorktree then outcome is never finding_gone
+ok 292 - GWT-70.3 given failed scanner when verifyFixOnWorktree then outcome is never finding_gone
+  ---
+  duration_ms: 7.391375
+  type: 'test'
+  ...
+# Subtest: GWT-70.3 given timeout scanner when verifyFixOnWorktree then unable_to_verify
+ok 293 - GWT-70.3 given timeout scanner when verifyFixOnWorktree then unable_to_verify
+  ---
+  duration_ms: 0.179709
+  type: 'test'
+  ...
+# Subtest: GWT-70.3 given timeout scanner when verifyFixOnWorktree then reason is timeout
+ok 294 - GWT-70.3 given timeout scanner when verifyFixOnWorktree then reason is timeout
+  ---
+  duration_ms: 0.061
+  type: 'test'
+  ...
+# Subtest: GWT-70.3 given timeout scanner when verifyFixOnWorktree then outcome is never finding_gone
+ok 295 - GWT-70.3 given timeout scanner when verifyFixOnWorktree then outcome is never finding_gone
+  ---
+  duration_ms: 0.053709
+  type: 'test'
+  ...
+# Subtest: GWT-70.3 given empty patch when verifyFixOnWorktree then unable_to_verify with no_patch
+ok 296 - GWT-70.3 given empty patch when verifyFixOnWorktree then unable_to_verify with no_patch
+  ---
+  duration_ms: 0.613584
+  type: 'test'
+  ...
+# Subtest: GWT-70.3 given empty patch when verifyFixOnWorktree then applyPatch is not called
+ok 297 - GWT-70.3 given empty patch when verifyFixOnWorktree then applyPatch is not called
+  ---
+  duration_ms: 0.104417
+  type: 'test'
+  ...
+# Subtest: GWT-70.3 given apply failure when verifyFixOnWorktree then unable_to_verify with apply_failed
+ok 298 - GWT-70.3 given apply failure when verifyFixOnWorktree then unable_to_verify with apply_failed
+  ---
+  duration_ms: 0.094458
+  type: 'test'
+  ...
+# Subtest: GWT-70.3 given apply failure when verifyFixOnWorktree then scanners are not run
+ok 299 - GWT-70.3 given apply failure when verifyFixOnWorktree then scanners are not run
+  ---
+  duration_ms: 0.084167
+  type: 'test'
+  ...
+# Subtest: GWT-70.3 given unable_to_verify when buildVerifyView then outcomeLabel is Unable to verify
+ok 300 - GWT-70.3 given unable_to_verify when buildVerifyView then outcomeLabel is Unable to verify
+  ---
+  duration_ms: 0.439917
+  type: 'test'
+  ...
+# Subtest: GWT-70.3 given unable_to_verify when buildVerifyView then claimedFixedForbidden is true
+ok 301 - GWT-70.3 given unable_to_verify when buildVerifyView then claimedFixedForbidden is true
+  ---
+  duration_ms: 0.120417
+  type: 'test'
+  ...
+# Subtest: GWT-70.3 given unable reason when buildVerifyView then reasonText is non-empty
+ok 302 - GWT-70.3 given unable reason when buildVerifyView then reasonText is non-empty
+  ---
+  duration_ms: 0.093084
+  type: 'test'
+  ...
+# Subtest: GWT-70.1 given verify run when verifyFixOnWorktree then applyPatch uses only the temp path
+ok 303 - GWT-70.1 given verify run when verifyFixOnWorktree then applyPatch uses only the temp path
+  ---
+  duration_ms: 0.111333
+  type: 'test'
+  ...
+# Subtest: GWT-70.1 given verify run when verifyFixOnWorktree then runApplicableScanners uses only the temp path
+ok 304 - GWT-70.1 given verify run when verifyFixOnWorktree then runApplicableScanners uses only the temp path
+  ---
+  duration_ms: 0.083833
+  type: 'test'
+  ...
+# Subtest: GWT-70.1 given memory port when verifyFixOnWorktree then cleanup receives the temp path
+ok 305 - GWT-70.1 given memory port when verifyFixOnWorktree then cleanup receives the temp path
+  ---
+  duration_ms: 0.197708
+  type: 'test'
+  ...
+# Subtest: GWT-70.1 given VERIFICATION_OUTCOMES when read then three frozen outcomes
+ok 306 - GWT-70.1 given VERIFICATION_OUTCOMES when read then three frozen outcomes
+  ---
+  duration_ms: 0.097125
+  type: 'test'
+  ...
+# Subtest: GWT-70.1 given OUTCOME_LABELS when read then operator text map is frozen
+ok 307 - GWT-70.1 given OUTCOME_LABELS when read then operator text map is frozen
+  ---
+  duration_ms: 0.099666
+  type: 'test'
+  ...
+# Subtest: GWT-70.1 given verification when buildVerifyView then ariaLabel is Verify
+ok 308 - GWT-70.1 given verification when buildVerifyView then ariaLabel is Verify
+  ---
+  duration_ms: 0.083792
+  type: 'test'
+  ...
+# Subtest: GWT-70.1 given scanner actions when buildVerifyView then scannerActionsLines are strings
+ok 309 - GWT-70.1 given scanner actions when buildVerifyView then scannerActionsLines are strings
+  ---
+  duration_ms: 4.078167
+  type: 'test'
+  ...
+# Subtest: given Tripwire.dc.html when parsed then paper field tokens are present
+ok 310 - given Tripwire.dc.html when parsed then paper field tokens are present
+  ---
+  duration_ms: 3.456458
+  type: 'test'
+  ...
+# Subtest: given hero CTA markup when scanned then uses cta fill not cyan fill
+ok 311 - given hero CTA markup when scanned then uses cta fill not cyan fill
+  ---
+  duration_ms: 4.348
+  type: 'test'
+  ...
+# Subtest: given hardcoded styles when scanned then cyan is not used as chrome button fill defaults
+ok 312 - given hardcoded styles when scanned then cyan is not used as chrome button fill defaults
+  ---
+  duration_ms: 0.767834
+  type: 'test'
+  ...
+# Subtest: given paper field when :root is read then ink tokens meet AA hex contract
+ok 313 - given paper field when :root is read then ink tokens meet AA hex contract
+  ---
+  duration_ms: 1.843792
+  type: 'test'
+  ...
+# Subtest: given intro chrome when scanned then logo and links use AA ink not tan fill
+ok 314 - given intro chrome when scanned then logo and links use AA ink not tan fill
+  ---
+  duration_ms: 4.533958
+  type: 'test'
+  ...
+# Subtest: given glow and hover when scanned then cream is not blown out
+ok 315 - given glow and hover when scanned then cream is not blown out
+  ---
+  duration_ms: 1.16725
+  type: 'test'
+  ...
+# Subtest: given STATUS_META when compared to :root then ink hexes bind
+ok 316 - given STATUS_META when compared to :root then ink hexes bind
+  ---
+  duration_ms: 0.285792
+  type: 'test'
+  ...
+# Subtest: given neon fills when scanned then they are not used as color: text
+ok 317 - given neon fills when scanned then they are not used as color: text
+  ---
+  duration_ms: 7.927584
+  type: 'test'
+  ...
+# Subtest: given alert and guard banners when scanned then pastel dark-theme text is gone
+ok 318 - given alert and guard banners when scanned then pastel dark-theme text is gone
+  ---
+  duration_ms: 2.395292
+  type: 'test'
+  ...
+# Subtest: given code blocks on bg-deep when scanned then terminal neon is gone
+ok 319 - given code blocks on bg-deep when scanned then terminal neon is gone
+  ---
+  duration_ms: 62.884792
+  type: 'test'
+  ...
+# Subtest: coverage: buildRunProgressView with no args uses empty scanners and default judges
+ok 320 - coverage: buildRunProgressView with no args uses empty scanners and default judges
+  ---
+  duration_ms: 7.242375
+  type: 'test'
+  ...
+# Subtest: coverage: buildRunProgressView normalizes null scanner rows and sparse fields
+ok 321 - coverage: buildRunProgressView normalizes null scanner rows and sparse fields
+  ---
+  duration_ms: 0.312125
+  type: 'test'
+  ...
+# Subtest: coverage: buildRunProgressView fills missing judge slot fields
+ok 322 - coverage: buildRunProgressView fills missing judge slot fields
+  ---
+  duration_ms: 2.9915
+  type: 'test'
+  ...
+# Subtest: coverage: buildRunProgressView uses answered/total when provided without slots
+ok 323 - coverage: buildRunProgressView uses answered/total when provided without slots
+  ---
+  duration_ms: 13.598917
+  type: 'test'
+  ...
+# Subtest: coverage: buildInvestigateView omits source_sink when both missing
+ok 324 - coverage: buildInvestigateView omits source_sink when both missing
+  ---
+  duration_ms: 1.312625
+  type: 'test'
+  ...
+# Subtest: coverage: buildInvestigateView includes source-only or sink-only
+ok 325 - coverage: buildInvestigateView includes source-only or sink-only
+  ---
+  duration_ms: 0.393833
+  type: 'test'
+  ...
+# Subtest: coverage: buildInvestigateView expertMode formats judges string and rawIds variants
+ok 326 - coverage: buildInvestigateView expertMode formats judges string and rawIds variants
+  ---
+  duration_ms: 1.117375
+  type: 'test'
+  ...
+# Subtest: coverage: buildInvestigateView hasText accepts non-string values
+ok 327 - coverage: buildInvestigateView hasText accepts non-string values
+  ---
+  duration_ms: 0.174958
+  type: 'test'
+  ...
+# Subtest: coverage: buildInvestigateView with null finding and empty strings skips empty sections
+ok 328 - coverage: buildInvestigateView with null finding and empty strings skips empty sections
+  ---
+  duration_ms: 0.158792
+  type: 'test'
+  ...
+# Subtest: coverage: buildInvestigateView simple mode includes how_we_decided from agreement alone
+ok 329 - coverage: buildInvestigateView simple mode includes how_we_decided from agreement alone
+  ---
+  duration_ms: 0.142334
+  type: 'test'
+  ...
+# Subtest: coverage: buildTriageView with empty and null findings
+ok 330 - coverage: buildTriageView with empty and null findings
+  ---
+  duration_ms: 0.62225
+  type: 'test'
+  ...
+# Subtest: coverage: buildTriageView sorts unknown severity last and ignores unknown status
+ok 331 - coverage: buildTriageView sorts unknown severity last and ignores unknown status
+  ---
+  duration_ms: 2.797625
+  type: 'test'
+  ...
+# Subtest: coverage: buildTriageView exercises each filter tab and non-array findings
+ok 332 - coverage: buildTriageView exercises each filter tab and non-array findings
+  ---
+  duration_ms: 19.038375
+  type: 'test'
+  ...
+# Subtest: coverage: buildTriageView coverageHonesty defaults and coerces invalid numbers
+ok 333 - coverage: buildTriageView coverageHonesty defaults and coerces invalid numbers
+  ---
+  duration_ms: 0.302542
+  type: 'test'
+  ...
+# Subtest: coverage: prefs no-ops when storage is missing
+ok 334 - coverage: prefs no-ops when storage is missing
+  ---
+  duration_ms: 0.22075
+  type: 'test'
+  ...
+# Subtest: coverage: stableFindingId falls back when id empty or missing fields
+ok 335 - coverage: stableFindingId falls back when id empty or missing fields
+  ---
+  duration_ms: 2.419417
+  type: 'test'
+  ...
+# Subtest: coverage: applyPersistedTriage with null findings and no persisted decisions
+ok 336 - coverage: applyPersistedTriage with null findings and no persisted decisions
+  ---
+  duration_ms: 0.220042
+  type: 'test'
+  ...
+# Subtest: coverage: loadExpertMode rejects non-true storage values
+ok 337 - coverage: loadExpertMode rejects non-true storage values
+  ---
+  duration_ms: 0.096458
+  type: 'test'
+  ...
+# Subtest: GWT-74.1 given workflow chrome when stepper renders then modelHints are role-aware
+ok 338 - GWT-74.1 given workflow chrome when stepper renders then modelHints are role-aware
+  ---
+  duration_ms: 68.075583
+  type: 'test'
+  ...
+# Subtest: GWT-74.2 given judge slots with modelIds when Run builds then modelsUsedLine lists role-labelled actuals
+ok 339 - GWT-74.2 given judge slots with modelIds when Run builds then modelsUsedLine lists role-labelled actuals
+  ---
+  duration_ms: 2.440875
+  type: 'test'
+  ...
+# Subtest: GWT-74.2 given empty judge models when Run builds then falls back to role-aware default hint
+ok 340 - GWT-74.2 given empty judge models when Run builds then falls back to role-aware default hint
+  ---
+  duration_ms: 0.194166
+  type: 'test'
+  ...
+# Subtest: GWT-74.3 given finding with router models when Investigate builds then SIE/MS line shown
+ok 341 - GWT-74.3 given finding with router models when Investigate builds then SIE/MS line shown
+  ---
+  duration_ms: 0.245375
+  type: 'test'
+  ...
+# Subtest: GWT-74.3 given LLM fix model when Fix builds then modelsUsedLine names that model
+ok 342 - GWT-74.3 given LLM fix model when Fix builds then modelsUsedLine names that model
+  ---
+  duration_ms: 0.145625
+  type: 'test'
+  ...
+# Subtest: GWT-74.3 given heuristic fix when Fix builds then no model line
+ok 343 - GWT-74.3 given heuristic fix when Fix builds then no model line
+  ---
+  duration_ms: 0.094083
+  type: 'test'
+  ...
+# Subtest: GWT-74.4 given verify step with no models when line builds then empty string
+ok 344 - GWT-74.4 given verify step with no models when line builds then empty string
+  ---
+  duration_ms: 0.098208
+  type: 'test'
+  ...
+# Subtest: GWT-74.5 / GWT-75.11 given finding with parent when models line builds then type·name prefix
+ok 345 - GWT-74.5 / GWT-75.11 given finding with parent when models line builds then type·name prefix
+  ---
+  duration_ms: 1.519083
+  type: 'test'
+  ...
+# Subtest: GWT-75.1 given scanners and live panel when resolveJudgePanelState then N of M statusLine
+ok 346 - GWT-75.1 given scanners and live panel when resolveJudgePanelState then N of M statusLine
+  ---
+  duration_ms: 5.295958
+  type: 'test'
+  ...
+# Subtest: GWT-75.1 given scanners running when buildProcessLine then plain-language summary
+ok 347 - GWT-75.1 given scanners running when buildProcessLine then plain-language summary
+  ---
+  duration_ms: 8.661792
+  type: 'test'
+  ...
+# Subtest: GWT-75.1 given includeNarration when buildRunProgressView then processLine attached
+ok 348 - GWT-75.1 given includeNarration when buildRunProgressView then processLine attached
+  ---
+  duration_ms: 1.791667
+  type: 'test'
+  ...
+# Subtest: GWT-75.2 given panel with disagreement when buildFinalJudgeNarration then verdict and weigh-reasons line
+ok 349 - GWT-75.2 given panel with disagreement when buildFinalJudgeNarration then verdict and weigh-reasons line
+  ---
+  duration_ms: 1.275917
+  type: 'test'
+  ...
+# Subtest: GWT-75.2 given agreeing judges when buildFinalJudgeNarration then agreement line
+ok 350 - GWT-75.2 given agreeing judges when buildFinalJudgeNarration then agreement line
+  ---
+  duration_ms: 0.292042
+  type: 'test'
+  ...
+# Subtest: GWT-75.3 given missing panel when resolveJudgePanelState then absent with empty slots
+ok 351 - GWT-75.3 given missing panel when resolveJudgePanelState then absent with empty slots
+  ---
+  duration_ms: 0.812458
+  type: 'test'
+  ...
+# Subtest: GWT-75.3 given panel opt-in off when resolveJudgePanelState then panelOff with empty slots
+ok 352 - GWT-75.3 given panel opt-in off when resolveJudgePanelState then panelOff with empty slots
+  ---
+  duration_ms: 0.406875
+  type: 'test'
+  ...
+# Subtest: GWT-75.3 given empty judgePanel object when resolve then absent not fabricated
+ok 353 - GWT-75.3 given empty judgePanel object when resolve then absent not fabricated
+  ---
+  duration_ms: 0.09625
+  type: 'test'
+  ...
+# Subtest: GWT-75.4 given ledger coverage when resolveCoverageHonesty then source ledger
+ok 354 - GWT-75.4 given ledger coverage when resolveCoverageHonesty then source ledger
+  ---
+  duration_ms: 0.187875
+  type: 'test'
+  ...
+# Subtest: GWT-75.4 given items only when resolveCoverageHonesty then heuristic source
+ok 355 - GWT-75.4 given items only when resolveCoverageHonesty then heuristic source
+  ---
+  duration_ms: 2.71525
+  type: 'test'
+  ...
+# Subtest: GWT-75.4 given absent fields when honestAbsentCopy then no judge-panel-pending for non-verdict
+ok 356 - GWT-75.4 given absent fields when honestAbsentCopy then no judge-panel-pending for non-verdict
+  ---
+  duration_ms: 0.435583
+  type: 'test'
+  ...
+# Subtest: GWT-75.4 given evidence statuses when formatEvidenceVerification then plain wording
+ok 357 - GWT-75.4 given evidence statuses when formatEvidenceVerification then plain wording
+  ---
+  duration_ms: 1.804167
+  type: 'test'
+  ...
+# Subtest: GWT-75.5 given present judgePanel when resolve then present mode with slots
+ok 358 - GWT-75.5 given present judgePanel when resolve then present mode with slots
+  ---
+  duration_ms: 0.203125
+  type: 'test'
+  ...
+# Subtest: GWT-75.6 given scanners complete and findings when buildPrimaryCta then Review findings visible
+ok 359 - GWT-75.6 given scanners complete and findings when buildPrimaryCta then Review findings visible
+  ---
+  duration_ms: 0.260333
+  type: 'test'
+  ...
+# Subtest: GWT-75.6 given explicit processLine when buildRunProgressView then caller value preserved
+ok 360 - GWT-75.6 given explicit processLine when buildRunProgressView then caller value preserved
+  ---
+  duration_ms: 0.11375
+  type: 'test'
+  ...
+# Subtest: GWT-75.7 given mixed findings when pickFirstToFixFinding then first to_fix
+ok 361 - GWT-75.7 given mixed findings when pickFirstToFixFinding then first to_fix
+  ---
+  duration_ms: 0.142167
+  type: 'test'
+  ...
+# Subtest: GWT-75.7 given no to_fix when pickFirstToFixFinding then null
+ok 362 - GWT-75.7 given no to_fix when pickFirstToFixFinding then null
+  ---
+  duration_ms: 0.0855
+  type: 'test'
+  ...
+# Subtest: GWT-75.8 given pipeline and run narration when Fix defaults checked then no gen-27b injection
+ok 363 - GWT-75.8 given pipeline and run narration when Fix defaults checked then no gen-27b injection
+  ---
+  duration_ms: 0.542125
+  type: 'test'
+  ...
+# Subtest: GWT-75.9 given skill finding when formatParentTargetMeta then type · name
+ok 364 - GWT-75.9 given skill finding when formatParentTargetMeta then type · name
+  ---
+  duration_ms: 0.134042
+  type: 'test'
+  ...
+# Subtest: GWT-75.9 given mcp_server finding when formatParentTargetMeta then type · name
+ok 365 - GWT-75.9 given mcp_server finding when formatParentTargetMeta then type · name
+  ---
+  duration_ms: 0.072
+  type: 'test'
+  ...
+# Subtest: GWT-75.9 given package finding when formatParentTargetMeta then type · name
+ok 366 - GWT-75.9 given package finding when formatParentTargetMeta then type · name
+  ---
+  duration_ms: 0.073375
+  type: 'test'
+  ...
+# Subtest: GWT-75.9 given missing parent fields when formatParentTargetMeta then empty or best-effort
+ok 367 - GWT-75.9 given missing parent fields when formatParentTargetMeta then empty or best-effort
+  ---
+  duration_ms: 0.086958
+  type: 'test'
+  ...
+# Subtest: GWT-75.10 given ids when normalizeSelectionIds then unique string ids
+ok 368 - GWT-75.10 given ids when normalizeSelectionIds then unique string ids
+  ---
+  duration_ms: 0.152625
+  type: 'test'
+  ...
+# Subtest: GWT-75.10 given selection when toggleFindingSelection then single-select replaces prior
+ok 369 - GWT-75.10 given selection when toggleFindingSelection then single-select replaces prior
+  ---
+  duration_ms: 0.14375
+  type: 'test'
+  ...
+# Subtest: GWT-75.10 given multi selection when selectionProgressLabel then k of N selected
+ok 370 - GWT-75.10 given multi selection when selectionProgressLabel then k of N selected
+  ---
+  duration_ms: 0.200375
+  type: 'test'
+  ...
+# Subtest: GWT-77.1 given not_applicable and blocked when scannersReadyForTriage then finished
+ok 371 - GWT-77.1 given not_applicable and blocked when scannersReadyForTriage then finished
+  ---
+  duration_ms: 6.076917
+  type: 'test'
+  ...
+# Subtest: GWT-77.1 given running scanner when scannersReadyForTriage then not ready
+ok 372 - GWT-77.1 given running scanner when scannersReadyForTriage then not ready
+  ---
+  duration_ms: 0.185875
+  type: 'test'
+  ...
+# Subtest: GWT-77.2 given colliding titles across targets when stableFindingId then distinct ids
+ok 373 - GWT-77.2 given colliding titles across targets when stableFindingId then distinct ids
+  ---
+  duration_ms: 0.487583
+  type: 'test'
+  ...
+# Subtest: GWT-77.2 given same raw id on two items when stableFindingId then item-scoped
+ok 374 - GWT-77.2 given same raw id on two items when stableFindingId then item-scoped
+  ---
+  duration_ms: 0.099958
+  type: 'test'
+  ...
+# Subtest: GWT-77.2 given already-stable id when stableFindingId again then idempotent
+ok 375 - GWT-77.2 given already-stable id when stableFindingId again then idempotent
+  ---
+  duration_ms: 3.899
+  type: 'test'
+  ...
+# Subtest: GWT-77.2 given save under finding.id when applyPersistedTriage then status overlays
+ok 376 - GWT-77.2 given save under finding.id when applyPersistedTriage then status overlays
+  ---
+  duration_ms: 0.56075
+  type: 'test'
+  ...
+# Subtest: GWT-77.2 given duplicate ids when dedupeFindingsById then first wins and report matches
+ok 377 - GWT-77.2 given duplicate ids when dedupeFindingsById then first wins and report matches
+  ---
+  duration_ms: 0.657791
+  type: 'test'
+  ...
+# Subtest: GWT-77.3 given target when scopeFindingsToTarget then only that item
+ok 378 - GWT-77.3 given target when scopeFindingsToTarget then only that item
+  ---
+  duration_ms: 1.41
+  type: 'test'
+  ...
+# Subtest: GWT-77.3 given selectSingleFinding when choosing another id then replaces
+ok 379 - GWT-77.3 given selectSingleFinding when choosing another id then replaces
+  ---
+  duration_ms: 0.221833
+  type: 'test'
+  ...
+# Subtest: GWT-77.5 given heuristic patch before mark fixed when verify then not finding_gone
+ok 380 - GWT-77.5 given heuristic patch before mark fixed when verify then not finding_gone
+  ---
+  duration_ms: 0.720375
+  type: 'test'
+  ...
+# Subtest: GWT-77.6 given mark-fixed scan when verify then finding_gone
+ok 381 - GWT-77.6 given mark-fixed scan when verify then finding_gone
+  ---
+  duration_ms: 0.170541
+  type: 'test'
+  ...
+# Subtest: FAIL-1 given mock demo scanners when buildRunReadiness then Review findings CTA visible
+ok 382 - FAIL-1 given mock demo scanners when buildRunReadiness then Review findings CTA visible
+  ---
+  duration_ms: 3.136834
+  type: 'test'
+  ...
+# Subtest: FAIL-1 given full mockData with running rows when readiness then CTA visible via absent panel
+ok 383 - FAIL-1 given full mockData with running rows when readiness then CTA visible via absent panel
+  ---
+  duration_ms: 1.746417
+  type: 'test'
+  ...
+# Subtest: FAIL-1 given spaced not applicable status when normalize then terminal
+ok 384 - FAIL-1 given spaced not applicable status when normalize then terminal
+  ---
+  duration_ms: 0.2205
+  type: 'test'
+  ...
+# Subtest: FAIL-2 given mock findings when Triage Fix Report then shared universe counts
+ok 385 - FAIL-2 given mock findings when Triage Fix Report then shared universe counts
+  ---
+  duration_ms: 20.737959
+  type: 'test'
+  ...
+# Subtest: FAIL-2 given colliding raw ids across items when universe then distinct rows
+ok 386 - FAIL-2 given colliding raw ids across items when universe then distinct rows
+  ---
+  duration_ms: 3.545583
+  type: 'test'
+  ...
+# Subtest: FAIL-3 given completed and not_applicable table when process line then not running
+ok 387 - FAIL-3 given completed and not_applicable table when process line then not running
+  ---
+  duration_ms: 0.564208
+  type: 'test'
+  ...
+# Subtest: FAIL-3 given one running among completed when process line then running count
+ok 388 - FAIL-3 given one running among completed when process line then running count
+  ---
+  duration_ms: 0.201709
+  type: 'test'
+  ...
+# Subtest: GWT-68.1 given workflow run when buildStepperView then six steps with text stateLabels
+ok 389 - GWT-68.1 given workflow run when buildStepperView then six steps with text stateLabels
+  ---
+  duration_ms: 10.60725
+  type: 'test'
+  ...
+# Subtest: GWT-68.1 given run as current when buildStepperView then only run is current
+ok 390 - GWT-68.1 given run as current when buildStepperView then only run is current
+  ---
+  duration_ms: 0.3265
+  type: 'test'
+  ...
+# Subtest: GWT-68.2 given scanners and partial judges when buildRunProgressView then judgesSummary N of M
+ok 391 - GWT-68.2 given scanners and partial judges when buildRunProgressView then judgesSummary N of M
+  ---
+  duration_ms: 2.670625
+  type: 'test'
+  ...
+# Subtest: GWT-68.3 given mixed findings when buildTriageView then headline and coverageHonesty
+ok 392 - GWT-68.3 given mixed findings when buildTriageView then headline and coverageHonesty
+  ---
+  duration_ms: 13.078625
+  type: 'test'
+  ...
+# Subtest: GWT-68.3 given mixed findings when triageFilter to_fix then only matching rows
+ok 393 - GWT-68.3 given mixed findings when triageFilter to_fix then only matching rows
+  ---
+  duration_ms: 13.479334
+  type: 'test'
+  ...
+# Subtest: GWT-68.3 given mixed findings when buildTriageView all then severity High Medium Low
+ok 394 - GWT-68.3 given mixed findings when buildTriageView all then severity High Medium Low
+  ---
+  duration_ms: 0.997791
+  type: 'test'
+  ...
+# Subtest: GWT-68.4 given selected finding when buildInvestigateView then ordered sections and how_we_decided collapsed
+ok 395 - GWT-68.4 given selected finding when buildInvestigateView then ordered sections and how_we_decided collapsed
+  ---
+  duration_ms: 16.006917
+  type: 'test'
+  ...
+# Subtest: GWT-68.4 given source only when buildInvestigateView then source_sink present
+ok 396 - GWT-68.4 given source only when buildInvestigateView then source_sink present
+  ---
+  duration_ms: 0.458542
+  type: 'test'
+  ...
+# Subtest: GWT-68.4 given sink only when buildInvestigateView then source_sink present
+ok 397 - GWT-68.4 given sink only when buildInvestigateView then source_sink present
+  ---
+  duration_ms: 0.210667
+  type: 'test'
+  ...
+# Subtest: GWT-68.4 given neither when buildInvestigateView then source_sink absent
+ok 398 - GWT-68.4 given neither when buildInvestigateView then source_sink absent
+  ---
+  duration_ms: 0.138291
+  type: 'test'
+  ...
+# Subtest: GWT-68.4 given expertMode false + howWeDecided null + no agreement when buildInvestigateView then how_we_decided absent
+ok 399 - GWT-68.4 given expertMode false + howWeDecided null + no agreement when buildInvestigateView then how_we_decided absent
+  ---
+  duration_ms: 0.407208
+  type: 'test'
+  ...
+# Subtest: GWT-68.4 given expertMode false + howWeDecided null + agreement when buildInvestigateView then how_we_decided present
+ok 400 - GWT-68.4 given expertMode false + howWeDecided null + agreement when buildInvestigateView then how_we_decided present
+  ---
+  duration_ms: 0.193959
+  type: 'test'
+  ...
+# Subtest: GWT-68.4 given expertMode true + howWeDecided null when buildInvestigateView then how_we_decided absent
+ok 401 - GWT-68.4 given expertMode true + howWeDecided null when buildInvestigateView then how_we_decided absent
+  ---
+  duration_ms: 0.170042
+  type: 'test'
+  ...
+# Subtest: GWT-68.4 given expertMode true + empty howWeDecided object when buildInvestigateView then how_we_decided present
+ok 402 - GWT-68.4 given expertMode true + empty howWeDecided object when buildInvestigateView then how_we_decided present
+  ---
+  duration_ms: 0.309625
+  type: 'test'
+  ...
+# Subtest: GWT-68.5 given expertMode false when buildInvestigateView then raw IDs hidden via hiddenInSimple
+ok 403 - GWT-68.5 given expertMode false when buildInvestigateView then raw IDs hidden via hiddenInSimple
+  ---
+  duration_ms: 7.735209
+  type: 'test'
+  ...
+# Subtest: GWT-68.5 given expertMode true when buildInvestigateView then raw judge IDs appear in how_we_decided
+ok 404 - GWT-68.5 given expertMode true when buildInvestigateView then raw judge IDs appear in how_we_decided
+  ---
+  duration_ms: 6.060875
+  type: 'test'
+  ...
+# Subtest: GWT-68.5 given default prefs when loadExpertMode then simple (false)
+ok 405 - GWT-68.5 given default prefs when loadExpertMode then simple (false)
+  ---
+  duration_ms: 0.415125
+  type: 'test'
+  ...
+# Subtest: GWT-68.5 given separate stores when expert and triage prefs then keys stay isolated
+ok 406 - GWT-68.5 given separate stores when expert and triage prefs then keys stay isolated
+  ---
+  duration_ms: 0.267541
+  type: 'test'
+  ...
+# Subtest: GWT-68.6 given stable id when saveTriageDecision then loadTriageDecision returns status
+ok 407 - GWT-68.6 given stable id when saveTriageDecision then loadTriageDecision returns status
+  ---
+  duration_ms: 0.15725
+  type: 'test'
+  ...
+# Subtest: GWT-68.6 given findings without id when stableFindingId then deterministic hash key
+ok 408 - GWT-68.6 given findings without id when stableFindingId then deterministic hash key
+  ---
+  duration_ms: 0.313875
+  type: 'test'
+  ...
+# Subtest: GWT-68.6 given persisted statuses when applyPersistedTriage then overlays by stable id
+ok 409 - GWT-68.6 given persisted statuses when applyPersistedTriage then overlays by stable id
+  ---
+  duration_ms: 0.187334
+  type: 'test'
+  ...
+# Subtest: GWT-68.6 given expert toggle when saveExpertMode then loadExpertMode round-trips
+ok 410 - GWT-68.6 given expert toggle when saveExpertMode then loadExpertMode round-trips
+  ---
+  duration_ms: 0.081625
+  type: 'test'
+  ...
+# Subtest: GWT-71.1 given panel provenance when expertMode true then expert fields visible in how_we_decided
+ok 411 - GWT-71.1 given panel provenance when expertMode true then expert fields visible in how_we_decided
+  ---
+  duration_ms: 0.691583
+  type: 'test'
+  ...
+# Subtest: GWT-71.1 given panel provenance when expertMode false then expert fields listed in hiddenInSimple
+ok 412 - GWT-71.1 given panel provenance when expertMode false then expert fields listed in hiddenInSimple
+  ---
+  duration_ms: 0.242084
+  type: 'test'
+  ...
+# Subtest: GWT-71.1 given judgePanel slots only when expertMode true then model and confidence appear
+ok 413 - GWT-71.1 given judgePanel slots only when expertMode true then model and confidence appear
+  ---
+  duration_ms: 0.278583
+  type: 'test'
+  ...
+# Subtest: GWT-75.2 given final verdict and disagreement when simple investigate then plain final and weighed-reasons line
+ok 414 - GWT-75.2 given final verdict and disagreement when simple investigate then plain final and weighed-reasons line
+  ---
+  duration_ms: 0.71925
+  type: 'test'
+  ...
+# Subtest: GWT-75.2 given agreeing final verdict when simple investigate then agreed line without models
+ok 415 - GWT-75.2 given agreeing final verdict when simple investigate then agreed line without models
+  ---
+  duration_ms: 1.764875
+  type: 'test'
+  ...
+# Subtest: GWT-75.2 given no panel final when investigate then no fabricated final-verdict narration
+ok 416 - GWT-75.2 given no panel final when investigate then no fabricated final-verdict narration
+  ---
+  duration_ms: 0.3055
+  type: 'test'
+  ...
+# Subtest: GWT-75.4 given evidence statuses when buildInvestigateView then plain verified unverified not run
+ok 417 - GWT-75.4 given evidence statuses when buildInvestigateView then plain verified unverified not run
+  ---
+  duration_ms: 2.038375
+  type: 'test'
+  ...
+# Subtest: GWT-75.4 given judge-panel-pending placeholders when buildInvestigateView then honest absent copy
+ok 418 - GWT-75.4 given judge-panel-pending placeholders when buildInvestigateView then honest absent copy
+  ---
+  duration_ms: 0.256458
+  type: 'test'
+  ...
+# Subtest: GWT-75.4 given honestAbsentCopy strings when buildInvestigateView then preserves mapper wording
+ok 419 - GWT-75.4 given honestAbsentCopy strings when buildInvestigateView then preserves mapper wording
+  ---
+  duration_ms: 0.146959
+  type: 'test'
+  ...
+# Subtest: edge: given malformed finding null or empty object when buildInvestigateView then empty or minimal sections
+ok 420 - edge: given malformed finding null or empty object when buildInvestigateView then empty or minimal sections
+  ---
+  duration_ms: 0.124375
+  type: 'test'
+  ...
+# Subtest: edge: given invalid triageFilter string when buildTriageView then no matching findings
+ok 421 - edge: given invalid triageFilter string when buildTriageView then no matching findings
+  ---
+  duration_ms: 0.199875
+  type: 'test'
+  ...
+# Subtest: edge: given storage getItem throws when loadExpertMode and loadTriageDecision then safe defaults
+ok 422 - edge: given storage getItem throws when loadExpertMode and loadTriageDecision then safe defaults
+  ---
+  duration_ms: 0.334166
+  type: 'test'
+  ...
+# Subtest: edge: given storage getItem returns garbage when loadExpertMode then false
+ok 423 - edge: given storage getItem returns garbage when loadExpertMode then false
+  ---
+  duration_ms: 0.076125
+  type: 'test'
+  ...
+# Subtest: edge: given empty scanners and missing judges when buildRunProgressView then 0 of 3
+ok 424 - edge: given empty scanners and missing judges when buildRunProgressView then 0 of 3
+  ---
+  duration_ms: 0.093333
+  type: 'test'
+  ...
+1..424
+# tests 424
+# suites 0
+# pass 424
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 9580.790375
+-------------------------------|---------|----------|---------|---------|---------------------------
+File                           | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s         
+-------------------------------|---------|----------|---------|---------|---------------------------
+All files                      |   97.94 |    81.87 |   98.78 |   97.94 |                           
+ tripwire-apply-clean.js       |     100 |    95.23 |     100 |     100 | 40                        
+ tripwire-data.js              |     100 |      100 |     100 |     100 |                           
+ tripwire-fix-controls.js      |     100 |      100 |     100 |     100 |                           
+ tripwire-fix-propose.js       |   99.52 |    89.39 |     100 |   99.52 | 27                        
+ tripwire-investigate.js       |   96.85 |    86.89 |     100 |   96.85 | ...67-368,384-385,417-418 
+ tripwire-live.js              |   97.64 |    84.11 |     100 |   97.64 | 22,216-217,276-279        
+ tripwire-realtime.js          |   95.83 |      100 |      80 |   95.83 | 23-26                     
+ tripwire-report-export.js     |   98.64 |    52.87 |     100 |   98.64 | 249-250,277-279           
+ tripwire-report.js            |     100 |    84.61 |     100 |     100 | 19-21,46,69               
+ tripwire-run-progress.js      |   99.28 |       75 |     100 |   99.28 | 52                        
+ tripwire-status.js            |   97.48 |    87.33 |   94.59 |   97.48 | 92-94,117-121,177-185     
+ tripwire-triage.js            |   99.04 |    76.85 |     100 |   99.04 | 56,70-72                  
+ tripwire-verify-rescan.js     |   98.04 |    73.46 |     100 |   98.04 | 46-48,99                  
+ tripwire-verify-view.js       |   99.25 |    80.95 |     100 |   99.25 | 54                        
+ tripwire-workflow-models.js   |   93.46 |    69.13 |     100 |   93.46 | ...74-175,222-224,242-243 
+ tripwire-workflow-pipeline.js |   97.08 |    77.04 |     100 |   97.08 | ...34-435,626-630,632-636 
+ tripwire-workflow-prefs.js    |     100 |      100 |     100 |     100 |                           
+ tripwire-workflow-stepper.js  |     100 |      100 |     100 |     100 |                           
+-------------------------------|---------|----------|---------|---------|---------------------------
+
+=============================== Coverage summary ===============================
+Statements   : 97.94% ( 4533/4628 )
+Branches     : 81.87% ( 1215/1484 )
+Functions    : 98.78% ( 243/246 )
+Lines        : 97.94% ( 4533/4628 )
+================================================================================
