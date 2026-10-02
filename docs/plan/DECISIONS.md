@@ -2,6 +2,7 @@
 
 | Date | Topic | Decision | Notes |
 |------|-------|----------|-------|
+| 2026-10-02 | branding | Tripwire → **AgentVetter** (unified) | ADR-0018 Accepted; packages hard-cut `agentvetter` / `agentvetter-cli`; CLI `agentvetter` + `tripwire` shim; skills `av-*` + permanent `tw-*` aliases; config `~/.agentvetter` + read-fallback; preserve slices/gate-evidence history. Migration: [docs/MIGRATION-AGENTVETTER.md](../MIGRATION-AGENTVETTER.md) |
 | 2026-09-21 | planning | Added slice 77 | Smoke FAIL/PARTIAL + target-scoped Fix→Verify; soft-amends 75 multi-select toward one target + one finding |
 | 2026-09-21 | slice-77 | `stableFindingId` must be idempotent | Re-prefixing `gen:…` or already `itemId:…` ids broke Triage disposition save→apply (counts frozen). Keep item-scope for raw DB ids only; hashes already bake `itemId` into material. DECIDED / IMPLEMENTED |
 | 2026-08-01 | routing | Brownfield / Flow D | Horizon A first; ask about 1+C after A |
