@@ -1500,8 +1500,13 @@
                     </sc-if>
                   </sc-if>
                   <sc-if value="{{ scv.output.console_output }}">
-                    <div style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;margin:6px 0 4px">Modal console output</div>
-                    <div style="font-family:var(--font-mono);font-size:10px;background:var(--bg-deep);padding:6px 8px;border-radius:4px;color:var(--text-secondary);overflow-x:auto;white-space:pre-wrap;max-height:200px;overflow-y:auto;line-height:1.5">{{ scv.output.console_output }}</div>
+                    <div class="findings-toggle" onClick="{{ scv.toggleRuntime }}" role="button" tabindex="0" aria-expanded="{{ scv.runtimeExpanded }}" style="display:flex;align-items:center;gap:8px;cursor:pointer;user-select:none;padding:6px 0">
+                      <span aria-hidden="true" style="transform:rotate({{ scv.runtimeChevronDeg }})">▸</span>
+                      <div style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em">Modal console output</div>
+                    </div>
+                    <sc-if value="{{ scv.runtimeExpanded }}">
+                      <div style="font-family:var(--font-mono);font-size:10px;background:var(--bg-deep);padding:6px 8px;border-radius:4px;color:var(--text-secondary);overflow-x:auto;white-space:pre-wrap;max-height:200px;overflow-y:auto;line-height:1.5">{{ scv.output.console_output }}</div>
+                    </sc-if>
                   </sc-if>
                   <sc-if value="{{ scv.findingsForScanner.length }}">
                     <div style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;margin:6px 0 4px">Findings from this scanner</div>
@@ -1531,8 +1536,13 @@
                     </sc-if>
                   </sc-if>
                   <sc-if value="{{ scv.hasDetailJson }}">
-                    <div style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;margin:6px 0 4px">Raw output</div>
-                    <div style="font-family:var(--font-mono);font-size:10px;background:var(--bg-deep);padding:6px 8px;border-radius:4px;color:var(--text-secondary);overflow-x:auto;white-space:pre-wrap;max-height:180px;overflow-y:auto">{{ scv.outputJson }}</div>
+                    <div class="findings-toggle" onClick="{{ scv.toggleRaw }}" role="button" tabindex="0" aria-expanded="{{ scv.rawExpanded }}" style="display:flex;align-items:center;gap:8px;cursor:pointer;user-select:none;padding:6px 0">
+                      <span aria-hidden="true" style="transform:rotate({{ scv.rawChevronDeg }})">▸</span>
+                      <div style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em">Raw output</div>
+                    </div>
+                    <sc-if value="{{ scv.rawExpanded }}">
+                      <div style="font-family:var(--font-mono);font-size:10px;background:var(--bg-deep);padding:6px 8px;border-radius:4px;color:var(--text-secondary);overflow-x:auto;white-space:pre-wrap;max-height:180px;overflow-y:auto">{{ scv.outputJson }}</div>
+                    </sc-if>
                   </sc-if>
                 </div>
               </sc-if>
@@ -1630,7 +1640,8 @@ class Component extends DCLogic {
     sortKey: 'name',
     sortDir: 'asc',
     expandedScanners: {},
-    findingsExpanded: true,
+    expandedRuntime: {},
+    findingsExpanded: false,
     realtimeConnected: false,
     showIntro: !sessionStorage.getItem('tripwire-intro-dismissed'),
     currentStep: 'run',
@@ -1773,7 +1784,7 @@ class Component extends DCLogic {
   setDataSourceMode = (e) => {
     const mode = e.target.value;
     sessionStorage.setItem('tripwire-data-source-mode', mode);
-    this.setState({ dataSourceMode: mode, selectedId: null, expandedScanners: {}, findingsExpanded: true });
+    this.setState({ dataSourceMode: mode, selectedId: null, expandedScanners: {}, expandedRuntime: {}, findingsExpanded: false });
     this._loadDataForMode(mode);
   };
 
@@ -1806,7 +1817,7 @@ class Component extends DCLogic {
   setQualityTab = (v) => this.setState({ qualityTab: v });
   setStatusFilter = (v) => this.setState({ statusFilter: v });
   clearFilters = () => this.setState({ statusFilter: 'all', typeFilter: 'all', qualityTab: 'high', searchQuery: '' });
-  selectItem = (id) => this.setState({ selectedId: id, expandedScanners: {}, findingsExpanded: true });
+  selectItem = (id) => this.setState({ selectedId: id, expandedScanners: {}, expandedRuntime: {}, findingsExpanded: false });
   closeDrawer = () => this.setState({ selectedId: null });
   toggleMonitoring = () => this.setState(s => ({ monitoringEnabled: !s.monitoringEnabled, guardResults: {} }));
   setThreshold = (v) => this.setState({ threshold: v, guardResults: {} });
@@ -1818,6 +1829,10 @@ class Component extends DCLogic {
     return { expandedScanners: { ...s.expandedScanners, [key]: !s.expandedScanners[key] } };
   });
   toggleFindings = () => this.setState(s => ({ findingsExpanded: !s.findingsExpanded }));
+  toggleRuntime = (itemId, idx, part) => this.setState(s => {
+    const key = itemId + ':' + idx + ':' + part;
+    return { expandedRuntime: { ...s.expandedRuntime, [key]: !s.expandedRuntime[key] } };
+  });
 
   setWorkflowStep = (stepId) => this.setState({ currentStep: stepId, investigateHowExpanded: false });
 
@@ -3371,6 +3386,9 @@ class Component extends DCLogic {
         const key = selected.id + ':' + idx;
         const isPlaceholder = sc.status === 'not_available_yet';
         const expanded = !isPlaceholder && !!s.expandedScanners[key];
+        const runtimeOpen = s.expandedRuntime || {};
+        const runtimeExpanded = !isPlaceholder && !!runtimeOpen[key + ':console'];
+        const rawExpanded = !isPlaceholder && !!runtimeOpen[key + ':raw'];
         const out = sc.output || {};
         const findingsForScanner = selected.findings
           .filter(f => f.scanner === sc.source)
@@ -3391,6 +3409,12 @@ class Component extends DCLogic {
         return {
           ...sc,
           expanded,
+          runtimeExpanded,
+          runtimeChevronDeg: runtimeExpanded ? '90deg' : '0deg',
+          rawExpanded,
+          rawChevronDeg: rawExpanded ? '90deg' : '0deg',
+          toggleRuntime: isPlaceholder ? () => {} : () => this.toggleRuntime(selected.id, idx, 'console'),
+          toggleRaw: isPlaceholder ? () => {} : () => this.toggleRuntime(selected.id, idx, 'raw'),
           chevron: isPlaceholder ? '' : (expanded ? '▾' : '▸'),
           isRunning: sc.status === 'running',
           statusColor: scannerStatusColor(sc.status),

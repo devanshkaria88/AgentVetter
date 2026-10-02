@@ -683,6 +683,15 @@ test('given dashboard html when inspecting scannersView then Tessl sentinels are
   assert.match(html, /Not Available Yet/);
 });
 
+test('given dashboard html when drawer opens then findings and stored runtime start collapsed', () => {
+  const html = readFileSync(HTML_PATH, 'utf8');
+  assert.match(html, /findingsExpanded: false/);
+  assert.match(html, /selectItem = \(id\) => this\.setState\(\{ selectedId: id, expandedScanners: \{\}, expandedRuntime: \{\}, findingsExpanded: false \}\)/);
+  assert.match(html, /scv\.runtimeExpanded/);
+  assert.match(html, /scv\.rawExpanded/);
+  assert.doesNotMatch(html, /findingsExpanded: true/);
+});
+
 test('given security row with quality id when securityQualityLink then returns quality run id', () => {
   /**
    * Scenario: Security row with a Quality run ID exposes a UI link.
