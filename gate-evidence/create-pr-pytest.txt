@@ -1,0 +1,48 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.13, pytest-9.1.1, pluggy-1.6.0
+rootdir: /Users/swami/git-repos/ai-ml-dl-stuff/tools-and-utilities/tripwire
+configfile: pyproject.toml
+testpaths: sandbox/tests, guard/tests
+plugins: cov-7.1.0, asyncio-1.4.0, anyio-4.14.2, testmon-2.2.0
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 495 items
+
+sandbox/tests/test_acquire_target.py ................................... [  7%]
+......                                                                   [  8%]
+sandbox/tests/test_scan_app.py .................                         [ 11%]
+sandbox/tests/test_scanner_registry.py ....................              [ 15%]
+sandbox/tests/test_scanners_cargo_audit.py ............................. [ 21%]
+..                                                                       [ 22%]
+sandbox/tests/test_scanners_depshield.py ............................... [ 28%]
+.........                                                                [ 30%]
+sandbox/tests/test_scanners_mcp_cli.py ........                          [ 31%]
+sandbox/tests/test_scanners_ossprey.py ................................. [ 38%]
+................                                                         [ 41%]
+sandbox/tests/test_scanners_skill_parse.py ............                  [ 44%]
+sandbox/tests/test_scanners_status.py .................................. [ 50%]
+.......................................                                  [ 58%]
+sandbox/tests/test_ship_path_coverage.py ............................... [ 65%]
+...................................                                      [ 72%]
+sandbox/tests/test_slice72_gap_ecosystem.py ..                           [ 72%]
+guard/tests/test_entry.py .............................................. [ 81%]
+............                                                             [ 84%]
+guard/tests/test_guard_decisions.py ...................                  [ 88%]
+guard/tests/test_hash_parity.py ........                                 [ 89%]
+guard/tests/test_status.py ..........................                    [ 94%]
+guard/tests/test_tw_verify.py ...............                            [ 97%]
+guard/tests/test_verify_units.py ..........                              [100%]
+
+- generated xml file: /Users/swami/git-repos/ai-ml-dl-stuff/tools-and-utilities/tripwire/.test-results/junit.xml -
+================================ tests coverage ================================
+______________ coverage: platform darwin, python 3.12.13-final-0 _______________
+
+Name                  Stmts   Miss Branch BrPart  Cover   Missing
+-----------------------------------------------------------------
+sandbox/__init__.py       0      0      0      0 100.0%
+sandbox/scan_app.py     216     16     62      7  91.7%   30, 140->142, 144-145, 182-193, 271-272, 312->317, 329->334, 378->380, 424, 427
+sandbox/scanners.py    1595     40    750     52  96.0%   86->85, 98-99, 109, 127, 130, 133, 511, 520, 584, 603-607, 760, 924->916, 956-957, 983, 1005, 1073, 1089, 1162->1160, 1185, 1186->1176, 1188, 1193, 1202->1204, 1218->1221, 1270->1272, 1283->1285, 1289->1291, 1314-1316, 1333->1335, 1352->1354, 1354->1359, 1356->1359, 1402-1404, 1456->1458, 1506, 1512, 1518, 1559, 1620, 1637->1639, 1644->1646, 1691->1693, 1738->1740, 1801->1816, 1993->2005, 2130-2131, 2175->2179, 2186-2189, 2372->2375, 2449->2451, 2510->2509, 2742, 2775, 2814->2816, 3021
+-----------------------------------------------------------------
+TOTAL                  1811     56    812     59  95.5%
+Coverage JSON written to file .reports/coverage/coverage.json
+Required test coverage of 95.0% reached. Total coverage: 95.54%
+============================= 495 passed in 9.16s ==============================
