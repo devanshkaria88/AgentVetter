@@ -5,7 +5,7 @@
   "date": "2026-10-03",
   "tests": {
     "guard": {
-      "cmd": "uv run --extra guard pytest guard/tests/test_entry.py guard/tests/test_guard_decisions.py guard/tests/test_tw_verify.py -q",
+      "cmd": "uv run --extra guard pytest guard/tests/test_entry.py guard/tests/test_guard_decisions.py guard/tests/test_av_verify.py -q",
       "result": "92 passed"
     },
     "cli": {
