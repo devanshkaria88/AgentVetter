@@ -2,14 +2,15 @@
 
 > Evidence state: **IMPLEMENTED** (2026-08-25, slice 28 Quality + footer delta on `main` lineage).
 > Prior VERIFIED baseline: 2026-08-15 (slice 26 on Frontline branch).
-> SSOT for `/av-verify`, `/av-scan`, and `/av-self-check` human + machine output (slices 27–30; permanent `/tw-*` aliases).
+> SSOT for `/av-verify`, `/av-scan`, and `/av-self-check` human + machine output
+> (permanent aliases `/tw-*`; slices 27–30).
 
 Source prompt: [`internal-docs/04_frontline/main_prompt.md`](../../internal-docs/04_frontline/main_prompt.md) § OUTPUT FORMAT.
 Helpers: [`guard/verify.py`](../../guard/verify.py) (`verify_artifacts`, `format_quality_cell`).
 
 ## Audiences
 
-Every `/av-*` status response must support two audiences with the **same** per-artifact facts:
+Every `/av-*` (aliases `/tw-*`) status response must support two audiences with the **same** per-artifact facts:
 
 1. **Human** — Markdown table (one row per artifact)
 2. **Machine** — JSON object with an `artifacts` array
@@ -133,7 +134,7 @@ Production path: `cli/src/orchestrator.js` → `runScan` prints one JSON object 
 
 `--dry-discover` prints the discovered **targets list** (not the `runScan` result) and exits without spawning sandboxes.
 
-There is **no** synchronous status-lookup CLI. Per-artifact RAG / staleness for `/av-verify` comes from Supabase (`items.heatmap_status` + scan timestamps), same pattern as `guard/guard_hook.py`. Quality comes from persisted `items.quality_score` — do **not** invoke Tessl from `/av-verify`.
+There is **no** synchronous status-lookup CLI. Per-artifact RAG / staleness for `/av-verify` (alias `/tw-verify`) comes from Supabase (`items.heatmap_status` + scan timestamps), same pattern as `guard/guard_hook.py`. Quality comes from persisted `items.quality_score` — do **not** invoke Tessl from `/av-verify`.
 
 ### BACKLOG — scan → dual-output map
 
@@ -143,7 +144,7 @@ There is **no** synchronous status-lookup CLI. Per-artifact RAG / staleness for 
 | `state` / `rag` / `stale` / `scanned_at` | **no** | Supabase `items` + scan_runs |
 | `quality_score` | **no** (persisted on `items` by sandbox Tessl) | `items.quality_score` |
 | `will_be_blocked` / `note` | **no** | Guard threshold + enable flag |
-| `batch_id` / `scan_run_ids` | **yes** | Echo in `/av-scan` confirmation (skill 29) |
+| `batch_id` / `scan_run_ids` | **yes** | Echo in `/av-scan` (alias `/tw-scan`) confirmation (skill 29) |
 
 Do not invent scan-stdout fields that are not listed above. Skills compose dual-output rows from Supabase + resolution; they use `batch_id` / `scan_run_ids` only as submit receipts.
 
