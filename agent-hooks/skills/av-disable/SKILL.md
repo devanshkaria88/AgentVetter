@@ -6,7 +6,7 @@ description: Turn AgentVetter enforcement OFF for Claude Code tool calls. Use wh
 
 # av-disable
 
-Flip the local AgentVetter kill switch OFF. This edits ONLY the `enable` key of `~/.agentvetter/config.json` (fallback: `~/.tripwire/config.json`) — no Supabase writes, no other keys touched.
+Flip the local AgentVetter kill switch OFF. This edits ONLY the `enable` key of `~/.agentvetter/config.json` — no Supabase writes, no other keys touched.
 
 ## Step 0 — Ask before disabling
 

@@ -24,10 +24,10 @@ time budget, never from exit codes or the external timeout.
 ## Decision
 
 Guard ships as the **Claude Code PreToolUse enforcement layer**, per the
-hackathon working plan ("Tripwire × Claude Code Integration — Implementation
+hackathon working plan ("AgentVetter × Claude Code Integration — Implementation
 Plan", 2026-08-15 session working document):
 
-- **Handler at `~/.agentvetter/hooks/`** (`pre-tool-use.sh` + `_guard_entry.py`; read-fallback `~/.tripwire`),
+- **Handler at `~/.agentvetter/hooks/`** (`pre-tool-use.sh` + `_guard_entry.py`),
   registered under matcher `^(Skill|Bash|mcp__.*)$` in `~/.claude/settings.json`
   (JSON-merge preserving existing keys, timestamped backup first). Repo source
   is a tracked `agent-hooks/` directory. Bash is gated only when the command
@@ -180,8 +180,8 @@ backstop only.
   record) · [ADR-0008](./0008-anon-read-service-role-write.md) ·
   [ADR-0009](./0009-fail-closed-incomplete-evidence.md) ·
   [ADR-0013](./0013-ship-path-quality-gates.md)
-- Tripwire × Claude Code Integration — Implementation Plan (hackathon working
-  document, 2026-08-15; branch `tripwire-frontline-hack`)
+- AgentVetter × Claude Code Integration — Implementation Plan (hackathon working
+  document, 2026-08-15; frontline-hackathon branch)
 - [docs/plan/DECISIONS.md](../plan/DECISIONS.md) 2026-08-15 rows ·
   [docs/STATUS.md](../STATUS.md) PROPOSED section ·
   [docs/plan/TRAIL.md](../plan/TRAIL.md) wave H

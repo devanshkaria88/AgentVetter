@@ -6,7 +6,7 @@ import { isAgentVetterHookCommand, resolveConfigHome } from './configHome.js';
 
 /**
  * `agentvetter status` (slice 37 — CLI monitoring, read-only). Reports:
- *   a. Hooks   — ~/.agentvetter/config.json (+ ~/.tripwire fallback) + Claude
+ *   a. Hooks   — ~/.agentvetter/config.json + Claude
  *                settings registration + the Supabase `config` platform switch
  *                (two-switch rule: effective enforcement = local `enable` AND
  *                `monitoring_enabled`).

@@ -63,7 +63,7 @@ Allowlist detail: [OPTIONAL_SCANNER_KEYS.md](../../fixtures/OPTIONAL_SCANNER_KEY
 ```bash
 modal app list
 # Expect deployed agentvetter-scan after a successful deploy
-# After cutover, stop any leftover tripwire-scan app and delete unused tripwire-* secrets
+# After cutover, stop any leftover prior-brand scan app and delete unused prior-brand secrets
 # (see docs/MIGRATION-AGENTVETTER.md).
 ```
 

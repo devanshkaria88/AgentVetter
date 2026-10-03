@@ -25,8 +25,6 @@ from guard.guard_hook import check_call_by_identifier
 from guard.status import DEFAULT_VALIDITY_DAYS
 
 DEFAULT_CONFIG_PATH = "~/.agentvetter/config.json"
-_LEGACY_CONFIG_PATH = "~/.tripwire/config.json"
-
 # entry.py lives at <repo_root>/guard/entry.py; the demo MCP manifest ships in
 # the repo, so derive its location from this file rather than hardcoding.
 _REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -34,22 +32,11 @@ _FIXTURES_MANIFEST = _REPO_ROOT / "fixtures" / "mcp" / "mcp_manifest.json"
 
 
 def resolve_config_path() -> str:
-    """Prefer AGENTVETTER_CONFIG / ~/.agentvetter; fall back to ~/.tripwire when present."""
-    env = os.environ.get("AGENTVETTER_CONFIG") or os.environ.get("TRIPWIRE_CONFIG")
+    """Prefer AGENTVETTER_CONFIG, else ~/.agentvetter/config.json."""
+    env = os.environ.get("AGENTVETTER_CONFIG")
     if env:
         return env
-    preferred = Path(os.path.expanduser(DEFAULT_CONFIG_PATH))
-    if preferred.exists():
-        return str(preferred)
-    legacy = Path(os.path.expanduser(_LEGACY_CONFIG_PATH))
-    if legacy.exists():
-        print(
-            "warning: using ~/.tripwire; migrate to ~/.agentvetter "
-            "(see docs/MIGRATION-AGENTVETTER.md).",
-            file=sys.stderr,
-        )
-        return str(legacy)
-    return str(preferred)
+    return str(Path(os.path.expanduser(DEFAULT_CONFIG_PATH)))
 
 
 def resolve_config_home() -> Path:
@@ -366,10 +353,7 @@ def _resolve_mcp_server(name: str, cwd: str) -> str | None:
             next(
                 (
                     p
-                    for p in (
-                        Path.home() / ".agentvetter" / "demo-mcp.json",
-                        Path.home() / ".tripwire" / "demo-mcp.json",
-                    )
+                    for p in (Path.home() / ".agentvetter" / "demo-mcp.json",)
                     if p.exists()
                 ),
                 Path.home() / ".agentvetter" / "demo-mcp.json",

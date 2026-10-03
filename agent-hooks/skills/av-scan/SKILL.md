@@ -16,7 +16,7 @@ Names are space- OR comma-separated. **Force**: both syntaxes work — a literal
 
 ## Step 2 — Read AgentVetter config
 
-Read `~/.agentvetter/config.json` (fallback: `~/.tripwire/config.json`): `scan_validity_days`, `repo_root`, `cli_bin`, `env_file`, `uv_bin`. If missing/unparseable, tell the user config is missing/corrupt and `agentvetter setup-agent-hooks` restores it — then stop (submission needs `cli_bin`/`repo_root`).
+Read `~/.agentvetter/config.json`: `scan_validity_days`, `repo_root`, `cli_bin`, `env_file`, `uv_bin`. If missing/unparseable, tell the user config is missing/corrupt and `agentvetter setup-agent-hooks` restores it — then stop (submission needs `cli_bin`/`repo_root`).
 
 ## Step 3 — Resolve each name (deterministic — do NOT hand-search loci)
 

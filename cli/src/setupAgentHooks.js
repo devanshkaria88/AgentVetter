@@ -252,7 +252,7 @@ function assertMergeableShape(settings, settingsPath) {
 /**
  * JSON-merge the PreToolUse hook into ~/.claude/settings.json: timestamped backup
  * before any modification, idempotent by handler-command suffix (`.agentvetter`
- * or legacy `.tripwire`), all other keys preserved, atomic replace on write.
+ * `), all other keys preserved, atomic replace on write.
  * Re-runs refresh the matcher when our handler is already present but the
  * matcher is stale (e.g. Skill|mcp → Skill|Bash|mcp) without duplicating the entry.
  */

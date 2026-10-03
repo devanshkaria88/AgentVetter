@@ -389,7 +389,7 @@ def main(
 
 
 _CLONE_TIMEOUT = int(
-    os.environ.get("AGENTVETTER_CLONE_TIMEOUT") or os.environ.get("TRIPWIRE_CLONE_TIMEOUT") or 120
+    os.environ.get("AGENTVETTER_CLONE_TIMEOUT") or 120
 )
 
 

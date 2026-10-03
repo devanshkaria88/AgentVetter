@@ -24,7 +24,6 @@ maintenance commands.
 | `agentvetter scan --no-defaults` | Error instead of machine defaults on empty args |
 | `agentvetter route --batch-id <id>` | Re-run tiered router for a completed batch |
 | `agentvetter setup-agent-hooks` | Install Claude Code hooks + `/av-*` skills (`tw-*` aliases) |
-| `tripwire` (deprecated shim) | Warns on stderr and execs `agentvetter` with the same argv (one minor) |
 
 Full help: `agentvetter --help` · `agentvetter scan --help`. Shim policy:
 [MIGRATION-AGENTVETTER.md](../MIGRATION-AGENTVETTER.md) · [ADR-0018](../adr/0018-agentvetter-rebrand.md).

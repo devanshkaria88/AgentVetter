@@ -286,13 +286,6 @@ begin
 end;
 $$ language plpgsql;
 
--- Compat alias for the Tripwire-era function name. Call sites use agentvetter_rollup_item.
--- Dropping this alias is a deferred operator migration — see docs/MIGRATION-AGENTVETTER.md.
-create or replace function tripwire_rollup_item(p_item_id uuid) returns void as $$
-begin
-  perform agentvetter_rollup_item(p_item_id);
-end;
-$$ language plpgsql;
 
 -- ─── Supabase Realtime ──────────────────────────────────────────────────────
 -- Enable Realtime publication so the browser dashboard receives INSERT/UPDATE

@@ -13,15 +13,7 @@
 # Compatible with macOS /bin/bash 3.2: no mapfile/readarray, no GNU timeout.
 set -euo pipefail
 
-# Prefer ~/.agentvetter; fall back to legacy ~/.tripwire (ADR-0018).
-if [ -f "${HOME}/.agentvetter/config.json" ]; then
-  CONFIG_HOME="${HOME}/.agentvetter"
-elif [ -f "${HOME}/.tripwire/config.json" ]; then
-  CONFIG_HOME="${HOME}/.tripwire"
-  echo "warning: using ~/.tripwire; migrate to ~/.agentvetter (see docs/MIGRATION-AGENTVETTER.md)." >&2
-else
-  CONFIG_HOME="${HOME}/.agentvetter"
-fi
+CONFIG_HOME="${HOME}/.agentvetter"
 CONFIG_FILE="${CONFIG_HOME}/config.json"
 ENTRY_SHIM="${CONFIG_HOME}/hooks/_guard_entry.py"
 

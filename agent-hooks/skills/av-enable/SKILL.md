@@ -6,7 +6,7 @@ description: Turn AgentVetter enforcement ON for Claude Code tool calls. Use whe
 
 # av-enable
 
-Flip the local AgentVetter kill switch ON. This edits ONLY the `enable` key of `~/.agentvetter/config.json` (fallback: `~/.tripwire/config.json`) — no Supabase writes, no other keys touched.
+Flip the local AgentVetter kill switch ON. This edits ONLY the `enable` key of `~/.agentvetter/config.json` — no Supabase writes, no other keys touched.
 
 ## Step 0 — Ask before enabling
 
@@ -52,7 +52,7 @@ If `created` is true, the config file was missing (a tamper signal to the hook) 
 
 ## Step 2 — Check the platform switch
 
-Effective enforcement = local `enable` AND the Supabase platform switch `config.monitoring_enabled` — the guard still honors the platform switch even when local enforcement is on. Check it via the status driver (any probe identifier works; only the `config` object of its output matters). Substitute `<repo_root>`, `<env_file>`, `<uv_bin>` from `~/.agentvetter/config.json` (fallback: `~/.tripwire/config.json`):
+Effective enforcement = local `enable` AND the Supabase platform switch `config.monitoring_enabled` — the guard still honors the platform switch even when local enforcement is on. Check it via the status driver (any probe identifier works; only the `config` object of its output matters). Substitute `<repo_root>`, `<env_file>`, `<uv_bin>` from `~/.agentvetter/config.json`:
 
 ```bash
 cd "<repo_root>" && set -a && source "<env_file>" && set +a && "<uv_bin>" run --extra guard python -c '

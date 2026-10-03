@@ -291,11 +291,10 @@ Reachable through production entry points / config:
 
 - Modal secrets `agentvetter-supabase` + `agentvetter-scan-secrets` via
   `./scripts/setup-modal.sh --non-interactive`; deployed app **`agentvetter-scan`**
-- Legacy `tripwire-scan` app stopped; `tripwire-supabase` /
-  `tripwire-scan-secrets` deleted
-- Live Supabase has `agentvetter_rollup_item` (+ `tripwire_rollup_item` compat
-  alias); smoke `agentvetter scan ./fixtures/skills/safe-csv-cleaner
-  --no-defaults --force` → `failed_targets: []`
+- Prior-brand Modal scan app/secrets removed after cutover
+- Live Supabase has `agentvetter_rollup_item`; smoke
+  `agentvetter scan ./fixtures/skills/safe-csv-cleaner --no-defaults --force`
+  → `failed_targets: []`
 - Runbook: [MIGRATION-AGENTVETTER.md](./MIGRATION-AGENTVETTER.md) ·
   [modal-setup.md](./user-guide/modal-setup.md)
 

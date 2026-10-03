@@ -16,7 +16,7 @@ Names are space- OR comma-separated (e.g. `/av-verify safe-skill, vuln-tool othe
 
 ## Step 2 — Read AgentVetter config
 
-Read `~/.agentvetter/config.json` (fallback: `~/.tripwire/config.json`) (JSON). You need: `enable`, `scan_validity_days`, `repo_root`, `env_file`, `uv_bin` (and `cli_bin` if a scan is later requested). If the file is missing or unparseable, tell the user AgentVetter config is missing/corrupt (the enforcement hook treats this as tampering and denies) and that `agentvetter setup-agent-hooks` restores it — then stop; there is no way to query status without it.
+Read `~/.agentvetter/config.json` (JSON). You need: `enable`, `scan_validity_days`, `repo_root`, `env_file`, `uv_bin` (and `cli_bin` if a scan is later requested). If the file is missing or unparseable, tell the user AgentVetter config is missing/corrupt (the enforcement hook treats this as tampering and denies) and that `agentvetter setup-agent-hooks` restores it — then stop; there is no way to query status without it.
 
 ## Step 3 — Resolve each name (deterministic — do NOT hand-search loci)
 

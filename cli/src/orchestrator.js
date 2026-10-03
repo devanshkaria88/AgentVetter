@@ -16,9 +16,7 @@ import {
 } from './scannerInventory.js';
 
 function judgePanelEnvEnabled() {
-  const primary = process.env.AGENTVETTER_JUDGE_PANEL;
-  const legacy = process.env.TRIPWIRE_JUDGE_PANEL;
-  return primary === '1' || (primary === undefined && legacy === '1');
+  return process.env.AGENTVETTER_JUDGE_PANEL === '1';
 }
 
 async function mapWithConcurrency(items, limit, fn) {

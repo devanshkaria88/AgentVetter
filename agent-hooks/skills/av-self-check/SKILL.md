@@ -26,7 +26,7 @@ For each: if the directory exists, the identifier is its canonical absolute path
 
 ## Step 3 — Query status (shared status procedure)
 
-Read `~/.agentvetter/config.json` (fallback: `~/.tripwire/config.json`) for `enable`, `scan_validity_days`, `repo_root`, `env_file`, `uv_bin` (missing/corrupt config: report that the hook treats this as tampering and denies, point at `agentvetter setup-agent-hooks`, and stop). Then run the status driver ONCE with all existing identifiers — exactly this driver, no improvised queries:
+Read `~/.agentvetter/config.json` for `enable`, `scan_validity_days`, `repo_root`, `env_file`, `uv_bin` (missing/corrupt config: report that the hook treats this as tampering and denies, point at `agentvetter setup-agent-hooks`, and stop). Then run the status driver ONCE with all existing identifiers — exactly this driver, no improvised queries:
 
 ```bash
 cd "<repo_root>" && set -a && source "<env_file>" && set +a && "<uv_bin>" run --extra guard python -c '
@@ -102,7 +102,7 @@ If any `will_be_blocked`, print **Will be blocked when AgentVetter is enabled** 
 
 If local `enable` is false, add the "currently bypassed" note; if `monitoring_enabled` is false, add the platform-switch warning.
 
-A non-green result here matters: a blocked `av-*` skill means the hook will block AgentVetter's own tooling — the out-of-band remedies are `cd <repo_root> && node <cli_bin> scan <abs path> --no-defaults --force` in a terminal, or hand-editing `~/.agentvetter/config.json` (fallback: `~/.tripwire/config.json`) to `"enable": false`.
+A non-green result here matters: a blocked `av-*` skill means the hook will block AgentVetter's own tooling — the out-of-band remedies are `cd <repo_root> && node <cli_bin> scan <abs path> --no-defaults --force` in a terminal, or hand-editing `~/.agentvetter/config.json` to `"enable": false`.
 
 ## Step 5 — Rescan offer
 

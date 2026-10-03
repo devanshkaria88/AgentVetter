@@ -19,15 +19,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   live CLI scan refresh; capture script covers `05-workflow/`
 
 ### Changed
+- Hard-cut residual legacy product names from live code/docs (ADR-0018 amend
+  2026-10-03): single CLI bin `agentvetter`; config home `~/.agentvetter` only;
+  `AGENTVETTER_*` env only; schema ships `agentvetter_rollup_item` only;
+  permanent `tw-*` skill aliases retained.
 - Operator Modal cutover (ADR-0018): live secrets `agentvetter-supabase` /
   `agentvetter-scan-secrets`; deployed app `agentvetter-scan`; legacy
-  `tripwire-scan` stopped and `tripwire-*` secrets deleted. VERIFIED smoke scan
   `fixtures/skills/safe-csv-cleaner` after rollup apply (2026-10-02).
 - Agent brand surfaces (slice 78): live skills, guard remedies, and
   `setup-agent-hooks` summary prefer `/av-*` (permanent `tw-*` aliases retained).
   IMPLEMENTED / VERIFIED (unit) on `slice/78-agent-brand-surfaces`.
-- Renamed CLI shim test `tripwireShim.test.js` → `agentvetterShim.test.js`
-  (still covers the deprecated `tripwire` npm bin).
 
 ### Fixed
 - Dashboard item drawer: Findings, Modal console output, and Raw output start
@@ -231,9 +232,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - **Breaking — rebrand to AgentVetter** (ADR-0018): packages `agentvetter` /
-  `agentvetter-cli`; primary CLI `agentvetter` with deprecated `tripwire` shim;
   skills `av-*` (permanent `tw-*` aliases); config home `~/.agentvetter` with
-  read-fallback to `~/.tripwire`; env prefer `AGENTVETTER_*`. See
   [docs/MIGRATION-AGENTVETTER.md](docs/MIGRATION-AGENTVETTER.md).
 - Dashboard primary navigation: inventory (KPIs / filters / cards) is the default
   **Dashboard** tab; Run → Triage → Investigate → Fix → Verify → Report lives on a
