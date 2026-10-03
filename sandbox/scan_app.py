@@ -388,9 +388,7 @@ def main(
     )
 
 
-_CLONE_TIMEOUT = int(
-    os.environ.get("AGENTVETTER_CLONE_TIMEOUT") or 120
-)
+_CLONE_TIMEOUT = int(os.environ.get("AGENTVETTER_CLONE_TIMEOUT") or 120)
 
 
 def _is_git_url(target: str) -> bool:

@@ -351,11 +351,7 @@ def _resolve_mcp_server(name: str, cwd: str) -> str | None:
     if name in _mcp_server_keys(
         str(
             next(
-                (
-                    p
-                    for p in (Path.home() / ".agentvetter" / "demo-mcp.json",)
-                    if p.exists()
-                ),
+                (p for p in (Path.home() / ".agentvetter" / "demo-mcp.json",) if p.exists()),
                 Path.home() / ".agentvetter" / "demo-mcp.json",
             )
         )
