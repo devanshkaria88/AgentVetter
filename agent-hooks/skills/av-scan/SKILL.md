@@ -115,15 +115,15 @@ Decide per artifact:
 Create a scratch directory via `mktemp` (never fixed `/tmp` paths — they collide across sessions and are symlink-attackable):
 
 ```bash
-TW_TMP="$(mktemp -d "${TMPDIR:-/tmp}/tw-scan.XXXXXX")"
+AV_TMP="$(mktemp -d "${TMPDIR:-/tmp}/av-scan.XXXXXX")"
 ```
 
-**MCP servers are scanned by passing a MANIFEST FILE path — never a bare key, never a server/fixture directory path.** If any to-submit artifacts are MCP keys, write `$TW_TMP/mcp-subset.json` containing an `mcpServers` object with JUST those keys, each entry copied verbatim from the locus it resolved in, and add that file path to the target list. The CLI's manifest expansion turns each key into an item whose `identifier` is the bare key with `content_hash` `pending:<key>` — exactly the identity the enforcement hook looks up.
+**MCP servers are scanned by passing a MANIFEST FILE path — never a bare key, never a server/fixture directory path.** If any to-submit artifacts are MCP keys, write `$AV_TMP/mcp-subset.json` containing an `mcpServers` object with JUST those keys, each entry copied verbatim from the locus it resolved in, and add that file path to the target list. The CLI's manifest expansion turns each key into an item whose `identifier` is the bare key with `content_hash` `pending:<key>` — exactly the identity the enforcement hook looks up.
 
 One CLI invocation with ALL to-submit skill absolute paths (plus the subset manifest, when present), run with `cwd=<repo_root>` (required for the Modal spawn), stdout/stderr captured to scratch files:
 
 ```bash
-cd "<repo_root>" && node "<cli_bin>" scan <abs-skill-path-1> <abs-skill-path-2> ... "$TW_TMP/mcp-subset.json" --no-defaults --force > "$TW_TMP/stdout.txt" 2> "$TW_TMP/stderr.txt"
+cd "<repo_root>" && node "<cli_bin>" scan <abs-skill-path-1> <abs-skill-path-2> ... "$AV_TMP/mcp-subset.json" --no-defaults --force > "$AV_TMP/stdout.txt" 2> "$AV_TMP/stderr.txt"
 ```
 
 **ALWAYS append `--force`** — not only in force mode. Rationale: everything that reaches submission is either unscanned (force is harmless — there is nothing to skip), stale or errored (force is REQUIRED — without it the CLI matches the unchanged content hash, prints `[skip] … content unchanged since last scan`, creates no scan run, and the stale/errored state never clears), or explicitly user-forced.
@@ -148,7 +148,7 @@ while idx != -1:
             result = obj
     idx = text.find("{", idx + 1)
 print(json.dumps(result))
-' "$TW_TMP/stdout.txt"
+' "$AV_TMP/stdout.txt"
 ```
 
 The result is `{"batch_id": ..., "scan_run_ids": [...], "failed_targets": [{"target", "error"}, ...]}`. Mapping run ids to artifacts: `scan_run_ids` lists run ids in the order the targets were passed on the command line — the subset manifest expands in place into one target per key (targets are the bare keys, in the manifest's key order) — minus any targets the CLI itself skipped (defensive: `--force` is always passed, so `[skip] <target> — content unchanged since last scan` lines should not occur) and minus failures that never got a run. Use the `[skip]` lines and `failed_targets` to attribute; if attribution is ambiguous, report the shared `batch_id` and say the per-run mapping is ambiguous rather than guessing.

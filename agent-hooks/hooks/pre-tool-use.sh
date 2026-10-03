@@ -58,7 +58,7 @@ cleanup_tmp() {
 # ── Failure policy (§4.3.5): if we reach exit without a decision, deny. ──────
 finish() {
   if [ "$DECISION_EMITTED" -ne 1 ]; then
-    emit_deny "agentvetter guard error — fail closed (unexpected handler failure; retry, run /tw-verify, or set \"enable\": false in ~/.agentvetter/config.json to bypass)"
+    emit_deny "agentvetter guard error — fail closed (unexpected handler failure; retry, run /av-verify, or set \"enable\": false in ~/.agentvetter/config.json to bypass)"
   fi
   cleanup_tmp
   exit 0

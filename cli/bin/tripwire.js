@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Deprecated Tripwire-era CLI shim. Warns once on stderr, then execs agentvetter
+ * Deprecated CLI shim. Warns once on stderr, then execs agentvetter
  * with the same argv (ADR-0018 / docs/MIGRATION-AGENTVETTER.md).
  */
 import { spawn } from 'node:child_process';

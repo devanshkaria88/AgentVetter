@@ -1,4 +1,4 @@
-"""Dual-output /tw-verify helpers (slice 28).
+"""Dual-output /av-verify helpers (slice 28).
 
 Classifies resolved artifacts into the six UI states from the Frontline
 dual-output contract and renders human Markdown + machine JSON in one pass.
@@ -231,7 +231,7 @@ def _classify(
             stale=False,
             will_be_blocked=True,
             quality_score=None,
-            note=f"Never scanned — offer `/tw-scan {resolved.name}`",
+            note=f"Never scanned — offer `/av-scan {resolved.name}`",
         )
 
     stale = _is_stale(status.scanned_at, validity_days, now)
@@ -248,7 +248,7 @@ def _classify(
             quality_score=score,
             note=(
                 f"Last scanned >{validity_days} days ago — "
-                f"blocked until rescanned (run /tw-scan {resolved.name})"
+                f"blocked until rescanned (run /av-scan {resolved.name})"
             ),
         )
 

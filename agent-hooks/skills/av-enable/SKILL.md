@@ -72,7 +72,7 @@ print(json.dumps({
         "monitoring_enabled": bool(s.get("monitoring_enabled", True)),
     },
 }))
-' tw-enable-probe
+' av-enable-probe
 ```
 
 If the probe fails (missing env, network), say the platform switch could not be checked — the hook itself remains fail-closed either way.
@@ -83,4 +83,4 @@ Tell the user:
 
 - AgentVetter enforcement is now **ON** — unscanned, stale, red-rated (and amber, when threshold is `red_and_amber`), and tampered artifacts will be blocked at call time.
 - If `monitoring_enabled` came back `false`: warn plainly that the Supabase platform switch is OFF and **still gates the guard** — local enable alone will not block until the platform switch is re-enabled (that switch is managed on the platform side, not by this skill).
-- `/tw-verify <name>` shows what will be blocked; `/tw-disable` turns enforcement back off.
+- `/av-verify <name>` shows what will be blocked; `/av-disable` turns enforcement back off.

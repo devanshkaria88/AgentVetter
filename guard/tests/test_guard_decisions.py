@@ -148,7 +148,7 @@ def test_given_content_hash_mismatch_then_deny_tamper() -> None:
     )
 
     assert result["allow"] is False
-    assert result["reason"] == "content changed since last scan — run /tw-scan"
+    assert result["reason"] == "content changed since last scan — run /av-scan"
 
 
 def test_given_content_hash_match_then_allow() -> None:

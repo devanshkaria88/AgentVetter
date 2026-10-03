@@ -167,7 +167,7 @@ def _check_call_by_identifier(
     if content_changed(content_path, status.get("stored_content_hash"), hash_fn=hash_fn):
         return {
             "allow": False,
-            "reason": "content changed since last scan — run /tw-scan",
+            "reason": "content changed since last scan — run /av-scan",
             "status": rag,
         }
 

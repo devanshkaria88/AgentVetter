@@ -22,7 +22,7 @@ import {
 } from '../src/coverageLedger.js';
 
 async function withFixture(files, fn) {
-  const root = await mkdtemp(path.join(os.tmpdir(), 'tw-cov-'));
+  const root = await mkdtemp(path.join(os.tmpdir(), 'av-cov-'));
   try {
     for (const [rel, body] of Object.entries(files)) {
       const full = path.join(root, rel);

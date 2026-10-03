@@ -131,7 +131,7 @@ def test_given_bash_skill_dir_only_as_data_arg_then_no_target(
     """
     Scenario: Status/scan driver Bash that only passes a skill directory as a
     data argument is not attributed — otherwise unscanned skills deadlock
-    /tw-verify and /tw-scan (the status query itself would be denied).
+    /av-verify and /av-scan (the status query itself would be denied).
     Slice: Bash skill-path attribution — directory-as-data exemption
 
     Given a Bash command that names a skill directory only as an argv to an
@@ -413,7 +413,7 @@ def test_given_unknown_mcp_server_then_none(fake_home: Path, tmp_path: Path) -> 
     assert entry.resolve_artifact({"kind": "mcp", "name": "nope"}, str(tmp_path)) is None
 
 
-# ─── resolve_operator_name (/tw-verify|/tw-scan) ─────────────────────────────
+# ─── resolve_operator_name (/av-verify|/av-scan) ─────────────────────────────
 
 
 def test_given_demo_mcp_key_when_operator_resolve_then_found(
@@ -528,8 +528,8 @@ def test_given_denied_artifact_then_reason_carries_remedies(
     reason = decision["reason"]
     assert "rated red" in reason
     assert "bad-skill" in reason
-    assert "/tw-scan bad-skill" in reason  # in-session remedy
-    assert "/tw-disable" in reason
+    assert "/av-scan bad-skill" in reason  # in-session remedy
+    assert "/av-disable" in reason
     assert "node /repo/cli/bin/agentvetter.js scan" in reason  # out-of-band remedy
     assert '"enable": false' in reason
 
@@ -544,7 +544,7 @@ def test_given_unresolvable_skill_then_deny_names_it(fake_home: Path, tmp_path: 
 
     assert decision["allow"] is False
     assert "ghost-skill" in decision["reason"]
-    assert "/tw-disable" in decision["reason"]
+    assert "/av-disable" in decision["reason"]
 
 
 def test_given_skill_payload_with_no_name_then_deny(tmp_path: Path) -> None:

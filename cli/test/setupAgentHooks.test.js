@@ -18,12 +18,12 @@ import { runSetupAgentHooks, extractTrailingJson, defaultScanFn, HOOK_MATCHER } 
 const VALID_ENV = 'SUPABASE_URL=https://example.supabase.co\nSUPABASE_SERVICE_ROLE_KEY=service-key\n';
 
 const MIXED_STDOUT = [
-  '[skip] /tmp/installed/tw-enable — content unchanged since last scan',
+  '[skip] /tmp/installed/av-enable — content unchanged since last scan',
   '{',
   '  "batch_id": "batch-99",',
   '  "scan_run_ids": ["r-1", "r-2", "r-3"],',
   '  "failed_targets": [',
-  '    { "target": "/tmp/installed/tw-broken", "error": "sandbox exited 1" }',
+  '    { "target": "/tmp/installed/av-broken", "error": "sandbox exited 1" }',
   '  ]',
   '}',
   '[route] batch batch-99 routed {"sie": "complete"}',
@@ -35,7 +35,7 @@ async function withFixture(options, fn) {
     envContent: VALID_ENV, skills: ['av-verify', 'av-scan'], settings: null, mcpJson: null, claudeJson: null,
     ...options,
   };
-  const base = await mkdtemp(path.join(tmpdir(), 'tw-setup-'));
+  const base = await mkdtemp(path.join(tmpdir(), 'av-setup-'));
   const fx = {
     base,
     repo: path.join(base, 'repo'),
@@ -478,7 +478,7 @@ test('sweep passes MCP MANIFEST FILES — never bare server keys (blocker regres
 
     assert.deepEqual(result.scans, {
       submitted: 3,
-      failed: [{ target: '/tmp/installed/tw-broken', error: 'sandbox exited 1' }],
+      failed: [{ target: '/tmp/installed/av-broken', error: 'sandbox exited 1' }],
     });
     assert.equal(stdoutLines.length, 1, 'exactly one machine-readable stdout line');
     const machine = JSON.parse(stdoutLines[0]);
@@ -494,7 +494,7 @@ test('malformed or key-less MCP configs contribute no sweep targets', async () =
     const scanFn = makeScanFn();
     await run(fx, { scanFn });
     const targets = scanFn.calls[0].targets;
-    assert.equal(targets.length, 2, 'only the two tw-* skill dirs are swept');
+    assert.equal(targets.length, 2, 'only the two av-* skill dirs are swept');
     assert.ok(targets.every(t => t.includes('skills')), 'no manifest paths for unusable configs');
     assert.equal(
       existsSync(path.join(fx.home, '.agentvetter', 'claude-json-mcp-manifest.json')),
@@ -558,7 +558,7 @@ test('scan invocation failure marks every target failed instead of aborting inst
     const scanFn = makeScanFn(new Error('spawn ENOENT'));
     const { result } = await run(fx, { scanFn });
     assert.equal(result.scans.submitted, 0);
-    assert.equal(result.scans.failed.length, 2, 'both tw-* skill targets reported failed');
+    assert.equal(result.scans.failed.length, 2, 'both av-* skill targets reported failed');
     assert.match(result.scans.failed[0].error, /spawn ENOENT/);
     assert.equal(result.hooks_registered, true, 'hooks stay registered; failure is loud, not fatal');
   });
@@ -576,7 +576,7 @@ test('unparseable scan stdout marks targets failed', async () => {
 // ---------- defaultScanFn ----------
 
 test('defaultScanFn decodes multibyte characters split across chunk boundaries', async () => {
-  const base = await mkdtemp(path.join(tmpdir(), 'tw-scanfn-'));
+  const base = await mkdtemp(path.join(tmpdir(), 'av-scanfn-'));
   try {
     // Fake CLI that deliberately splits the 3-byte em dash (E2 80 94) across two
     // separate stdout writes with a delay, so the parent receives the fragments
@@ -603,7 +603,7 @@ test('extractTrailingJson pulls the result object out of mixed scan stdout', () 
   const parsed = extractTrailingJson(MIXED_STDOUT);
   assert.equal(parsed.batch_id, 'batch-99');
   assert.deepEqual(parsed.scan_run_ids, ['r-1', 'r-2', 'r-3']);
-  assert.deepEqual(parsed.failed_targets, [{ target: '/tmp/installed/tw-broken', error: 'sandbox exited 1' }]);
+  assert.deepEqual(parsed.failed_targets, [{ target: '/tmp/installed/av-broken', error: 'sandbox exited 1' }]);
 });
 
 test('extractTrailingJson skips prose braces before the JSON object', () => {

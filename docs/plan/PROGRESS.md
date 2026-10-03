@@ -1,17 +1,19 @@
 # Progress
-> Last updated: 2026-10-02
+> Last updated: 2026-10-03
 
 ## Brand Timeline
 
 | Date | Event | Evidence |
 |------|-------|----------|
+| 2026-10-03 | Slice **78** agent brand surfaces (skills/remedies → `av-*` primary) | [slice-78](slices/19-S-agentvetter-agent-surfaces/slice-78-agent-brand-surfaces.md) · branch `slice/78-agent-brand-surfaces` |
 | 2026-10-02 | **AgentVetter** rebrand accepted (ADR-0018) | [ADR-0018](../adr/0018-agentvetter-rebrand.md) · [MIGRATION-AGENTVETTER.md](../MIGRATION-AGENTVETTER.md) · branch `chore/rename-agentvetter` |
-| pre-2026-10 | Product shipped as Tripwire; README partially pointed at AgentVetter URLs | Historical slices / `gate-evidence/**` retain Tripwire-era text |
+| pre-2026-10 | Live surfaces still used prior package, CLI, and skill names; README partially pointed at AgentVetter URLs | Historical slices / `gate-evidence/**` keep their original wording |
 
 ## Slice groups (execution sequence)
 
 | Wave | Folder | Group | Slices | Outcome |
 |-----:|--------|-------|--------|---------|
+| 19 | [`19-S-…`](slices/19-S-agentvetter-agent-surfaces/) | **S — AgentVetter agent surfaces** | **78** Must | 🔀 on branch |
 | 15 | [`15-O-…`](slices/15-O-monk-kit-live-packaging/) | **O — Monk Kit Live packaging** | **O0** → **58**→**59** Must · **60**–**61** Should | 📋 plan-only (ADR-0001 + PoC; branch `docs/monk-kit-wave-o`) |
 | 16 | [`16-P-…`](slices/16-P-git-repo-scan/) | **P — Git repo discover + fan-out** | **62**→**64** | ✅ landed main (#145/#146) |
 | 18 | [`18-R-…`](slices/18-R-approved-repo-workflow/) | **R — Approved-repo security workflow** | **65**→**69**/**77** Must · **70**–**71**/**73**–**76** Should · **72** Could | **65–76** ✅ · **77** 🔨 |
@@ -269,6 +271,13 @@ Wave H product stubs live under `slices/08-H-frontline-agent-hooks/`. Governance
 
 **Group note:** Wave R = approved local repo+commit security workflow. UI **1A** extend dashboard. Reuse Wave P + ADR-0016. Cargo honesty VERIFIED on `fix/cargo-package-scan-error-status` → absorb ledger into **65**; Rust/Cargo via RustSec **Cargo Audit** (**IMPLEMENTED** on `main`) — slice **72** formalizes that gap path. Slices **73–76** Workflow UI (triage filters, model labels, operator-visible pipeline, chrome polish) **IMPLEMENTED / unit-VERIFIED** on `main` — **75** via #163 · **76** via #165. **77** smoke fixes + target-scoped Fix→Verify VERIFIED on branch (formal close pending). **Nav (2026-09-20):** inventory is the default **Dashboard** primary tab; Run→Report phases live on secondary **Workflow** (merged).
 
+### S — AgentVetter agent surfaces
+| # | Slice | MoSCoW | Status | Started | Completed | Est. time |
+|---|-------|--------|--------|---------|-----------|-----------|
+| 78 | [slice-78-agent-brand-surfaces](slices/19-S-agentvetter-agent-surfaces/slice-78-agent-brand-surfaces.md) | Must | 🔀 IMPLEMENTED / VERIFIED (unit) on branch | 2026-10-03 | — | ~25 min |
+
+**Group note:** Wave S closes ADR-0018 agent-facing leftovers: skills/remedies/setup prefer `/av-*` while permanent `tw-*` aliases + `~/.tripwire` fallback remain. Slice **78** unit-VERIFIED on `slice/78-agent-brand-surfaces` (formal ✅ after merge).
+
 **Status legend**: [EMOJI_LEGEND.md](EMOJI_LEGEND.md)
 
 **Gate close:** ✅ only per [GATE_CONTRACT.md](GATE_CONTRACT.md) — all After-Checks + evidence `PASS` + review + trackers. `🔀` = checks green on branch, not yet ✅.
@@ -283,6 +292,7 @@ Wave H product stubs live under `slices/08-H-frontline-agent-hooks/`. Governance
 - Wave **O** (**O0** + slices 58–61) Monk Kit Live packaging is **📋 plan-only** — ADR-0001 + PoC; O0 governance first for Accept/open Qs; product execute via `slice/58-land-poc-monk-kit` (prototyping OK while O0 open).
 - Wave **P** (slices **62–64**) git repo scan: ✅ landed `main` (#145/#146). Cargo SCA unsupported honesty follow-up: `fix/cargo-package-scan-error-status` → Wave **R** slice 65.
 - Wave **R** (slices **65–76**) approved-repo security workflow: **65–76** ✅ on `main` (#148–#165 family; **76** = #165). UI 1A + Dashboard/Workflow tabs.
+- Wave **S** (slice **78**) AgentVetter agent surfaces: 🔀 `slice/78-agent-brand-surfaces` — primary `/av-*` unit-VERIFIED (ADR-0018 follow-through); formal ✅ after merge.
 - Wave **M** (slice 53) LLM usage / cost observability is **📋 plan-only** — ADR-0016 follow-on; execute when explicitly started (`slice/53-llm-usage-tracking`).
 - Waves **A–C**, coverage Slice 14, and Slice 17 are merged and closed. Slice 15 is retained as a deferred claim-audit artifact, not active work.
 - **Wave H (Frontline):** **H0 ✅** · **28 ✅** (2026-09-21). Phase 1 code on `main` (`agent-hooks/`). Formal Must gate closures **23–27 / 29–32** still open (next product: **30** `/tw-self-check` or inventory formal-close 23–27/29). Slice **35** Ossprey 🔴 until access OPEN. Should 33–38 wait on 32 PASS.

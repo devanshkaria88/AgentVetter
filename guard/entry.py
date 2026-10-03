@@ -34,7 +34,7 @@ _FIXTURES_MANIFEST = _REPO_ROOT / "fixtures" / "mcp" / "mcp_manifest.json"
 
 
 def resolve_config_path() -> str:
-    """Prefer AGENTVETTER_CONFIG / ~/.agentvetter; fall back to Tripwire-era paths."""
+    """Prefer AGENTVETTER_CONFIG / ~/.agentvetter; fall back to ~/.tripwire when present."""
     env = os.environ.get("AGENTVETTER_CONFIG") or os.environ.get("TRIPWIRE_CONFIG")
     if env:
         return env
@@ -58,7 +58,7 @@ def resolve_config_home() -> Path:
 
 
 _GUARD_ERROR_REASON = (
-    "AgentVetter guard error — fail closed. Remedies: /tw-disable in-session, "
+    "AgentVetter guard error — fail closed. Remedies: /av-disable in-session, "
     'or hand-edit ~/.agentvetter/config.json to "enable": false.'
 )
 _CONFIG_TAMPER_REASON = (
@@ -77,7 +77,7 @@ _SKILL_NAME_KEYS = ("skill", "command", "name", "skillName")
 # Absolute, ~/…, ./…, ../…, or any token containing a slash / ending in a
 # common script extension. Broad on purpose for token discovery; attribution
 # itself is narrowed in ``_extract_bash_skill_target`` so a skill *directory*
-# passed only as data (``/tw-verify`` / ``/tw-scan`` status drivers) is not
+# passed only as data (``/av-verify`` / ``/av-scan`` status drivers) is not
 # gated — otherwise unscanned skills deadlock their own remediation path.
 _BASH_PATH_TOKEN = (
     r"(?:~|/|\./|\.\./)[^\s;|&\"']+"
@@ -119,7 +119,7 @@ def extract_target(payload: dict, *, cwd: str | None = None) -> dict | None:
         for key in _SKILL_NAME_KEYS:
             value = tool_input.get(key)
             if isinstance(value, str) and value.strip():
-                # A `command`-style value may carry args ("/tw-scan foo") —
+                # A `command`-style value may carry args ("/av-scan foo") —
                 # the skill name is the first token, sans any slash prefix.
                 name = value.strip().split()[0].lstrip("/")
                 if name:
@@ -401,7 +401,7 @@ def resolve_artifact(target: dict, cwd: str) -> str | None:
 
 
 # Fixture basename → demo install name (scripts/install-demo-artifacts.sh).
-# Used only by /tw-verify and /tw-scan operator resolution — the PreToolUse
+# Used only by /av-verify and /av-scan operator resolution — the PreToolUse
 # hook never sees fixture names (Claude registers the rewritten demo name).
 _OPERATOR_ALIASES = {
     "vuln-runtime-download": "vuln-skill",
@@ -411,7 +411,7 @@ _OPERATOR_ALIASES = {
 
 
 def resolve_operator_name(name: str, cwd: str) -> dict[str, str] | None:
-    """Resolve a /tw-verify or /tw-scan name the same way the hook would.
+    """Resolve a /av-verify or /av-scan name the same way the hook would.
 
     Order: explicit path with ``SKILL.md`` → skill locus → MCP config key
     (incl. ``~/.agentvetter/demo-mcp.json``) → demo fixture alias. Returns
@@ -472,13 +472,13 @@ def resolve_operator_name(name: str, cwd: str) -> dict[str, str] | None:
 
 def _block_reason(core: str, name: str, config: dict) -> str:
     """Compose a §4.3.6 block reason: names the artifact, and always carries
-    both in-session and out-of-band remedies (the in-session /tw-* skills are
+    both in-session and out-of-band remedies (the in-session /av-* skills are
     themselves enforced and may deadlock — the reason must never leave the
     user without an executable way out)."""
     cli_bin = str(config.get("cli_bin") or "<repo_root>/cli/bin/agentvetter.js")
     return (
         f"AgentVetter blocked this call: {core}. "
-        f"Remedies — in-session: /tw-scan {name} to (re)scan, /tw-disable to switch "
+        f"Remedies — in-session: /av-scan {name} to (re)scan, /av-disable to switch "
         f"enforcement off; out-of-band: `node {cli_bin} scan <abs-path> --no-defaults` "
         'in a terminal, or hand-edit ~/.agentvetter/config.json to "enable": false.'
     )

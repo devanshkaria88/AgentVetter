@@ -1,26 +1,26 @@
 ---
 name: av-self-check
 aliases: [tw-self-check]
-description: Verify the scan status of AgentVetter's own five tw-* skills as installed under ~/.claude/skills (self-integrity check). Use when the user runs /av-self-check or /tw-self-check, or asks whether AgentVetter's own skills are scanned, green, or would be blocked by their own hook.
+description: Verify the scan status of AgentVetter's own five av-* skills as installed under ~/.claude/skills (self-integrity check). Use when the user runs /av-self-check or /tw-self-check, or asks whether AgentVetter's own skills are scanned, green, or would be blocked by their own hook.
 ---
 
 # av-self-check
 
-Self-integrity check: `/tw-verify`'s logic hard-scoped to the five `tw-*` skills as INSTALLED under `~/.claude/skills/` — the installed copies are what enforcement sees, not the repo copies. Never stop at the first problem; all five always get a row.
+Self-integrity check: `/av-verify`'s logic hard-scoped to the five `av-*` skills as INSTALLED under `~/.claude/skills/` — the installed copies are what enforcement sees, not the repo copies. Never stop at the first problem; all five always get a row.
 
 ## Step 1 — Parse arguments
 
-The only accepted argument is force: a literal `--force` flag OR a bare `force` token. It passes through to the rescan offer in Step 5. Ignore any other arguments (mention that scope is fixed to the five tw-* skills).
+The only accepted argument is force: a literal `--force` flag OR a bare `force` token. It passes through to the rescan offer in Step 5. Ignore any other arguments (mention that scope is fixed to the five av-* skills).
 
 ## Step 2 — Fixed scope, fixed resolution
 
 The artifact list is EXACTLY these five installed skill directories — no name search, no other loci:
 
-- `~/.claude/skills/tw-verify`
-- `~/.claude/skills/tw-scan`
-- `~/.claude/skills/tw-enable`
-- `~/.claude/skills/tw-disable`
-- `~/.claude/skills/tw-self-check`
+- `~/.claude/skills/av-verify`
+- `~/.claude/skills/av-scan`
+- `~/.claude/skills/av-enable`
+- `~/.claude/skills/av-disable`
+- `~/.claude/skills/av-self-check`
 
 For each: if the directory exists, the identifier is its canonical absolute path (`realpath`, symlinks resolved, no trailing slash). If it does not exist → a ❓ NOT FOUND row with note `Not installed under ~/.claude/skills — run agentvetter setup-agent-hooks`.
 
@@ -87,23 +87,23 @@ print(json.dumps({
 
 ## Step 4 — Report (Scan Status table only)
 
-Render exactly the tw-verify human table — same columns **Name | Type | Status | Quality | Note**, emoji/labels, Quality as **`N/100`** or `—`, blocked-message **footer**, and **Sources** line (Tessl Quality; Cisco/Snyk Status) (see `~/.claude/skills/tw-verify/SKILL.md` §Step 5 and [frontline-output-contract.md](../../../docs/user-guide/frontline-output-contract.md)). Parse the driver's JSON privately; do **not** dump a fenced `{config, artifacts}` block to the user. Summary of the row rules (N = `scan_validity_days`):
+Render exactly the av-verify human table — same columns **Name | Type | Status | Quality | Note**, emoji/labels, Quality as **`N/100`** or `—`, blocked-message **footer**, and **Sources** line (Tessl Quality; Cisco/Snyk Status) (see `~/.claude/skills/av-verify/SKILL.md` §Step 5 and [frontline-output-contract.md](../../../docs/user-guide/frontline-output-contract.md)). Parse the driver's JSON privately; do **not** dump a fenced `{config, artifacts}` block to the user. Summary of the row rules (N = `scan_validity_days`):
 
 - `fresh` + green → `🟢 GREEN (fresh)`, note `—`.
 - `fresh` + amber → `🟠 AMBER`; `Reported but not blocked at current threshold` when threshold is `red`, else distinct amber note + footer when blocked.
 - `fresh` + red → `🔴 RED`; note `rated red — at/above threshold` (blocked sentence is footer-only).
-- `stale` → `⚠️ STALE`; `Last scanned >N days ago — blocked until rescanned (run /tw-scan <name>)`.
+- `stale` → `⚠️ STALE`; `Last scanned >N days ago — blocked until rescanned (run /av-scan <name>)`.
 - `scanning` → `⏳ SCANNING`; `Scan in progress — check back shortly` (+ prior verdict if rag non-null).
-- `unscanned` → `🚫 UNSCANNED`; `Never scanned — offer /tw-scan <name>` (or `Last scan errored — resubmit (run /tw-scan <name>)` when errored).
-- `changed=true` → `✏️ CHANGED`; bold **content changed since last scan — run /tw-scan <name>** — takes precedence over every state-based row, `will_be_blocked` true.
+- `unscanned` → `🚫 UNSCANNED`; `Never scanned — offer /av-scan <name>` (or `Last scan errored — resubmit (run /av-scan <name>)` when errored).
+- `changed=true` → `✏️ CHANGED`; bold **content changed since last scan — run /av-scan <name>** — takes precedence over every state-based row, `will_be_blocked` true.
 - missing install dir → `❓ NOT FOUND`; note `Not installed under ~/.claude/skills — run agentvetter setup-agent-hooks` (footer covers blocked).
 
 If any `will_be_blocked`, print **Will be blocked when AgentVetter is enabled** once under the table.
 
 If local `enable` is false, add the "currently bypassed" note; if `monitoring_enabled` is false, add the platform-switch warning.
 
-A non-green result here matters: a blocked `tw-*` skill means the hook will block AgentVetter's own tooling — the out-of-band remedies are `cd <repo_root> && node <cli_bin> scan <abs path> --no-defaults --force` in a terminal, or hand-editing `~/.agentvetter/config.json` (fallback: `~/.tripwire/config.json`) to `"enable": false`.
+A non-green result here matters: a blocked `av-*` skill means the hook will block AgentVetter's own tooling — the out-of-band remedies are `cd <repo_root> && node <cli_bin> scan <abs path> --no-defaults --force` in a terminal, or hand-editing `~/.agentvetter/config.json` (fallback: `~/.tripwire/config.json`) to `"enable": false`.
 
 ## Step 5 — Rescan offer
 
-If any rows are unscanned, errored, stale, or changed — or if force mode is set (then ALL five installed skills are candidates, fresh ones included) — offer to submit them. On yes: follow the tw-scan procedure (`~/.claude/skills/tw-scan/SKILL.md`) for exactly those installed paths — its submission step always appends `--force`, which is what actually clears stale/errored/changed states (without force the CLI skips unchanged content and the state never clears) — then re-render with those rows as ⏳ SCANNING.
+If any rows are unscanned, errored, stale, or changed — or if force mode is set (then ALL five installed skills are candidates, fresh ones included) — offer to submit them. On yes: follow the av-scan procedure (`~/.claude/skills/av-scan/SKILL.md`) for exactly those installed paths — its submission step always appends `--force`, which is what actually clears stale/errored/changed states (without force the CLI skips unchanged content and the state never clears) — then re-render with those rows as ⏳ SCANNING.

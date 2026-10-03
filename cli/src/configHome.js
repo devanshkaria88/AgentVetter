@@ -3,7 +3,7 @@ import path from 'node:path';
 
 /** Preferred config home dir name under $HOME (ADR-0018). */
 export const CONFIG_HOME_NAME = '.agentvetter';
-/** Legacy Tripwire-era config home — read-fallback only. */
+/** Legacy config home (`~/.tripwire`) — read-fallback only. */
 export const LEGACY_CONFIG_HOME_NAME = '.tripwire';
 
 const HOOK_SUFFIXES = [

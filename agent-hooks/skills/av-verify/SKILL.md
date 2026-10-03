@@ -8,11 +8,11 @@ description: Check the AgentVetter scan status of Claude Code skills and MCP ser
 
 Report the AgentVetter scan status of one or more skills / MCP servers. Single pass over ALL requested names — never stop at the first problem; every requested name gets a row in the Scan Status table. Columns follow the Frontline dual-output contract ([frontline-output-contract.md](../../../docs/user-guide/frontline-output-contract.md)): **Name | Type | Status | Quality | Note**, with Tessl Quality as **`N/100`** when `items.quality_score` is present (else `—`), the shared blocked phrase once as a **table footer**, and a **Sources** line (Quality = Tessl; Status = Cisco AI Defense + Snyk). Shared helpers: `guard.verify.verify_artifacts` / `format_quality_cell`. Read-only: this skill never submits scans itself (it only offers to, at the end). Do **not** dump the driver's raw JSON (or any fenced `{config, artifacts}` block) to the user — that payload is for you to parse only.
 
-**Hard rule — unscanned/blocked artifacts must not be executed.** If a row is `unscanned` (including errored), `stale`, `changed`, RED (or amber at threshold), or NOT FOUND: do **not** invoke that skill (`Skill` tool), do **not** call its `mcp__*` tools, and do **not** run its `install.sh` / scripts via Bash. Report that AgentVetter will block those calls. Only offer `/tw-scan` via AskUserQuestion — never silently submit, and never “work around” a block by scanning so you can run the artifact in the same turn.
+**Hard rule — unscanned/blocked artifacts must not be executed.** If a row is `unscanned` (including errored), `stale`, `changed`, RED (or amber at threshold), or NOT FOUND: do **not** invoke that skill (`Skill` tool), do **not** call its `mcp__*` tools, and do **not** run its `install.sh` / scripts via Bash. Report that AgentVetter will block those calls. Only offer `/av-scan` via AskUserQuestion — never silently submit, and never “work around” a block by scanning so you can run the artifact in the same turn.
 
 ## Step 1 — Parse arguments
 
-Names are space- OR comma-separated (e.g. `/tw-verify safe-skill, vuln-tool other-skill`). Split on both, drop empty tokens. If no names were given, ask the user (AskUserQuestion) which skill/MCP names to verify.
+Names are space- OR comma-separated (e.g. `/av-verify safe-skill, vuln-tool other-skill`). Split on both, drop empty tokens. If no names were given, ask the user (AskUserQuestion) which skill/MCP names to verify.
 
 ## Step 2 — Read AgentVetter config
 
@@ -118,10 +118,10 @@ One Markdown table, one row per REQUESTED name (selection rows count individuall
 | `vuln-skill` | skill | 🔴 RED | 12/100 | rated red — at/above threshold |
 | `safe-tool` | mcp | 🟠 AMBER | — | Reported but not blocked at current threshold |
 | `unknown-skill` | — | ❓ NOT FOUND | — | no match in ~/.claude/skills, .claude/skills, .mcp.json, ~/.claude.json, ~/.agentvetter/demo-mcp.json, fixtures manifest |
-| `old-skill` | skill | ⚠️ STALE | 80/100 | Last scanned >14 days ago — blocked until rescanned (run /tw-scan old-skill) |
+| `old-skill` | skill | ⚠️ STALE | 80/100 | Last scanned >14 days ago — blocked until rescanned (run /av-scan old-skill) |
 | `pending-skill` | skill | ⏳ SCANNING | — | Scan in progress — check back shortly |
-| `new-skill` | skill | 🚫 UNSCANNED | — | Never scanned — offer /tw-scan new-skill |
-| `edited-skill` | skill | ✏️ CHANGED | 70/100 | **content changed since last scan — run /tw-scan edited-skill** |
+| `new-skill` | skill | 🚫 UNSCANNED | — | Never scanned — offer /av-scan new-skill |
+| `edited-skill` | skill | ✏️ CHANGED | 70/100 | **content changed since last scan — run /av-scan edited-skill** |
 
 **Blocked footer (de-dupe):** If **any** row has `will_be_blocked=true` (including NOT FOUND / RED / STALE / UNSCANNED / CHANGED / amber-at-threshold), print **once** under the table:
 
@@ -135,23 +135,23 @@ Do **not** repeat that phrase in every Note. Row Notes keep *distinct* copy only
 
 Row rules (map driver output → row):
 
-- `changed=true` → `✏️ CHANGED` — this row takes precedence over every state-based row (the hook's tamper deny fires regardless of a green verdict); note is the bold **content changed since last scan — run /tw-scan <name>**, and `will_be_blocked` is `true`.
+- `changed=true` → `✏️ CHANGED` — this row takes precedence over every state-based row (the hook's tamper deny fires regardless of a green verdict); note is the bold **content changed since last scan — run /av-scan <name>**, and `will_be_blocked` is `true`.
 - `state=fresh, rag=green` → `🟢 GREEN (fresh)`, note `—`.
 - `state=fresh, rag=amber` → `🟠 AMBER`; note `Reported but not blocked at current threshold` when `threshold` is `red`, else note `amber at/above threshold` and `will_be_blocked=true` (footer covers the blocked sentence).
 - `state=fresh, rag=red` → `🔴 RED`; note `rated red — at/above threshold` (blocked sentence is footer-only).
-- `state=stale` → `⚠️ STALE`; note `Last scanned >N days ago — blocked until rescanned (run /tw-scan <name>)`.
+- `state=stale` → `⚠️ STALE`; note `Last scanned >N days ago — blocked until rescanned (run /av-scan <name>)`.
 - `state=scanning` → `⏳ SCANNING`; note `Scan in progress — check back shortly`; if `rag` is non-null append `(prior verdict: <rag>)`.
-- `state=unscanned, errored=false` → `🚫 UNSCANNED`; note `Never scanned — offer /tw-scan <name>`.
-- `state=unscanned, errored=true` → `🚫 UNSCANNED`; note `Last scan errored — resubmit (run /tw-scan <name>)`.
+- `state=unscanned, errored=false` → `🚫 UNSCANNED`; note `Never scanned — offer /av-scan <name>`.
+- `state=unscanned, errored=true` → `🚫 UNSCANNED`; note `Last scan errored — resubmit (run /av-scan <name>)`.
 - unresolved name → `❓ NOT FOUND`; note `no match in ~/.claude/skills, .claude/skills, .mcp.json, ~/.claude.json, ~/.agentvetter/demo-mcp.json, fixtures manifest`. Fail-closed: the hook denies any Skill/mcp__* call it cannot resolve to a known locus (same as unscanned); `will_be_blocked=true` → footer.
 
-The `run /tw-scan <name>` remedy in the STALE, errored, and CHANGED notes actually works because tw-scan always submits with `--force` — without force the CLI would skip unchanged content and a stale/errored state could never clear.
+The `run /av-scan <name>` remedy in the STALE, errored, and CHANGED notes actually works because av-scan always submits with `--force` — without force the CLI would skip unchanged content and a stale/errored state could never clear.
 
 After the table (and after the blocked footer when present):
 
-- If config `enabled` is `false`, add: `Note: AgentVetter enforcement is currently DISABLED (/tw-disable) — the blocked footer reports what enforcement would do when enabled; calls are currently bypassed.`
+- If config `enabled` is `false`, add: `Note: AgentVetter enforcement is currently DISABLED (/av-disable) — the blocked footer reports what enforcement would do when enabled; calls are currently bypassed.`
 - If `monitoring_enabled` is `false` while local `enable` is `true`, add a warning that the Supabase platform switch (`config.monitoring_enabled`) is OFF and still gates the guard — effective enforcement is local enable AND platform switch.
 
 ## Step 6 — Offer scans for blocked-but-fixable rows
 
-If any rows are `unscanned` (including errored), `stale`, or `changed`, offer to submit them for scanning (AskUserQuestion, listing the names). On yes: read and follow the tw-scan skill's procedure (installed at `~/.claude/skills/tw-scan/SKILL.md`) for exactly those names — its submission step always appends `--force`, which is what actually clears stale/errored/changed states (without force the CLI skips unchanged content and the state never clears) — then re-render the Scan Status table only (still no JSON dump) with those rows as ⏳ SCANNING. On no: finish.
+If any rows are `unscanned` (including errored), `stale`, or `changed`, offer to submit them for scanning (AskUserQuestion, listing the names). On yes: read and follow the av-scan skill's procedure (installed at `~/.claude/skills/av-scan/SKILL.md`) for exactly those names — its submission step always appends `--force`, which is what actually clears stale/errored/changed states (without force the CLI skips unchanged content and the state never clears) — then re-render the Scan Status table only (still no JSON dump) with those rows as ⏳ SCANNING. On no: finish.

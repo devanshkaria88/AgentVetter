@@ -8,11 +8,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Docs
+- Migration guide: Modal secrets + `agentvetter-scan` deploy, Supabase
+  `agentvetter_rollup_item`, and Pages demo path cutover recorded as **VERIFIED**
+  (maintainer workspace 2026-10-02); operator checklist updated. See
+  [docs/MIGRATION-AGENTVETTER.md](docs/MIGRATION-AGENTVETTER.md).
 - README hero image: `AgentVetter-Banner.png`; GitHub badge/clone links use
   `neomatrix369/AgentVetter`.
 - Screenshot gallery regenerated 2026-09-21 (post-rebase onto `main`): Mock
   Dashboard + new Workflow Run/Triage/Verify shots, quality floors, R/Q badges;
   live CLI scan refresh; capture script covers `05-workflow/`
+
+### Changed
+- Operator Modal cutover (ADR-0018): live secrets `agentvetter-supabase` /
+  `agentvetter-scan-secrets`; deployed app `agentvetter-scan`; legacy
+  `tripwire-scan` stopped and `tripwire-*` secrets deleted. VERIFIED smoke scan
+  `fixtures/skills/safe-csv-cleaner` after rollup apply (2026-10-02).
+- Agent brand surfaces (slice 78): live skills, guard remedies, and
+  `setup-agent-hooks` summary prefer `/av-*` (permanent `tw-*` aliases retained).
+  IMPLEMENTED / VERIFIED (unit) on `slice/78-agent-brand-surfaces`.
 
 ### Fixed
 - Dashboard item drawer: Findings, Modal console output, and Raw output start

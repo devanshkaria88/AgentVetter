@@ -7,11 +7,11 @@
 
 ## Context
 
-The product formerly shipped as **Tripwire**. README badges, clone URLs, and
-banner assets already point at `neomatrix369/AgentVetter` while prose, packages,
-CLI bins, skills, and config still say Tripwire — a half-renamed state that must
-close atomically. The GitHub remote slug is already `AgentVetter`; remaining
-work is in-repo identity, operator runbooks, and compat shims.
+README badges, clone URLs, and banner assets already point at
+`neomatrix369/AgentVetter` while prose, packages, CLI bins, skills, and config
+still use prior names — a half-renamed state that must close atomically. The
+GitHub remote slug is already `AgentVetter`; remaining work is in-repo identity,
+operator runbooks, and compat shims.
 
 ## Decision
 
@@ -27,7 +27,7 @@ Use a **single brand** everywhere live: **AgentVetter** / **agentvetter** /
 | Env | Prefer `AGENTVETTER_*`; document migration from `TRIPWIRE_*` |
 | Modal secrets | Rename to `agentvetter-*` (operator runbook) |
 | localStorage | Hard-cut keys to `agentvetter-*` (prototype; no migration) |
-| Historical | Preserve completed `docs/plan/slices/**` filenames and `gate-evidence/**` Tripwire-era text |
+| Historical | Preserve completed `docs/plan/slices/**` filenames and `gate-evidence/**` original text |
 
 Migration details: [docs/MIGRATION-AGENTVETTER.md](../MIGRATION-AGENTVETTER.md).
 
@@ -41,7 +41,9 @@ Migration details: [docs/MIGRATION-AGENTVETTER.md](../MIGRATION-AGENTVETTER.md).
 ## Consequences
 
 - Old clones and package installs break until remotes/packages update.
-- Operators must rename Modal secrets and may need Pages/demo path updates.
+- Operators must rename Modal secrets and may need Pages/demo path updates
+  (maintainer workspace: Modal + rollup **VERIFIED** 2026-10-02 — see
+  [MIGRATION-AGENTVETTER.md](../MIGRATION-AGENTVETTER.md)).
 - Cursor workspace path may change when the local folder is renamed to `AgentVetter`
   (reopen required).
 - `tripwire` CLI and `tw-*` skill names remain as compatibility surfaces only.
