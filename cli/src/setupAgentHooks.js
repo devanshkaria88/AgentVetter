@@ -252,7 +252,7 @@ function assertMergeableShape(settings, settingsPath) {
 /**
  * JSON-merge the PreToolUse hook into ~/.claude/settings.json: timestamped backup
  * before any modification, idempotent by handler-command suffix (`.agentvetter`
- * or legacy `.tripwire`), all other keys preserved, atomic replace on write.
+ * `), all other keys preserved, atomic replace on write.
  * Re-runs refresh the matcher when our handler is already present but the
  * matcher is stale (e.g. Skill|mcp → Skill|Bash|mcp) without duplicating the entry.
  */
@@ -443,7 +443,7 @@ function printSummary({ log, configState, configPath, hookCommand, settingsPath,
   const enforcement = configState === 'enabled'
     ? 'ON'
     : configState === 'disabled'
-      ? 'OFF (existing config has "enable": false — run /tw-enable to arm)'
+      ? 'OFF (existing config has "enable": false — run /av-enable to arm)'
       : `UNKNOWN — ${configPath} is unparseable; the hook treats that as tampering and DENIES. Delete it and re-run setup, or restore valid JSON.`;
   log('');
   log('[setup-agent-hooks] AgentVetter Claude Code hooks installed.');
@@ -460,11 +460,11 @@ function printSummary({ log, configState, configPath, hookCommand, settingsPath,
     log(`  Out-of-band remedies: \`node ${cliBin} scan <path> --no-defaults\` in a terminal,`);
     log(`  or hand-edit ${configPath} to "enable": false.`);
   } else {
-    log(`  Bootstrap scans submitted: ${scans.submitted} (verdicts land asynchronously — check /tw-verify).`);
+    log(`  Bootstrap scans submitted: ${scans.submitted} (verdicts land asynchronously — check /av-verify).`);
   }
   log('');
-  log('  Verify:    /tw-verify <name>');
-  log(`  Disable:   /tw-disable, or hand-edit ${configPath} to "enable": false`);
+  log('  Verify:    /av-verify <name>');
+  log(`  Disable:   /av-disable, or hand-edit ${configPath} to "enable": false`);
   log(`  Uninstall: remove the hooks.PreToolUse block from ${settingsPath}`);
   log('  Restart your Claude Code session so the hooks load.');
 }
@@ -486,7 +486,7 @@ function resolveOptions(opts) {
   };
 }
 
-/** Sweep targets: installed tw-* skills (realpaths) + demo skill dirs + MCP manifest FILES. */
+/** Sweep targets: installed av-* skills (realpaths) + demo skill dirs + MCP manifest FILES. */
 async function gatherSweepTargets({ fs, withDemo, execFn, repoRoot, installedSkills, skillsDestRoot, cwd, homedir, agentvetterDir, log }) {
   if (withDemo) {
     await installDemoArtifacts({ fs, execFn, repoRoot, log });
@@ -545,10 +545,10 @@ export async function runSetupAgentHooks(opts = {}) {
     );
   }
 
-  // 4. Install the /tw-* skills.
+  // 4. Install the /av-* skills.
   const installedSkills = installSkills({ fs, skillsSourceDir, skillsDestRoot, log });
 
-  // 5. Demo install (--with-demo) + bootstrap scan sweep: tw skills + demo skill
+  // 5. Demo install (--with-demo) + bootstrap scan sweep: av skills + demo skill
   //    dirs + MCP manifest files (sweep failures are reported, never thrown).
   const targets = await gatherSweepTargets({
     fs, withDemo, execFn, repoRoot: root, installedSkills, skillsDestRoot, cwd, homedir, agentvetterDir, log,

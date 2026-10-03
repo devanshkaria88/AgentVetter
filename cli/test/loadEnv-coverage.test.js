@@ -22,8 +22,8 @@ test('given .env reachable from cwd walk when loadEnv then returns non-null path
    * Then it returns a non-null path (the .env was found and loaded).
    */
   // -- Given --
-  const dir = await mkdtemp(path.join(os.tmpdir(), 'tw-loadenv-'));
-  await writeFile(path.join(dir, '.env'), 'TW_LOADENV_TEST=1\n');
+  const dir = await mkdtemp(path.join(os.tmpdir(), 'av-loadenv-'));
+  await writeFile(path.join(dir, '.env'), 'AV_LOADENV_TEST=1\n');
   const prev = process.cwd();
 
   // -- When --

@@ -13,7 +13,7 @@ from the repo directly — `agentvetter setup-agent-hooks` installs copies:
 
 - **`hooks/pre-tool-use.sh`** — PreToolUse hook handler. Reads
   `~/.agentvetter/config.json` (explicit `"enable": false` ⇒ allow; missing or
-  corrupt config ⇒ deny, tamper rule; read-fallback `~/.tripwire`), sources
+  corrupt config ⇒ deny, tamper rule), sources
   Supabase credentials from the recorded `env_file`, then delegates stdin to the
   guard entry under a portable 8-second watchdog. Always exits 0 with exactly one
   decision JSON line on stdout; every failure mode is an explicit deny (fail closed).

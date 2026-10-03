@@ -14,7 +14,7 @@ import { discoverTargets } from '../src/discovery.js';
 
 test('given targetsFile when discover then merges file targets', async () => {
   // -- Given --
-  const dir = await mkdtemp(path.join(os.tmpdir(), 'tw-tf-'));
+  const dir = await mkdtemp(path.join(os.tmpdir(), 'av-tf-'));
   const skill = path.join(dir, 's');
   await mkdir(skill);
   await writeFile(path.join(skill, 'SKILL.md'), '# s');
@@ -32,7 +32,7 @@ test('given targetsFile when discover then merges file targets', async () => {
 
 test('given mcp manifest json when discover then expands server names', async () => {
   // -- Given --
-  const dir = await mkdtemp(path.join(os.tmpdir(), 'tw-mcp-'));
+  const dir = await mkdtemp(path.join(os.tmpdir(), 'av-mcp-'));
   const manifest = path.join(dir, 'mcp.json');
   await writeFile(
     manifest,
@@ -51,7 +51,7 @@ test('given mcp manifest json when discover then expands server names', async ()
 
 test('given stdio mcp manifest when discover then sets packPath from args', async () => {
   // -- Given --
-  const dir = await mkdtemp(path.join(os.tmpdir(), 'tw-mcp-pack-'));
+  const dir = await mkdtemp(path.join(os.tmpdir(), 'av-mcp-pack-'));
   const serverDir = path.join(dir, 'safe-time-server');
   await mkdir(serverDir);
   const runSh = path.join(serverDir, 'run.sh');
@@ -83,7 +83,7 @@ test('given stdio mcp manifest when discover then sets packPath from args', asyn
 
 test('given malformed manifest when discover then treats as regular target', async () => {
   // -- Given --
-  const dir = await mkdtemp(path.join(os.tmpdir(), 'tw-bad-'));
+  const dir = await mkdtemp(path.join(os.tmpdir(), 'av-bad-'));
   const manifest = path.join(dir, 'broken.json');
   await writeFile(manifest, '{not-json');
 
@@ -98,7 +98,7 @@ test('given malformed manifest when discover then treats as regular target', asy
 
 test('given folder with mcp subdir when expand then includes mcp server', async () => {
   // -- Given --
-  const root = await mkdtemp(path.join(os.tmpdir(), 'tw-exp-'));
+  const root = await mkdtemp(path.join(os.tmpdir(), 'av-exp-'));
   const mcp = path.join(root, 'svc');
   await mkdir(mcp);
   await writeFile(path.join(mcp, 'server.js'), 'export default {}');
@@ -125,7 +125,7 @@ test('given gitlab git url when discover then cloneable', async () => {
 
 test('given cwd mcp manifest when useDefaults then discovers server names', async () => {
   // -- Given --
-  const root = await mkdtemp(path.join(os.tmpdir(), 'tw-def-'));
+  const root = await mkdtemp(path.join(os.tmpdir(), 'av-def-'));
   await mkdir(path.join(root, '.cursor'), { recursive: true });
   const manifest = path.join(root, '.cursor', 'mcp.json');
   await writeFile(manifest, JSON.stringify({ mcpServers: { local: { command: 'npx' } } }));
@@ -156,7 +156,7 @@ test('given default mcp.json without mcpServers key when discoverDefaults then n
    * Then no entries are added for that manifest (servers = []).
    */
   // -- Given --
-  const dir = await mkdtemp(path.join(os.tmpdir(), 'tw-noservers-'));
+  const dir = await mkdtemp(path.join(os.tmpdir(), 'av-noservers-'));
   await writeFile(path.join(dir, '.mcp.json'), JSON.stringify({ version: 1 }));
   const prev = process.cwd();
 
@@ -185,7 +185,7 @@ test('given null manifest entry when discover then packPath is not set', async (
    * Then the item is included (identifier present) but packPath is undefined.
    */
   // -- Given --
-  const dir = await mkdtemp(path.join(os.tmpdir(), 'tw-nullentry-'));
+  const dir = await mkdtemp(path.join(os.tmpdir(), 'av-nullentry-'));
   const manifest = path.join(dir, 'mcp.json');
   await writeFile(manifest, JSON.stringify({ mcpServers: { 'null-server': null } }));
 
@@ -209,7 +209,7 @@ test('given path-like command pointing to non-existent file when discover then p
    * Then the item has no packPath (the non-existent path cannot be a server dir).
    */
   // -- Given --
-  const dir = await mkdtemp(path.join(os.tmpdir(), 'tw-nonexist-'));
+  const dir = await mkdtemp(path.join(os.tmpdir(), 'av-nonexist-'));
   const manifest = path.join(dir, 'mcp.json');
   await writeFile(manifest, JSON.stringify({
     mcpServers: { ghost: { command: '/no/such/path/server.py' } },
@@ -236,7 +236,7 @@ test('given path-like command to file in non-MCP dir when discover then packPath
    * Then packPath is undefined because looksLikeMcpServer returns false for both levels.
    */
   // -- Given --
-  const dir = await mkdtemp(path.join(os.tmpdir(), 'tw-nomcp-'));
+  const dir = await mkdtemp(path.join(os.tmpdir(), 'av-nomcp-'));
   const subDir = path.join(dir, 'just-a-dir');
   await mkdir(subDir);
   const plainFile = path.join(subDir, 'readme.txt');

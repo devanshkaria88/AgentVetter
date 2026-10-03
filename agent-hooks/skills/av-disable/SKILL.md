@@ -6,7 +6,7 @@ description: Turn AgentVetter enforcement OFF for Claude Code tool calls. Use wh
 
 # av-disable
 
-Flip the local AgentVetter kill switch OFF. This edits ONLY the `enable` key of `~/.agentvetter/config.json` (fallback: `~/.tripwire/config.json`) — no Supabase writes, no other keys touched.
+Flip the local AgentVetter kill switch OFF. This edits ONLY the `enable` key of `~/.agentvetter/config.json` — no Supabase writes, no other keys touched.
 
 ## Step 0 — Ask before disabling
 
@@ -55,5 +55,5 @@ If `created` is true, the config file was missing and was recreated with default
 Tell the user, plainly:
 
 - AgentVetter enforcement is now **OFF** — the Claude Code hook allows every skill/MCP call without checking scan status. Enforcement is **fully bypassed**, including red-rated and never-scanned artifacts.
-- Manual scanning and reporting still work while disabled: `/tw-scan` submits scans and `/tw-verify` reports status (its blocked **footer** shows what enforcement WOULD do, marked as currently bypassed).
-- Re-enable at any time with `/tw-enable`.
+- Manual scanning and reporting still work while disabled: `/av-scan` submits scans and `/av-verify` reports status (its blocked **footer** shows what enforcement WOULD do, marked as currently bypassed).
+- Re-enable at any time with `/av-enable`.

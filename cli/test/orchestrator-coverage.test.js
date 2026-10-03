@@ -151,7 +151,7 @@ function createSupabaseStub({
 
 test('given spawn failure when runScan then marks failed and rolls up', async () => {
   // -- Given --
-  const dir = await mkdtemp(path.join(tmpdir(), 'tw-orch-'));
+  const dir = await mkdtemp(path.join(tmpdir(), 'av-orch-'));
   await writeFile(path.join(dir, 'SKILL.md'), '# s');
   const sb = createSupabaseStub();
   const targets = [{ target: dir, type: 'skill', locus: 'local', avail: 'source_on_disk' }];
@@ -174,7 +174,7 @@ test('given spawn failure when runScan then marks failed and rolls up', async ()
 
 test('given existing identifier when upsert then updates hash', async () => {
   // -- Given --
-  const dir = await mkdtemp(path.join(tmpdir(), 'tw-ident-'));
+  const dir = await mkdtemp(path.join(tmpdir(), 'av-ident-'));
   await writeFile(path.join(dir, 'SKILL.md'), '# s');
   const sb = createSupabaseStub({
     byIdentItem: { id: 'item-existing', identifier: dir },
@@ -198,7 +198,7 @@ test('given existing identifier when upsert then updates hash', async () => {
 });
 
 test('given stale display name when content hash matches then refreshes name without force', async () => {
-  const dir = await mkdtemp(path.join(tmpdir(), 'tw-rename-'));
+  const dir = await mkdtemp(path.join(tmpdir(), 'av-rename-'));
   await writeFile(path.join(dir, 'SKILL.md'), '# s');
   const contentHash = await hashLocalPath(dir);
   const sb = createSupabaseStub({
@@ -234,7 +234,7 @@ test('given stale display name when content hash matches then refreshes name wit
 });
 
 test('given existing identifier when upsert then refreshes display name', async () => {
-  const dir = await mkdtemp(path.join(tmpdir(), 'tw-ident-name-'));
+  const dir = await mkdtemp(path.join(tmpdir(), 'av-ident-name-'));
   await writeFile(path.join(dir, 'SKILL.md'), '# s');
   const sb = createSupabaseStub({
     byIdentItem: {
@@ -265,7 +265,7 @@ test('given existing identifier when upsert then refreshes display name', async 
 
 test('given multiple targets when runScan then creates batch', async () => {
   // -- Given --
-  const root = await mkdtemp(path.join(tmpdir(), 'tw-batch-'));
+  const root = await mkdtemp(path.join(tmpdir(), 'av-batch-'));
   const a = path.join(root, 'a');
   const b = path.join(root, 'b');
   await writeFile(path.join(await mkdirSafe(a), 'SKILL.md'), '# a');
@@ -339,7 +339,7 @@ test('given scan_run insert error when dispatch then outer catch returns error w
    * Then the outer catch is taken, scanRunId is null, and runScan surfaces the failure.
    */
   // -- Given --
-  const dir = await mkdtemp(path.join(tmpdir(), 'tw-outer-catch-'));
+  const dir = await mkdtemp(path.join(tmpdir(), 'av-outer-catch-'));
   await writeFile(path.join(dir, 'SKILL.md'), '# s');
   const sb = createSupabaseStub({
     scanRunInsertError: { message: 'db insert error for scan_runs' },

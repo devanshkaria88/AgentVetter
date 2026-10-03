@@ -175,7 +175,7 @@ C4Container
 
 ### Repo layout (where containers live)
 
-- `cli/` — `agentvetter` Node CLI (`scan`, `setup`, `route`; `tripwire` shim)
+- `cli/` — `agentvetter` Node CLI (`scan`, `setup`, `route`)
 - `sandbox/` — Modal app + scanner adapters (`scanners.py`); unit tests in `sandbox/tests/`
 - `db/schema.sql` — Postgres/Supabase DDL + rollup + `dashboard_latest_runs` view
   (Live dashboard: one latest `scan_run` per item); anon SELECT + Realtime

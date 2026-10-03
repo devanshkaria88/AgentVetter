@@ -97,6 +97,7 @@ Groups are ordered by when the wave ran (or will run), not by slice number.
 | 16 | [`slices/16-P-git-repo-scan/`](slices/16-P-git-repo-scan/) | **P — Git repo discover + fan-out** | **62**→**64** | ✅ landed `main` (#145/#146); formal gate-evidence close optional |
 | 17 | [`slices/17-Q-ci-hygiene/`](slices/17-Q-ci-hygiene/) | **Q — CI hygiene** | (reserved empty) | 📋 placeholder folder only |
 | 18 | [`slices/18-R-approved-repo-workflow/`](slices/18-R-approved-repo-workflow/) | **R — Approved-repo security workflow** | **65**→**69** Must · **70**–**71**/**73**–**76** Should · **72** Could | ✅ **65–76** on `main` |
+| 19 | [`slices/19-S-agentvetter-agent-surfaces/`](slices/19-S-agentvetter-agent-surfaces/) | **S — AgentVetter agent surfaces** | **78** Must | 🔨 ADR-0018 follow-through |
 
 **Status legend**: `📋 PLANNED · 🔨 IN PROGRESS · ✅ PASSED · 🔀 ON BRANCH · 🔴 BLOCKED · 📦 CLOSED — DEFERRED/WON'T`
 
@@ -411,11 +412,19 @@ Audit report: [`docs/plan/docs-gap-bridge-audit.md`](docs-gap-bridge-audit.md).
 | 76 | [slice-76-workflow-chrome-polish](slices/18-R-approved-repo-workflow/slice-76-workflow-chrome-polish.md) | Workflow Chrome Polish (Filters + Typography) | Should | ✅ | 75; benefits 73/74 | — | ~3 min |
 | 77 | [slice-77-workflow-smoke-fix-target-flow](slices/18-R-approved-repo-workflow/slice-77-workflow-smoke-fix-target-flow.md) | Smoke FAIL/PARTIAL + Target-Scoped Fix→Verify | Must | 🔨 | 75; 69; 70; 76 | — | ~5 min |
 
+## Wave 19-S — AgentVetter agent surfaces
+
+**Group letter S.** Folder: [`slices/19-S-agentvetter-agent-surfaces/`](slices/19-S-agentvetter-agent-surfaces/). ADR-0018 follow-through: live agent skills/remedies/setup prefer AgentVetter/`av-*` while permanent `tw-*` aliases remain.
+
+| # | File | Name | MoSCoW | Status | Depends on | Issue | Read time |
+|---|------|------|--------|--------|------------|-------|-----------|
+| 78 | [slice-78-agent-brand-surfaces](slices/19-S-agentvetter-agent-surfaces/slice-78-agent-brand-surfaces.md) | Agent brand surfaces → AgentVetter / av-* | Must | 🔀 | ADR-0018 | — | ~3 min |
+
 ## Supporting Artifacts
 | File | Status |
 |------|--------|
-| [README.md](README.md) | ✅ wave folder map through `18-R-approved-repo-workflow/` |
-| `01-A-…` … `18-R-…/` | ✅ slice stubs by execution wave |
+| [README.md](README.md) | ✅ wave folder map through `19-S-agentvetter-agent-surfaces/` |
+| `01-A-…` … `19-S-…/` | ✅ slice stubs by execution wave |
 | [docs-gap-bridge-audit.md](docs-gap-bridge-audit.md) | ✅ Wave N audit report — diagrams, checkpoints, backlog, disclaimers (D1–D8) |
 | interview_summary.md | ✅ written (+ Wave O delta 2026-09-09) |
 | PROGRESS.md | ✅ written |

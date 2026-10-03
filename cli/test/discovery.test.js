@@ -171,7 +171,7 @@ test('typeFilter=skill with useDefaults=true on fixture defaults — only skills
    * by `agentvetter scan --type skill` with no explicit targets.
    */
   // -- Given --
-  const dir = await mkdtemp(path.join(os.tmpdir(), 'tw-deftype-'));
+  const dir = await mkdtemp(path.join(os.tmpdir(), 'av-deftype-'));
   const skillDir = path.join(dir, '.cursor', 'skills', 'demo-skill');
   await mkdir(skillDir, { recursive: true });
   await writeFile(path.join(skillDir, 'SKILL.md'), '# demo');

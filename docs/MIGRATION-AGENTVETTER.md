@@ -1,10 +1,12 @@
-# Migrating from Tripwire to AgentVetter
+# AgentVetter identity and cutover
 
-**Status:** DECIDED / IMPLEMENTED (in-repo) · operator Modal/Pages steps below
+**Status:** DECIDED / IMPLEMENTED (in-repo) · Modal + rollup **VERIFIED** (maintainer
+workspace 2026-10-02) · Pages demo path live; sync-script casing follow-up
+[neomatrix369.github.io#21](https://github.com/neomatrix369/neomatrix369.github.io/pull/21)
 **ADR:** [ADR-0018](adr/0018-agentvetter-rebrand.md)
 
-Tripwire is now **AgentVetter**. This guide covers clone URLs, packages, CLI,
-skills, env vars, config home, Modal secrets, and Pages.
+Live product identity is **AgentVetter** only. This guide covers clone URLs,
+packages, CLI, skills, env vars, config home, Modal secrets, and Pages.
 
 ## Clone and remote
 
@@ -14,137 +16,108 @@ git remote set-url origin git@github.com:neomatrix369/AgentVetter.git
 git clone git@github.com:neomatrix369/AgentVetter.git
 ```
 
-Old slug `neomatrix369/tripwire` redirects only if GitHub still has a redirect;
-prefer the new URL.
+## Packages
 
-## Packages (breaking hard-cut)
+| Ecosystem | Package |
+|-----------|---------|
+| PyPI | `agentvetter` |
+| npm | `agentvetter-cli` |
 
-| Ecosystem | Old | New |
-|-----------|-----|-----|
-| PyPI | `tripwire` | `agentvetter` |
-| npm | `tripwire-cli` | `agentvetter-cli` |
-
-Uninstall the old package names and install the new ones. There is no dual-publish
-period for packages.
+Install these names only. Uninstall any prior-brand package names if still present.
 
 ## CLI
-
-Primary command:
 
 ```bash
 agentvetter --help
 agentvetter scan …
 ```
 
-Deprecated shim (one minor): `tripwire` prints a deprecation warning on stderr
-and execs `agentvetter` with the same argv.
+There is a single npm bin: `agentvetter`.
 
 ## Skills
 
-| Primary | Permanent alias |
-|---------|-----------------|
+| Primary | Permanent alias (`SKILL.md` frontmatter) |
+|---------|------------------------------------------|
 | `/av-scan` | `/tw-scan` |
 | `/av-verify` | `/tw-verify` |
 | `/av-enable` | `/tw-enable` |
 | `/av-disable` | `/tw-disable` |
 | `/av-self-check` | `/tw-self-check` |
-| `/sync-agentvetter-pages` | `/sync-tripwire-pages` |
+| `/sync-agentvetter-pages` | (gallery sync skill; prefer primary name) |
 
-Prefer `av-*` in new docs and habit. Aliases remain permanent via SKILL.md
-`aliases:` frontmatter.
+Prefer `av-*` in new docs and habit. Short `tw-*` aliases remain permanent via
+SKILL.md `aliases:` frontmatter only — they are not a second product brand.
 
 ## Environment variables
 
-Prefer `AGENTVETTER_*` over `TRIPWIRE_*`. Examples:
-
-| Old | New |
-|-----|-----|
-| `TRIPWIRE_JUDGE_PANEL` | `AGENTVETTER_JUDGE_PANEL` |
-| Other `TRIPWIRE_*` | Matching `AGENTVETTER_*` |
-
-Update `.env`, CI secrets, and shell profiles. Until code drops dual-read,
-document both in CHANGELOG if a dual-read window exists; otherwise migrate
-before upgrade.
+Use `AGENTVETTER_*` only. Update `.env`, CI secrets, and shell profiles before
+upgrade. Examples: `AGENTVETTER_JUDGE_PANEL`, `AGENTVETTER_CONFIG`,
+`AGENTVETTER_CLONE_TIMEOUT`.
 
 ## Config home
 
-| Preference | Path |
-|------------|------|
-| Primary | `~/.agentvetter` |
-| Read-fallback | `~/.tripwire` (stderr warn when used) |
+Live path: `~/.agentvetter` (hooks at `~/.agentvetter/hooks/`, config at
+`~/.agentvetter/config.json`).
 
-Recommended one-time migrate:
-
-```bash
-mv ~/.tripwire ~/.agentvetter
-# or copy hooks/settings if you need both during transition
-```
+If a pre-rebrand config directory still exists under `$HOME`, rename or copy it
+to `~/.agentvetter` once, then remove the old directory. Code no longer reads
+legacy config homes.
 
 ## Modal secrets (operator)
 
-Rename secrets **before** deploying under the new names:
+| Secret / app | Name |
+|--------------|------|
+| Supabase secret | `agentvetter-supabase` |
+| Scan secrets | `agentvetter-scan-secrets` |
+| Deployed app | `agentvetter-scan` (`modal.App("agentvetter-scan")` in `sandbox/scan_app.py`) |
 
-| Old | New |
-|-----|-----|
-| `tripwire-supabase` | `agentvetter-supabase` |
-| `tripwire-scan-secrets` | `agentvetter-scan-secrets` |
+Prefer `./scripts/setup-modal.sh` (creates/forces the new secret names from
+`.env`, then deploys). After verifying a Live scan, stop any leftover prior-brand
+scan app and delete unused prior-brand secrets.
 
-Steps (Modal dashboard or CLI you already use):
-
-1. Create `agentvetter-supabase` / `agentvetter-scan-secrets` with the same
-   key material as the Tripwire-era secrets.
-2. Update deploy scripts / app references to the new secret names.
-3. Redeploy sandbox/app.
-4. After verifying scans, delete or leave the old secrets unused.
-
-Do not invent Modal API calls in CI without credentials; this is an operator step.
+**VERIFIED (2026-10-02, maintainer workspace):** `./scripts/setup-modal.sh
+--non-interactive` created `agentvetter-supabase` + `agentvetter-scan-secrets` and
+deployed `agentvetter-scan`; smoke `agentvetter scan
+./fixtures/skills/safe-csv-cleaner --no-defaults --force` completed with
+`failed_targets: []` after rollup apply; prior-brand app/secrets removed.
 
 ## GitHub Pages / demo path
 
-If the public demo used `…/demos/tripwire-dashboard/`, rename that path to
-`…/demos/agentvetter-dashboard/` (or the path committed in sync-agentvetter-pages)
-in the same change window as Modal, then re-run the Pages sync skill.
-
-Meterian and other badge URLs: re-link after the GitHub slug is confirmed as
-`neomatrix369/AgentVetter`.
+Live demo: https://neomatrix369.github.io/demos/agentvetter-dashboard/ (HTTP 200).
+Sync wrapper path defaults for the local folder `AgentVetter` are in
+[neomatrix369.github.io#21](https://github.com/neomatrix369/neomatrix369.github.io/pull/21).
 
 ## Dashboard localStorage (prototype)
 
-Hard-cut: keys are `agentvetter-*`. Clear old `tripwire-*` keys in the browser
-(or use a fresh profile). No automatic migration.
+Keys are `agentvetter-*`. Clear any pre-rebrand keys in the browser (or use a
+fresh profile). No automatic migration.
 
 ## Database rollup function
 
 Live code calls `agentvetter_rollup_item` (CLI, Modal sandbox, reconcile script).
-`db/schema.sql` defines **`agentvetter_rollup_item`** as the primary function and
-keeps **`tripwire_rollup_item`** as a thin compat alias that `perform`s the new name.
+`db/schema.sql` defines **`agentvetter_rollup_item`** only.
 
-**Operator action:** re-apply `db/schema.sql` (via `agentvetter setup` / first-scan
-bootstrap, or SQL editor) so the new function exists on Supabase. Until then, Live
-rollup RPCs fail if only the Tripwire-era function is present.
+**Operator action:** re-apply `db/schema.sql` (via `agentvetter setup --force` /
+first-scan bootstrap, or SQL editor) so the function exists on Supabase.
 
-**Deferred:** dropping the `tripwire_rollup_item` alias is a separate operator
-migration after all environments have applied the new schema. Do not rename or
-drop the alias mid-flight without confirming no external callers remain.
-
-## Rollback (high level)
-
-| After | Rollback |
-|-------|----------|
-| In-repo rename only | Reset/revert `chore/rename-agentvetter` |
-| GitHub rename | `gh repo rename tripwire --repo neomatrix369/AgentVetter` + fix remotes |
-| Local folder mv | `mv AgentVetter tripwire`; reopen Cursor |
-| Modal/Pages | Restore prior secret/path names from this doc |
+**VERIFIED (2026-10-02, maintainer workspace):** `agentvetter_rollup_item` applied
+to live Supabase (direct SQL when `agentvetter setup --force` failed on pooler
+TLS self-signed chain). Subsequent Modal smoke scan rollup succeeded.
 
 ## Checklist for operators
 
-- [ ] Origin URL is `neomatrix369/AgentVetter`
+Maintainer workspace ticks (**VERIFIED 2026-10-02**) where noted; leave unchecked
+on a machine that has not completed that step.
+
+- [x] Origin URL is `neomatrix369/AgentVetter`
 - [ ] Packages installed as `agentvetter` / `agentvetter-cli`
-- [ ] `agentvetter --help` works; `tripwire` shim acceptable if needed
-- [ ] Skills resolve as `av-*` (aliases `tw-*` still work)
-- [ ] Env vars use `AGENTVETTER_*`
-- [ ] Config under `~/.agentvetter` (or fallback warn from `~/.tripwire`)
-- [ ] Modal secrets renamed and deploy verified
-- [ ] Pages/demo path updated if applicable
-- [ ] Dashboard localStorage cleared / new keys in use
-- [ ] Supabase has `agentvetter_rollup_item` (re-apply `db/schema.sql`)
+- [x] `agentvetter --help` works
+- [x] Skills resolve as `av-*` (`tw-*` aliases still work)
+- [ ] Env vars use `AGENTVETTER_*` only
+- [x] Config under `~/.agentvetter` (`enable` left false)
+- [x] Modal secrets renamed and deploy verified (`agentvetter-scan`; prior-brand
+      leftovers removed)
+- [x] Pages/demo path is `…/demos/agentvetter-dashboard/`; sync-script
+      `AgentVetter` path casing → [Pages PR #21](https://github.com/neomatrix369/neomatrix369.github.io/pull/21)
+- [ ] Dashboard localStorage cleared / new keys in use (browser-local)
+- [x] Supabase has `agentvetter_rollup_item`

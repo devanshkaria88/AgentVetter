@@ -287,6 +287,17 @@ Reachable through production entry points / config:
 
 ---
 
+## VERIFIED (operator, 2026-10-02) — AgentVetter Modal cutover
+
+- Modal secrets `agentvetter-supabase` + `agentvetter-scan-secrets` via
+  `./scripts/setup-modal.sh --non-interactive`; deployed app **`agentvetter-scan`**
+- Prior-brand Modal scan app/secrets removed after cutover
+- Live Supabase has `agentvetter_rollup_item`; smoke
+  `agentvetter scan ./fixtures/skills/safe-csv-cleaner --no-defaults --force`
+  → `failed_targets: []`
+- Runbook: [MIGRATION-AGENTVETTER.md](./MIGRATION-AGENTVETTER.md) ·
+  [modal-setup.md](./user-guide/modal-setup.md)
+
 ## VERIFIED (operator, 2026-08-01)
 
 - Modal secrets + `agentvetter-scan` deploy with `scanners` packaged

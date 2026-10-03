@@ -161,7 +161,7 @@ async function main() {
       "--no-sandbox",
       "--disable-gpu",
       "--disable-dev-shm-usage",
-      `--user-data-dir=/tmp/tw-chrome-gallery-${Date.now()}`,
+      `--user-data-dir=/tmp/av-chrome-gallery-${Date.now()}`,
     ],
     timeout: 60000,
   });

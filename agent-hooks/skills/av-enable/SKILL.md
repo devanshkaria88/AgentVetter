@@ -6,7 +6,7 @@ description: Turn AgentVetter enforcement ON for Claude Code tool calls. Use whe
 
 # av-enable
 
-Flip the local AgentVetter kill switch ON. This edits ONLY the `enable` key of `~/.agentvetter/config.json` (fallback: `~/.tripwire/config.json`) — no Supabase writes, no other keys touched.
+Flip the local AgentVetter kill switch ON. This edits ONLY the `enable` key of `~/.agentvetter/config.json` — no Supabase writes, no other keys touched.
 
 ## Step 0 — Ask before enabling
 
@@ -52,7 +52,7 @@ If `created` is true, the config file was missing (a tamper signal to the hook) 
 
 ## Step 2 — Check the platform switch
 
-Effective enforcement = local `enable` AND the Supabase platform switch `config.monitoring_enabled` — the guard still honors the platform switch even when local enforcement is on. Check it via the status driver (any probe identifier works; only the `config` object of its output matters). Substitute `<repo_root>`, `<env_file>`, `<uv_bin>` from `~/.agentvetter/config.json` (fallback: `~/.tripwire/config.json`):
+Effective enforcement = local `enable` AND the Supabase platform switch `config.monitoring_enabled` — the guard still honors the platform switch even when local enforcement is on. Check it via the status driver (any probe identifier works; only the `config` object of its output matters). Substitute `<repo_root>`, `<env_file>`, `<uv_bin>` from `~/.agentvetter/config.json`:
 
 ```bash
 cd "<repo_root>" && set -a && source "<env_file>" && set +a && "<uv_bin>" run --extra guard python -c '
@@ -72,7 +72,7 @@ print(json.dumps({
         "monitoring_enabled": bool(s.get("monitoring_enabled", True)),
     },
 }))
-' tw-enable-probe
+' av-enable-probe
 ```
 
 If the probe fails (missing env, network), say the platform switch could not be checked — the hook itself remains fail-closed either way.
@@ -83,4 +83,4 @@ Tell the user:
 
 - AgentVetter enforcement is now **ON** — unscanned, stale, red-rated (and amber, when threshold is `red_and_amber`), and tampered artifacts will be blocked at call time.
 - If `monitoring_enabled` came back `false`: warn plainly that the Supabase platform switch is OFF and **still gates the guard** — local enable alone will not block until the platform switch is re-enabled (that switch is managed on the platform side, not by this skill).
-- `/tw-verify <name>` shows what will be blocked; `/tw-disable` turns enforcement back off.
+- `/av-verify <name>` shows what will be blocked; `/av-disable` turns enforcement back off.

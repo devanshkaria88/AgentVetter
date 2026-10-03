@@ -46,7 +46,7 @@ test('scan --no-defaults exits with actionable guidance when no targets are supp
 test('scan with explicit target that has no artifacts exits 0 with zero-artifact message', async () => {
   // GWT-62.6 UX: explicit path/URL with nothing discoverable is not an error.
   // -- Given --
-  const emptyDir = await mkdtemp(path.join(tmpdir(), 'tw-empty-'));
+  const emptyDir = await mkdtemp(path.join(tmpdir(), 'av-empty-'));
   try {
     // -- When --
     const { stdout, stderr } = await exec('node', [agentvetterBin, 'scan', emptyDir, '--no-defaults']);
@@ -93,7 +93,7 @@ test('given invalid concurrency when scan starts then it exits before discovery 
 
 test('given malformed targets JSON when dry discovery runs then it exits with an actionable error', async () => {
   // -- Given --
-  const dir = await mkdtemp(path.join(tmpdir(), 'tw-targets-'));
+  const dir = await mkdtemp(path.join(tmpdir(), 'av-targets-'));
   const targets = path.join(dir, 'targets.json');
   await writeFile(targets, '{not-json');
 

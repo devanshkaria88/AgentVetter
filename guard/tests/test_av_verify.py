@@ -1,5 +1,5 @@
 """
-Acceptance tests for /tw-verify (slice 28).
+Acceptance tests for /av-verify (slice 28; primary brand AgentVetter).
 
 Author: slice-28
 Created: 2026-08-15
@@ -16,7 +16,7 @@ from typing import Any
 import pytest
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
-TW_VERIFY_SKILL = REPO_ROOT / "agent-hooks" / "skills" / "av-verify" / "SKILL.md"
+AV_VERIFY_SKILL = REPO_ROOT / "agent-hooks" / "skills" / "av-verify" / "SKILL.md"
 BLOCKED_FOOTER = "Will be blocked when AgentVetter is enabled"
 NOW = datetime(2026, 8, 15, 12, 0, 0, tzinfo=UTC)
 
@@ -264,14 +264,14 @@ def test_given_blocked_rows_when_verify_then_footer_once_not_in_notes() -> None:
     assert markdown.strip().endswith(f"*{SOURCES_FOOTER}*")
 
 
-def test_given_unscanned_when_verify_then_offers_tw_scan() -> None:
+def test_given_unscanned_when_verify_then_offers_av_scan() -> None:
     """
-    Scenario: Unscanned artifacts offer /tw-scan for that name.
+    Scenario: Unscanned artifacts offer /av-scan for that name.
     Slice: 28 — unscanned offers scan
 
     Given an unscanned artifact,
     When verify reports it,
-    Then the Note offers /tw-scan for that name.
+    Then the Note offers /av-scan for that name.
     """
     from guard.verify import StatusRecord, verify_artifacts
 
@@ -296,7 +296,7 @@ def test_given_unscanned_when_verify_then_offers_tw_scan() -> None:
     ### Then
     row = actual.artifacts[0]
     assert row.state == "unscanned"
-    assert "/tw-scan" in row.note
+    assert "/av-scan" in row.note
     assert name in row.note
 
 
@@ -346,18 +346,18 @@ def test_given_unresolved_name_when_verify_then_human_not_found_message() -> Non
 
 def test_given_repo_when_skill_looked_up_then_agent_hooks_skill_md_exists() -> None:
     """
-    Scenario: /tw-verify ships at the agent-hooks skill layout path.
+    Scenario: /av-verify ships at the agent-hooks skill layout path.
     Slice: 28 — skill installed via setup-agent-hooks
 
     Given the repo checkout,
-    When an operator looks for /tw-verify,
+    When an operator looks for /av-verify,
     Then SKILL.md exists with Quality column, quality_score driver, and footer.
     """
     ### Given / When
-    text = TW_VERIFY_SKILL.read_text(encoding="utf-8")
+    text = AV_VERIFY_SKILL.read_text(encoding="utf-8")
 
     ### Then
-    assert TW_VERIFY_SKILL.is_file(), f"missing {TW_VERIFY_SKILL}"
+    assert AV_VERIFY_SKILL.is_file(), f"missing {AV_VERIFY_SKILL}"
     assert "Name | Type | Status | Quality | Note" in text
     assert "quality_score" in text
     assert "N/100" in text or "/100" in text

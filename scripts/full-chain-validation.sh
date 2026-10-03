@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Full-chain validation harness (slice 38): setup → enforce → scan → verify →
 # DepShield dispatch → (Ossprey: skipped while access is OPEN) → CLI
-# monitoring → LIVE /tw-self-check.
+# monitoring → LIVE /av-self-check.
 #
 # Each stage records an observable PASS / FAIL / BLOCKED(<why>) / SKIPPED(<why>)
 # line and the chain exits with a single accountable overall result:
@@ -11,7 +11,7 @@
 #             reported honestly, never silently passed)
 #
 # Evidence: .test-results/full-chain-evidence.json (stages + overall + the
-# captured live /tw-self-check output). Operators copy results into
+# captured live /av-self-check output). Operators copy results into
 # docs/plan/gate-evidence/slice-38.json after a live run per GATE_CONTRACT —
 # this script never writes gate evidence itself.
 #
@@ -145,25 +145,25 @@ else
   record "cli-monitoring" "FAIL" "agentvetter status exited nonzero"
 fi
 
-# ── 9. LIVE /tw-self-check (never mocked — slice-38 GWT 2) ───────────────────
+# ── 9. LIVE /av-self-check (never mocked — slice-38 GWT 2) ───────────────────
 if command -v claude >/dev/null \
   && claude auth status 2>/dev/null | grep -q '"loggedIn": true' \
-  && [ -d "$HOME/.claude/skills/tw-self-check" ]; then
+  && [ -d "$HOME/.claude/skills/av-self-check" ]; then
   SELFCHECK_RC=0
   run_with_timeout "$SELFCHECK_TIMEOUT" \
-    claude -p "Use the Skill tool to invoke the tw-self-check skill and output its full table and JSON." \
+    claude -p "Use the Skill tool to invoke the av-self-check skill and output its full table and JSON." \
       --max-turns 8 > "$SELFCHECK_OUT" 2>&1 \
     || SELFCHECK_RC=$?
   if [ "$SELFCHECK_RC" -eq 124 ]; then
-    record "tw-self-check" "BLOCKED(timeout)" "claude -p exceeded ${SELFCHECK_TIMEOUT}s wall clock"
+    record "av-self-check" "BLOCKED(timeout)" "claude -p exceeded ${SELFCHECK_TIMEOUT}s wall clock"
   elif [ "$SELFCHECK_RC" -eq 0 ] \
-    && grep -qE 'tw-(verify|scan|enable|disable|self-check)' "$SELFCHECK_OUT"; then
-    record "tw-self-check" "PASS" "live invocation produced the five-skill report (captured in evidence)"
+    && grep -qE 'av-(verify|scan|enable|disable|self-check)' "$SELFCHECK_OUT"; then
+    record "av-self-check" "PASS" "live invocation produced the five-skill report (captured in evidence)"
   else
-    record "tw-self-check" "FAIL" "live /tw-self-check did not produce a five-skill report (see evidence capture)"
+    record "av-self-check" "FAIL" "live /av-self-check did not produce a five-skill report (see evidence capture)"
   fi
 else
-  record "tw-self-check" "BLOCKED(setup)" "needs claude CLI (authed) + tw-self-check installed — run agentvetter setup-agent-hooks, then claude auth login"
+  record "av-self-check" "BLOCKED(setup)" "needs claude CLI (authed) + av-self-check installed — run agentvetter setup-agent-hooks, then claude auth login"
 fi
 
 # ── evidence + overall ────────────────────────────────────────────────────────

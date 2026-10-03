@@ -1073,23 +1073,23 @@
           <p style="font-family:var(--font-sans);font-size:15px;color:var(--text-secondary);max-width:640px;margin-bottom:28px;line-height:1.55">Built at Frontline Hackathon London 2026: the integration layer that connects Claude Code's hook system to AgentVetter's existing scan engine — enforcing from the moment of install.</p>
           <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:22px">
             <div style="background:var(--bg-surface);padding:20px;position:relative" class="hud hud-green"><span class="hc-br"></span>
-              <span style="font-family:var(--font-mono);font-size:13px;font-weight:600;color:var(--green-ink);margin-bottom:9px;display:block">/tw-verify [name(s)]</span>
+              <span style="font-family:var(--font-mono);font-size:13px;font-weight:600;color:var(--green-ink);margin-bottom:9px;display:block">/av-verify [name(s)]</span>
               <p style="font-family:var(--font-sans);font-size:12px;color:var(--text-secondary);line-height:1.45">Resolves one or more names, reports fresh / stale / unscanned / scanning / not-found status — human table and JSON.</p>
             </div>
             <div style="background:var(--bg-surface);padding:20px;position:relative" class="hud hud-green"><span class="hc-br"></span>
-              <span style="font-family:var(--font-mono);font-size:13px;font-weight:600;color:var(--green-ink);margin-bottom:9px;display:block">/tw-scan [name(s)] --force</span>
+              <span style="font-family:var(--font-mono);font-size:13px;font-weight:600;color:var(--green-ink);margin-bottom:9px;display:block">/av-scan [name(s)] --force</span>
               <p style="font-family:var(--font-sans);font-size:12px;color:var(--text-secondary);line-height:1.45">Submits artifacts for scanning via AgentVetter's existing API. --force resubmits over a valid result.</p>
             </div>
             <div style="background:var(--bg-surface);padding:20px;position:relative" class="hud hud-green"><span class="hc-br"></span>
-              <span style="font-family:var(--font-mono);font-size:13px;font-weight:600;color:var(--green-ink);margin-bottom:9px;display:block">/tw-enable</span>
+              <span style="font-family:var(--font-mono);font-size:13px;font-weight:600;color:var(--green-ink);margin-bottom:9px;display:block">/av-enable</span>
               <p style="font-family:var(--font-sans);font-size:12px;color:var(--text-secondary);line-height:1.45">Turns on enforcement across skills, tools, and MCP uniformly via the config flag.</p>
             </div>
             <div style="background:var(--bg-surface);padding:20px;position:relative" class="hud hud-green"><span class="hc-br"></span>
-              <span style="font-family:var(--font-mono);font-size:13px;font-weight:600;color:var(--green-ink);margin-bottom:9px;display:block">/tw-disable</span>
+              <span style="font-family:var(--font-mono);font-size:13px;font-weight:600;color:var(--green-ink);margin-bottom:9px;display:block">/av-disable</span>
               <p style="font-family:var(--font-sans);font-size:12px;color:var(--text-secondary);line-height:1.45">Full bypass at the enforcement layer. Manual verify/scan keep working regardless.</p>
             </div>
             <div style="background:var(--bg-surface);padding:20px;position:relative" class="hud hud-green"><span class="hc-br"></span>
-              <span style="font-family:var(--font-mono);font-size:13px;font-weight:600;color:var(--green-ink);margin-bottom:9px;display:block">/tw-self-check</span>
+              <span style="font-family:var(--font-mono);font-size:13px;font-weight:600;color:var(--green-ink);margin-bottom:9px;display:block">/av-self-check</span>
               <p style="font-family:var(--font-sans);font-size:12px;color:var(--text-secondary);line-height:1.45">Runs the same status logic against AgentVetter's own five skills — the guard, guarding itself.</p>
             </div>
             <div style="display:flex;align-items:center;justify-content:center;border:1px dashed var(--border-default);color:var(--text-muted);font-family:var(--font-mono);font-size:11px;padding:20px;text-align:center">
@@ -1143,7 +1143,7 @@
             </div>
             <div style="display:flex;gap:20px;padding-bottom:28px">
               <div style="flex:0 0 auto;width:38px;height:38px;background:var(--bg-surface);border:1px solid var(--border-default);display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:13px;font-weight:600;color:var(--text-muted);z-index:1">5</div>
-              <div><h4 style="font-family:var(--font-mono);font-size:14px;margin-bottom:4px;font-weight:600">Full-chain validation</h4><p style="font-family:var(--font-sans);font-size:13px;color:var(--text-secondary);max-width:520px;line-height:1.45">End-to-end verification across the whole pipeline — including running /tw-self-check as a live gate.</p></div>
+              <div><h4 style="font-family:var(--font-mono);font-size:14px;margin-bottom:4px;font-weight:600">Full-chain validation</h4><p style="font-family:var(--font-sans);font-size:13px;color:var(--text-secondary);max-width:520px;line-height:1.45">End-to-end verification across the whole pipeline — including running /av-self-check as a live gate.</p></div>
             </div>
             <div style="display:flex;gap:20px">
               <div style="flex:0 0 auto;width:38px;height:38px;background:var(--bg-surface);border:1px solid var(--border-default);display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:13px;font-weight:600;color:var(--text-muted);z-index:1">6</div>

@@ -1,6 +1,6 @@
 """Shared status helpers for the AgentVetter Claude Code guard layer (plan §6.1, T1/T2).
 
-Three concerns live here so the PreToolUse handler and the /tw-* skills share one
+Three concerns live here so the PreToolUse handler and the /av-* skills share one
 deterministic implementation:
 
 1. ``hash_local_path`` — an exact Python port of the CLI's content hash
@@ -120,7 +120,7 @@ def content_changed(
 ) -> bool:
     """Shared tamper predicate: has on-disk content drifted since the scan?
 
-    One implementation for the PreToolUse hook and the /tw-* skills so both
+    One implementation for the PreToolUse hook and the /av-* skills so both
     agree on when "content changed since last scan" applies:
 
     - ``resolved_path`` of None (nothing on disk to compare — e.g. MCP servers,

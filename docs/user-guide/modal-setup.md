@@ -62,7 +62,9 @@ Allowlist detail: [OPTIONAL_SCANNER_KEYS.md](../../fixtures/OPTIONAL_SCANNER_KEY
 
 ```bash
 modal app list
-# Expect agentvetter-scan (or your deployed app name) after a successful deploy
+# Expect deployed agentvetter-scan after a successful deploy
+# After cutover, stop any leftover prior-brand scan app and delete unused prior-brand secrets
+# (see docs/MIGRATION-AGENTVETTER.md).
 ```
 
 Then run a fixture scan and Live dashboard per [QUICKSTART → Live](../../QUICKSTART.md#live-advanced).
