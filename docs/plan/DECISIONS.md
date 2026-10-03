@@ -2,6 +2,7 @@
 
 | Date | Topic | Decision | Notes |
 |------|-------|----------|-------|
+| 2026-10-03 | branding/CLI | Keep `tripwire` CLI shim; rename its test | Test lives at `cli/test/agentvetterShim.test.js`. ADR-0018 one-minor shim policy stands. DECIDED / IMPLEMENTED |
 | 2026-10-02 | branding/Modal | Operator Modal cutover VERIFIED | `agentvetter-supabase` / `agentvetter-scan-secrets` + deployed `agentvetter-scan`; `tripwire-scan` stopped; `tripwire-*` secrets deleted; `agentvetter_rollup_item` on live Supabase; smoke scan `safe-csv-cleaner` OK. Evidence: [MIGRATION-AGENTVETTER.md](../MIGRATION-AGENTVETTER.md) · STATUS VERIFIED (operator, 2026-10-02) |
 | 2026-10-03 | planning | Added slice 78 | Agent brand surfaces → AgentVetter/`av-*` primary in live skills, remedies, setup copy; permanent `tw-*` aliases retained (ADR-0018) |
 | 2026-10-02 | branding | Unified live identity: **AgentVetter** | ADR-0018 Accepted; packages hard-cut `agentvetter` / `agentvetter-cli`; CLI `agentvetter` + `tripwire` shim; skills `av-*` + permanent `tw-*` aliases; config `~/.agentvetter` + read-fallback; preserve slices/gate-evidence history. Migration: [docs/MIGRATION-AGENTVETTER.md](../MIGRATION-AGENTVETTER.md) |

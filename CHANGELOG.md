@@ -26,6 +26,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Agent brand surfaces (slice 78): live skills, guard remedies, and
   `setup-agent-hooks` summary prefer `/av-*` (permanent `tw-*` aliases retained).
   IMPLEMENTED / VERIFIED (unit) on `slice/78-agent-brand-surfaces`.
+- Renamed CLI shim test `tripwireShim.test.js` → `agentvetterShim.test.js`
+  (still covers the deprecated `tripwire` npm bin).
 
 ### Fixed
 - Dashboard item drawer: Findings, Modal console output, and Raw output start
